@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="Microsoft YaHei, sans-serif">
+  <!-- 背景 -->
+  <rect width="720" height="360" fill="#f7f9fc"/>
+
+  <!-- 标题 -->
+  <text x="360" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1f2d3d">Docker 三大核心概念</text>
+
+  <!-- 仓库 Registry -->
+  <rect x="40" y="120" width="180" height="120" rx="12" fill="#e6f0ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="130" y="165" text-anchor="middle" font-size="18" font-weight="bold" fill="#1d4ed8">仓库 Registry</text>
+  <text x="130" y="190" text-anchor="middle" font-size="13" fill="#334155">存放镜像的"超市"</text>
+  <text x="130" y="210" text-anchor="middle" font-size="13" fill="#334155">Docker Hub</text>
+
+  <!-- 镜像 Image -->
+  <rect x="270" y="120" width="180" height="120" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <text x="360" y="165" text-anchor="middle" font-size="18" font-weight="bold" fill="#b45309">镜像 Image</text>
+  <text x="360" y="190" text-anchor="middle" font-size="13" fill="#334155">只读的蓝图 / 模板</text>
+  <text x="360" y="210" text-anchor="middle" font-size="13" fill="#334155">好比"菜谱"</text>
+
+  <!-- 容器 Container -->
+  <rect x="500" y="120" width="180" height="120" rx="12" fill="#dcfce7" stroke="#22c55e" stroke-width="2"/>
+  <text x="590" y="165" text-anchor="middle" font-size="18" font-weight="bold" fill="#15803d">容器 Container</text>
+  <text x="590" y="190" text-anchor="middle" font-size="13" fill="#334155">运行中的实例</text>
+  <text x="590" y="210" text-anchor="middle" font-size="13" fill="#334155">好比"做出来的菜"</text>
+
+  <!-- 箭头：仓库 -> 镜像 (pull) -->
+  <path d="M225 170 L265 170" stroke="#3b82f6" stroke-width="2.5" fill="none" marker-end="url(#arrBlue)"/>
+  <text x="245" y="160" text-anchor="middle" font-size="12" fill="#3b82f6">pull 下载</text>
+
+  <!-- 箭头：镜像 -> 容器 (run) -->
+  <path d="M455 170 L495 170" stroke="#22c55e" stroke-width="2.5" fill="none" marker-end="url(#arrGreen)"/>
+  <text x="475" y="160" text-anchor="middle" font-size="12" fill="#16a34a">run 运行</text>
+
+  <!-- 镜像 -> 仓库 push -->
+  <path d="M360 245 L360 275 L200 275 L200 245" stroke="#f59e0b" stroke-width="2" fill="none" marker-end="url(#arrOrange)"/>
+  <text x="285" y="292" text-anchor="middle" font-size="12" fill="#b45309">push 上传</text>
+
+  <!-- 备注：一个镜像 -> 多个容器 -->
+  <rect x="270" y="310" width="410" height="34" rx="8" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="475" y="332" text-anchor="middle" font-size="13" fill="#334155">一个镜像可以运行出很多个容器（一个菜谱做很多道菜）</text>
+
+  <defs>
+    <marker id="arrBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#22c55e"/>
+    </marker>
+    <marker id="arrOrange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+</svg>

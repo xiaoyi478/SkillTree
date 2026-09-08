@@ -1,0 +1,4000 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>升级打怪 · 职业形象 | 运维/DevOps/AIOps 成长站</title>
+<style>/* ===== Docker 本地学习网站 · 美化版 ===== */
+
+:root{
+  --blue:#3b82f6; --blue-2:#2563eb; --indigo:#6366f1; --violet:#8b5cf6;
+  --green:#10b981; --green-2:#059669; --amber:#f59e0b; --red:#ef4444;
+  --ink:#0f172a; --text:#334155; --muted:#64748b; --line:#e6ebf2; --line-2:#eef2f7;
+  --bg:#f4f7fb; --card:#ffffff;
+  --shadow:0 6px 24px rgba(15,23,42,.06);
+  --shadow-lg:0 18px 50px rgba(15,23,42,.14);
+  --radius:16px; --radius-sm:10px;
+  --sidebar-bg1:#0b1220; --sidebar-bg2:#111b2e;
+  --grad:linear-gradient(135deg,var(--blue) 0%,var(--indigo) 60%,var(--violet) 100%);
+}
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--text); background:var(--bg); line-height:1.8; -webkit-font-smoothing:antialiased; }
+::selection{ background:#c7d9fe; color:var(--ink); }
+
+/* 自定义滚动条 */
+::-webkit-scrollbar{ width:10px; height:10px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:#cbd5e1; border-radius:20px; border:2px solid transparent; background-clip:content-box; }
+::-webkit-scrollbar-thumb:hover{ background:#94a3b8; background-clip:content-box; }
+.sidebar::-webkit-scrollbar-thumb{ background:#263449; background-clip:content-box; }
+
+.site{ display:flex; min-height:100vh; }
+
+/* ---------- 侧栏 ---------- */
+.sidebar{
+  width:312px; min-width:312px; padding:24px 16px 30px;
+  background:linear-gradient(180deg,var(--sidebar-bg1) 0%,var(--sidebar-bg2) 100%);
+  color:#cbd5e1; position:sticky; top:0; height:100vh; overflow:auto;
+  border-right:1px solid rgba(255,255,255,.04);
+}
+.brand{ display:flex; gap:12px; align-items:center; padding:8px 10px 20px; margin-bottom:16px; border-bottom:1px solid rgba(255,255,255,.08); }
+.brand .logo{
+  font-size:30px; width:54px; height:54px; border-radius:16px; display:flex; align-items:center; justify-content:center;
+  background:var(--grad); box-shadow:0 8px 20px rgba(59,130,246,.4);
+}
+.brand b{ color:#fff; font-size:18px; letter-spacing:.3px; display:block; }
+.brand small{ display:block; color:#93a4bd; font-size:12px; font-weight:400; margin-top:2px; }
+
+/* 搜索 */
+.search-box{ position:relative; margin:0 6px 16px; }
+.search-box input{
+  width:100%; padding:11px 14px; border:1px solid rgba(255,255,255,.12); border-radius:12px;
+  background:rgba(255,255,255,.06); color:#e7eef7; font-size:14px; font-family:inherit;
+  transition:all .2s;
+}
+.search-box input::placeholder{ color:#7d8fa8; }
+.search-box input:focus{ outline:none; border-color:var(--blue); background:rgba(255,255,255,.1); box-shadow:0 0 0 3px rgba(59,130,246,.2); }
+.search-results{
+  display:none; position:absolute; top:48px; left:0; right:0; background:#0d1526;
+  border:1px solid rgba(255,255,255,.1); border-radius:12px; max-height:320px; overflow:auto;
+  z-index:40; box-shadow:var(--shadow-lg); backdrop-filter:blur(6px);
+}
+.search-results a{ display:block; padding:10px 14px; color:#dbe5f2; text-decoration:none; font-size:14px; border-bottom:1px solid rgba(255,255,255,.06); transition:background .15s; }
+.search-results a:hover{ background:#1a2740; color:#fff; }
+.search-results .s-empty{ padding:14px; color:#7d8fa8; font-size:13px; }
+
+/* 进度 */
+.progress{ margin:0 6px 16px; padding:14px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:14px; }
+.progress .row{ display:flex; justify-content:space-between; align-items:center; font-size:12.5px; color:#93a4bd; margin-bottom:9px; }
+.progress .row b{ color:#e7eef7; font-weight:600; }
+.progress .track{ height:9px; background:rgba(255,255,255,.1); border-radius:12px; overflow:hidden; }
+.progress .track i{ display:block; height:100%; width:0; background:linear-gradient(90deg,#34d399,#10b981); border-radius:12px; transition:width .5s ease; }
+
+/* 导航 */
+.nav{ display:flex; flex-direction:column; gap:3px; }
+.nav a{
+  display:flex; align-items:center; padding:10px 12px; border-radius:11px; color:#b9c6d9;
+  text-decoration:none; font-size:14.5px; margin:1px 0; position:relative;
+  transition:all .15s; border:1px solid transparent;
+}
+.nav a:hover{ background:rgba(255,255,255,.07); color:#fff; }
+.nav a.active{ background:var(--grad); color:#fff; font-weight:600; box-shadow:0 6px 18px rgba(59,130,246,.35); }
+.nav a .tag{ margin-left:auto; font-size:11px; color:#64748b; background:rgba(255,255,255,.06); padding:1px 8px; border-radius:20px; }
+.nav a.active .tag{ background:rgba(255,255,255,.22); color:#fff; }
+.nav a.done::after{ content:"✓"; margin-left:auto; color:#34d399; font-weight:700; }
+.nav a.done .tag{ margin-left:6px; }
+.nav a.seen:not(.done):not(.active)::after{ content:"●"; margin-left:auto; color:#64748b; font-size:8px; }
+.nav a.seen:not(.done) .tag{ margin-left:6px; }
+.nav .sec{ font-size:11px; color:#64748b; font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin:20px 10px 8px; }
+/* 导航分组（可折叠页签） */
+.nav-group{ margin:2px 0; }
+.nav-head{
+  width:100%; display:flex; align-items:center; justify-content:space-between;
+  background:transparent; border:none; color:#9fb0c8; padding:9px 12px; border-radius:10px;
+  font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; text-align:left; transition:background .15s;
+}
+.nav-head:hover{ background:rgba(255,255,255,.07); color:#fff; }
+.nav-head .chev{ color:#64748b; font-size:13px; transition:transform .2s; margin-left:6px; }
+.nav-body{ overflow:hidden; }
+.nav-group.closed .nav-body{ display:none; }
+.nav-group .nav-body a{ padding-left:22px; }
+.nav a.quiz{ background:var(--green); color:#fff; margin-top:14px; font-weight:700; box-shadow:0 6px 18px rgba(16,185,129,.35); }
+.nav a.quiz:hover{ background:var(--green-2); }
+.nav a.quiz.active{ background:var(--green-2); }
+
+/* ---------- 主区 ---------- */
+.main{ flex:1; min-width:0; padding:36px 44px; max-width:1000px; margin:0 auto; }
+.content{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:40px 48px; box-shadow:var(--shadow);
+  animation:fade .35s ease;
+}
+@keyframes fade{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+
+/* 排版 */
+.content h1{
+  font-size:28px; margin:0 0 20px; padding-bottom:18px; color:var(--ink);
+  border-bottom:none; position:relative; font-weight:800; letter-spacing:.2px;
+}
+.content h1::after{ content:""; position:absolute; left:0; bottom:0; width:96px; height:4px; border-radius:4px; background:var(--grad); }
+.content h2{ font-size:21px; margin-top:34px; color:var(--ink); border-left:none; padding-left:0; position:relative; }
+.content h2::before{ content:""; position:absolute; left:-16px; top:6px; bottom:6px; width:4px; border-radius:4px; background:var(--grad); }
+.content h3{ font-size:17px; margin-top:26px; color:#1e293b; }
+.content p{ margin:14px 0; }
+.content a{ color:var(--blue-2); text-decoration:none; font-weight:500; }
+.content a:hover{ text-decoration:underline; }
+.content ul,.content ol{ padding-left:26px; margin:12px 0; }
+.content li{ margin:6px 0; }
+.content li::marker{ color:var(--indigo); }
+
+/* 图片 */
+.content img{ max-width:100%; border-radius:14px; border:1px solid var(--line); background:#fff; margin:10px 0; display:block; box-shadow:var(--shadow); }
+
+/* 行内代码 */
+.content code{ background:#eef2fb; color:#0f53b0; padding:2px 7px; border-radius:6px; font-size:14px; font-family:"JetBrains Mono",Consolas,monospace; }
+
+/* 代码块（带语言标签 + 复制按钮） */
+.content .pre{ position:relative; margin:16px 0; border-radius:12px; overflow:hidden; border:1px solid #1e293b; box-shadow:var(--shadow); }
+.pre-bar{ display:flex; align-items:center; justify-content:space-between; padding:8px 14px; background:#0f172a; border-bottom:1px solid #1e293b; }
+.pre-bar .lang{ font-size:12px; color:#94a3b8; font-weight:600; letter-spacing:.04em; text-transform:uppercase; }
+.pre-bar .copy{ background:rgba(255,255,255,.06); color:#cbd5e1; border:1px solid rgba(255,255,255,.1); border-radius:7px; padding:4px 12px; font-size:12px; cursor:pointer; transition:all .15s; }
+.pre-bar .copy:hover{ background:rgba(255,255,255,.14); color:#fff; }
+.pre-bar .copy.done{ background:var(--green); color:#fff; border-color:var(--green); }
+.content pre{ background:#0f172a; color:#e2e8f0; margin:0; padding:16px 18px; overflow:auto; font-family:"JetBrains Mono",Consolas,monospace; font-size:13.5px; line-height:1.65; }
+.content pre code{ background:transparent; color:inherit; padding:0; font-size:inherit; }
+
+/* 引用 */
+.content blockquote{ margin:16px 0; padding:14px 20px; background:linear-gradient(90deg,#eef4ff,transparent); border-left:4px solid var(--indigo); border-radius:0 12px 12px 0; color:#475569; }
+.content blockquote p{ margin:6px 0; }
+
+/* 表格 */
+.content table{ border-collapse:separate; border-spacing:0; width:100%; margin:18px 0; font-size:14.5px; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+.content th,.content td{ border:none; padding:11px 14px; text-align:left; }
+.content th{ background:#f1f5f9; font-weight:700; color:var(--ink); border-bottom:1px solid var(--line); }
+.content td{ border-bottom:1px solid var(--line-2); color:var(--text); }
+.content tr:last-child td{ border-bottom:none; }
+.content tbody tr:hover td{ background:#f8fafc; }
+.content hr{ border:none; border-top:2px solid var(--line-2); margin:28px 0; }
+
+/* 高亮 */
+mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
+
+/* 翻页 */
+.pager{ display:flex; justify-content:space-between; margin-top:24px; gap:14px; }
+.pager a{
+  flex:1; background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 18px;
+  text-decoration:none; color:var(--text); box-shadow:var(--shadow); transition:all .18s;
+}
+.pager a:hover{ border-color:var(--indigo); transform:translateY(-2px); box-shadow:var(--shadow-lg); }
+.pager a span{ display:block; font-size:12px; color:var(--muted); margin-bottom:3px; }
+.pager a b{ font-size:15.5px; color:var(--ink); }
+
+/* 完成按钮 */
+.done-row{ display:flex; justify-content:center; margin-top:22px; }
+.done-row button{
+  background:#fff; border:1.5px solid var(--line); border-radius:12px; padding:12px 30px;
+  font-size:15px; cursor:pointer; font-weight:600; color:var(--ink); transition:all .18s; box-shadow:var(--shadow);
+}
+.done-row button:hover{ border-color:var(--green); color:var(--green-2); transform:translateY(-1px); }
+.done-row button.done{ background:#ecfdf5; border-color:#6ee7b7; color:var(--green-2); }
+
+/* ===== 内嵌在线测验 ===== */
+.qbar{ display:flex; gap:14px; align-items:center; background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:14px; padding:14px 18px; margin-bottom:20px; box-shadow:var(--shadow); }
+.qscore{ color:#e2e8f0; font-size:15px; white-space:nowrap; }
+.qscore b{ color:#60a5fa; font-size:26px; font-weight:800; }
+.qscore span{ color:#94a3b8; font-size:13px; }
+.qprogress{ flex:1; height:9px; background:#1e293b; border-radius:9px; overflow:hidden; }
+.qprogress i{ display:block; height:100%; width:0; background:linear-gradient(90deg,#3b82f6,#8b5cf6); border-radius:9px; transition:width .3s; }
+.qsubmit{ background:var(--grad); color:#fff; border:none; padding:11px 22px; border-radius:11px; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 6px 16px rgba(59,130,246,.35); transition:all .15s; }
+.qsubmit:hover{ transform:translateY(-1px); box-shadow:0 8px 20px rgba(59,130,246,.45); }
+.qcards{ display:flex; flex-direction:column; gap:16px; }
+.qcard{ background:#fff; border:1px solid var(--line); border-radius:15px; padding:18px 20px; box-shadow:var(--shadow); }
+.qcard.correct{ border-color:var(--green); }
+.qcard.wrong{ border-color:var(--red); }
+.qtitle{ display:flex; gap:10px; align-items:flex-start; margin-bottom:13px; }
+.qnum{ background:var(--blue); color:#fff; font-size:12px; font-weight:700; padding:2px 11px; border-radius:20px; white-space:nowrap; margin-top:3px; }
+.qnum.multi{ background:#7c3aed; } .qnum.tf{ background:var(--amber); }
+.qnum.short{ background:#0891b2; } .qnum.practical{ background:var(--red); }
+.qhtext{ font-size:15px; font-weight:600; color:var(--ink); flex:1; }
+.qtype{ font-size:12px; color:var(--muted); white-space:nowrap; margin-top:6px; }
+.qopts{ display:flex; flex-direction:column; gap:9px; }
+.qopt{ border:1.6px solid var(--line); border-radius:11px; padding:11px 13px; cursor:pointer; display:flex; gap:12px; align-items:flex-start; transition:all .15s; background:#fff; }
+.qopt:hover{ border-color:var(--blue); background:#f8fbff; }
+.qopt input{ margin-top:4px; accent-color:var(--blue); }
+.qopt span{ font-size:15px; }
+.qopt.selected{ border-color:var(--blue); background:#eff6ff; }
+.qopt.done-correct{ border-color:var(--green); background:#f0fdf4; }
+.qopt.done-wrong{ border-color:var(--red); background:#fef2f2; }
+.qsubj textarea{ width:100%; min-height:82px; padding:12px; border:1.6px solid var(--line); border-radius:11px; font-size:14px; font-family:inherit; resize:vertical; }
+.qsubj textarea:focus{ outline:none; border-color:var(--blue); }
+.qbtns{ display:flex; gap:9px; margin-top:11px; flex-wrap:wrap; }
+.qb-ghost{ background:#f1f5f9; color:#1e293b; border:none; padding:8px 15px; border-radius:9px; font-size:13px; cursor:pointer; font-weight:600; }
+.qb-green{ background:var(--green); color:#fff; border:none; padding:8px 15px; border-radius:9px; font-size:13px; cursor:pointer; font-weight:600; }
+.qb-orange{ background:var(--amber); color:#fff; border:none; padding:8px 15px; border-radius:9px; font-size:13px; cursor:pointer; font-weight:600; }
+.qref{ display:none; margin-top:12px; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:11px; padding:14px; font-size:14px; }
+.qref.show{ display:block; }
+.qref h4{ margin:0 0 8px; color:#0f766e; }
+.qref pre{ background:#0f172a; color:#e2e8f0; padding:12px 14px; border-radius:8px; overflow:auto; font-size:13px; font-family:Consolas,monospace; line-height:1.6; }
+.qref ul{ padding-left:20px; }
+.qref li{ margin:4px 0; }
+.qref code{ background:#eef2fb; color:#0f53b0; padding:2px 6px; border-radius:6px; }
+.qexp,.qexplain{ display:none; margin-top:11px; padding:11px 14px; border-radius:11px; font-size:14px; }
+.qexp.show,.qexplain.show{ display:block; }
+.qexp.correct,.qexplain.correct{ background:#f0fdf4; color:#166534; border:1px solid #bbf7d0; }
+.qexp.wrong,.qexplain.wrong{ background:#fef2f2; color:#991b1b; border:1px solid #fecaca; }
+.qresult{ display:none; position:fixed; inset:0; background:rgba(15,23,42,.55); align-items:center; justify-content:center; z-index:60; padding:20px; }
+.qresult.show{ display:flex; }
+.qpanel{ background:#fff; border-radius:18px; padding:32px; max-width:440px; width:100%; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,.3); }
+.qbig b{ font-size:58px; color:var(--blue); font-weight:800; }
+.qbig span{ font-size:20px; color:var(--muted); }
+.qlv{ font-size:21px; font-weight:700; margin:10px 0 6px; }
+.qlv.good{ color:var(--green); } .qlv.mid{ color:var(--amber); } .qlv.bad{ color:var(--red); }
+.qdesc{ font-size:14px; color:var(--muted); }
+.qsubnote{ font-size:12px; color:var(--muted); margin-top:12px; }
+
+.note{ font-size:13px; color:var(--muted); margin-top:16px; text-align:center; }
+
+/* 返回顶部 */
+.to-top{
+  position:fixed; right:26px; bottom:26px; width:46px; height:46px; border-radius:14px;
+  background:var(--grad); color:#fff; border:none; cursor:pointer; font-size:20px;
+  box-shadow:0 10px 26px rgba(59,130,246,.4); opacity:0; pointer-events:none; transition:all .25s; z-index:20;
+}
+.to-top.show{ opacity:1; pointer-events:auto; }
+.to-top:hover{ transform:translateY(-3px); }
+
+/* ===== 学习路线图 / 知识图谱 ===== */
+.map-head h1{ font-size:22px; margin:0 0 6px; }
+.map-head p{ margin:0 0 10px; color:var(--muted); font-size:14px; }
+.map-growth{ margin:0 0 12px; background:linear-gradient(90deg,#eef4ff,#fff); border:1px solid #dbe4f3; border-radius:12px; padding:12px 16px; font-size:14px; color:#334155; line-height:1.7; }
+.map-growth b{ color:var(--blue-2); }
+.map-head .map-legend{ display:flex; gap:14px; flex-wrap:wrap; font-size:12.5px; color:#475569; margin-bottom:4px; }
+.map-legend .lg-item{ display:flex; gap:6px; align-items:center; }
+.map-legend .lg-item i{ width:12px; height:12px; border-radius:4px; display:inline-block; }
+.map-body{ display:grid; grid-template-columns:1fr 340px; gap:18px; align-items:start; }
+.map-scroll{ overflow-x:auto; background:#fbfcfe; border:1px solid var(--line); border-radius:14px; padding:10px; }
+#mapsvg{ display:block; }
+.map-node{ cursor:pointer; }
+.map-node rect{ transition:all .15s; }
+.map-node:hover rect{ opacity:1; }
+.map-node.sel rect{ stroke:var(--ink); stroke-width:3; opacity:1; filter:drop-shadow(0 4px 10px rgba(0,0,0,.25)); }
+#mapsvg line{ transition:all .2s; }
+#mapsvg line.on{ stroke:var(--blue); stroke-width:3; }
+.map-detail{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; box-shadow:var(--shadow); position:sticky; top:20px; }
+.map-placeholder{ color:var(--muted); font-size:14px; padding:20px 6px; text-align:center; }
+.map-dtitle{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.map-dtitle h2{ font-size:19px; margin:0; color:var(--ink); }
+.map-badge{ color:#fff; font-size:12px; font-weight:700; padding:3px 10px; border-radius:20px; }
+.map-ddesc{ font-size:14px; color:var(--text); margin:8px 0 12px; }
+.map-go{ display:inline-block; background:var(--grad); color:#fff; font-weight:600; font-size:14px; padding:9px 18px; border-radius:10px; text-decoration:none; margin-bottom:8px; }
+.map-go:hover{ opacity:.92; }
+.map-sec{ margin-top:16px; }
+.map-sec h4{ font-size:14px; color:var(--ink); margin:0 0 8px; }
+.map-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+.chip{ background:#f1f5f9; border:1px solid var(--line); color:var(--text); border-radius:20px; padding:6px 14px; font-size:13px; cursor:pointer; transition:all .15s; }
+.chip:hover{ background:var(--indigo); color:#fff; border-color:var(--indigo); }
+.map-extra{ display:flex; flex-direction:column; gap:10px; }
+.extra-card{ background:#f8fafc; border:1px solid var(--line); border-radius:11px; padding:12px 14px; }
+.extra-card b{ color:var(--ink); font-size:14px; display:block; margin-bottom:4px; }
+.extra-card p{ margin:0; font-size:13px; color:var(--muted); }
+
+@media(max-width:900px){
+  .map-body{ grid-template-columns:1fr; }
+  .map-detail{ position:static; }
+}
+@media(max-width:900px){
+  .site{ flex-direction:column; }
+  .sidebar{ width:100%; min-width:0; height:auto; position:relative; }
+  .main{ padding:18px; } .content{ padding:26px 22px; }
+}
+
+/* ===== 首页学习看板 ===== */
+.dash{ background:linear-gradient(135deg,#eef4ff,#ffffff); border:1px solid #dbe4f3; border-radius:18px; padding:20px 24px; margin-bottom:22px; box-shadow:var(--shadow); }
+.dash-top{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
+.dash-num{ font-size:38px; font-weight:800; color:var(--blue); line-height:1; }
+.dash-lab{ display:block; font-size:13px; color:var(--muted); margin-top:4px; }
+.dash-todo{ font-size:15px; font-weight:600; color:var(--ink); }
+.dash-todo b{ color:var(--muted); font-weight:600; }
+.dash-track{ height:10px; background:#e2e8f0; border-radius:12px; overflow:hidden; margin:14px 0; }
+.dash-track i{ display:block; height:100%; width:0; background:linear-gradient(90deg,#34d399,#10b981); border-radius:12px; }
+/* 等级 / 经验值 */
+.lvl-box{ margin:4px 0 14px; background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:14px; padding:14px 18px; }
+.lvl-top{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.lvl-badge{ background:var(--grad); color:#fff; font-weight:800; border-radius:12px; padding:5px 14px; font-size:15px; }
+.lvl-badge b{ font-size:20px; }
+.lvl-name{ color:#e2e8f0; font-size:14px; font-weight:600; flex:1; }
+.lvl-xp{ color:#94a3b8; font-size:13px; font-weight:700; }
+.lvl-track{ height:9px; background:rgba(255,255,255,.12); border-radius:9px; overflow:hidden; margin:10px 0 8px; }
+.lvl-track i{ display:block; height:100%; width:0; background:linear-gradient(90deg,#f59e0b,#fbbf24); border-radius:9px; transition:width .4s; }
+.lvl-note{ font-size:12px; color:#94a3b8; }
+.dash-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+.dash-btn{ background:#fff; border:1px solid var(--line); color:var(--text); border-radius:11px; padding:11px 18px; font-size:14.5px; font-weight:600; text-decoration:none; transition:all .15s; }
+.dash-btn:hover{ border-color:var(--indigo); transform:translateY(-1px); }
+.dash-btn.primary{ background:var(--grad); color:#fff; border-color:transparent; box-shadow:0 6px 16px rgba(59,130,246,.3); }
+.dash-btn.plan{ background:#8b5cf6; color:#fff; border-color:transparent; box-shadow:0 6px 16px rgba(139,92,246,.3); }
+.dash-plan{ margin-top:12px; font-size:13px; color:#475569; display:flex; align-items:center; flex-wrap:wrap; gap:6px; }
+.dash-plan b{ color:var(--ink); }
+.dash-plan .dp{ background:#f1f5f9; border:1px solid var(--line); border-radius:20px; padding:2px 10px; font-size:12px; color:var(--text); }
+.dash-plan span{ color:#94a3b8; }
+/* 每日打卡看板 */
+.dai-wrap{ margin-top:16px; background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; box-shadow:var(--shadow); }
+.dai-head{ display:flex; justify-content:space-between; align-items:center; font-size:14.5px; font-weight:700; color:var(--ink); margin-bottom:12px; }
+.dai-streak{ font-size:13px; color:var(--muted); font-weight:500; }
+.dai-streak b{ color:var(--amber); font-size:15px; }
+.dai-week{ display:flex; gap:8px; margin-bottom:14px; }
+.dday{ flex:1; text-align:center; background:#f8fafc; border:1px solid var(--line-2); border-radius:10px; padding:8px 4px; }
+.dday .dd-lab{ display:block; font-size:12px; color:var(--muted); }
+.dday .dd-dot{ display:block; font-size:16px; color:#34d399; }
+.dday.today{ border-color:var(--indigo); background:#eef2ff; }
+.dday.on{ background:#ecfdf5; border-color:#6ee7b7; }
+.dday.on .dd-dot{ color:#10b981; }
+.dai-act{ text-align:center; }
+.dai-btn{ background:var(--grad); color:#fff; border:none; border-radius:11px; padding:11px 30px; font-size:15px; font-weight:700; cursor:pointer; box-shadow:0 6px 16px rgba(59,130,246,.3); transition:all .15s; }
+.dai-btn:hover{ transform:translateY(-1px); }
+.dai-btn.on{ background:#10b981; }
+.dai-tip{ text-align:center; font-size:12px; color:var(--muted); margin-top:10px; }
+.dash-growth{ margin-top:14px; font-size:13.5px; color:#475569; padding-top:12px; border-top:1px solid var(--line-2); }
+.dash-growth b{ color:var(--blue-2); }
+
+/* ===== 章节笔记 ===== */
+.notes-row{ display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:14px; }
+.notes-row button{ background:#fff; border:1.5px solid var(--line); border-radius:11px; padding:11px 26px; font-size:15px; cursor:pointer; font-weight:600; color:var(--ink); box-shadow:var(--shadow); transition:all .18s; }
+.notes-row button:hover{ border-color:var(--indigo); color:var(--indigo); }
+.notes-box{ width:100%; max-width:720px; }
+.notes-box textarea{ width:100%; min-height:110px; padding:12px 14px; border:1.6px solid var(--line); border-radius:12px; font-size:14px; font-family:inherit; resize:vertical; line-height:1.7; }
+.notes-box textarea:focus{ outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px rgba(99,102,241,.12); }
+</style>
+</head>
+<body>
+<div class="site">
+  <aside class="sidebar">
+    <div class="brand"><span class="logo">⚔️</span><span><b>升级打怪 · 职业形象</b><small>运维 · DevOps · AIOps 成长站</small></span></div>
+    <div class="search-box">
+      <input id="searchInput" type="text" placeholder="🔍 搜索章节 / 关键词…" autocomplete="off">
+      <div class="search-results" id="searchResults"></div>
+    </div>
+    <div class="progress">
+      <div class="row"><span>学习进度</span><span><span id="progPct">0</span>% 已完成</span></div>
+      <div class="track"><i id="progBar"></i></div>
+    </div>
+    <div class="nav">
+      <a href="#map" data-id="map">🗺️ 学习路线图</a>
+      <a href='#home' data-id='home'>首页 · 学习指南</a><div class='nav-group' id='g1'><button class='nav-head' data-group='g1'>📗 Docker 基础<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch01' data-id='ch01'>01 · 学习路线图（照着做 · 就能学会） <span class='tag'>01</span></a><a href='#ch02' data-id='ch02'>02 · Docker 基础概念 <span class='tag'>02</span></a><a href='#ch03' data-id='ch03'>03 · 安装 Docker 与环境准备（零基础版） <span class='tag'>03</span></a><a href='#ch04' data-id='ch04'>04 · Docker 核心命令（零基础版） <span class='tag'>04</span></a><a href='#ch05' data-id='ch05'>05 · Dockerfile 与镜像构建（零基础版） <span class='tag'>05</span></a><a href='#ch06' data-id='ch06'>06 · 数据卷与网络（零基础版） <span class='tag'>06</span></a><a href='#ch07' data-id='ch07'>07 · Docker Compose（零基础版） <span class='tag'>07</span></a><a href='#ch08' data-id='ch08'>08 · 最佳实践与安全（零基础版） <span class='tag'>08</span></a></div></div><div class='nav-group' id='g2'><button class='nav-head' data-group='g2'>🛠️ 训练与自测<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch09' data-id='ch09'>09 · 训练：实验手册（照着做 · 就学会） <span class='tag'>09</span></a><a href='#ch10' data-id='ch10'>10 · 考试：试题与答案（Docker 入门） <span class='tag'>10</span></a></div></div><div class='nav-group' id='g3'><button class='nav-head' data-group='g3'>🚀 进阶扩展<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch11' data-id='ch11'>11 · Nacos 入门（零基础 · 照着做就学会） <span class='tag'>11</span></a><a href='#ch12' data-id='ch12'>12 · Jenkins 入门（零基础 · 照着做就学会） <span class='tag'>12</span></a></div></div><div class='nav-group' id='g4'><button class='nav-head' data-group='g4'>🔝 运维涨薪<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch13' data-id='ch13'>13 · Git 入门（零基础 · 照着做就学会） <span class='tag'>13</span></a><a href='#ch14' data-id='ch14'>14 · Kubernetes 入门（零基础 · 照着做就学会） <span class='tag'>14</span></a><a href='#ch15' data-id='ch15'>15 · Prometheus 监控入门（零基础 · 照着做就学会） <span class='tag'>15</span></a><a href='#ch18' data-id='ch18'>18 · 6 个月，从运维到 DevOps/AIOps 涨薪计划 <span class='tag'>18</span></a></div></div><div class='nav-group' id='g5'><button class='nav-head' data-group='g5'>🎯 实战·简历项目<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch16' data-id='ch16'>16 · 实战项目 & 简历写作（学完就落地） <span class='tag'>16</span></a></div></div><div class='nav-group' id='g6'><button class='nav-head' data-group='g6'>🤖 AI 学习<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch17' data-id='ch17'>17 · AI 入门 & AI 运维（零基础 · 照着做就学会） <span class='tag'>17</span></a></div></div>
+      <a class="quiz" href="#quiz" data-id="quiz">📝 在线测验</a>
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content" id="content"></div>
+    <div class="pager">
+      <a href="#" id="prev"><span>上一章</span><b></b></a>
+      <a href="#" id="next"><span>下一章</span><b></b></a>
+    </div>
+    <div class="done-row" id="doneRow" style="display:none">
+      <button id="doneBtn" onclick="toggleDone(currentId())">🎯 标记为已学完</button>
+    </div>
+    <div class="notes-row" id="notesRow" style="display:none">
+      <button id="notesBtn" onclick="toggleNotes(currentId())">📝 写笔记</button>
+      <div class="notes-box" id="notesBox" style="display:none">
+        <textarea id="notesArea" placeholder="写下这章的心得 / 关键命令 / 疑问…（自动保存到本机浏览器）"></textarea>
+      </div>
+    </div>
+    <div class="note">本网站为离线本地版，全部内容与图片均在本地文件夹内，可放心断网使用。学习进度与笔记保存在本机浏览器，不会上传。</div>
+  </div>
+</div>
+<script type='text/plain' id='home'># ⚔️ 升级打怪 · 职业形象（照着做 · 就能学会）
+
+这里是你的**职业成长站**：每学一章=打怪拿经验，打卡=每日签到，完成章节、刷上等级，把技能刷成能涨薪的"满级装备"。**看懂了就开始照着做。**
+
+## 怎么读：照着做就学会
+
+**不要先背理论，先照着做。** 每一章末尾都有一个「✍️ 本章达标 · 照着做就学会」任务，跟着敲、看到预期结果就过关——**看懂 ≠ 学会，做到才叫会。**
+
+- 每章节奏：**读概念 → 照着做达标任务 → 看到结果 → 过关 → 下一章**
+- 每个概念都用**生活化类比**讲解，先懂"它是什么"，再学"怎么用"
+- 每个重点都配了**示意图**（在 `images/`，SVG，任何阅读器都能显示）
+- 每条命令后面都有解释，告诉你这条命令**在做什么**
+- 遇到看不懂的术语，先回到 [02-基础概念](02-Docker基础概念.md) 找解释
+
+## 🖥️ 本地学习网站（强烈推荐）
+
+**最简单：双击 [打开网站.bat](打开网站.bat)**，或用浏览器双击打开 [index.html](index.html)。无需联网，就是一套完整的**本地教学网站**：
+
+- 左侧**目录导航**（分组可折叠页签）+ 右侧正文，点击即切换章节，支持**上一章/下一章**
+- **🎯 首页学习看板**：打开即见学习进度、下一步学什么、快捷入口与「运维涨薪进阶线」
+- **🗺️ 学习路线图 / 知识图谱**：点「学习路线图」，可视化各知识点关联，点击节点显示先修/关联，并**自动引申相关技术**（含 Git、K8s、Prometheus、GitLab CI、AI 运维等），适合你从 **DevOps/SRE + AIOps 涨薪**方向自主拓展
+- **🔍 站内全文搜索**：顶部搜索框实时搜所有章节的标题与正文，命中可高亮定位
+- **📈 学习进度记录**：自动记录读过的章节，手动「标记为已学完」，侧栏显示完成进度（保存在本机）
+- **📝 章节学习笔记**：每章可写笔记并自动保存到本机
+- **📝 在线测验内嵌**：左侧「在线测验」直接做题，无需单独文件
+- **⌨️ 键盘翻页**：← / → 快速切换章节
+- 含全部配图、代码高亮（带一键复制）、表格
+
+> 重新生成网站：改完 `source/` 里的 Markdown 后运行 `pwsh -File source\build_site.ps1` 即可重建 `index.html`。
+
+## 🌐 在线自测（已整合进网站）
+
+在网站左侧点 **「📝 在线测验」** 即可直接做题，**无需单独文件**，也不联网。单选题/多选/判断自动判分，简答/实操看参考答案后自我评分，交卷显示总分与评级。
+
+## 建议学习路线与时间
+
+| 顺序 | 章节 | 内容 | 预计用时 |
+| --- | --- | --- | --- |
+| 1 | [01-学习路线图](01-学习路线图.md) | 学习规划、时间安排 | 10 分钟 |
+| 2 | [02-Docker基础概念.md](02-Docker基础概念.md) | 什么是容器、为什么要学 | 40 分钟 |
+| 3 | [03-安装与环境准备.md](03-安装与环境准备.md) | 一步步装好 Docker | 30 分钟 |
+| 4 | [04-核心命令.md](04-核心命令.md) | 镜像、容器、常用命令 | 1 小时 |
+| 5 | [05-Dockerfile与镜像构建.md](05-Dockerfile与镜像构建.md) | 自己造一个镜像 | 1 小时 |
+| 6 | [06-数据卷与网络.md](06-数据卷与网络.md) | 数据保存、容器互通 | 1 小时 |
+| 7 | [07-Docker-Compose.md](07-Docker-Compose.md) | 一次启动多个容器 | 1 小时 |
+| 8 | [08-最佳实践与安全.md](08-最佳实践与安全.md) | 用得更好、更安全 | 30 分钟 |
+| 9 | [09-训练-实验手册.md](09-训练-实验手册.md) | 8 个上机小实验 | 3~4 小时 |
+| 10 | [10-考试-试题与答案.md](10-考试-试题与答案.md) | 自检掌握程度 | 40 分钟 |
+| 11 | [11-Nacos入门.md](11-Nacos入门.md) | 服务发现+配置中心（用 Docker 跑） | 30 分钟 |
+| 12 | [12-Jenkins入门.md](12-Jenkins入门.md) | CI/CD 自动化部署（用 Docker 跑） | 40 分钟 |
+| 13 | [13-Git入门.md](13-Git入门.md) | 版本控制，CI/CD 的上游 | 30 分钟 |
+| 14 | [14-Kubernetes入门.md](14-Kubernetes入门.md) | 容器集群编排（涨薪关键） | 1 小时 |
+| 15 | [15-Prometheus监控入门.md](15-Prometheus监控入门.md) | 监控/可观测性 | 40 分钟 |
+| 16 | [16-实战项目与简历.md](16-实战项目与简历.md) | 4 个可落地项目 + 简历写法 | 2~3 小时 |
+| 17 | [17-AI入门与AI运维.md](17-AI入门与AI运维.md) | AI 入门 + AIOps 智能运维 | 40 分钟 |
+
+> 🧭 **第 11~17 章为「运维涨薪」进阶**：掌握 Docker 后，沿 **Nacos/Jenkins → Git → K8s → Prometheus → 实战项目 → AI 运维** 拓展，每个领域学完都有**能写进简历的项目**。
+> 💡 适合你（运维·懂 Linux/MySQL）：主路线 **DevOps/SRE + Kubernetes + CI/CD + 监控 + AIOPS**。
+> 每天 1~1.5 小时，**2 周左右**学完基础，再花 1~2 周做项目即可用于简历。
+
+## 先看一个 60 秒的例子
+
+装好 Docker 后，在终端输入这一行并回车：
+
+```bash
+docker run -d -p 80:80 --name myweb nginx
+```
+
+等几秒钟，打开浏览器访问 `http://localhost`，你会看到一个 Nginx 欢迎页。
+
+**刚才发生了什么（现在不用完全懂）：**
+- `docker run` = 让 Docker 启动一个东西
+- `nginx` = 一个现成的 Web 服务器程序（镜像）
+- `-d` = 在后台悄悄运行
+- `-p 80:80` = 把本机的 80 端口连到它里面
+- 这一条命令，**你就拥有了一台 Web 服务器**。这就是 Docker 的威力。
+
+## 环境要求
+
+- 一台能联网、能安装软件的电脑（Windows / macOS / Linux 都可以）
+- 本资料命令是通用的，各平台基本一样，[安装章节](03-安装与环境准备.md)有分平台说明。
+
+> 遇到任何问题，都可以回到这里。祝学习顺利！🎉
+</script>
+<script type='text/plain' id='ch01'># 01 · 学习路线图（照着做 · 就能学会）
+
+这套学习方法只有一个核心：**不要先背理论，先照着做，做会了自然就懂。** 每一章都配一个「✍️ 达标任务」，你跟着敲一遍、看到预期结果，就说明那一步学会了——**不用理解原理也能先学会用，用多了自然懂原理。**
+
+> 心法一句话：**看一节 → 跟着做一节 → 看到结果 → 过关 → 再下一节。**
+
+---
+
+## 1. 这样学，照着做就学会
+
+### 每章的固定节奏（照做即可）
+1. **读概念（2~3 分钟）**：只记住"这是干嘛的"，不深究细节。
+2. **照着做（核心）**：按章节末尾的「✍️ 达标任务」**原样敲命令**，一行行敲。
+3. **看结果**：看到「预期结果」就说明这一步对了。
+4. **过关**：达标任务做到 → 才算学会这一章，再进下一章。
+5. **忘了就翻**：命令不用背，忘了回来看，多用几次自然记住。
+
+> **记住：看懂 ≠ 学会，做到才叫会。** 每章都真实地在你自己电脑上做一遍。
+
+---
+
+## 2. 学习阶段（每个阶段都是"照着做"）
+
+### 阶段一 · 让 Docker 跑起来（约 1 周）
+**目标**：装好 Docker，跑通第一个容器。
+**照着做清单：**
+- [ ] 第 3 章：装好 Docker
+- [ ] 第 3 章达标：`docker --version` 有版本号；`docker run hello-world` 看到欢迎语
+- [ ] 第 4 章达标：跑起一个 Nginx，浏览器能看到欢迎页，能 stop / rm
+- ✅ **通关标准**：能用一条命令启动一个网站并访问。
+
+### 阶段二 · 自己造镜像（约 1 周）
+**目标**：能把程序打包成镜像，数据不丢。
+**照着做清单：**
+- [ ] 第 5 章达标：写 Dockerfile 构建自己的网页镜像并打开
+- [ ] 第 6 章达标：用数据卷保留数据；两个容器能互通
+- ✅ **通关标准**：从零做出一个"网页+能存数据+容器互通"的小应用。
+
+### 阶段三 · 一键启动整套（约 1 周）
+**目标**：用 Compose 管理多容器，做成完整小项目。
+**照着做清单：**
+- [ ] 第 7 章达标：用 Compose 一次启动"网站+数据库"并访问
+- [ ] 第 8 章达标：把镜像做小（换 slim 镜像看体积变小）
+- ✅ **通关标准**：能`docker compose up -d` 一次跑起前后端并正常访问。
+
+### 阶段四 · 综合实践 + 考核（约 1 天）
+- [ ] 第 9 章：8 个实验**从头到尾照做一遍**
+- [ ] 第 10 章：做考试卷（客观题自动判分），90 分以上算扎实
+- 🏁 **毕业标准**：能独立把任意一个网页程序打包、跑起来、存数据、多容器编排。
+
+---
+
+## 3. 常见问题（照着做时一定会遇到）
+
+| 你可能会问 | 答案 |
+| --- | --- |
+| 命令敲了报错？ | 别慌，复制红色报错去搜，90% 有答案；检查是否漏了空格/符号 |
+| 记不住命令？ | 正常，命令是查出来用出来的，不是背出来的 |
+| 看不懂原理？ | 先照做，用起来再说；多用几次原理自然清楚 |
+| 做完没看到预期结果？ | 逐条对照命令再敲一遍，注意版本/端口是否冲突 |
+
+---
+
+## 4. 你需要准备什么
+- 一台能联网、能装软件的电脑（Windows / macOS / Linux 任一）
+- 每天 1 小时左右
+- 一个能编辑文本的软件（记事本或 VS Code）
+
+准备好就进入 [02-基础概念](02-Docker基础概念.md) —— **看懂了就开始照着做！**
+</script>
+<script type='text/plain' id='ch02'># 02 · Docker 基础概念
+
+这一章是整个 Docker 的**地基**。用生活中的类比把概念讲清楚，看完这章你就知道 Docker 到底在解决什么问题。
+
+---
+
+## 1. 先回答一个问题：为什么要学 Docker？
+
+### 曾经的烦恼
+
+想象你写好了一个网站程序，在你自己电脑上跑得好好的。但换一台电脑，或者交给别人部署，就出一堆问题：
+
+- 对方电脑没有装 Python / Java / Node 环境
+- 版本对不上，程序报错
+- 配置不同，跑不起来
+
+**痛点**：程序能不能跑起来，不取决于你的代码，而取决于"环境"。
+
+### Docker 的解决思路
+
+Docker 说：**把程序和它需要的整个环境一起打包成一个"盒子"，搬到哪都能一模一样地跑。**
+
+这个"盒子"就是你程序的**完整环境快照**——操作系统、运行环境、依赖、代码、配置全都在里面。
+
+> **一句话：Docker 解决了"在我电脑上明明能跑"的问题。**
+
+---
+
+## 2. 三个最核心的概念
+
+### 2.1 镜像（Image）
+
+**镜像**可以想象成一张**菜谱**、一个**光盘镜像**、或一份**安装包**。
+
+- 它是**只读的、固定的蓝图**，里面写好了"要装什么、怎么启动"。
+- 它自己不会运行，只是一个"模板"。
+- 比如 `nginx` 镜像，里面就打包好了 Nginx 程序 + 它的依赖 + 启动方式。
+
+### 2.2 容器（Container）
+
+**容器**是镜像的**运行实例**，就像按菜谱做出来的**一盘菜**。
+
+- 同一个镜像可以开出**很多个**容器，互相独立、互不干扰。
+- 容器是**运行中的、可读写的**，你可以进去改东西。
+- 容器**默认是一次性的**：关掉/删除就没了（里面的数据也会没，这就是后面数据卷要解决的问题）。
+
+> **类比总结：**
+> - 镜像 = 菜谱（静态说明书）
+> - 容器 = 按菜谱做出来的菜（动态实例）
+> - 一个菜谱能做很多道菜 → 一个镜像能开很多容器
+
+### 2.3 仓库（Registry）
+
+**仓库**是**存放镜像的"图书馆/超市"**。
+
+- 你用 `docker pull` 从仓库下载镜像。
+- 最常见的公共仓库是 **Docker Hub**，上面有几十万个现成镜像。
+- 你也可以把自制的镜像 `docker push` 上传到仓库，分享给别人。
+
+> 📷 三大概念关系图：
+> ![镜像/容器/仓库关系图](images/image-container-registry.svg)
+
+---
+
+## 3. 容器 vs 虚拟机（重要区别）
+
+很多人第一次接触容器会想到虚拟机（VM，比如 VMware、VirtualBox）。它们确实有点像，但**完全不同**。
+
+| 对比项 | 虚拟机（VM） | 容器（Container） |
+| --- | --- | --- |
+| 占用 | 每个虚拟机含完整操作系统，很大（几个 GB） | 共享宿主机内核，很小（几十 MB） |
+| 启动速度 | 慢，要启动整个系统（几十秒~分钟） | 快，秒级启动 |
+| 资源 | 占用大量内存和硬盘 | 轻量、占用少 |
+| 隔离 | 强，完全独立的操作系统 | 弱一些，共享操作系统内核 |
+| 类比 | 一栋带独立配套的大别墅 | 公寓楼里的一间房 |
+
+**关键一句话：容器共享宿主机的操作系统内核，所以启动快、体积小；虚拟机包含自己的操作系统，所以重但隔离更彻底。**
+
+> 📷 对比图：
+> ![容器vs虚拟机](images/container-vs-vm.svg)
+
+> 简单理解：**虚拟机是"自己住一整栋楼"**（啥都自己带，重）；**容器是"住公寓"**（管道、水电共用，轻）。
+
+---
+
+## 4. Docker 的工作原理（大致了解即可）
+
+不用记，有个印象就行：
+
+- **Docker 客户端（Client）**：就是你敲命令的地方（终端）。
+- **Docker 守护进程（Daemon）**：真正干活的后台服务，负责创建、运行、删除容器。
+- 你敲 `docker run`，客户端把请求发给守护进程，守护进程帮你干活。
+
+三者关系就像：**你跟服务员点餐（客户端），后厨真正做菜（守护进程），菜谱是镜像。**
+
+> 📷 工作流程：
+> ![Docker工作流程](images/docker-architecture.svg)
+
+---
+
+## 5. 常见术语速查表（自测）
+
+| 术语 | 意思 | 生活类比 |
+| --- | --- | --- |
+| 镜像 Image | 只读的打包模板 | 菜谱 |
+| 容器 Container | 镜像的运行实例 | 做出来的菜 |
+| 仓库 Registry | 存放镜像的地方 | 图书馆、超市 |
+| Dockerfile | 描述如何构建镜像的脚本 | 写菜谱的方法 |
+| 拉取 Pull | 从仓库下载镜像 | 从超市买菜谱 |
+| 推送 Push | 上传镜像到仓库 | 把菜谱挂到图书馆 |
+| 卷 Volume | 容器里能保存下来的数据 | 外接的冰箱/储物柜 |
+
+---
+
+## 6. 本章小结
+
+- Docker 是为了**解决"环境不一致"**的问题。
+- **镜像 = 蓝图/菜谱**，**容器 = 运行实例/菜**，**仓库 = 存放处**。
+- 容器**轻量、秒级启动**，虚拟机**重但隔离强**。
+- 客户端下命令，守护进程干活。
+
+> **自测 3 个问题（答上来就过关）：**
+> 1. 容器和虚拟机最大的区别是什么？
+> 2. 镜像和容器是什么关系？
+> 3. 从哪里下载别人做好的镜像？
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+这一章是概念，先不用敲。等装好 Docker 后，第一件事就跑通它：
+
+**照着做（装好 Docker 后）：**
+```bash
+docker --version
+docker run hello-world
+```
+
+**✅ 过关标准：** `docker --version` 输出版本号；`docker run hello-world` 打印出 "Hello from Docker!"。
+
+**答不出也别急，下一章装好 Docker，动手实操一下这些问题自然就明白了。** 进入 [03-安装与环境准备](03-安装与环境准备.md)。
+</script>
+<script type='text/plain' id='ch03'># 03 · 安装 Docker 与环境准备（零基础版）
+
+这一章手把手教你装好 Docker。**跟着做即可，不用理解原理。** 找到你需要的平台看对应部分。
+
+---
+
+## 0. 装之前先知道
+
+- 你需要**能联网**。
+- 推荐用 **Windows**（有图形界面，最容易上手）；macOS 和 Linux 也都能装。
+- 装好后你要用的只是一个**终端**（黑色命令行窗口）。
+
+---
+
+## 1. 装 Windows 版（推荐：Docker Desktop）
+
+> 如果还没确定，**建议先学 Windows 版**，它有图形界面，对新手友好。
+
+### 步骤
+
+1. 打开浏览器访问 Docker 官网下载页：
+   `https://www.docker.com/products/docker-desktop/`
+2. 点 **Download for Windows**，下载安装包。
+3. 双击安装包，一路点 **Next / 下一步**。
+4. 安装时如果提示勾选 **"Use WSL 2 instead of Hyper-V"**，保持勾选（这是推荐选项）。
+5. 装完后重启电脑。
+6. 启动 **Docker Desktop**，等右下角的小鲸鱼图标变成绿色/稳定状态（表示 Docker 引擎已就绪）。
+   - 如果提示需要启用 WSL 2，按它给的提示操作（一般是运行一条升级命令，或勾选"适用于 Linux 的 Windows 子系统"）。
+
+### 验证是否装好
+
+打开终端（Windows 搜索"PowerShell"或"命令提示符"），输入：
+
+```bash
+docker --version
+```
+
+能看到类似 `Docker version x.x.x` 就成功了。
+
+再输入（测试能否正常下载运行）：
+
+```bash
+docker run hello-world
+```
+
+如果打印出一段"Hello from Docker!"的文字，恭喜，**Docker 装好了！**
+
+> **注意**：`docker run hello-world` 会第一次联网下载一个测试镜像，稍等片刻即可。
+
+---
+
+## 2. 装 macOS 版（Docker Desktop）
+
+1. 访问 `https://www.docker.com/products/docker-desktop/`
+2. 选择 **Download for Mac**，下载 `.dmg` 文件。
+3. 双击打开，把 Docker 图标拖到 Applications。
+4. 首次运行会要求授权（输密码），按提示继续。
+5. 等小鲸鱼图标稳定。
+
+验证：
+
+```bash
+docker --version
+docker run hello-world
+```
+
+---
+
+## 3. 装 Linux 版（Ubuntu 为例）
+
+Windows 和 macOS 用图形界面；Linux 用命令行装。
+
+不同发行版命令略有不同，以下是 **Ubuntu** 最常见的方式：
+
+```bash
+# 1. 更新软件源
+sudo apt-get update
+
+# 2. 安装 Docker
+sudo apt-get install -y docker.io
+
+# 3. 启动 Docker 并设为开机自启
+sudo systemctl enable docker
+sudo systemctl start docker
+
+# 4. 验证
+docker --version
+sudo docker run hello-world
+```
+
+> Linux 上每次运行 `docker` 都要加 `sudo`，想省事可以让当前用户加入 docker 用户组：
+> `sudo usermod -aG docker $USER`，然后注销再登录即可。
+
+---
+
+## 4. 装好后，认识一下你的终端
+
+装好之后，你大部分时间都在**终端**里敲命令。先记住 3 个基本命令：
+
+```bash
+# 列出当前目录的文件
+ls
+
+# 看看 Docker 都装了什么
+docker --help        # 按 q 退出帮助页
+docker --version     # 查看版本
+```
+
+> 报错怎么办？别慌，把红色的报错信息复制去搜索引擎搜，基本都有答案。
+
+---
+
+## 5. 通不过怎么办（常见问题）
+
+| 问题 | 解决 |
+| --- | --- |
+| Windows 提示没有 WSL 2 | 以管理员身份打开 PowerShell，运行 `wsl --update`，或按提示启用"适用于 Linux 的 Windows 子系统" |
+| 点击运行没反应 / 鲸鱼图标一直灰 | 重启电脑；或检查 Docker Desktop 设置里是否启用了 WSL 2 |
+| `Permission denied`（Linux） | 命令前加 `sudo`，或按上面加入 docker 用户组 |
+| 下载 `hello-world` 很慢/超时 | 需要配置 Docker 镜像加速（国内网络常用），见下方 |
+
+### 国内网络加速（可选，建议配置）
+
+如果下载镜像很慢，可以配置镜像加速源。以 Docker Desktop 为例：
+
+- 打开 Docker Desktop → **Settings** → **Docker Engine**
+- 在 `registry-mirrors` 里加一个国内加速地址（如阿里云、腾讯云的），保存并重启。
+
+示例配置（`~/.docker/daemon.json` 或 Docker Desktop 的 Settings 里）：
+
+```json
+{
+  "registry-mirrors": ["https://你的加速地址.mirror.aliyuncs.com"]
+}
+```
+
+> 加速地址需要去阿里云/腾讯云等平台注册后获取专属地址，这里只示例格式。
+
+---
+
+## 6. 本章小结
+
+- Windows/macOS 用 **Docker Desktop**，Linux 用命令行装。
+- 装好后用 `docker --version` 和 `docker run hello-world` 验证。
+- 如果慢，配置镜像加速。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做：**
+```bash
+docker --version
+docker run hello-world
+```
+
+**✅ 过关标准：** 两行都成功——`docker --version` 有版本号，且 `docker run hello-world` 打印出 "Hello from Docker!"。
+
+**现在你已经成功踏入 Docker 世界了！** 进入 [04-核心命令](04-核心命令.md) 学习常用命令。
+</script>
+<script type='text/plain' id='ch04'># 04 · Docker 核心命令（零基础版）
+
+这一章讲日常最常用的命令。**每条命令都先给用法，再解释它在做什么**，跟着敲一遍就记住了。不用背，用的时候回来查。
+
+> 提示：任何时候想看某个命令有哪些用法，就敲 `docker 命令名 --help`，比如 `docker run --help`。
+
+---
+
+## 1. 命令总览（一张表看懂）
+
+| 想要达到的目的 | 用这条命令 |
+| --- | --- |
+| 下载一个镜像 | `docker pull 镜像名` |
+| 启动一个容器 | `docker run 镜像名` |
+| 查看正在运行的容器 | `docker ps` |
+| 查看所有容器（含已停止） | `docker ps -a` |
+| 查看本地有哪些镜像 | `docker images` |
+| 进入容器内部 | `docker exec -it 容器名 bash` |
+| 停止容器 | `docker stop 容器名` |
+| 启动已停止的容器 | `docker start 容器名` |
+| 删除容器 | `docker rm 容器名` |
+| 删除镜像 | `docker rmi 镜像名` |
+| 查看容器/镜像日志 | `docker logs 容器名` |
+
+下面逐个展开。
+
+---
+
+## 2. 镜像（Image）相关命令
+
+镜像 = 菜谱，先有镜像才能「开」容器。
+
+### 2.1 查看本地镜像
+
+```bash
+docker images
+```
+
+**解释**：列出本机已经下载好的镜像。你会看到类似下表：
+
+```
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+nginx        latest    a1b2c3d4e5f6   2 weeks ago    142MB
+```
+
+- `REPOSITORY` = 镜像名
+- `TAG` = 版本标签（`latest` 表示最新）
+- `IMAGE ID` = 镜像的唯一标识
+- `SIZE` = 大小
+
+### 2.2 下载镜像
+
+```bash
+docker pull nginx
+docker pull ubuntu:22.04
+```
+
+**解释**：从仓库下载镜像。`docker pull nginx` 下载最新版 Nginx；`ubuntu:22.04` 下载 Ubuntu 22.04 版。
+
+### 2.3 删除镜像
+
+```bash
+docker rmi 镜像ID或镜像名
+```
+
+**解释**：删除本地镜像。如果还有容器在用这个镜像，会删不掉，需要先删容器。
+
+---
+
+## 3. 容器（Container）相关命令
+
+容器 = 按菜谱做出来的菜，是真正在运行的东西。
+
+### 3.1 启动容器（最重要的一条）
+
+```bash
+docker run -d -p 80:80 --name myweb nginx
+```
+
+**逐部分解释：**
+- `docker run` → 启动一个容器
+- `nginx` → 用哪个镜像
+- `-d` → 后台运行（detached），不加的话会一直占用当前终端
+- `-p 80:80` → 端口映射：**宿主机(你电脑)的80端口 → 容器内的80端口**，这样你才能从浏览器访问
+- `--name myweb` → 给容器起个名字，方便后面操作
+
+**常用搭配：**
+```bash
+# 前台运行（会占用终端，Ctrl+C 停止）
+docker run -it ubuntu bash
+
+# 给容器设个名字+后台运行
+docker run -d --name myweb nginx
+
+# 运行一个简单测试镜像
+docker run hello-world
+```
+
+- `-it` → 交互模式（interactive + tty），适合进容器里干活
+- 命令最后的 `bash` → 容器里启动后要执行的程序（这里是打开一个 shell）
+
+> 📷 端口映射示意图：
+> ![端口映射](images/port-mapping.svg)
+
+### 3.2 查看容器
+
+```bash
+docker ps       # 只看正在运行的
+docker ps -a    # 看所有（包括已停止的）
+```
+
+**解释**：`-a` 表示 all，能看到已经退出/停止的容器。
+
+### 3.3 停止 / 启动容器
+
+```bash
+docker stop myweb       # 停止
+docker start myweb      # 重新启动已停止的
+docker restart myweb    # 重启
+```
+
+### 3.4 进入容器内部
+
+```bash
+docker exec -it myweb bash
+```
+
+**解释**：进入容器内部，像可以进去看看装了啥、改配置文件。`bash` 换成 `sh` 也可以（有的瘦身镜像没有 bash）。
+
+### 3.5 查看容器日志
+
+```bash
+docker logs myweb
+docker logs -f myweb   # -f 实时跟随，像 tail -f
+```
+
+**解释**：看容器里程序打印的输出，排查问题很有用。`-f` 会一直跟随新日志，按 `Ctrl+C` 退出。
+
+### 3.6 删除容器
+
+```bash
+docker rm myweb          # 删除已停止的容器
+docker rm -f myweb       # 强制删除（即使正在运行）
+docker container prune   # 一键删除所有已停止的容器
+```
+
+---
+
+## 4. 一个完整的"生命周期"例子
+
+跟着敲一遍，把所有命令串起来：
+
+```bash
+# 1. 下载镜像
+docker pull hello-world
+
+# 2. 用镜像启动容器（hello-world 跑完就退出）
+docker run hello-world
+
+# 3. 下载并后台运行一个网站容器
+docker run -d -p 8080:80 --name mysite nginx
+
+# 4. 查看正在运行的容器
+docker ps
+
+# 5. 浏览器访问 http://localhost:8080 就能看到 Nginx 页面！
+
+# 6. 查看日志
+docker logs mysite
+
+# 7. 停止并删除
+docker stop mysite
+docker rm mysite
+```
+
+---
+
+## 5. 进阶：后台运行交互式任务
+
+给一个实用的例子：跑一个 Python 环境。
+
+```bash
+docker run -it --rm python:3.11 bash
+```
+
+- `--rm` → 容器退出后自动删除，避免残留
+- 进去后就可以敲 Python 命令，退出时容器自动清理，非常干净
+
+---
+
+## 6. 常用组合速查（贴到笔记里）
+
+```bash
+# 查看当前占用的磁盘
+docker system df
+
+# 清理所有停用的容器、悬空镜像、缓存（慎用）
+docker system prune
+
+# 查看某个容器的详细信息（IP、网络、配置）
+docker inspect myweb
+```
+
+---
+
+## 7. 本章小结
+
+- **镜像**负责「装什么」，用 `docker images / pull / rmi` 操作。
+- **容器**负责「真正跑」，用 `docker run / ps / stop / rm` 操作。
+- 最常用的是 `docker run -d -p 端口:端口 --name 名字 镜像`。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做：**
+```bash
+# 1. 后台启动一个 Nginx 容器，映射 8080 端口，命名 myc
+docker run -d -p 8080:80 --name myc nginx
+
+# 2. 看看它是否在运行
+docker ps
+
+# 3. 看它的日志
+docker logs myc
+
+# 4. 不用了，停止并删除（不占资源）
+docker stop myc
+docker rm myc
+```
+
+**✅ 过关标准：** `docker ps` 里看到 `myc` 在运行；浏览器打开 `http://localhost:8080` 出现 Nginx 欢迎页；`stop` + `rm` 后 `docker ps -a` 不再有它。
+
+练完去 [05-Dockerfile与镜像构建](05-Dockerfile与镜像构建.md)，学习怎么自己造一个镜像。
+</script>
+<script type='text/plain' id='ch05'># 05 · Dockerfile 与镜像构建（零基础版）
+
+前面我们用现成的 `nginx`、`ubuntu` 镜像。这一章教你自己**写一份"制造说明"（Dockerfile）**，把自己的程序打包成镜像。
+
+> 类比：**Dockerfile 就是一份"新菜谱"**。你写下步骤 → 执行 `docker build`（按菜谱做菜）→ 得到一个新的镜像（一盘菜）。
+
+---
+
+## 1. 什么是 Dockerfile
+
+一张 Dockerfile 是一个**纯文本文件**（默认名字就叫 `Dockerfile`），里面一行行写"怎么造镜像"。
+
+每一行是一个**指令**，常见指令如下：
+
+| 指令 | 作用 | 生活类比 |
+| --- | --- | --- |
+| `FROM` | 基于哪个基础镜像开始 | 用哪本基础菜谱 |
+| `WORKDIR` | 设置工作目录 | 把厨房台面整理好 |
+| `COPY` | 把文件复制进镜像 | 把食材放进厨房 |
+| `RUN` | 构建时执行命令 | 做菜过程中的加工 |
+| `EXPOSE` | 声明容器对外端口 | 告诉别人这个菜配哪个盘子 |
+| `CMD` | 容器启动时执行的命令 | 最后端上桌的动作 |
+| `ENV` | 设置环境变量 | 预设调料用量 |
+
+---
+
+## 2. 第一个 Dockerfile：简易网页
+
+### 第 1 步：准备一个网页文件
+
+新建一个文件夹，比如 `myweb`，进入后创建一个 `index.html`：
+
+```html
+<!DOCTYPE html>
+<html>
+<head><title>我的第一个 Docker 应用</title></head>
+<body>
+  <h1>你好，Docker！🚀</h1>
+  <p>这个网页是用 Docker 跑起来的。</p>
+</body>
+</html>
+```
+
+### 第 2 步：在同目录创建 Dockerfile
+
+在同一目录下新建一个名为 `Dockerfile` 的文件（注意没有后缀名），内容如下：
+
+```dockerfile
+# 基于 nginx 镜像，省去自己搭 Web 服务器
+FROM nginx
+
+# 把我们制作的网页复制到 nginx 的网站目录
+COPY index.html /usr/share/nginx/html/index.html
+
+# 声明容器用 80 端口
+EXPOSE 80
+```
+
+**逐行解释：**
+- `FROM nginx` → 用官方 nginx 镜像当基础（就像用现成炉子）
+- `COPY index.html /usr/share/nginx/html/index.html` → 把本地的网页拷进镜像指定路径
+- `EXPOSE 80` → 声明容器监听 80 端口（只是声明，真正让外部访问还要 `-p`）
+
+### 第 3 步：构建镜像
+
+在**这个目录**（有 Dockerfile 和 index.html 的地方）打开终端，运行：
+
+```bash
+docker build -t myfirstweb:1.0 .
+```
+
+**逐部分解释：**
+- `docker build` → 构建镜像
+- `-t myfirstweb:1.0` → 给镜像起名 `myfirstweb`，版本 `1.0`
+- `.` → 表示"用当前目录的 Dockerfile"
+
+### 第 4 步：运行并测试
+
+```bash
+docker run -d -p 8080:80 myfirstweb:1.0
+```
+
+浏览器访问 `http://localhost:8080`，就能看到你写的网页了！
+
+---
+
+## 3. 更真实的例子：打包一个 Python 程序
+
+如果我想打包一个用 Python 写的程序，Dockerfile 长这样：
+
+```dockerfile
+# 用 Python 3.11 官方镜像做基础
+FROM python:3.11
+
+# 设置工作目录
+WORKDIR /app
+
+# 先复制依赖文件（如果只有这一个文件就直接复制）
+COPY requirements.txt .
+
+# 安装依赖
+RUN pip install -r requirements.txt
+
+# 复制项目代码
+COPY . .
+
+# 声明端口（如果这个程序用 8000 端口）
+EXPOSE 8000
+
+# 容器启动时运行的程序
+CMD ["python", "app.py"]
+```
+
+> **要点**：尽量先把 `requirements.txt` 复制进来安装依赖，再复制代码，这样代码改动后能利用缓存，构建更快。
+
+---
+
+## 4. 镜像的"分层"概念（理解一下）
+
+镜像不是一块石头，而是**一层层叠起来**的，像千层蛋糕。
+
+> 📷 分层示意图：
+> ![镜像分层](images/dockerfile-layer.svg)
+
+- 每执行一个 `RUN`、`COPY` 就形成一层。
+- Docker **层层缓存**：构建时如果某层没变，就复用之前的缓存，秒级完成。
+- 所以**把容易变的指令放后面**（比如复制代码），把不易变的放前面（安装依赖）。
+
+> **为什么要知道这个？** 因为能帮你写出**更小、更快**的镜像，这是后面 [08-最佳实践](08-最佳实践与安全.md) 的重点。
+
+---
+
+## 5. 常用指令详解
+
+### FROM
+```dockerfile
+FROM ubuntu:22.04
+FROM node:20-alpine        # alpine 是极小的版本
+FROM python:3.11-slim
+```
+每个 Dockerfile 必须以 `FROM` 开头（除特殊情况）。
+
+### WORKDIR
+```dockerfile
+WORKDIR /app
+```
+相当于进去之前先 `cd` 到某个目录，之后命令都在这运行。
+
+### COPY（复制文件进镜像）
+```dockerfile
+COPY 源路径 目标路径
+COPY index.html /usr/share/nginx/html/
+COPY . /app
+```
+
+### RUN（构建时执行的命令）
+```dockerfile
+RUN apt-get update && apt-get install -y curl
+RUN pip install -r requirements.txt
+```
+
+### CMD 与 ENTRYPOINT（启动命令）
+```dockerfile
+CMD ["python", "app.py"]        # 数组写法（推荐）
+CMD python app.py               # 另一种写法
+```
+`CMD` 是默认启动命令，可以被 `docker run` 后面跟的参数覆盖。
+
+### ENV（环境变量）
+```dockerfile
+ENV NODE_ENV=production
+```
+
+---
+
+## 6. 完整构建流程（背下来）
+
+```bash
+# 1. 进入项目目录（要有 Dockerfile）
+cd myproject
+
+# 2. 构建镜像
+docker build -t myapp:1.0 .
+
+# 3. 查看镜像
+docker images
+
+# 4. 运行它
+docker run -d -p 8080:80 myapp:1.0
+
+# 5. 测试后，删掉容器和镜像
+docker rm -f $(docker ps -aq)
+docker rmi myapp:1.0
+```
+
+---
+
+## 7. 本章小结
+
+- **Dockerfile 是制造说明书**，`FROM` 开始，`CMD` 结束。
+- `docker build -t 名字:版本 .` 构建镜像。
+- 镜像**分层 + 缓存**，把变更小的放前面能加速构建。
+- 常用指令：`FROM / WORKDIR / COPY / RUN / EXPOSE / CMD / ENV`。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做（先建一个 `myweb` 文件夹，放入 `index.html` 和 `Dockerfile`）：**
+
+`index.html`：
+```html
+<h1>我的 Docker 镜像</h1>
+```
+
+`Dockerfile`：
+```dockerfile
+FROM nginx
+COPY index.html /usr/share/nginx/html/index.html
+EXPOSE 80
+```
+
+在 `myweb` 目录里执行：
+```bash
+docker build -t myfirstweb:1.0 .
+docker run -d -p 8080:80 myfirstweb:1.0
+```
+
+**✅ 过关标准：** `docker images` 里有 `myfirstweb:1.0`；浏览器访问 `http://localhost:8080` 看到你自己写的网页。
+
+练完去 [06-数据卷与网络](06-数据卷与网络.md)，学习数据怎么保存、容器怎么互通。
+</script>
+<script type='text/plain' id='ch06'># 06 · 数据卷与网络（零基础版）
+
+容器默认是"用完就丢"的：删了容器，里面改的数据也没了。这一章解决两个核心问题：
+
+1. **数据怎么保下来？** → 用 **数据卷（Volume）**
+2. **容器之间怎么通？** → 用 **网络（Network）**
+
+---
+
+# 第一部分：数据卷（Volume）
+
+## 1. 问题场景
+
+你启动一个容器，往里面存了数据（比如数据库、上传的文件）。然后 `docker rm` 删掉容器 —— **数据全没了**。
+
+因为容器是"一次性"的，里面的文件系统随容器一起销毁。
+
+## 2. 解决方案：把数据挂在外面
+
+思路：**容器里面的某些目录，用外部的一个地方来存**。这样即使删掉容器，数据还在外面。
+
+> 📷 数据卷示意图：
+> ![数据卷](images/volume.svg)
+
+这就像：把容器当成一个"临时工位"，但你的重要资料放在**外面的一个保险柜**里，工位拆了资料还在。
+
+## 3. 两种方式
+
+### 方式一：命名卷（推荐，由 Docker 管理）
+
+```bash
+docker volume create mydata           # 创建一个数据卷
+docker run -d -v mydata:/data ubuntu sleep 1000   # 把卷挂到容器里的 /data
+```
+
+### 方式二：绑定挂载（直接挂你电脑的某个文件夹）
+
+```bash
+docker run -d -v /本地/路径:/容器内/路径 ubuntu sleep 1000
+```
+
+> **区别**：命名卷 Docker 帮你管理存哪，比较省心；绑定挂载是把你电脑上的**文件夹直接连进去**，适合开发时改代码立刻生效。
+
+## 4. 一条最常用的挂载命令
+
+```bash
+docker run -d -p 8080:80 -v "$PWD/html:/usr/share/nginx/html" nginx
+```
+
+- `-v "$PWD/html:/usr/share/nginx/html"` → 把**当前目录下的 html 文件夹**连到容器里的 nginx 网站目录
+- 这样你直接改电脑上的 html，网页内容立刻变（不用重新构建镜像）
+
+> `$PWD` 表示当前所在目录（Windows PowerShell 用 `$PWD` 或 `(Get-Location).Path`，macOS/Linux 用 `$PWD` 或 `$(pwd)`）。
+
+## 5. 管理数据卷的命令
+
+```bash
+docker volume ls              # 列出所有卷
+docker volume inspect mydata  # 查看卷详情（存哪了）
+docker volume rm mydata       # 删除卷（会删数据，慎用）
+```
+
+## 6. 实战：给 Nginx 挂载本地目录
+
+```bash
+# 1. 建一个文件夹并放个网页
+mkdir web
+echo "这是从本地挂载的网页" > web/index.html
+
+# 2. 启动 nginx，把 web 目录挂到容器
+docker run -d -p 8080:80 -v "$PWD/web:/usr/share/nginx/html" nginx
+
+# 3. 访问 http://localhost:8080 就显示你写的网页；改 web/index.html 刷新即变
+```
+
+### 数据卷小结
+- 容器会消失，但**数据卷不跟着消失**。
+- 挂载用 `-v 宿主机路径:容器内路径`。
+- 开发用"绑定挂载"很方便，改代码即时生效。
+
+---
+
+# 第二部分：网络（Network）
+
+## 1. 问题场景
+
+你想让两个容器互相通信，比如「一个 Web 网站」和「一个数据库」。它们各自是独立容器，怎么连？
+
+## 2. 方案：把容器放进同一个"网络"
+
+Docker 有一个叫**网桥（bridge）**的默认网络。把一个容器加入到某网络后，它们就能**用容器名互相访问**。
+
+> 类比：把几个容器放进**同一个微信群**，群里的人可以互相喊话（用名字找到对方）。
+
+> 📷 网络互通示意图：
+> ![网络互通](images/network-bridge.svg)
+
+## 3. 常用网络命令
+
+```bash
+docker network ls               # 列出所有网络
+docker network create mynet     # 自定义创建网络
+docker network inspect mynet    # 查看网络细节
+docker network connect mynet 容器名   # 把容器加入网络
+```
+
+## 4. 端口映射（对外访问）
+
+之前的 `-p` 就是端口映射，让**外部**能访问容器：
+
+```bash
+docker run -d -p 8080:80 nginx
+```
+- `8080` = 你电脑（宿主机）上的端口
+- `80` = 容器里的端口
+- 浏览器访问 `http://localhost:8080`
+
+> 端口映射是"宿主机↔容器"；网络互通是"容器↔容器"。别搞混了。
+
+## 5. 实战：Web + 数据库 / 两个容器互通
+
+下面让一个 Nginx 和另一个容器通信：
+
+```bash
+# 1. 创建网络
+docker network create mynet
+
+# 2. 启动第一个容器，加入网络
+docker run -d --name web1 --network mynet nginx
+
+# 3. 启动第二个容器，加入同一网络，并给它干活
+docker run -d --name worker --network mynet --entrypoint sh nginx -c "sleep 1000"
+
+# 4. 进入 web1，用容器名访问 worker（这里用 curl 测试）
+docker exec -it web1 bash
+# 在容器里执行：
+#   apt-get update && apt-get install -y curl
+#   curl http://worker
+```
+
+> **关键点**：同一网络里的容器，可以用**容器名**当域名互相访问（如 `http://worker`），不用记 IP。这是 Compose 自动做好的事，也是为什么 Compose 很方便。
+
+## 6. 网络模式简表（了解即可）
+
+| 模式 | 特点 |
+| --- | --- |
+| `bridge`（默认） | 容器间通过自定义网络互通，对外靠 `-p` |
+| `host` | 容器直接用宿主机网络，端口不隔离 |
+| `none` | 没有网络 |
+| `container:xxx` | 共享另一个容器的网络 |
+
+---
+
+# 本章小结
+
+- **数据卷**解决"数据别丢"：`-v 宿主机:容器` 挂载外部存储。
+- **网络**解决"容器互连"：`--network 网络名`，同网络内用**容器名**互通。
+- **端口映射**解决"外部访问"：`-p 宿主机:容器`。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做（① 数据不丢）：**
+```bash
+docker volume create mydata
+docker run -d --name w1 -v mydata:/data busybox sh -c "echo hello > /data/a.txt; sleep 1000"
+docker run --rm -v mydata:/data busybox cat /data/a.txt   # 应输出 hello
+```
+
+**照着做（② 双容器互通）：**
+```bash
+docker network create mynet
+docker run -d --name alice --network mynet nginx
+docker run -d --name bob   --network mynet nginx
+docker exec -it alice bash
+# 进去后执行：
+#   apt-get update && apt-get install -y curl
+#   curl http://bob
+```
+
+**✅ 过关标准：** ① `cat /data/a.txt` 输出 `hello`（删除容器后数据仍在）；② 在 alice 容器里能 `curl http://bob` 访问到。
+
+接下来去 [07-Docker-Compose](07-Docker-Compose.md)，学怎么"一条命令启动多个容器"。
+</script>
+<script type='text/plain' id='ch07'># 07 · Docker Compose（零基础版）
+
+上面我们用 `docker run` 一个个启动容器。但如果一个应用有 5、6 个容器（Web、数据库、缓存…），一个个手动启动太麻烦、也不好管理。
+
+**Docker Compose** 就是来干这个的：**写一个配置文件，一条命令同时启动/管理所有容器。**
+
+> 类比：`docker run` 是"一个一个点菜"；**Compose 是"点一桌套餐"**，配置好一份菜单（`docker-compose.yml`），一条命令全部上齐。
+
+> 📷 Compose 示意图：
+> ![Compose](images/compose-overview.svg)
+
+---
+
+## 1. 安装 Compose
+
+- **Docker Desktop（Windows/macOS）**：已经自带了，直接在终端用 `docker compose` 即可。
+- **Linux**：需要额外安装。可以用 Docker 官方插件方式，或单独安装 `docker-compose`。
+
+检查是否可用：
+
+```bash
+docker compose version
+```
+（新版写法是 `docker compose` 中间有空格；老版本是 `docker-compose`。本教程用新版 `docker compose`。）
+
+---
+
+## 2. 核心文件：docker-compose.yml
+
+Compose 靠一个叫 `docker-compose.yml` 的配置文件工作。它是 **YAML 格式**，特点是**用缩进表示层级，非常易读**。
+
+> YAML 有个关键点：**缩进必须用空格，不能用 Tab**，且缩进要对齐。
+
+---
+
+## 3. 第一个例子：一个 Web 应用
+
+在项目目录创建 `docker-compose.yml`：
+
+```yaml
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+```
+
+**逐行解释：**
+- `services:` → 定义要启动的服务（容器）列表
+- `web:` → 第一个服务的名字，随便起，但后面引用要用它
+- `image: nginx` → 起这个服务用哪个镜像
+- `ports:` → 端口映射列表
+- `- "8080:80"` → 把宿主机 8080 映射到容器 80
+
+### 启动
+
+```bash
+docker compose up -d
+```
+
+- `up` → 启动所有服务
+- `-d` → 后台运行
+
+浏览器访问 `http://localhost:8080`，看到 Nginx 页面。
+
+### 停止
+
+```bash
+docker compose down
+```
+
+---
+
+## 4. 更完整的例子：Web + 数据库（重点）
+
+一个真实项目通常有"应用"+ "数据库"。用 Compose 把它们一起起，并让它们互通。
+
+创建 `docker-compose.yml`：
+
+```yaml
+services:
+  # Web 应用
+  app:
+    image: python:3.11-slim
+    command: python -m http.server 8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  # 数据库
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: secret123
+      POSTGRES_DB: mydb
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+# 定义数据卷（保存数据库数据，防止重启丢失）
+volumes:
+  db-data:
+```
+
+**逐部分解释：**
+- `depends_on: - db` → `app` 要在 `db` 启动后才启动（先起数据库）
+- `environment:` → 设置环境变量（这里是数据库密码、库名）
+- `volumes: - db-data:/var/lib/postgresql/data` → 把数据库的数据存到命名卷 `db-data`，重启不丢
+- `volumes:`（文件最下面）→ 声明要用到哪些命名卷
+
+### 启动与验证
+
+```bash
+docker compose up -d
+docker compose ps          # 看所有服务状态
+docker compose logs app    # 看某个服务的日志
+```
+
+> **关键（重要）**：在同一个 compose 里，服务之间可以用**服务名**当主机名互访。比如 `app` 服务里要连数据库，就填 `db:5432`，Compose 会自动建网络并解析。**你不用手动配置网络！**
+
+---
+
+## 5. 常用 Compose 命令速查
+
+```bash
+docker compose up -d          # 启动所有服务（后台）
+docker compose up -d --build  # 有自定义镜像时，先重新构建再启动
+docker compose ps             # 查看服务状态
+docker compose logs -f        # 实时查看日志（全部服务）
+docker compose logs -f app    # 只看某个服务
+docker compose down           # 停止并删除所有容器
+docker compose down -v        # 停止并删除容器 + 数据卷（删数据，慎用）
+docker compose restart        # 重启所有服务
+docker compose exec app bash  # 进入某个服务的容器
+```
+
+---
+
+## 6. 常用字段速查
+
+| 字段 | 作用 | 示例 |
+| --- | --- | --- |
+| `image` | 用哪个镜像 | `image: nginx` |
+| `build` | 用本目录的 Dockerfile 构建 | `build: .` |
+| `ports` | 端口映射 | `- "8080:80"` |
+| `volumes` | 挂载数据卷 | `- myvol:/data` |
+| `environment` | 环境变量 | `- KEY=value` 或键值对 |
+| `depends_on` | 启动顺序 | `- db` |
+| `command` | 覆盖容器启动命令 | `- python app.py` |
+| `restart` | 崩溃后自动重启策略 | `restart: always` |
+
+---
+
+## 7. 动手做一个完整小项目（推荐）
+
+做一个"网页应用 + 数据库"的小项目：
+
+1. 建一个文件夹，放一个简单 Python 网页程序（`app.py`）。
+2. 写 `Dockerfile`（基于 python 镜像）。
+3. 写 `docker-compose.yml`，包含 `app`（用 `build: .`）和 `db`（用 postgres）。
+4. `docker compose up -d --build`。
+5. 浏览器访问，验证网页能连上数据库。
+
+具体每一步，见 [09-实验手册](09-训练-实验手册.md) 的**实验 7**。
+
+---
+
+## 8. 本章小结
+
+- **Compose 用 `docker-compose.yml` 一句话启动多个容器**。
+- 服务之间**用服务名互相访问**，不用手动配网络。
+- 常用命令：`up -d`、`ps`、`logs`、`down`。
+- 数据放命名卷（`volumes:`）防止重启丢失。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做：**
+```bash
+docker compose up -d --build   # 启动 web + db
+docker compose ps              # 看状态
+docker compose logs web        # 看 web 日志
+docker compose down            # 一键停止
+```
+
+**✅ 过关标准：** `docker compose ps` 显示 `web` 和 `db` 都是 running；浏览器访问 `http://localhost:5000` 看到文字；`docker compose down` 能一键全部停止。
+
+接下来去 [08-最佳实践与安全](08-最佳实践与安全.md)，学习怎么把镜像做小、用得安全。
+</script>
+<script type='text/plain' id='ch08'># 08 · 最佳实践与安全（零基础版）
+
+学会用之后，这一章教你**用得更好、更安全**。分两部分：把镜像做小做快、把容器用安全。
+
+---
+
+# 第一部分：让镜像更小、构建更快
+
+## 1. 用瘦身基础镜像
+
+同一程序，不同的基础镜像大小差别很大：
+
+| 基础镜像 | 说明 | 大小 |
+| --- | --- | --- |
+| `python:3.11` | 完整版，含很多工具 | 较大 |
+| `python:3.11-slim` | 精简版，够用 | 中等 |
+| `python:3.11-alpine` | 极简版（基于 Alpine Linux） | 很小 |
+
+**建议**：优先用带 `-slim` 或 `-alpine` 的基础镜像。
+
+```dockerfile
+FROM python:3.11-slim   # 比 python:3.11 小很多
+```
+
+## 2. 一条命令只做一件事 / 合并层
+
+每条 `RUN`、`COPY` 会生成一层，层越多镜像越大。把相关命令**合并**成一条：
+
+```dockerfile
+# 不好：多层
+RUN apt-get update
+RUN apt-get install -y curl
+RUN apt-get clean
+
+# 更好：合并，并清理缓存
+RUN apt-get update && \
+    apt-get install -y curl && \
+    rm -rf /var/lib/apt/lists/*
+```
+
+## 3. 用 .dockerignore 排除无关文件
+
+就像 `.gitignore`，建一个 `.dockerignore` 文件，让构建时不复制进来没用的东西：
+
+```
+node_modules
+.git
+*.log
+__pycache__
+```
+
+> 这能显著减小"上下文"体积，构建更快。
+
+## 4. 利用缓存：把易变的放后面
+
+构建时 Docker 会缓存不变的行。所以把**容易变的放后面**：
+
+```dockerfile
+# 1. 依赖（不常变）放前面
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# 2. 代码（常改）放后面
+COPY . .
+```
+
+这样每次改代码，不会重新装依赖，构建会快很多。
+
+## 5. 多阶段构建（进阶，了解即可）
+
+用"构建阶段 + 运行阶段"，把编译工具去掉，只留运行产物 → 镜像更小。
+
+```dockerfile
+# 构建阶段
+FROM node:20 AS build
+WORKDIR /app
+COPY . .
+RUN npm install && npm run build
+
+# 运行阶段（只复制构建产物）
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+```
+
+---
+
+# 第二部分：安全与规范
+
+## 1. 不要用 root 运行
+
+容器默认用 root 运行不安全。用普通用户跑：
+
+```dockerfile
+FROM node:20-alpine
+# 创建用户（node 镜像自带 node 用户）
+USER node
+CMD ["node", "app.js"]
+```
+
+## 2. 别把密码/密钥写进镜像
+
+```dockerfile
+# ❌ 不要这样：密码被烧进镜像
+ENV DB_PASSWORD=123456
+```
+
+→ 运行/部署时用环境变量传入，或用 secret 管理。
+
+## 3. 基础镜像从官方/可信来源拉取
+
+用**官方镜像**（如 `nginx`、`python`、`postgres`），或自己构建，别随意拉来路不明的镜像。
+
+## 4. 只暴露必要的端口和权限
+
+- 用 `EXPOSE` 声明需要哪些端口。
+- 运行容器时**按需挂载卷**，不要给容器太多宿主机权限。
+
+## 5. 定期清理没用的东西
+
+```bash
+docker system df           # 看占用
+docker system prune -a     # 清理未用镜像、容器、网络、缓存（慎用）
+docker volume prune        # 清理未用的数据卷
+```
+
+> 好处：不占硬盘、减少潜在风险。
+
+---
+
+# 本章小结（黄金口诀）
+
+1. **越小越快**：用 slim/alpine、合并 RUN 层、.dockerignore、多阶段构建。
+2. **安全**：不用 root、不烧密钥、用官方镜像、最小权限。
+3. **清爽**：定期清理无用镜像和卷。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做：**
+```bash
+# 1. 先看原来镜像多大
+docker images
+
+# 2. 把 Dockerfile 基础镜像换成 slim 或 alpine，重新构建一个新版本
+docker build -t myweb:opt .
+docker images   # 对比体积，应该更小
+```
+
+**✅ 过关标准：** 换成 `-slim` 或 `-alpine` 后镜像体积明显变小；能说出哪些操作能减小镜像。
+
+接下来去 [09-训练-实验手册](09-训练-实验手册.md)，把前面学的都动手做一遍。
+</script>
+<script type='text/plain' id='ch09'># 09 · 训练：实验手册（照着做 · 就学会）
+
+一共 **8 个实验**，由浅入深。**不用背任何东西**——每一个实验都是「照着敲 → 看到结果 → 就过关」。照着做下来，你就真的会用了。
+
+> **怎么用**：按顺序做，做完一个再看下一个。每步都给你**命令**和**预期结果**，看到那个结果就算这步对了。报错就把红字复制去搜，90% 有答案。
+
+---
+
+## 实验 1：安装并验证 Docker
+
+**目标**：确认 Docker 装好了，能正常运行。
+
+**步骤：**
+```bash
+# 1. 看版本
+docker --version
+
+# 2. 运行官方测试程序（第一次会自动下载）
+docker run hello-world
+```
+
+**预期结果**：看到打印出 "Hello from Docker!"。
+
+**检查点（自测）：**
+- [ ] `docker --version` 输出版本号
+- [ ] `docker run hello-world` 打印出欢迎信息
+- [ ] 成功后用 `docker ps -a` 能看到一个已退出的 hello-world 容器
+
+---
+
+## 实验 2：用镜像启动一个网页容器
+
+**目标**：用 Nginx 镜像启动容器，并通过浏览器访问。
+
+**步骤：**
+```bash
+# 1. 下载 nginx 镜像（可选，run 会自动下载）
+docker pull nginx
+
+# 2. 后台启动，映射端口，起名
+docker run -d -p 8080:80 --name myweb nginx
+
+# 3. 看看是否在运行
+docker ps
+```
+
+**预期结果**：浏览器打开 `http://localhost:8080`，看到 Nginx 欢迎页。
+
+**检查点（自测）：**
+- [ ] `docker ps` 里能看到 `myweb` 在运行，端口是 `0.0.0.0:8080->80/tcp`
+- [ ] 浏览器能访问到 Nginx 页面
+- [ ] 我能用 `docker logs myweb` 看日志
+
+> 打不开网页？检查端口是否被占用，换个端口如 `-p 8090:80` 试试；Windows 防火墙可能需放行。
+
+**清理：**
+```bash
+docker stop myweb && docker rm myweb
+```
+
+---
+
+## 实验 3：容器生命周期与交互
+
+**目标**：理解容器"启动—运行—停止—删除"，学会进容器。
+
+**步骤：**
+```bash
+# 1. 启动一个交互式 Ubuntu 容器
+docker run -it --name myubuntu ubuntu bash
+
+# 2. 在里面敲几条命令看看（这是个干净的 Linux）
+ls
+ls -la
+
+# 3. 退出容器
+exit
+
+# 4. 查看所有容器（含停止的）
+docker ps -a
+
+# 5. 重新启动并进入
+docker start -ai myubuntu
+exit
+
+# 6. 删除容器
+docker rm myubuntu
+```
+
+**检查点（自测）：**
+- [ ] 能进入容器并执行 `ls`
+- [ ] 能理解 `exit` 后容器停止，`docker ps` 看不到，`docker ps -a` 看得到
+- [ ] 能删除容器，`docker ps -a` 后不再有它
+
+---
+
+## 实验 4：写 Dockerfile 构建自己的镜像
+
+**目标**：自己做一个网页镜像。
+
+**步骤：**
+1. 新建文件夹 `myproj`，进入。
+2. 创建 `index.html`：
+   ```html
+   <h1>我的 Docker 镜像</h1>
+   ```
+3. 创建 `Dockerfile`：
+   ```dockerfile
+   FROM nginx
+   COPY index.html /usr/share/nginx/html/index.html
+   EXPOSE 80
+   ```
+4. 构建并运行：
+   ```bash
+   docker build -t myweb:v1 .
+   docker run -d -p 8080:80 --name myweb1 myweb:v1
+   ```
+5. 浏览器访问 `http://localhost:8080`。
+
+**检查点（自测）：**
+- [ ] `docker images` 里有 `myweb:v1`
+- [ ] 浏览器显示你自己的网页
+- [ ] 我能解释 `FROM / COPY / EXPOSE` 各自作用
+
+---
+
+## 实验 5：数据卷——数据不会丢
+
+**目标**：体会挂载后，容器重启/删除了数据还在。
+
+**步骤：**
+```bash
+# 1. 创建命名卷
+docker volume create mydata
+
+# 2. 启动容器，把卷挂到 /data（用 busybox 写个文件）
+docker run -d --name write1 -v mydata:/data busybox sh -c "echo hello > /data/a.txt; sleep 1000"
+
+# 3. 换一个容器，用同一个卷，看看能不能读到
+docker run --rm -v mydata:/data busybox cat /data/a.txt
+
+# 4. 原容器删掉，数据还在卷里
+docker rm -f write1
+docker run --rm -v mydata:/data busybox cat /data/a.txt
+```
+
+**检查点（自测）：**
+- [ ] `cat /data/a.txt` 能输出 `hello`
+- [ ] 删除容器后，数据仍在卷里（最后一步还能读到）
+- [ ] 我能说出"为什么容器删了数据还在"（因为存在卷里）
+
+> 提示：Windows 上若命令报权限问题，可改用绑定挂载的写法并检查路径。
+
+---
+
+## 实验 6：网络——两个容器互通
+
+**目标**：让两个容器在同一网络内用名字互相访问。
+
+**步骤：**
+```bash
+# 1. 创建自定义网络
+docker network create mynet
+
+# 2. 启动两个容器，都加入 mynet
+docker run -d --name alice --network mynet nginx
+docker run -d --name bob --network mynet nginx
+
+# 3. 进入 alice，用 bob 的名字访问它
+docker exec -it alice bash
+#   容器内执行（若没有 curl，先 apt-get update && apt-get install -y curl）
+curl http://bob
+```
+
+**检查点（自测）：**
+- [ ] 在 alice 容器里能 `curl http://bob` 访问到
+- [ ] 我能说出"同一网络内容器用名字互通"这一点
+
+> 若容器里没 `curl`，用 `apt-get install` 装；装不上也不影响理解，报"能解析到主机名"即可。
+
+---
+
+## 实验 7：Compose 启动 Web + 数据库（综合项目）
+
+**目标**：用 Compose 一次启动"应用 + 数据库"。
+
+**准备：** 一个简单的 Python Web 程序。在同目录建 `app.py`：
+```python
+from flask import Flask
+import psycopg2
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "你好，Compose + 数据库！"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+```
+
+**建 `Dockerfile`：**
+```dockerfile
+FROM python:3.11-slim
+WORKDIR /app
+COPY . .
+RUN pip install flask psycopg2-binary
+CMD ["python", "app.py"]
+```
+
+**建 `docker-compose.yml`：**
+```yaml
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+volumes:
+  dbdata:
+```
+
+**运行：**
+```bash
+docker compose up -d --build
+docker compose ps
+docker compose logs web
+```
+
+**检查点（自测）：**
+- [ ] `docker compose up -d --build` 成功启动
+- [ ] `docker compose ps` 显示 `web` 和 `db` 都 running
+- [ ] 浏览器访问 `http://localhost:5000` 看到文字
+- [ ] 我能用 `docker compose down` 一键停止
+
+---
+
+## 实验 8：优化镜像（最佳实践）
+
+**目标**：对比优化前后的镜像大小。
+
+**步骤：**
+
+1. 先看原镜像大小：
+   ```bash
+   docker images | grep myweb
+   ```
+   （若之前做过，记录大小）
+
+2. 把实验 4 的 Dockerfile 优化一下（例如基于 `nginx:alpine`）：
+   ```dockerfile
+   FROM nginx:alpine
+   COPY index.html /usr/share/nginx/html/index.html
+   EXPOSE 80
+   ```
+
+3. 重新构建一个版本看大小变化：
+   ```bash
+   docker build -t myweb:opt .
+   docker images | grep myweb
+   ```
+
+**检查点（自测）：**
+- [ ] `myweb:opt` 比原来更小
+- [ ] 我能说出哪些做法能减小镜像（用 slim/alpine、合并 RUN 层）
+- [ ] 我能做一次 `docker system prune` 清理（并知道它删了什么）
+
+> 提示：`docker system prune` 会删除未被使用的镜像/网络/容器/缓存，记得确认后再做。
+
+---
+
+## 全部做完后
+
+8 个实验都跑通，说明你已经掌握了日常 Docker 90% 的操作。现在可以用 [10-考试题](10-考试-试题与答案.md) 来检验自己了！
+
+> 实验顺序参考章节：1→[03](03-安装与环境准备.md)，2~3→[04](04-核心命令.md)，4~5→[05](05-Dockerfile与镜像构建.md)与[06](06-数据卷与网络.md)，6→[06](06-数据卷与网络.md)，7→[07](07-Docker-Compose.md)，8→[08](08-最佳实践与安全.md)。
+</script>
+<script type='text/plain' id='ch10'># 10 · 考试：试题与答案（Docker 入门）
+
+这是一份自测卷。**建议先闭卷独立完成，再对答案。**
+
+> 💻 **想在线交互式答题？** 打开学习网站，点左侧 **「📝 在线测验」** 即可（无需联网）。它会自动判分、显示解析，最后给出总分和评级；本页则是它的完整文字版（含参考解答）。
+
+- **总分 100 分**
+- 题型：一、单选（每题 3 分，共 30 分）；二、多选（每题 4 分，共 20 分）；三、判断（每题 2 分，共 20 分）；四、简答（每题 5 分，共 15 分）；五、实操（15 分）
+- 建议时长：**40 分钟**
+
+---
+
+## 一、单项选择题（每题 3 分，共 30 分）
+
+**1.** 下列关于"镜像（Image）"和"容器（Container）"关系说法正确的是？
+- A. 镜像和容器是同一个东西
+- B. 容器是镜像的只读模板
+- C. 镜像是只读模板，容器是镜像的运行实例
+- D. 镜像可以修改，容器不能
+
+**2.** 容器和虚拟机（VM）相比，最主要的区别是？
+- A. 容器更重、启动更慢
+- B. 容器共享宿主机的操作系统内核，更轻量、启动更快
+- C. 容器包含完整的操作系统
+- D. 两者没有区别
+
+**3.** 要下载一个 Docker 镜像，应该用哪条命令？
+- A. `docker run`
+- B. `docker pull`
+- C. `docker push`
+- D. `docker build`
+
+**4.** 启动一个后台运行的 Nginx 容器，并映射宿主机 8080 端口，正确的是？
+- A. `docker run -d -p 8080:80 nginx`
+- B. `docker run -p 80:8080 nginx`
+- C. `docker run -d -p 8080 nginx`
+- D. `docker run nginx -d 8080:80`
+
+**5.** 查看当前**正在运行**的容器，用哪条命令？
+- A. `docker images`
+- B. `docker ps -a`
+- C. `docker ps`
+- D. `docker run`
+
+**6.** 下面哪个是 Dockerfile 里用来"基于某个基础镜像"的指令？
+- A. `FROM`
+- B. `COPY`
+- C. `ENTRYPOINT`
+- D. `WORKDIR`
+
+**7.** 要进入一个正在运行的容器内部进行操作，用哪条命令？
+- A. `docker enter`
+- B. `docker exec -it 容器名 bash`
+- C. `docker attach 容器名`
+- D. `docker run -it 容器名`
+
+**8.** Docker Compose 的核心配置文件叫什么？
+- A. `Dockerfile`
+- B. `docker-compose.yml`
+- C. `compose.txt`
+- D. `docker.conf`
+
+**9.** 同在一个 Docker 网络内的两个容器，通常用哪个"域名"互相访问？
+- A. 容器的 IP 地址
+- B. 宿主机 IP
+- C. 容器的**名字**（服务名）
+- D. 无法互相访问
+
+**10.** 容器默认是"一次性"的，删除后里面的数据会丢失。要保存数据，应该用？
+- A. 多启动几个容器
+- B. 数据卷（Volume）/ 挂载
+- C. 增大容器内存
+- D. 重新构建镜像
+
+---
+
+## 二、多项选择题（每题 4 分，共 20 分，多选/错选/少选不得分）
+
+**11.** 下列哪些能减小 Docker 镜像体积？（多选）
+- A. 使用 `-slim` 或 `-alpine` 基础镜像
+- B. 把多条 `RUN` 合并成一条
+- C. 使用 `.dockerignore` 排除无关文件
+- D. 使用多阶段构建
+
+**12.** 关于 Docker Compose，下列说法正确的是？（多选）
+- A. 用来一次性启动/管理多个容器
+- B. 配置文件是 `docker-compose.yml`
+- C. 用 `docker compose up -d` 后台启动
+- D. 服务之间需要用 IP 地址互访，必须手动配置网络
+
+**13.** 关于端口映射 `-p 8080:80`，正确的理解是？（多选）
+- A. 宿主机 8080 端口映射到容器 80 端口
+- B. 宿主机 80 端口映射到容器 8080 端口
+- C. 用来让外部能访问容器
+- D. 用来让容器之间互访
+
+**14.** 下列属于 Docker 安全最佳实践的有？（多选）
+- A. 容器内避免用 root 运行
+- B. 不要把密码/密钥烧进镜像
+- C. 尽量使用可信的官方镜像
+- D. 给容器开放所有端口和权限
+
+**15.** 关于 `docker run -d -p 8080:80 --name myweb nginx`，下列理解正确的是？（多选）
+- A. `-d` 表示后台运行
+- B. `--name myweb` 给容器命名
+- C. 用 nginx 镜像启动
+- D. 这条命令会删除之前的容器
+
+---
+
+## 三、判断题（每题 2 分，共 20 分）
+
+**16.** `docker ps` 默认列出所有容器（包括已停止的）。（ ）
+- A. 对
+- B. 错
+
+**17.** 一个镜像可以启动多个容器，它们互相独立。（ ）
+- A. 对
+- B. 错
+
+**18.** Dockerfile 必须用 `FROM` 指令开头。（ ）
+- A. 对
+- B. 错
+
+**19.** `docker volume` 用于让数据在容器删除后仍然保留。（ ）
+- A. 对
+- B. 错
+
+**20.** 镜像一旦构建，就永远不能修改，只能重新构建。（ ）
+- A. 对
+- B. 错
+
+**21.** `docker logs` 可以用来查看容器运行时的输出日志。（ ）
+- A. 对
+- B. 错
+
+**22.** 在 Compose 里，服务之间默认可以用"服务名"互相访问。（ ）
+- A. 对
+- B. 错
+
+**23.** `docker system prune` 会删除所有镜像（包括正在使用的）。（ ）
+- A. 对
+- B. 错
+
+**24.** 容器和虚拟机一样，都包含一套完整的操作系统。（ ）
+- A. 对
+- B. 错
+
+**25.** 使用 `docker run -it ubuntu bash` 可以进入一个交互式容器并执行命令。（ ）
+- A. 对
+- B. 错
+
+---
+
+## 四、简答题（每题 5 分，共 15 分）
+
+**26.** 用一句话解释：什么是镜像？什么是容器？两者关系是什么？
+
+**27.** 数据卷（Volume）解决什么问题？挂载命令的基本语法是什么？
+
+**28.** 为什么要用 Docker Compose？它带来了什么好处？
+
+---
+
+## 五、实操题（15 分）
+
+**29.** 请在终端完成以下操作并截图/记录结果：
+
+（1）启动一个 Nginx 容器，后台运行，映射宿主 8080 端口，命名为 `web1`。（4 分）
+
+（2）查看当前正在运行的容器，确认 `web1` 在运行。（3 分）
+
+（3）进入 `web1` 容器内部，查看其网站目录 `/usr/share/nginx/html` 下有哪些文件。（4 分）
+
+（4）停止并删除 `web1` 容器。（4 分）
+
+> 提示：分别用到 `docker run -d -p ... --name`、`docker ps`、`docker exec -it`、`docker stop` 与 `docker rm`。
+
+---
+
+---
+
+# 参考答案与解析
+
+## 一、单项选择题
+
+| 题号 | 答案 | 解析 |
+| --- | --- | --- |
+| 1 | C | 镜像是只读模板，容器是镜像运行出来的实例。 |
+| 2 | B | 容器共享宿主机内核，所以轻量、启动快；虚拟机含完整 OS 所以重。 |
+| 3 | B | `docker pull` 从仓库下载镜像。 |
+| 4 | A | `-d` 后台，`-p 8080:80` 宿主机 8080 → 容器 80。 |
+| 5 | C | `docker ps` 只显示运行中的；`-a` 显示所有。 |
+| 6 | A | `FROM` 指定基础镜像。 |
+| 7 | B | `docker exec -it 容器名 bash` 进入容器。 |
+| 8 | B | Compose 配置文件是 `docker-compose.yml`。 |
+| 9 | C | 同网络内用容器名/服务名互访。 |
+| 10 | B | 用数据卷/挂载保存数据。 |
+
+**计分**：每题 3 分，对 10 题 = 30 分。
+
+## 二、多项选择题
+
+| 题号 | 答案 | 解析 |
+| --- | --- | --- |
+| 11 | A、B、C、D | 四种都是减小镜像/优化构建设的好做法。 |
+| 12 | A、B、C | D 错——同网络内用服务名即可，不用手动配 IP/网络。 |
+| 13 | A、C | B 反了；D 是网络互通，端口映射是外部访问。 |
+| 14 | A、B、C | D 错——应最小化权限和端口。 |
+| 15 | A、B、C | D 错——这条命令不会删除旧容器。 |
+
+**计分**：每题 4 分，全对得 4 分。
+
+## 三、判断题
+
+| 题号 | 答案 | 解析 |
+| --- | --- | --- |
+| 16 | B（错） | `docker ps` 只显示运行中的；`-a` 才显示所有。 |
+| 17 | A（对） | 一个镜像可开多个独立容器。 |
+| 18 | A（对） | Dockerfile 以 `FROM` 开头。 |
+| 19 | A（对） | 数据卷让数据不随容器销毁。 |
+| 20 | B（错） | 镜像是不可变"蓝图"，改的是 Dockerfile 重新构建；但题面"永远不能修改"其实指镜像本身不可写——这里更准确的表述：镜像只读，修改需重建。判 B。 |
+| 21 | A（对） | `docker logs` 看容器的标准输出/错误日志。 |
+| 22 | A（对） | Compose 默认让服务用服务名互访。 |
+| 23 | B（错） | `docker system prune` 默认清理未使用的，不含正在运行的镜像；`-a` 才清理所有未使用镜像。 |
+| 24 | B（错） | 容器共享宿主机内核，不包含完整 OS。 |
+| 25 | A（对） | `-it` 进入交互式容器并执行命令。 |
+
+**计分**：每题 2 分，答对 10 题 = 20 分。
+
+> 说明：第 20 题表述存在歧义，若被你判 A 也有一定合理性（镜像只读）。出题角度重在"镜像本质只读、更新靠重建"。建议判 B，但可在讲解时说明。
+
+## 四、简答题（参考要点）
+
+**26.**
+- 镜像：一个只读的、打包了程序及其运行环境的"蓝图/模板"。
+- 容器：根据镜像启动的、真正运行的可读写实例。
+- 关系：**镜像是模板，容器是它的运行实例**；一个镜像可以启动多个容器。
+
+**27.**
+- 数据卷解决的问题：容器默认一次性，删除后数据会丢；数据卷把数据存在容器外部，从而**容器删除后数据依然保留**。
+- 基本语法：`-v 宿主机路径/卷名:容器内路径`（或 `docker volume create` 创建命名卷）。
+
+**28.**
+- 原因：一个应用往往由多个容器组成，逐个手动启动管理繁琐、易出错。
+- 好处：**用一个 `docker-compose.yml` 配置所有服务，`docker compose up -d` 一条命令启动/管理多个容器**；服务间用服务名互通，网络自动配置，便于维护。
+
+**计分**：每要点占一部分分值，答出核心即可。
+
+## 五、实操题（参考答案命令）
+
+（1）启动：
+```bash
+docker run -d -p 8080:80 --name web1 nginx
+```
+（2）查看：
+```bash
+docker ps
+```
+（3）进入查看：
+```bash
+docker exec -it web1 bash
+ls /usr/share/nginx/html
+exit
+```
+（4）停止并删除：
+```bash
+docker stop web1
+docker rm web1
+```
+
+**评分参考：**
+- 启动命令正确（含 `-d`、`-p`、`--name`）= 4 分
+- `docker ps` 正确且能看到 web1 = 3 分
+- `docker exec -it web1 bash` 进入并列出目录 = 4 分
+- `docker stop` + `docker rm` 正确 = 4 分
+
+---
+
+## 计分参考
+
+- 单选 30 + 多选 20 + 判断 20 + 简答 15 + 实操 15 = **100 分**
+- 90 分以上：掌握非常扎实 ✅
+- 75~89 分：掌握良好，回头补薄弱点
+- 60~74 分：需要再复习对应章节
+- 60 分以下：建议从 [02-基础概念](02-Docker基础概念.md) 重新学一遍
+
+> 核对章节：选择题考察内容大多来自 [04-核心命令](04-核心命令.md) 与 [02-基础概念](02-Docker基础概念.md)；多选/判断结合了 [05](05-Dockerfile与镜像构建.md)、[06](06-数据卷与网络.md)、[07](07-Docker-Compose.md)、[08](08-最佳实践与安全.md)。
+</script>
+<script type='text/plain' id='ch11'># 11 · Nacos 入门（零基础 · 照着做就学会）
+
+学完 Docker 后，这一章带你认识微服务里常说的 **Nacos**。别被名字吓到，它其实就是两个工具：**服务发现（注册中心）+ 配置中心**。跟着做，跑起来你就懂了。
+
+> 你只需要已经会用 Docker（上一阶段学的），不要求会 Java。
+
+---
+
+## 1. 为什么需要 Nacos？
+
+### 曾经的烦恼
+你写了一个网站 A。有一天系统变大了，多了一个网站 B，还要共享同一套配置（比如同一个数据库地址）。于是：
+- A 和 B 要互相找对方（A 调用 B，但 B 的地址经常变）
+- 配置改一下（比如数据库密码变了），要一个个去每台机器改，容易漏
+
+### Nacos 的思路
+Nacos 当**中间人**：
+- **服务发现**：所有服务启动时都来 Nacos "报到"（注册）。谁要调用谁，就找 Nacos 要地址。
+- **配置中心**：配置统一放 Nacos，服务启动时来拉取；改了配置，Nacos 通知服务自动更新。
+
+> 一句话：**Nacos 让服务们"找得到彼此"，让配置"改一处、处处生效"。**
+
+---
+
+## 2. Nacos 是什么 / 能干嘛
+
+Nacos = **N**aming and **C**onfiguration **S**ervice（命名与配置服务）。两大能力：
+
+| 能力 | 作用 | 类比 |
+| --- | --- | --- |
+| 服务发现（注册中心） | 记录每个服务在哪个地址，方便互相调用 | 通讯录 |
+| 配置中心 | 统一管理配置，改一处全局生效 | 公司的统一公告板 |
+
+> 它常和 **Spring Cloud 微服务**一起用，但你**不学 Java 也能**先把它跑起来、看明白它干嘛。
+
+---
+
+## 3. 核心概念（看懂这几个词）
+
+| 术语 | 意思 |
+| --- | --- |
+| 服务 Service | 一个被调用的程序/模块（如"订单服务"） |
+| 实例 Instance | 一个正在运行的服务（一个服务可以跑多个实例） |
+| 注册 Register | 服务启动后告诉 Nacos"我在这里" |
+| 发现 Discover | 调用方问 Nacos"要调用的服务在哪" |
+| 命名空间 Namespace | 隔离不同环境（如开发/测试/生产） |
+| 配置 Config | 程序需要的设置（数据库地址、开关等） |
+
+> 📷 架构示意图：
+> ![Nacos 架构](images/nacos-architecture.svg)
+
+---
+
+## 4. 用 Docker 把 Nacos 跑起来
+
+Nacos 官方提供镜像，**一条命令**就能起一个单机版：
+
+```bash
+docker run -d --name mynacos \
+  -e MODE=standalone \
+  -p 8848:8848 -p 9848:9848 \
+  nacos/nacos-server:v2.2.3
+```
+
+- `MODE=standalone` → 单机模式（学习够用）
+- 端口 `8848` → 控制台/API；`9848` → gRPC 端口
+
+等几秒，打开浏览器访问：
+
+```
+http://localhost:8848/nacos
+```
+
+> 默认登录：用户名 `nacos`，密码 `nacos`（首次可能需要重置）。
+
+---
+
+## 5. 上手：在控制台里点一点
+
+### ① 配置中心（先试这个）
+进入控制台 → **配置管理 → 配置列表** → **新建配置**：
+- Data ID：`app.yaml`
+- Group：`DEFAULT_GROUP`
+- 格式：`YAML`
+- 内容：随便写一行，比如 `name: hello`
+
+点 **发布**。下面的"配置列表"里出现 `app.yaml`，说明**配置已保存**。
+
+**这就是配置中心**：以后程序启动时来拿这份配置，改这一处，全局生效。
+
+### ② 服务发现（了解一下）
+进入控制台 → **服务管理 → 服务列表**。这里以后会看到一个个注册进来的服务；你也可以点**新建服务**试一下（填个服务名即可）。真正注册一般由程序启动时自动完成。
+
+---
+
+## 6. 本章小结
+
+- **Nacos = 服务发现（注册中心）+ 配置中心**。
+- 服务启动来**注册**，调用方靠 Nacos **发现**。
+- 配置**统一放 Nacos**，改一处处处生效。
+- 用 `docker run -e MODE=standalone ... nacos/nacos-server` 即可跑起来，控制台在 `:8848/nacos`。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做：**
+```bash
+docker run -d --name mynacos \
+  -e MODE=standalone \
+  -p 8848:8848 -p 9848:9848 \
+  nacos/nacos-server:v2.2.3
+```
+然后浏览器打开 `http://localhost:8848/nacos`，用 `nacos / nacos` 登录。
+
+**✅ 过关标准：** 能打开并登录 Nacos 控制台；在「配置管理」新建并发布一条配置，能在配置列表看到它。
+
+**清理（不学了再删）：**
+```bash
+docker stop mynacos && docker rm mynacos
+```
+
+学完去 [12-Jenkins入门](12-Jenkins入门.md)，认识自动化部署 Jenkins。
+</script>
+<script type='text/plain' id='ch12'># 12 · Jenkins 入门（零基础 · 照着做就学会）
+
+这一章认识 **Jenkins**——一个帮你**自动构建、自动部署**的工具（CI/CD）。它听起来高级，其实就是"一键自动帮你把代码变成能跑的、并发布出去"的机器人。跟着做，跑起来就懂了。
+
+> 只需要已会用 Docker（上一阶段学的），不要求会 Java。
+
+---
+
+## 1. 为什么需要 Jenkins？
+
+### 曾经的烦恼
+你写好代码，想上线。每次都要：手动拉代码 → 装依赖 → 打包 → 测试 → 放到服务器 → 重启。**步骤又多又累，还容易漏**。
+
+### Jenkins 的思路
+把上面这些步骤写成**流水线**，Jenkins 每次自动帮你执行一遍。你只管：**推代码 → 点一下 → 等它自动完成**。
+
+> 一句话：**Jenkins 把你的"手工劳作"变成"一键自动"。**
+
+---
+
+## 2. 什么是 CI/CD？
+
+这两个词常和 Jenkins 一起出现：
+
+| 术语 | 全称 | 意思 |
+| --- | --- | --- |
+| CI | 持续集成 Continuous Integration | 频繁地把代码合并、自动**构建+测试**，尽早发现问题 |
+| CD | 持续交付/部署 Continuous Delivery/Deployment | 自动把构建好的**发布**到测试/生产环境 |
+
+> 类比：**CI 是"每改一点就自动检查一遍"；CD 是"检查通过就自动发出去"。** Jenkins 就是帮你干这两件事的"流水线工厂"。
+
+---
+
+## 3. 核心概念
+
+| 术语 | 意思 |
+| --- | --- |
+| 主节点 master | Jenkins 主服务（你访问的网页） |
+| 节点 node/agent | 真正干活的机器（默认就是主节点本身） |
+| 任务 job | 一次要自动跑的工作 |
+| 构建 build | 执行一次任务 |
+| 流水线 pipeline | 用一串步骤描述"要从哪做到哪"（常写成 Jenkinsfile） |
+| 触发器 trigger | 什么时候自动开始（如每次提交代码） |
+
+> 📷 流水线示意图：
+> ![Jenkins 流水线](images/jenkins-pipeline.svg)
+
+---
+
+## 4. 用 Docker 把 Jenkins 跑起来
+
+Jenkins 官方镜像，一条命令启动：
+
+```bash
+docker run -d --name myjenkins \
+  -p 8080:8080 -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home \
+  jenkins/jenkins:lts
+```
+
+- `-p 8080:8080` → 网页控制台在 `http://localhost:8080`
+- `-v jenkins_home:/var/jenkins_home` → 数据存到命名卷，重启不丢
+- `jenkins/jenkins:lts` → 长期支持版
+
+等它完全启动（第一次会做一些初始化，稍等几分钟），浏览器打开：
+
+```
+http://localhost:8080
+```
+
+### 获取初始管理员密码
+Jenkins 首次启动会给你一个解锁密码，在容器里看：
+
+```bash
+docker exec myjenkins cat /var/jenkins_home/secrets/initialAdminPassword
+```
+
+把那串密码粘进网页的"解锁 Jenkins"，然后按提示**安装推荐插件**、**创建管理员账号**。
+
+---
+
+## 5. 上手：创建一个任务并构建
+
+1. 登录后点 **新建任务** → 选 **Freestyle project（自由风格项目）** → 起个名字 `myjob` → **确定**。
+2. 在 **构建 (Build)** 部分 → **添加构建步骤** → **Execute shell**。
+3. 在里面写一句简单命令：
+   ```bash
+   echo "你好，Jenkins！"
+   date
+   ```
+4. 保存，点 **立即构建 (Build Now)**。
+5. 点这次构建的 **#1** → **控制台输出 (Console Output)**，看到打印的 `你好，Jenkins！` 和日期，**构建成功（蓝色）**。
+
+**这就是 CI 的本质**：你只管写命令，Jenkins 自动执行并告诉你结果。
+
+---
+
+## 6. 本章小结
+
+- **Jenkins = 自动构建 + 自动部署（CI/CD）的机器人**。
+- CI/CD：CI 是"频繁自动构建测试"，CD 是"自动发布"。
+- 用 `docker run ... jenkins/jenkins:lts` 跑起来，控制台在 `:8080`，初始密码在容器里看。
+- 核心概念：任务 job、构建 build、流水线 pipeline、触发器。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做：**
+```bash
+# 1. 启动 Jenkins
+docker run -d --name myjenkins \
+  -p 8080:8080 -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home \
+  jenkins/jenkins:lts
+
+# 2. 查看初始密码
+docker exec myjenkins cat /var/jenkins_home/secrets/initialAdminPassword
+```
+
+浏览器打开 `http://localhost:8080` → 用初始密码解锁 → 装推荐插件并建账号 → 新建一个 Freestyle 任务，加 `echo` 构建步骤 → **立即构建**。
+
+**✅ 过关标准：** 打开 Jenkins 控制台；能创建一个任务并**成功构建（蓝色）**；在控制台输出看到自己写的 `echo` 内容。
+
+**清理（不学了再删）：**
+```bash
+docker stop myjenkins && docker rm myjenkins
+docker volume rm jenkins_home
+```
+
+学完后，你可以回 [09-训练-实验手册](09-训练-实验手册.md) 复习，或进入 [10-考试](10-考试-试题与答案.md) 自测。
+</script>
+<script type='text/plain' id='ch13'># 13 · Git 入门（零基础 · 照着做就学会）
+
+你已会 Linux 和 Docker 的基础。**Git** 是版本控制工具，也是后面 GitLab CI / Jenkins 自动化的**源头**。这一章照着做，你就知道怎么管理代码、把代码推到远程仓库。
+
+---
+
+## 1. 为什么需要 Git？
+
+### 曾经的烦恼
+你改了代码，想回到上一版？改了三天，忘了改到哪了？和别人一起改，互相覆盖？
+
+### Git 的思路
+Git 给每一次改动**拍快照**，你能随心**回退、查看、合并**，还能把代码**推到远程仓库**（如 GitHub）和团队协作。
+
+> 一句话：**Git 是代码的"时间机器 + 版本账本"。**
+
+---
+
+## 2. 核心概念
+
+| 术语 | 意思 |
+| --- | --- |
+| 仓库 Repository | 你的代码 + 它的全部历史 |
+| 提交 Commit | 一次改动快照 |
+| 分支 Branch | 一条独立的开发线（可并行） |
+| 合并 Merge | 把一个分支合回另一个 |
+| 克隆 Clone | 把远程仓库下载到本地 |
+| 拉取/推送 Pull/Push | 从远程拉/推送到远程 |
+
+---
+
+## 3. 在 Linux 上装 Git
+
+```bash
+# Ubuntu/Debian
+sudo apt-get update && sudo apt-get install -y git
+
+# 验证
+git --version
+```
+
+**配置身份（第一次）：**
+```bash
+git config --global user.name "你的名字"
+git config --global user.email "you@example.com"
+```
+
+---
+
+## 4. 上手：做一个本地仓库
+
+在你自己的一个文件夹里：
+```bash
+git init                      # 初始化仓库
+echo "# 我的项目" > README.md # 建一个文件
+git add README.md             # 把文件放上"待提交"清单
+git commit -m "第一次提交"     # 提交
+git log --oneline             # 看提交历史
+```
+
+**再试试分支：**
+```bash
+git branch                    # 看分支
+git checkout -b feature       # 新建并切到 feature 分支
+echo "新功能" >> README.md
+git add README.md && git commit -m "加新功能"
+git checkout master           # 切回主分支
+git merge feature             # 合并
+```
+
+---
+
+## 5. 推到远程仓库（GitHub）
+
+1. 在 GitHub 新建一个仓库，复制它的地址（如 `https://github.com/you/proj.git`）。
+2. 关联并推送：
+```bash
+git remote add origin https://github.com/you/proj.git
+git push -u origin master
+```
+
+> 以后 `git add` → `git commit` → `git push`，这就是每天的工作流。**Jenkins/GitLab 就是从这样的远程仓库拉代码做自动化的。**
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做：**
+```bash
+git config --global user.name "你的名字"
+git config --global user.email "you@example.com"
+
+mkdir mydemo && cd mydemo
+git init
+echo "hello git" > a.txt
+git add a.txt
+git commit -m "first commit"
+git log --oneline
+```
+
+**✅ 过关标准：** 成功 `git init`、`add`、`commit`，`git log` 能看到你的提交记录。
+
+**进阶（可选）：** 在 GitHub 建一个仓库，`git push` 成功。
+
+学完去 [14-Kubernetes入门](14-Kubernetes入门.md)，走向容器编排。
+</script>
+<script type='text/plain' id='ch14'># 14 · Kubernetes 入门（零基础 · 照着做就学会）
+
+你已经会 Docker（单机容器）。**Kubernetes（K8s）** 是把很多容器**大规模编排、自动伸缩、自动恢复**的平台。这是运维涨薪路上最值钱的一步。跟着做，先用 K8s 跑起一个应用。
+
+> 已有 Docker 基础即可。这一章你会在本机用 `k3d`（把 K8s 跑在 Docker 里）快速起集群，体验真正的集群管理。
+
+---
+
+## 1. 为什么需要 K8s？
+
+### 曾经的烦恼
+用 Docker 一个一个容器手动管理。当你有几十上百个容器：谁来保证它们跑着？某个挂了谁重启？流量大了谁扩容？配置、版本怎么统一？
+
+### K8s 的思路
+K8s 把一堆机器组成**集群**，你只告诉它"我要跑什么、几个副本"，它会**自动调度、自动扩缩、挂了自动重拉**。
+
+> 一句话：**K8s 是容器的"调度+管理大脑"，它保证你的应用始终按预期运行。**
+
+---
+
+## 2. 核心概念（先记住这几个）
+
+| 术语 | 意思 |
+| --- | --- |
+| 集群 Cluster | 一组机器的总称 |
+| 节点 Node | 集群里的一台机器 |
+| Pod | K8s 的最小运行单元（一个或多个容器） |
+| Deployment | 声明"要跑什么、几个副本"，由它管理 Pod |
+| Service | 给一组 Pod 一个固定访问地址（负载均衡） |
+| Namespace | 隔离不同环境/项目 |
+| kubectl | 操作集群的命令行工具 |
+
+> 📷 示意图：
+> ![K8s 概念](images/k8s-basic.svg)
+
+---
+
+## 3. 装 kubectl + 用 k3d 起集群
+
+**kubectl（服务器端工具）：**
+```bash
+# Ubuntu：下载并放到 PATH
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl && sudo mv kubectl /usr/local/bin/
+kubectl version --client
+```
+
+**用 k3d 起一个本地集群（K8s 跑在 Docker 里）：**
+```bash
+curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+k3d cluster create mycluster
+kubectl get nodes            # 应看到你的节点 ready
+```
+
+> 如果本机不方便装 k3d，也可用 `minikube`；步骤类似（`minikube start`）。
+
+---
+
+## 4. 上手：跑一个应用
+
+```bash
+# 创建部署：跑 2 个 nginx 副本
+kubectl create deployment myweb --image=nginx --replicas=2
+
+# 看 Pod 是否 Running
+kubectl get pods
+
+# 暴露成 Service（负载均衡），宿主机 30080 访问
+kubectl expose deployment myweb --type=NodePort --port=80 --name=mysvc
+kubectl get svc
+
+# 看集群和命名空间
+kubectl get nodes
+kubectl get namespaces
+```
+
+> 浏览器访问 `http://localhost:30080`（NodePort 端口以 `kubectl get svc` 显示为准）就能看到 Nginx。**而这一切只是几条命令。**
+
+---
+
+## 5. 本章小结
+
+- **K8s 管海量容器：自动调度、扩缩、自愈。**
+- 核心：集群/节点/Pod/Deployment/Service/Namespace。
+- 用 `kubectl` 操作；本机学习可用 `k3d` 把 K8s 跑在 Docker 里。
+- 从 Docker 到 K8s，是运维进阶的关键一步。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做：**
+```bash
+kubectl version --client
+k3d cluster create mycluster
+kubectl get nodes
+kubectl create deployment myweb --image=nginx --replicas=2
+kubectl get pods
+kubectl expose deployment myweb --type=NodePort --port=80 --name=mysvc
+kubectl get svc
+```
+
+**✅ 过关标准：** `kubectl get nodes` 显示节点 Ready；`kubectl get pods` 显示 2 个 Running；能通过 Service 的端口访问到 Nginx。
+
+**清理：** `k3d cluster delete mycluster`。
+
+学完去 [15-Prometheus监控入门](15-Prometheus监控入门.md)，给应用加上监控。
+</script>
+<script type='text/plain' id='ch15'># 15 · Prometheus 监控入门（零基础 · 照着做就学会）
+
+运维里最重要的一环是**监控**：出了故障要能第一时间发现。**Prometheus** + **Grafana** 是主流的"可观测性"组合。跟着做，你用 Docker 就能把监控系统跑起来，看到真实指标。
+
+> 已有 Docker 基础即可。这一章会用 Docker 同时跑 Prometheus 和 Grafana，并让 Prometheus 采集自己的指标、在 Grafana 看到曲线。
+
+---
+
+## 1. 为什么需要监控？
+
+### 曾经的烦恼
+服务挂了，你最后一个知道；用户都不满了才报警。想查 CPU/内存/请求量，没地方看。
+
+### 监控的思路
+定时采集指标 → 存起来 → 可视化（Grafana）→ 异常触发告警。**第一时间发现并定位问题。**
+
+---
+
+## 2. 核心概念
+
+| 术语 | 意思 |
+| --- | --- |
+| 指标 Metric | 一个可测量的值（如 CPU 使用率、请求数） |
+| 拉取模型 Pull | Prometheus 主动去采集目标的数据 |
+| 目标 Target | 被采集的程序/服务 |
+| Exporter | 把程序数据转成 Prometheus 格式（如 node-exporter 采主机指标） |
+| Grafana | 可视化面板，把指标画成图 |
+| 告警 Alert | 指标异常时通知你 |
+
+> 类比：**Prometheus 是"采购员"（定时去各地方采集），Grafana 是"报表墙"（把数据画成图），告警是"保安"（出问题喊你）。**
+
+---
+
+## 3. 用 Docker 同时跑 Prometheus 和 Grafana
+
+先建一个目录存放 Prometheus 配置：
+
+```bash
+mkdir prom && cd prom
+cat > prometheus.yml <<'EOF'
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ['localhost:9090']
+EOF
+```
+
+启动两个容器：
+```bash
+docker run -d --name prometheus -p 9090:9090 \
+  -v "$PWD/prometheus.yml:/etc/prometheus/prometheus.yml" \
+  prom/prometheus
+
+docker run -d --name grafana -p 3000:3000 grafana/grafana
+```
+
+> 说明：Prometheus 默认采集**自己**（`localhost:9090`）作示例。以后要采主机，再加一个 node-exporter 容器即可。
+
+---
+
+## 4. 看监控数据
+
+- **Prometheus 控制台**：打开 `http://localhost:9090` → 顶部 **Status → Targets**，看到 `prometheus` 目标是 **UP**，说明采集成功。
+- **Grafana**：打开 `http://localhost:3000`（默认账号密码 `admin/admin`）。
+
+**在 Grafana 里看指标曲线：**
+1. 登录 Grafana → **Data sources** → **Add data source** → 选 **Prometheus** → URL 填 `http://prometheus:9090` → Save。
+2. **Explore** → 在查询框输入指标（如 `up` 或 `prometheus_http_requests_total`）→ 就能看到曲线！
+
+> 这就是"可观测性"：**指标采集（Prometheus）+ 可视化（Grafana）。**
+
+---
+
+## 5. 本章小结
+
+- **Prometheus 定时拉取指标，Grafana 画图，告警在异常时通知。**
+- 用 Docker 一条命令就能跑 Prometheus/Grafana。
+- 关键概念：指标、拉取模型、Target、Exporter、Grafana、告警。
+- 监控是运维"涨薪"的必备技能，和 K8s 常一起用。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做：**
+```bash
+mkdir prom && cd prom
+cat > prometheus.yml <<'EOF'
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ['localhost:9090']
+EOF
+
+docker run -d --name prometheus -p 9090:9090 \
+  -v "$PWD/prometheus.yml:/etc/prometheus/prometheus.yml" \
+  prom/prometheus
+docker run -d --name grafana -p 3000:3000 grafana/grafana
+```
+
+**✅ 过关标准：** Prometheus `http://localhost:9090/targets` 里目标是 **UP**；Grafana `http://localhost:3000` 能连上 Prometheus，并在 Explore 看到一条指标曲线。
+
+**清理：** `docker stop prometheus grafana && docker rm prometheus grafana`。
+
+到这里，你的"运维涨薪线"（Docker → Git → K8s → 监控）就有了一套完整的学习内容。可回 [09](09-训练-实验手册.md) 复习或 [10-考试](10-考试-试题与答案.md) 自测。
+</script>
+<script type='text/plain' id='ch16'># 16 · 实战项目 & 简历写作（学完就落地）
+
+学完前面几章，**把知识做成一个个能上线的项目**，才是真正会了、也才有东西写进简历。这一章给你 4 个**照着做就能落地**的简历项目，每个对应一个知识领域，并告诉你怎么写简历。
+
+> 心法：**每个领域学完 → 做一个项目跑起来 → 写进简历一句话。** 4 个项目做完，你的简历项目栏就充实了。
+
+---
+
+## 一、项目怎么选（原则）
+
+- **能自己独立跑通**（照着做就行，不依赖公司环境）
+- **看得见成果**（有网页/有接口/有监控图）
+- **可量化**（能写"提升了 XX"、"保障了 XX"）
+
+---
+
+## 二、4 个可落地的简历项目
+
+### 项目 1 · Docker 化个人网站上线（对应 Docker 领域）
+**技术栈**：Docker、Docker Compose、Nginx、MySQL
+**照着做要点**：
+- 写 `Dockerfile` 打一个自己的网页/应用镜像
+- 用 `docker-compose.yml` 同时起「应用 + 数据库」，数据用卷持久化
+- 端口映射，浏览器访问成功
+**简历一句话**：
+> 使用 Docker/Compose 将应用+数据库容器化部署，数据卷持久化，实现一条命令一键启动整套服务。
+
+### 项目 2 · Git + CI/CD 自动部署（对应 Git/Jenkins 领域）
+**技术栈**：Git、Jenkins、Docker
+**照着做要点**：
+- 项目推到 GitHub
+- Jenkins 配一条流水线：拉代码 → 构建镜像 → 推送到服务器
+- 提交代码→自动触发构建
+**简历一句话**：
+> 搭建基于 Git+Jenkins 的 CI/CD 流水线，实现代码提交自动构建与部署，减少人工上线。
+
+### 项目 3 · K8s 部署 + 监控（对应 K8s/Prometheus 领域）
+**技术栈**：Kubernetes、Docker、Prometheus、Grafana
+**照着做要点**：
+- k3d/minikube 起集群，Deployment 部署应用，Service 暴露
+- Prometheus 采集指标 + Grafana 出监控面板
+**简历一句话**：
+> 使用 K8s 部署高可用应用并接入 Prometheus/Grafana 监控，实现自动扩缩与故障告警。
+
+### 项目 4 · Nacos 配置/注册中心（对应微服务领域）
+**技术栈**：Nacos、Spring Cloud（可选）
+**照着做要点**：
+- Docker 跑 Nacos，配置中心存放统一配置
+- 注册一个服务，看服务列表发现实例
+**简历一句话**：
+> 搭建 Nacos 配置中心与服务注册，实现配置统一管理与服务发现。
+
+---
+
+## 三、简历怎么写得加分
+
+通用模板（STAR）：
+- **做了什么**：一句话讲清项目。
+- **技术栈**：列出用到的主要技术。
+- **结果/价值**：尽量**量化**（如"部署效率提升""故障可发现""可扩展"）。
+
+示例（改写成更适合自己的）：
+> 负责运维平台化建设，基于 Docker/K8s 将应用容器化并建立 CI/CD 与监控体系，实现一键部署、秒级扩缩、异常自动告警。
+
+---
+
+## 四、除了纯运维，还有这些路线（供你选）
+
+你已会 Linux/MySQL/运维，又学了容器化，**很多方向都通**：
+
+| 路线 | 关键技能 | 是否适合你 |
+| --- | --- | --- |
+| **DevOps / SRE** | Docker/K8s/CI-CD/监控/IaC | ✅ 最对口，是你的主路线 |
+| **云平台工程师** | 云厂商容器/编排/数据库 | ✅ 进阶，结合运维经验 |
+| **测试开发 / 自动化** | 脚本/接口/CI | ✅ 可考虑，容器助力测试环境 |
+| **运维开发（平台开发）** | Shell/Go/Python + K8s | ✅ 薪资更高，需补一门语言 |
+| **后端开发（过渡）** | Java/Go/Spring + 数据库 | ⚠️ 可选，有 Linux/MySQL 基础，但要补后端 |
+| **AI 运维 / AIOps** | Python + 大模型 API / Ollama + 日志 | ✅ 高价值新方向，你运维背景 + Docker 可直接上手（见第 17 章） |
+
+> **年龄/性别不是问题**：28 岁在技术圈还很年轻；女性在运维/DevOps 里细致、稳重、沟通好，是优势。**关键是持续学+项目落地**，用项目和成果说话，比年龄更有说服力。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做：** 从上面对应你已学章节的**项目里挑 1 个**，完整做完并跑通。
+
+**✅ 过关标准：** 项目能独立运行；能写出一句"做了什么+技术栈+价值"的简历描述。
+
+> 项目不贪多，**一个领域一个项目、每个都真跑通**，就是最好的简历。
+</script>
+<script type='text/plain' id='ch17'># 17 · AI 入门 & AI 运维（零基础 · 照着做就学会）
+
+你已会 Linux/Docker/MySQL。**AI（人工智能）**现在离运维很近：**AIOps（智能运维）**就是用 AI 帮你分析日志、降噪告警、智能排障。这一章零基础带你入门——会用 AI、能调用 AI、能用 Docker 跑一个本地模型，并做出一个**AI 简历项目（智能运维助手）**。
+
+> 不需要你会高深算法。你需要的三件事：**会问（提示词）、会调（API）、会跑（部署模型）。**
+
+---
+
+## 1. AI 相关，先懂这几个词
+
+| 术语 | 意思 |
+| --- | --- |
+| 大模型 LLM | 一种超大规模 AI 模型，能理解/生成文字（如 GPT、DeepSeek、Llama） |
+| 提示词 Prompt | 你给 AI 的指令/问题（怎么问，决定答案质量） |
+| API | 程序调用 AI 的接口（Python 一行代码就能问 AI） |
+| AIOps | 用 AI 做智能运维：日志分析、告警降噪、异常检测、智能问答 |
+
+> **你和 AI 的三种关系**：① 聊天会用 → ② 写代码调用 → ③ 自己部署模型。都学会，就是你的 AI 技能。
+
+---
+
+## 2. 为什么运维要学 AI
+
+- **省时间**：把报错/日志贴给 AI，快速定位
+- **降噪**：让 AI 从海量告警里筛出真正要紧的
+- **写脚本**：AI 帮你生成 Shell/Python 脚本、排障思路
+- **涨薪**：AIOps 是运维的高价值方向，会 AI 的运维很抢手
+
+---
+
+## 3. 第一步：会用（提示词 / 用现成 AI）
+
+直接打开一个 AI 聊天（如 DeepSeek、ChatGPT、通义）试试这种**运维提问**：
+> "下面是 Nginx 报错[粘贴日志]，帮我分析原因并给出排查命令。"
+
+**会提问的要点**：给清楚背景 + 粘贴真实日志/报错 + 让它给可执行步骤。
+
+---
+
+## 4. 第二步：会部署（用 Docker 跑本地模型）
+
+本地跑一个开源模型（免费、离线、数据不外泄）。用 Docker 一键跑 **Ollama**：
+
+```bash
+docker run -d -p 11434:11434 --name ollama ollama/ollama
+docker exec -it ollama ollama run llama3        # 下载并进入对话（首次会下载模型）
+```
+
+测试调用的 API：
+```bash
+curl http://localhost:11434/api/generate -d '{"model":"llama3","prompt":"你好","stream":false}'
+```
+
+> 以后你可以在没网的内网也跑一个自己的"AI 助手"，这就是**模型部署**能力。
+
+---
+
+## 5. 第三步：会调用（Python 做一个"智能运维助手"）
+
+写一个小脚本，把日志交给 AI 分析。用任意大模型 API（下面以通用示例，用你的 key）：
+
+```python
+import requests
+def ask(question):
+    r = requests.post(
+        "https://api.你的服务商/v1/chat/completions",
+        headers={"Authorization": "Bearer 你的密钥"},
+        json={"model": "你的模型", "messages": [{"role":"user","content": question}]})
+    return r.json()["choices"][0]["message"]["content"]
+
+if __name__ == "__main__":
+    log = "Connection refused ..."
+    print(ask("这是 Nginx 日志，分析原因并给出排查命令：\n" + log))
+```
+
+> 把这个脚本做成"粘贴日志→给出诊断"的小工具，**就是你的 AI 运维项目第一步。**
+
+---
+
+## 6. AI 简历项目：智能运维助手（落地）
+
+**技术栈**：Python、大模型 API / Ollama、Docker、日志采集
+**照着做要点**：
+- 用 Python 写一个"日志/告警分析"助手，接大模型
+- 用 Docker 把它打成容器提供服务（或接 Ollama 本地推理）
+- 支持输入一段日志 → 返回诊断与排障建议
+**简历一句话**：
+> 基于大模型搭建 AI 运维助手，实现日志/告警自动分析，显著缩短排障时间。
+
+> 这就是"每个领域学完都有项目落地"——**AI 领域落地一个"智能运维助手"，既符合你运维背景，又是简历亮点。**
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做（二选一）：**
+- **A（本地·推荐）**：`docker run -p 11434:11434 --name ollama ollama/ollama` → `docker exec ollama ollama run llama3`，能和它对话。
+- **B（API）**：用你注册的大模型 API，写一段 Python 调用并问它一个问题。
+
+**✅ 过关标准：** 能成功问 AI 一个问题并得到回答（本地或 API 任选）；理解"会问/会调/会跑"三种能力。
+
+> 学完这个，你的"运维涨薪系列"就多了**AI 运维（AIOps）**这一高价值方向。
+</script>
+<script type='text/plain' id='ch18'># 18 · 6 个月，从运维到 DevOps/AIOps 涨薪计划
+
+这份计划**专门为你定制**——背景：**运维、懂 Linux/MySQL、快 28 岁**。目标是：用 6 个月把技能从"基础运维"升级为"**容器化 + 编排 + 自动化 + 监控 + AI 赋能**"的 **DevOps / AIOps**，并**用项目落地支撑涨薪/跳槽**。
+
+> 节奏：**工作日 40~60 分钟，周末 2~3 小时**。不贪多，**一个阶段一个项目，做出来才算过**。
+
+---
+
+## 📅 总览（6 个阶段）
+
+| 阶段 | 时间 | 主题 | 要学的章节 | 落地项目 | 简历产出 |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 第 1 月 | Docker 精通 | 02–08 | 项目①：Docker 化网站上线 | 会容器化部署 |
+| 2 | 第 2 月 | Git + CI/CD | 13、12 | 项目②：Git→Jenkins 自动部署 | 会自动化流水线 |
+| 3 | 第 3 月 | Kubernetes | 14 | 项目③：K8s 部署应用 | 会集群编排 |
+| 4 | 第 4 月 | 监控/可观测 | 15 | 项目③完善：K8s + Prometheus | 会监控与告警 |
+| 5 | 第 5 月 | 微服务 + AI | 11、17 | 项目④：Nacos 配置/注册 + AI 运维助手 | 会微服务+AI |
+| 6 | 第 6 月 | 综合实战 + 求职 | 16 | 综合项目 + 简历/面试 | 简历完整、可谈薪 |
+
+---
+
+## 🎯 分阶段细化
+
+### 第 1 月 · Docker 精通
+- **目标**：独立用 Docker 跑起应用，数据不丢、容器互通。
+- **学**：第 02~08 章（概念→命令→Dockerfile→数据卷网络→Compose→最佳实践）。
+- **项目①**：用 `docker-compose` 把"应用 + MySQL"一键上线，数据持久化。
+- **简历**：使用 Docker/Compose 容器化部署应用与数据库，数据卷持久化，一条命令启动整套服务。
+
+### 第 2 月 · Git + CI/CD
+- **目标**：打通"提交代码→自动构建→自动部署"。
+- **学**：第 13 章 Git、第 12 章 Jenkins。
+- **项目②**：项目推到 GitHub，Jenkins 配流水线拉代码→构建镜像→部署。
+- **简历**：搭建基于 Git+Jenkins 的 CI/CD 流水线，实现代码提交自动构建与部署，减少人工上线。
+
+### 第 3 月 · Kubernetes
+- **目标**：用一个集群跑应用，理解 Pod/Deployment/Service。
+- **学**：第 14 章 K8s（用 k3d/minikube 本地练）。
+- **项目③**：Deployment 部署多副本应用，Service 暴露访问，验证自动扩容/自愈。
+- **简历**：使用 K8s 部署高可用应用，实现自动扩缩与故障自愈。
+
+### 第 4 月 · 监控 / 可观测性
+- **目标**：能监控服务并在异常时发现。
+- **学**：第 15 章 Prometheus + Grafana。
+- **项目③完善**：给 K8s 应用加 Prometheus 采集 + Grafana 面板 + 告警。
+- **简历**：接入 Prometheus/Grafana 监控体系，实现指标可视化与异常告警。
+
+### 第 5 月 · 微服务 + AI
+- **目标**：懂服务注册/配置中心；会用 AI 做智能运维。
+- **学**：第 11 章 Nacos、第 17 章 AI 入门 & AI 运维。
+- **项目④**：Docker 跑 Nacos 做配置/注册；用 Python + 大模型做"智能运维助手"（日志→诊断）。
+- **简历**：基于大模型搭建 AI 运维助手，实现日志/告警自动分析，显著缩短排障时间。
+
+### 第 6 月 · 综合 + 求职
+- **目标**：把前 5 个月串成一个完整项目，打磨简历与面试。
+- **学**：第 16 章实战项目与简历。
+- **综合项目**：一个"容器化 + CI/CD + K8s + 监控 + AI"的完整平台（或选其中最亮的 1~2 个重点讲深）。
+- **求职**：用 STAR 写简历、量化成果；准备面试常见题（Docker/K8s/CI-CD/监控）。
+
+---
+
+## 📋 每周节奏（示例）
+
+- **周一~周四**：每天学 + 敲命令（40~60 分钟）。
+- **周五**：整理笔记 + 把本周命令贴进笔记。
+- **周末**：推进本周的**项目**（2~3 小时）。
+
+## 💡 给你的三点提醒
+1. **项目 > 证书**：HR/面试更在意"你做过什么、能跑通什么"。
+2. **量化成果**：写简历用数字（如"部署时间从 30 分钟降到 5 分钟"）。
+3. **年龄/性别不是门槛**：28 岁在技术圈很年轻，沟通细腻、责任心强是**运维/DevOps 的优势**。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+
+**照着做：** 把这 6 个月计划抄成一张表，贴在桌前；然后**从第 1 月开始**，学完对应章节就做对应项目。
+
+**✅ 过关标准：** 你能清楚说出"**我这个月学什么、做什么项目、写在简历哪一段**"。
+</script>
+<script>
+var currentId=function(){return location.hash.replace('#','')||'home';};
+var ORDER=['home','ch01','ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch09','ch10','ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch18'];
+var TITLES={};
+ORDER.forEach(function(k){
+  var el=document.getElementById(k);
+  if(el){var m=el.textContent.split('\n').filter(function(x){return /^#\s+/.test(x);})[0];TITLES[k]=m?m.replace(/^#\s+/,''):k;}
+});
+TITLES['home']='首页 · 学习指南';
+TITLES['quiz']='在线测验';
+
+var idx=[];
+ORDER.forEach(function(k){var el=document.getElementById(k); if(el) idx.push({id:k,title:TITLES[k],text:el.textContent.toLowerCase()});});
+idx.push({id:'quiz',title:'在线测验',text:'测验 考试 题目 自测 题库 答题'.toLowerCase()});
+function doSearch(){
+  var q=document.getElementById('searchInput').value.trim().toLowerCase();
+  var res=document.getElementById('searchResults');
+  if(!q){res.style.display='none';res.innerHTML='';return;}
+  var hits=idx.filter(function(o){return o.title.toLowerCase().indexOf(q)>=0||o.text.indexOf(q)>=0;});
+  if(!hits.length){res.innerHTML='<div class="s-empty">未找到匹配内容</div>';res.style.display='block';return;}
+  res.innerHTML=hits.slice(0,20).map(function(o){return '<a href="#'+o.id+'">'+esc(o.title)+'</a>';}).join('');
+  res.style.display='block';
+}
+var lastSearch='';
+
+var PROG_KEY='dsh_docker_progress_v1';
+function loadProg(){try{return JSON.parse(localStorage.getItem(PROG_KEY))||{};}catch(e){return {};}}
+function saveProg(p){try{localStorage.setItem(PROG_KEY,JSON.stringify(p));}catch(e){}}
+function markVisited(id){var p=loadProg();p[id]=p[id]||{};p[id].visited=true;saveProg(p);drawProgress();}
+function toggleDone(id){var p=loadProg();p[id]=p[id]||{};p[id].done=!p[id].done;saveProg(p);drawProgress();refreshDoneBtn(id);}
+function refreshDoneBtn(id){
+  var btn=document.getElementById('doneBtn');if(!btn)return;
+  var p=loadProg();var done=p[id]&&p[id].done;
+  if(done){btn.classList.add('done');btn.textContent='✓ 已标记为已学完（点击取消）';}
+  else{btn.classList.remove('done');btn.textContent='🎯 标记为已学完';}
+}
+function drawProgress(){
+  var p=loadProg();var done=0,total=ORDER.length;
+  document.querySelectorAll('.nav a').forEach(function(a){
+    var id=a.getAttribute('data-id');if(!id)return;
+    var st=p[id];
+    a.classList.toggle('seen',!!(st&&st.visited));
+    a.classList.toggle('done',!!(st&&st.done));
+    if(st&&st.done)done++;
+  });
+  var bar=document.getElementById('progBar');if(bar)bar.style.width=Math.round(done/total*100)+'%';
+  var pc=document.getElementById('progPct');if(pc)pc.textContent=Math.round(done/total*100)+'%';
+}
+
+// 导航分组折叠
+function setGroupOpen(id,open){
+  var g=document.getElementById(id);if(!g)return;
+  g.classList.toggle('closed',!open);
+  var ch=g.querySelector('.chev');if(ch)ch.textContent=open?'▾':'▸';
+}
+function openGroupOf(id){
+  var anyOpen=false;
+  document.querySelectorAll('.nav-group').forEach(function(g){
+    var has=!!g.querySelector('a[data-id="'+id+'"]');
+    setGroupOpen(g.id,has);
+    if(has)anyOpen=true;
+  });
+  if(!anyOpen){setGroupOpen('g1',true);}
+}
+document.querySelectorAll('.nav-head').forEach(function(h){
+  h.addEventListener('click',function(){
+    var gid=h.getAttribute('data-group');
+    var g=document.getElementById(gid);
+    if(g)setGroupOpen(gid,g.classList.contains('closed'));
+  });
+});
+
+// 首页学习看板（等级 + 进度 + 下一步 + 快捷入口 + 涨薪线）
+function onLevelTag(lv){
+  if(lv<=1)return '刚出新手村，继续打怪积累经验～';
+  if(lv<=2)return '小有实力，下一步挑战更强的Boss（K8s）！';
+  if(lv<=3)return '渐入佳境，向 DevOps / 监控 进阶！';
+  if(lv<=4)return '已是中级选手，去点亮 AI 运维天赋！';
+  return '接近满级，到面试场上秀出实力！';
+}
+function levelHtml(){
+  var p=loadProg(),done=0;
+  ORDER.forEach(function(k){if(k==='home')return;if(p[k]&&p[k].done)done++;});
+  var checkins=Object.keys(dGet()).length;
+  var xp=done*100+checkins*20;
+  var lv=Math.floor(xp/300)+1;
+  var need=xp%300,total=300;
+  var pct=Math.round(need/total*100);
+  return '<div class="lvl-box"><div class="lvl-top"><span class="lvl-badge">Lv.<b>'+lv+'</b></span>'
+    +'<span class="lvl-name">'+onLevelTag(lv)+'</span>'
+    +'<span class="lvl-xp">'+xp+' XP</span></div>'
+    +'<div class="lvl-track"><i style="width:'+pct+'%"></i></div>'
+    +'<div class="lvl-note">每完成一章 +100 XP，每次打卡 +20 XP，攒满 300 升一级</div></div>';
+}
+function homeDashboard(){
+  var p=loadProg();var done=0,total=0;
+  ORDER.forEach(function(k){ if(k==='home')return; total++; if(p[k]&&p[k].done)done++; });
+  var pct=total?Math.round(done/total*100):0;
+  var nextId=null;for(var i=0;i<ORDER.length;i++){var k=ORDER[i];if(k==='home')continue;if(!(p[k]&&p[k].done)){nextId=k;break;}}
+  var h='<div class="dash">';
+  h+='<div class="dash-top"><div class="dash-item"><span class="dash-num">'+pct+'%</span><span class="dash-lab">已完成 '+done+'/'+total+' 章</span></div>';
+  h+='<div class="dash-todo"><b>下一步：</b>'+(nextId?(TITLES[nextId]||''):'全部完成 🎉')+'</div></div>';
+  h+='<div class="dash-track"><i style="width:'+pct+'%"></i></div>';
+  h+=levelHtml();
+  h+='<div class="dash-actions">';
+  if(nextId){h+='<a class="dash-btn primary" href="#'+nextId+'">▶ 继续学习：'+(TITLES[nextId]||'')+'</a>';}
+  else{h+='<a class="dash-btn primary" href="#ch01">▶ 重新学习</a>';}
+  h+='<a class="dash-btn" href="#map">🗺️ 学习路线图</a>';
+  h+='<a class="dash-btn" href="#quiz">📝 在线测验</a>';
+  h+='<a class="dash-btn plan" href="#ch18">📅 我的 6 个月涨薪计划</a>';
+  h+='</div>';
+  h+='<div class="dash-plan"><b>📅 6 个月计划：</b><span class="dp">❶ Docker</span><span>→</span><span class="dp">❷ Git+CI/CD</span><span>→</span><span class="dp">❸ K8s</span><span>→</span><span class="dp">❹ 监控</span><span>→</span><span class="dp">❺ 微服务+AI</span><span>→</span><span class="dp">❻ 综合求职</span></div>';
+  h+='<div class="dash-growth">🔝 <b>你的运维涨薪线：</b>'+(TITLES['ch08']||'Docker')+' → '+(TITLES['ch13']||'Git')+' → '+(TITLES['ch14']||'K8s')+' → '+(TITLES['ch15']||'Prometheus')+' → CI/CD · IaC · AIOps</div>';
+  h+='<div class="dai-wrap" id="dailyCard">'+dailyHtml()+'</div>';
+  h+='</div>';
+  return h;
+}
+
+// ---- 每日学习打卡看板 ----
+var DAILY_KEY='dsh_daily_v1';
+function dateKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function dToday(){return dateKey(new Date());}
+function dGet(){try{return JSON.parse(localStorage.getItem(DAILY_KEY))||{};}catch(e){return {};}}
+function dSave(o){try{localStorage.setItem(DAILY_KEY,JSON.stringify(o));}catch(e){}}
+function dStreak(o){
+  var n=0,d=new Date();
+  if(!o[dateKey(d)]){d.setDate(d.getDate()-1);}
+  while(o[dateKey(d)]){n++;d.setDate(d.getDate()-1);}
+  return n;
+}
+function dailyHtml(){
+  var o=dGet(),today=dToday();
+  var names=['日','一','二','三','四','五','六'];
+  var week='';
+  for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var k=dateKey(d);
+    var isToday=(k===today),on=!!o[k];
+    week+='<div class="dday'+(isToday?' today':'')+(on?' on':'')+'"><span class="dd-lab">'+names[d.getDay()]+'</span><span class="dd-dot">'+(on?'✓':'')+'</span></div>';}
+  var streak=dStreak(o),done=!!o[today];
+  return '<div class="dai-head"><span>📆 每日学习打卡</span><span class="dai-streak">🔥 连续学习 <b>'+streak+'</b> 天</span></div>'
+    +'<div class="dai-week">'+week+'</div>'
+    +'<div class="dai-act"><button class="dai-btn'+(done?' on':'')+'" onclick="dMark()">'+(done?'今日已打卡 ✓':'打卡 · 今日学习完成')+'</button></div>'
+    +'<div class="dai-tip">每天学完就点一下打卡，坚持打卡形成习惯。</div>';
+}
+function dMark(){
+  var o=dGet(),k=dToday();
+  if(o[k]){delete o[k];}else{o[k]={done:true};}
+  dSave(o);
+  var c=document.getElementById('dailyCard');if(c)c.innerHTML=dailyHtml();
+}
+
+// 章节笔记（localStorage）
+var NOTES_KEY='dsh_docker_notes_v1';
+function loadNotes(id){try{var o=JSON.parse(localStorage.getItem(NOTES_KEY))||{};return o[id]||'';}catch(e){return '';}}
+function saveNotes(id,val){try{var o=JSON.parse(localStorage.getItem(NOTES_KEY))||{};o[id]=val;localStorage.setItem(NOTES_KEY,JSON.stringify(o));}catch(e){}}
+function toggleNotes(id){
+  var b=document.getElementById('notesBox');if(!b)return;
+  var open=b.style.display!=='none';
+  b.style.display=open?'none':'block';
+  var ta=document.getElementById('notesArea');
+  if(ta&&!open)ta.value=loadNotes(id);
+}
+(function(){
+  var na=document.getElementById('notesArea');
+  if(na)na.addEventListener('input',function(){saveNotes(currentId(),this.value);});
+})();
+document.addEventListener('keydown',function(e){
+  if(e.target&&(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return;
+  if(e.key==='ArrowLeft'){var pv=document.getElementById('prev');if(pv&&pv.style.visibility!=='hidden'){location.hash=pv.getAttribute('href');}}
+  else if(e.key==='ArrowRight'){var nx=document.getElementById('next');if(nx&&nx.style.visibility!=='hidden'){location.hash=nx.getAttribute('href');}}
+});
+
+var content=document.getElementById('content');
+// 复制代码按钮（委托）
+content.addEventListener('click',function(e){
+  var b=e.target.closest?e.target.closest('.copy'):null;
+  if(!b)return;
+  var pre=b.closest('.pre');if(!pre)return;
+  var codeEl=pre.querySelector('code');
+  var txt=codeEl?codeEl.textContent:'';
+  function done(ok){b.classList.add('done');b.textContent=ok?'已复制':'失败';setTimeout(function(){b.classList.remove('done');b.textContent='复制';},1500);}
+  function fallback(){var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done(true);}catch(err){done(false);}document.body.removeChild(ta);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){done(true);},function(){fallback();});}
+  else{fallback();}
+});
+// 返回顶部
+var toTop=document.getElementById('toTop');
+if(toTop){
+  window.addEventListener('scroll',function(){if(window.pageYOffset>400){toTop.classList.add('show');}else{toTop.classList.remove('show');}});
+  toTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+}
+function render(id){
+  if(id==='quiz'){
+    document.getElementById('doneRow').style.display='none';
+    document.getElementById('prev').style.visibility='hidden';
+    document.getElementById('next').style.visibility='hidden';
+    document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')==='quiz');});
+    openGroupOf('quiz');
+    quizRender();
+    return;
+  }
+  if(id==='map'){
+    document.getElementById('doneRow').style.display='none';
+    document.getElementById('prev').style.visibility='hidden';
+    document.getElementById('next').style.visibility='hidden';
+    document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')==='map');});
+    openGroupOf('home');
+    renderMap();
+    return;
+  }
+  var el=document.getElementById(id);if(!el){location.hash='#home';return;}
+  content.innerHTML=(id==='home'?homeDashboard():'')+renderBlock(el.textContent);
+  if(lastSearch){
+    var terms=lastSearch.toLowerCase();
+    var nodes=content.querySelectorAll('p,li,h1,h2,h3,h4,th,td');
+    for(var i=0;i<nodes.length;i++){var t=nodes[i].textContent.toLowerCase();if(t.indexOf(terms)>=0){try{nodes[i].scrollIntoView({block:'center'});}catch(e){}break;}}
+    highlightTerm(content,lastSearch);
+  }
+  document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')===id);});
+  openGroupOf(id);
+  var i2=ORDER.indexOf(id);
+  var pv=document.getElementById('prev'),nx=document.getElementById('next');
+  if(i2>0){pv.style.visibility='visible';pv.href='#'+ORDER[i2-1];pv.querySelector('b').textContent=TITLES[ORDER[i2-1]];}
+  else{pv.style.visibility='hidden';}
+  if(i2<ORDER.length-1){nx.style.visibility='visible';nx.href='#'+ORDER[i2+1];nx.querySelector('b').textContent=TITLES[ORDER[i2+1]];}
+  else{nx.style.visibility='hidden';}
+  var dr=document.getElementById('doneRow');
+  var nr=document.getElementById('notesRow');
+  if(id==='home'){dr.style.display='none';nr.style.display='none';}
+  else{
+    dr.style.display='flex';refreshDoneBtn(id);
+    nr.style.display='flex';
+    var nb=document.getElementById('notesBox');if(nb)nb.style.display='none';
+    var na=document.getElementById('notesArea');if(na)na.value=loadNotes(id);
+  }
+  markVisited(id);window.scrollTo(0,0);
+}
+function highlightTerm(root,term){
+  var re=new RegExp('('+term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+  var walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,null);
+  var nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(function(n){
+    var pn=n.parentNode;
+    if(pn&&pn.tagName==='CODE')return;
+    if(pn&&pn.tagName==='MARK')return;
+    var gp=pn&&pn.parentNode;
+    if(gp&&gp.tagName==='PRE')return;
+    if(re.test(n.nodeValue)){
+      var frag=document.createDocumentFragment();
+      n.nodeValue.split(re).forEach(function(part){
+        if(!part)return;
+        if(re.test(part)){var m=document.createElement('mark');m.className='hl';m.textContent=part;frag.appendChild(m);}
+        else{frag.appendChild(document.createTextNode(part));}
+      });
+      pn.replaceChild(frag,n);
+    }
+    re.lastIndex=0;
+  });
+}
+function route(){
+  var h=location.hash.replace('#','');
+  if(h==='quiz'||h==='map'||ORDER.indexOf(h)>=0){render(h);}
+  else{render('home');}
+}
+document.getElementById('searchInput').addEventListener('input',function(){lastSearch=this.value.trim();doSearch();});
+document.getElementById('searchResults').addEventListener('click',function(e){
+  var a=e.target.closest?e.target.closest('a'):null;if(a){document.getElementById('searchInput').value='';document.getElementById('searchResults').style.display='none';lastSearch='';}
+});
+document.getElementById('searchInput').addEventListener('keydown',function(e){if(e.key==='Escape'){this.value='';lastSearch='';document.getElementById('searchResults').style.display='none';}});
+document.addEventListener('click',function(e){
+  var sb=document.querySelector('.search-box');if(sb&&!sb.contains(e.target))document.getElementById('searchResults').style.display='none';
+});
+window.addEventListener('hashchange',route);
+route();
+drawProgress();
+// 内嵌测验：数据 + 渲染 + 判分（并入 index.html，用于 #quiz 路由）
+var QUIZ_DATA = [
+  // ---- 单选 (1-10) ----
+  {type:'single', num:1, points:3, text:'下列关于"镜像（Image）"和"容器（Container）"关系说法正确的是？',
+    options:['A. 镜像和容器是同一个东西','B. 容器是镜像的只读模板','C. 镜像是只读模板，容器是镜像的运行实例','D. 镜像可以修改，容器不能'],
+    answer:'C', explain:'镜像是只读模板，容器是镜像运行出来的实例。'},
+  {type:'single', num:2, points:3, text:'容器和虚拟机（VM）相比，最主要的区别是？',
+    options:['A. 容器更重、启动更慢','B. 容器共享宿主机的操作系统内核，更轻量、启动更快','C. 容器包含完整的操作系统','D. 两者没有区别'],
+    answer:'B', explain:'容器共享宿主机内核，所以轻量、启动快；虚拟机含完整 OS 所以重。'},
+  {type:'single', num:3, points:3, text:'要下载一个 Docker 镜像，应该用哪条命令？',
+    options:['A. docker run','B. docker pull','C. docker push','D. docker build'],
+    answer:'B', explain:'docker pull 从仓库下载镜像。'},
+  {type:'single', num:4, points:3, text:'启动一个后台运行的 Nginx 容器，并映射宿主机 8080 端口，正确的是？',
+    options:['A. docker run -d -p 8080:80 nginx','B. docker run -p 80:8080 nginx','C. docker run -d -p 8080 nginx','D. docker run nginx -d 8080:80'],
+    answer:'A', explain:'-d 表示后台运行，-p 8080:80 表示宿主机 8080 → 容器 80。'},
+  {type:'single', num:5, points:3, text:'查看当前【正在运行】的容器，用哪条命令？',
+    options:['A. docker images','B. docker ps -a','C. docker ps','D. docker run'],
+    answer:'C', explain:'docker ps 只显示运行中的容器；-a 才显示所有。'},
+  {type:'single', num:6, points:3, text:'下面哪个是 Dockerfile 里用来"基于某个基础镜像"的指令？',
+    options:['A. FROM','B. COPY','C. ENTRYPOINT','D. WORKDIR'],
+    answer:'A', explain:'FROM 指定基础镜像，Dockerfile 以它开头。'},
+  {type:'single', num:7, points:3, text:'要进入一个正在运行的容器内部进行操作，用哪条命令？',
+    options:['A. docker enter','B. docker exec -it 容器名 bash','C. docker attach 容器名','D. docker run -it 容器名'],
+    answer:'B', explain:'docker exec -it 容器名 bash 可进入容器内部。'},
+  {type:'single', num:8, points:3, text:'Docker Compose 的核心配置文件叫什么？',
+    options:['A. Dockerfile','B. docker-compose.yml','C. compose.txt','D. docker.conf'],
+    answer:'B', explain:'Compose 配置文件是 docker-compose.yml。'},
+  {type:'single', num:9, points:3, text:'同在一个 Docker 网络内的两个容器，通常用哪个"域名"互相访问？',
+    options:['A. 容器的 IP 地址','B. 宿主机 IP','C. 容器的名字（服务名）','D. 无法互相访问'],
+    answer:'C', explain:'同一网络内用容器名/服务名互访，无需记 IP。'},
+  {type:'single', num:10, points:3, text:'容器默认是"一次性"的，删除后里面的数据会丢失。要保存数据，应该用？',
+    options:['A. 多启动几个容器','B. 数据卷（Volume）/ 挂载','C. 增大容器内存','D. 重新构建镜像'],
+    answer:'B', explain:'用数据卷/挂载把数据存在容器外部，容器删除后数据保留。'},
+
+  // ---- 多选 (11-15) ----
+  {type:'multi', num:11, points:4, text:'下列哪些能减小 Docker 镜像体积？（多选）',
+    options:['A. 使用 -slim 或 -alpine 基础镜像','B. 把多条 RUN 合并成一条','C. 使用 .dockerignore 排除无关文件','D. 使用多阶段构建'],
+    answer:['A','B','C','D'], explain:'四种都是减小镜像/优化构建设的好做法。'},
+  {type:'multi', num:12, points:4, text:'关于 Docker Compose，下列说法正确的是？（多选）',
+    options:['A. 用来一次性启动/管理多个容器','B. 配置文件是 docker-compose.yml','C. 用 docker compose up -d 后台启动','D. 服务之间需要用 IP 地址互访，必须手动配置网络'],
+    answer:['A','B','C'], explain:'D 错——同网络内用服务名即可，不用手动配 IP/网络。'},
+  {type:'multi', num:13, points:4, text:'关于端口映射 -p 8080:80，正确的理解是？（多选）',
+    options:['A. 宿主机 8080 端口映射到容器 80 端口','B. 宿主机 80 端口映射到容器 8080 端口','C. 用来让外部能访问容器','D. 用来让容器之间互访'],
+    answer:['A','C'], explain:'B 反了；端口映射用于外部访问，容器互访靠网络而非端口映射。'},
+  {type:'multi', num:14, points:4, text:'下列属于 Docker 安全最佳实践的有？（多选）',
+    options:['A. 容器内避免用 root 运行','B. 不要把密码/密钥烧进镜像','C. 尽量使用可信的官方镜像','D. 给容器开放所有端口和权限'],
+    answer:['A','B','C'], explain:'D 错——应最小化权限和开放端口。'},
+  {type:'multi', num:15, points:4, text:'关于 docker run -d -p 8080:80 --name myweb nginx，下列理解正确的是？（多选）',
+    options:['A. -d 表示后台运行','B. --name myweb 给容器命名','C. 用 nginx 镜像启动','D. 这条命令会删除之前的容器'],
+    answer:['A','B','C'], explain:'D 错——这条命令不会删除旧容器。'},
+
+  // ---- 判断 (16-25) ----
+  {type:'tf', num:16, points:2, text:'docker ps 默认列出所有容器（包括已停止的）。',
+    options:['A. 对','B. 错'], answer:'B', explain:'docker ps 只显示运行中的；docker ps -a 才显示所有。'},
+  {type:'tf', num:17, points:2, text:'一个镜像可以启动多个容器，它们互相独立。',
+    options:['A. 对','B. 错'], answer:'A', explain:'一个镜像可开多个独立容器。'},
+  {type:'tf', num:18, points:2, text:'Dockerfile 必须用 FROM 指令开头。',
+    options:['A. 对','B. 错'], answer:'A', explain:'Dockerfile 以 FROM 开头。'},
+  {type:'tf', num:19, points:2, text:'docker volume 用于让数据在容器删除后仍然保留。',
+    options:['A. 对','B. 错'], answer:'A', explain:'数据卷让数据不随容器销毁。'},
+  {type:'tf', num:20, points:2, text:'镜像一旦构建，就永远不能修改，只能重新构建。',
+    options:['A. 对','B. 错'], answer:'B', explain:'镜像本质只读、不可直接改，修改靠重建；但更好表述为判 B。'},
+  {type:'tf', num:21, points:2, text:'docker logs 可以用来查看容器运行时的输出日志。',
+    options:['A. 对','B. 错'], answer:'A', explain:'docker logs 看容器的标准输出/错误日志。'},
+  {type:'tf', num:22, points:2, text:'在 Compose 里，服务之间默认可以用"服务名"互相访问。',
+    options:['A. 对','B. 错'], answer:'A', explain:'Compose 默认让服务用服务名互访。'},
+  {type:'tf', num:23, points:2, text:'docker system prune 会删除所有镜像（包括正在使用的）。',
+    options:['A. 对','B. 错'], answer:'B', explain:'docker system prune 默认清理未使用的；-a 才清理所有未使用镜像。'},
+  {type:'tf', num:24, points:2, text:'容器和虚拟机一样，都包含一套完整的操作系统。',
+    options:['A. 对','B. 错'], answer:'B', explain:'容器共享宿主机内核，不包含完整 OS。'},
+  {type:'tf', num:25, points:2, text:'使用 docker run -it ubuntu bash 可以进入一个交互式容器并执行命令。',
+    options:['A. 对','B. 错'], answer:'A', explain:'-it 进入交互式容器并执行命令。'},
+
+  // ---- 简答 (26-28) ----
+  {type:'short', num:26, points:5, text:'用一句话解释：什么是镜像？什么是容器？两者关系是什么？',
+    reference:'<ul><li><b>镜像</b>：一个只读的、打包了程序及其运行环境的"蓝图/模板"。</li><li><b>容器</b>：根据镜像启动的、真正运行的可读写实例。</li><li><b>关系</b>：镜像是模板，容器是它的运行实例；一个镜像可以启动多个容器。</li></ul>'},
+  {type:'short', num:27, points:5, text:'数据卷（Volume）解决什么问题？挂载命令的基本语法是什么？',
+    reference:'<ul><li><b>解决问题</b>：容器默认一次性，删除后数据会丢；数据卷把数据存在容器外部，从而容器删除后数据依然保留。</li><li><b>基本语法</b>：<code>-v 宿主机路径/卷名:容器内路径</code>（或用 docker volume create 创建命名卷）。</li></ul>'},
+  {type:'short', num:28, points:5, text:'为什么要用 Docker Compose？它带来了什么好处？',
+    reference:'<ul><li><b>原因</b>：一个应用往往由多个容器组成，逐个手动启动管理繁琐、易出错。</li><li><b>好处</b>：用一个 docker-compose.yml 配置所有服务，docker compose up -d 一条命令启动/管理多个容器；服务间用服务名互通，网络自动配置，便于维护。</li></ul>'},
+
+  // ---- 实操 (29) ----
+  {type:'practical', num:29, points:15, text:'请在终端完成以下操作并记录结果：<br>(1) 启动一个 Nginx 容器，后台运行，映射宿主 8080 端口，命名为 web1。(4 分)<br>(2) 查看当前正在运行的容器，确认 web1 在运行。(3 分)<br>(3) 进入 web1 容器内部，查看其网站目录 /usr/share/nginx/html 下有哪些文件。(4 分)<br>(4) 停止并删除 web1 容器。(4 分)',
+    reference:'<h4>参考命令</h4><pre>docker run -d -p 8080:80 --name web1 nginx\ndocker ps\ndocker exec -it web1 bash\nls /usr/share/nginx/html\nexit\ndocker stop web1\ndocker rm web1</pre><b>评分参考（共 15 分）：</b><ul><li>启动命令正确（含 -d / -p / --name）= 4 分</li><li>docker ps 正确且看到 web1 = 3 分</li><li>docker exec -it web1 bash 进入并列出目录 = 4 分</li><li>docker stop + docker rm 正确 = 4 分</li></ul>'}
+];
+
+function quizFull(){var t=0;QUIZ_DATA.forEach(function(q){t+=q.points;});return t;}
+function quizEscape(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function quizTypeLabel(t){return {single:'单选',multi:'多选',tf:'判断',short:'简答',practical:'实操'}[t]||'';}
+
+function quizRender(){
+  var host=document.getElementById('content');
+  var h='<div class="quiz-embed">';
+  h+='<div class="qhead"><h1>🐳 Docker 在线测验</h1><p>满分 <b>'+quizFull()+'</b> 分 ｜ 建议 40 分钟 ｜ 客观题自动判分，简答/实操看参考答案后自评</p></div>';
+  h+='<div class="qbar"><div class="qscore">得分 <b id="qs">0</b><span> / '+quizFull()+'</span></div><div class="qprogress"><i id="qp"></i></div><button class="qsubmit" onclick="quizSubmit()">交卷并评分</button></div>';
+  h+=quizCards();
+  h+='<div class="qresult" id="qresult"><div class="qpanel"><div class="qbig"><b id="qfinal">0</b><span> / '+quizFull()+'</span></div><div class="qlv" id="qlv"></div><div class="qdesc" id="qdesc"></div><div class="qsubnote">注：满分为客观题(70) + 主观题自评(30)。90 分以上视为扎实。</div><button class="qsubmit" onclick="quizReset()">重新测试</button></div></div>';
+  h+='</div>';
+  host.innerHTML=h;
+  markVisited('quiz');
+  window.scrollTo(0,0);
+}
+
+function quizCards(){
+  var out='<div class="qcards">';
+  QUIZ_DATA.forEach(function(q,i){
+    var kind=q.type==='single'||q.type==='multi'||q.type==='tf';
+    var cls=q.type==='multi'?'multi':(q.type==='tf'?'tf':(q.type==='short'?'short':'practical'));
+    var body='';
+    if(kind){
+      var it=q.type==='multi'?'checkbox':'radio';
+      body=q.options.map(function(opt,oi){
+        var letter=String.fromCharCode(65+oi);
+        var txt=opt.replace(/^[A-Z]\.\s*/,'');
+        return '<label class="qopt" data-q="'+i+'" data-i="'+oi+'"><input type="'+it+'" name="q'+i+'" value="'+letter+'"><span>'+quizEscape(txt)+'</span></label>';
+      }).join('');
+    } else {
+      body='<div class="qsubj"><textarea placeholder="写下你的答案（可选）"></textarea><div class="qbtns"><button class="qb-ghost" onclick="quizToggleRef('+i+')">查看参考答案</button><button class="qb-green" onclick="quizSelfScore('+i+',1)">我答对了</button><button class="qb-orange" onclick="quizSelfScore('+i+',0)">我答错了</button></div><div class="qref" id="qref-'+i+'">'+q.reference+'</div><div class="qexp" id="qsexp-'+i+'"></div></div>';
+    }
+    out+='<div class="qcard" id="qcard-'+i+'"><div class="qtitle"><span class="qnum '+cls+'">第 '+q.num+' 题</span><span class="qhtext">'+q.text+'</span><span class="qtype">'+quizTypeLabel(q.type)+' · '+q.points+' 分</span></div><div class="qopts">'+body+'</div><div class="qexplain" id="qexp-'+i+'"></div></div>';
+  });
+  out+='</div>';
+  return out;
+}
+
+// 选项选择（委托，只绑定一次）
+document.getElementById('content').addEventListener('click',function(e){
+  var o=e.target.closest?e.target.closest('.qopt'):null;
+  if(!o)return;
+  var qi=+o.getAttribute('data-q');
+  var q=QUIZ_DATA[qi];
+  if(!q)return;
+  var card=document.getElementById('qcard-'+qi);
+  if(!card||card.dataset.graded)return;
+  if(q.type==='multi'){o.classList.toggle('selected');}
+  else{Array.from(card.querySelectorAll('.qopt')).forEach(function(x){x.classList.remove('selected');});o.classList.add('selected');}
+  quizUpdateLive();
+});
+
+function quizSelected(idx){
+  var card=document.getElementById('qcard-'+idx);
+  if(!card)return [];
+  return Array.from(card.querySelectorAll('input:checked')).map(function(inp){return inp.value;});
+}
+function quizObjectScore(idx){
+  var q=QUIZ_DATA[idx];
+  var picked=quizSelected(idx);
+  if(q.type==='multi'){
+    var need=Array.from(q.answer).sort().join(',');   // q.answer is array
+    var got=[...picked].sort().join(',');
+    return got===need;
+  }
+  return picked.length===1&&picked[0]===q.answer;
+}
+function quizToggleRef(idx){
+  var r=document.getElementById('qref-'+idx);
+  if(r)r.classList.toggle('show');
+}
+function quizSelfScore(idx,ok){
+  var exp=document.getElementById('qsexp-'+idx);
+  var card=document.getElementById('qcard-'+idx);
+  if(!card||!exp)return;
+  var got=ok?QUIZ_DATA[idx].points:0;
+  card.dataset.self=ok?'1':'0';
+  exp.classList.add('show');
+  exp.className='qexp show '+(ok?'correct':'wrong');
+  exp.innerHTML=(ok?'✅ 已自评答对，得 '+got+' 分。':'❌ 已自评答错，得 0 分。请对照参考答案订正。');
+  quizUpdateLive();
+}
+function quizPickedHas(idx,letter){return quizSelected(idx).indexOf(letter)>=0;}
+function quizUpdateLive(){
+  var s=0;
+  QUIZ_DATA.forEach(function(q,i){
+    if(q.type==='single'||q.type==='multi'||q.type==='tf'){if(quizObjectScore(i))s+=q.points;}
+    else{var c=document.getElementById('qcard-'+i);if(c&&c.dataset.self==='1')s+=q.points;}
+  });
+  var el=document.getElementById('qs');if(el)el.textContent=s;
+  var p=document.getElementById('qp');if(p)p.style.width=Math.min(100,(s/quizFull()*100))+'%';
+}
+function quizSubmit(){
+  var score=0;
+  QUIZ_DATA.forEach(function(q,i){
+    if(q.type==='single'||q.type==='multi'||q.type==='tf'){
+      var card=document.getElementById('qcard-'+i);
+      if(!card)return;
+      card.dataset.graded='1';
+      Array.from(card.querySelectorAll('input')).forEach(function(inp){inp.disabled=true;});
+      var ok=quizObjectScore(i);
+      var exp=document.getElementById('qexp-'+i);
+      var correct=q.type==='multi'?Array.from(q.answer).sort().join('、'):q.answer;
+      exp.classList.add('show');
+      if(ok){
+        score+=q.points;card.classList.add('correct');
+        exp.className='qexplain show correct';
+        exp.innerHTML='<b>✅ 正确（+'+q.points+' 分）</b>'+q.explain;
+        Array.from(card.querySelectorAll('.qopt')).forEach(function(o){
+          var letter=String.fromCharCode(65 + +o.getAttribute('data-i'));
+          var ans=Array.isArray(q.answer)?q.answer:[q.answer];
+          if(ans.indexOf(letter)>=0)o.classList.add('done-correct');
+        });
+      } else {
+        card.classList.add('wrong');
+        exp.className='qexplain show wrong';
+        exp.innerHTML='<b>❌ 错误（+0 分）正确答案：'+correct+'</b>'+q.explain;
+        var ans2=Array.isArray(q.answer)?q.answer:[q.answer];
+        Array.from(card.querySelectorAll('.qopt')).forEach(function(o){
+          var letter=String.fromCharCode(65 + +o.getAttribute('data-i'));
+          if(ans2.indexOf(letter)>=0)o.classList.add('done-correct');
+          else if(quizPickedHas(i,letter))o.classList.add('done-wrong');
+        });
+      }
+    } else {
+      var c=document.getElementById('qcard-'+i);
+      if(c&&c.dataset.self==='1')score+=q.points;
+    }
+  });
+  quizShowResult(score);
+}
+function quizShowResult(score){
+  var pct=score/quizFull()*100;
+  var r=document.getElementById('qresult');
+  var qf=document.getElementById('qfinal');if(qf)qf.textContent=score;
+  var lv=document.getElementById('qlv');var ds=document.getElementById('qdesc');
+  if(lv){lv.className='qlv';
+    if(pct>=90){lv.textContent='掌握非常扎实 ✅';lv.classList.add('good');}
+    else if(pct>=75){lv.textContent='掌握良好 👍';lv.classList.add('mid');}
+    else if(pct>=60){lv.textContent='需要加油 📖';lv.classList.add('bad');}
+    else{lv.textContent='基础需巩固 💪';lv.classList.add('bad');}
+  }
+  if(ds){
+    if(pct>=90)ds.textContent='恭喜，你已经能熟练运用 Docker！可以尝试进阶编排（K8s/Swarm）。';
+    else if(pct>=75)ds.textContent='整体不错，建议回头复习错题对应的章节。';
+    else if(pct>=60)ds.textContent='再复习一遍薄弱章节，重点看错题解析。';
+    else ds.textContent='建议从《02-基础概念》重新学一遍，再结合实验手册动手做。';
+  }
+  if(r)r.classList.add('show');
+}
+function quizReset(){
+  var r=document.getElementById('qresult');if(r)r.classList.remove('show');
+  quizRender();
+}
+
+// ===== 学习路线图 / 知识图谱（运维/DevOps 成长向） =====
+var MAP_NODES = [
+  // Docker 基础（蓝）
+  {id:'docker',     label:'Docker 基础',    cat:'docker',   x:70,  y:45,  jump:'#ch02', desc:'为什么要用容器、镜像是啥、Docker 架构。', extra:[{name:'Kubernetes',intro:'容器编排平台，管理大规模容器；学完 Docker 是自然进阶。'},{name:'容器安全',intro:'镜像瘦身、非 root、最小权限、不烧密钥。'},{name:'Git/GitHub',intro:'版本控制与代码协作，是 CI/CD 和团队协作的基础。'}]},
+  {id:'install',    label:'安装 Docker',    cat:'docker',   x:70,  y:120, jump:'#ch03', desc:'在 Windows/macOS/Linux 装好 Docker 并验证。', extra:[]},
+  {id:'core',       label:'核心命令',       cat:'docker',   x:70,  y:195, jump:'#ch04', desc:'镜像与容器的增删查改、docker run/ps/stop/rm。', extra:[{name:'Shell/脚本自动化',intro:'把容器命令写成脚本，批量管理更高效。'},{name:'Git',intro:'学会 Git 才能衔接代码与自动化部署。'}]},
+  {id:'dockerfile', label:'镜像构建',       cat:'docker',   x:70,  y:270, jump:'#ch05', desc:'用 Dockerfile 自己打包程序成镜像。', extra:[{name:'多阶段构建',intro:'把构建与运行分离，让镜像更小。'},{name:'私有仓库 Harbor',intro:'企业内自建镜像仓库，管理私有镜像。'}]},
+  {id:'data',       label:'数据卷与网络',   cat:'docker',   x:70,  y:345, jump:'#ch06', desc:'数据不丢 + 容器互通 + 端口映射。', extra:[{name:'MySQL 主从/读写分离',intro:'你已懂 MySQL：容器里跑数据库要注意持久化与高可用。'},{name:'Redis 缓存',intro:'缓存可放容器，注意数据持久化。'},{name:'备份与容灾',intro:'数据卷/镜像定期备份，避免丢失。'}]},
+  {id:'compose',    label:'Docker Compose', cat:'docker',   x:70,  y:420, jump:'#ch07', desc:'一条命令启动/管理多个容器。', extra:[{name:'Kubernetes',intro:'生产级容器编排，自动扩缩容与自愈。'},{name:'微服务架构',intro:'把系统拆成多个可独立部署的小服务。'},{name:'蓝绿/滚动发布',intro:'不停机发布，降低上线风险。'}]},
+  {id:'best',       label:'最佳实践与安全', cat:'docker',   x:70,  y:495, jump:'#ch08', desc:'镜像更小更快、用得更安全。', extra:[]},
+
+  // 实践 / 部署（绿）
+  {id:'lab',   label:'训练·实验手册', cat:'practice', x:300, y:180, jump:'#ch09', desc:'8 个照着做的上机实验，从 0 到跑通。', extra:[{name:'部署实战',intro:'把所学应用到真实项目部署，形成闭环。'},{name:'Kubernetes',intro:'从单机容器走向集群编排。'}]},
+  {id:'exam',  label:'考试·自测',     cat:'practice', x:300, y:290, jump:'#ch10', desc:'客观题自动判分，检验掌握程度。', extra:[]},
+
+  // 进阶（紫）
+  {id:'nacos',    label:'Nacos 服务发现/配置', cat:'devops', x:300, y:400, jump:'#ch11', desc:'注册中心 + 配置中心，微服务找得到彼此、配置改一处全局生效。', extra:[{name:'Spring Cloud',intro:'微服务全家桶；Nacos 常作为其中的注册中心/配置中心。'},{name:'微服务网关',intro:'统一入口与路由，如 Spring Cloud Gateway。'},{name:'服务网格 Istio',intro:'在 K8s 里做流量治理、可观测。'},{name:'Kubernetes',intro:'服务编排、发现与治理。'}]},
+  {id:'jenkins',  label:'Jenkins CI/CD',      cat:'devops', x:300, y:515, jump:'#ch12', desc:'持续集成/持续部署，自动构建与发布。', extra:[{name:'Git/GitHub',intro:'代码仓库，Jenkins 从这里拉取代码。'},{name:'GitLab CI',intro:'同类 CI/CD 工具，内置于 GitLab。'},{name:'Docker 镜像打包',intro:'在流水线里把应用打成镜像再部署。'},{name:'Kubernetes 部署',intro:'把镜像发布到 K8s，滚动/金丝雀发布。'},{name:'可观测性',intro:'配 Prometheus/Grafana 监控部署与告警。'}]},
+
+  // 关联外部知识（橙）
+  {id:'hub',        label:'Docker Hub',      cat:'ext', x:560, y:70,  desc:'官方镜像仓库，pull/push 镜像。', extra:[]},
+  {id:'k8s',        label:'Kubernetes (K8s)',cat:'ext', x:560, y:185, jump:'#ch14', desc:'容器编排平台，管理成百上千容器。站内已开课：第 14 章 K8s 入门。', extra:[{name:'Helm',intro:'K8s 包管理器，一键部署应用。'},{name:'Ingress',intro:'K8s 入口流量网关。'},{name:'Prometheus',intro:'K8s 生态常用监控（可观测性）。'}]},
+  {id:'springcloud',label:'Spring Cloud',    cat:'ext', x:560, y:300, desc:'微服务开发全家桶（网关/配置/熔断等）。', extra:[]},
+  {id:'git',        label:'Git / GitHub',    cat:'ext', x:560, y:415, jump:'#ch13', desc:'版本控制与代码托管，自动化部署的源头。站内已开课：第 13 章 Git 入门。', extra:[]},
+  {id:'gitlab',     label:'GitLab CI',       cat:'ext', x:560, y:530, desc:'GitLab 自带的 CI/CD 流水线。', extra:[]},
+  {id:'mysql',      label:'MySQL 数据库',    cat:'ext', x:820, y:150, desc:'关系型数据库，容器中跑要持久化。你已掌握，可往高可用/备份深耕。', extra:[{name:'主从/读写分离',intro:'提升读性能与高可用。'},{name:'备份与恢复',intro:'定时备份，防止数据丢失。'}]},
+  {id:'redis',      label:'Redis 缓存',      cat:'ext', x:820, y:300, desc:'内存缓存/消息中间件。', extra:[]},
+
+  // 运维成长/DevOps（橙）
+  {id:'prometheus', label:'Prometheus 监控', cat:'ext', x:820, y:450, jump:'#ch15', desc:'监控指标与告警（可观测性）。站内已开课：第 15 章 Prometheus 入门。', extra:[{name:'Grafana',intro:'可视化监控面板。'},{name:'Alertmanager',intro:'告警通知。'}]},
+  {id:'terraform',  label:'Terraform/Ansible',cat:'ext', x:1040, y:185, desc:'基础设施即代码(IaC)，一键创建环境。', extra:[{name:'多云 IaC',intro:'一套脚本管理多环境/多平台。'}]},
+  {id:'cloud',      label:'云平台',          cat:'ext', x:1040, y:320, desc:'云厂商（阿里云/腾讯云/AWS）容器与编排产品。', extra:[]},
+  {id:'aiops',      label:'AI 运维 (AIOps)', cat:'ext', x:1040, y:455, jump:'#ch17', desc:'用大模型做智能运维：日志分析、告警降噪、智能排障。站内已开课：第 17 章。', extra:[{name:'大模型 API',intro:'用 Python 调大模型做自己的智能工具。'},{name:'Ollama',intro:'用 Docker 本地跑开源模型，数据不外泄。'}]}
+];
+
+var MAP_EDGES = [
+  {s:'docker',t:'install',type:'pre'},
+  {s:'install',t:'core',type:'pre'},
+  {s:'core',t:'dockerfile',type:'pre'},
+  {s:'dockerfile',t:'data',type:'pre'},
+  {s:'data',t:'compose',type:'pre'},
+  {s:'compose',t:'best',type:'pre'},
+  {s:'docker',t:'lab',type:'pre'},
+  {s:'core',t:'lab',type:'pre'},
+  {s:'compose',t:'lab',type:'pre'},
+  {s:'lab',t:'exam',type:'pre'},
+  {s:'docker',t:'jenkins',type:'pre'},
+  {s:'compose',t:'nacos',type:'rel'},
+  {s:'nacos',t:'springcloud',type:'rel'},
+  {s:'jenkins',t:'git',type:'rel'},
+  {s:'jenkins',t:'gitlab',type:'rel'},
+  {s:'jenkins',t:'dockerfile',type:'rel'},
+  {s:'docker',t:'git',type:'rel'},
+  {s:'dockerfile',t:'hub',type:'rel'},
+  {s:'data',t:'mysql',type:'rel'},
+  {s:'data',t:'redis',type:'rel'},
+  {s:'best',t:'k8s',type:'rel'},
+  {s:'nacos',t:'k8s',type:'rel'},
+  {s:'k8s',t:'prometheus',type:'rel'},
+  {s:'jenkins',t:'prometheus',type:'rel'},
+  {s:'best',t:'terraform',type:'rel'},
+  {s:'terraform',t:'cloud',type:'rel'},
+  {s:'prometheus',t:'cloud',type:'rel'},
+  {s:'k8s',t:'aiops',type:'rel'},
+  {s:'prometheus',t:'aiops',type:'rel'}
+];
+/* 去掉重复边（id 相同） */
+(function(){const seen={};const out=[];MAP_EDGES.forEach(function(e){const k=e.s+'|'+e.t+'|'+e.type;if(!seen[k]){seen[k]=1;out.push(e);}});MAP_EDGES.length=0;out.forEach(function(e){MAP_EDGES.push(e);});})();
+
+var MAP_COLORS={docker:'#3b82f6',practice:'#10b981',devops:'#8b5cf6',ext:'#f59e0b'};
+var MAP_CAT={docker:'Docker 基础',practice:'实践·部署',devops:'进阶·DevOps',ext:'关联/运维成长'};
+var RW=142,RH=44;
+
+function mapNodeById(id){for(var i=0;i<MAP_NODES.length;i++){if(MAP_NODES[i].id===id)return MAP_NODES[i];}return null;}
+function mapCenter(n){return {x:n.x+RW/2,y:n.y+RH/2};}
+
+function renderMap(){
+  var host=document.getElementById('content');
+  if(!host)return;
+  var W=1200,H=620;
+  var s='<div class="map-wrap">';
+  s+='<div class="map-head"><h1>🗺️ 学习路线图 · 知识关联（运维/DevOps 成长向）</h1>';
+  s+='<p>你已懂 <b>Linux / MySQL / 运维</b>，可直接用 Docker 跑 Nacos、Jenkins，并按下面的<b>涨薪路线</b>拓展。点任一知识点，看它的<b>先修 / 关联 / 自动引申</b>。实线箭头=先后递进，虚线=相互关联。</p>';
+  s+='<div class="map-growth">🔝 <b>运维涨薪进阶线：</b>Docker 精通 → <b>Kubernetes</b>（集群编排）→ CI/CD 流水线（Jenkins/GitLab CI）→ 可观测性（Prometheus/Grafana）→ 基础设施即代码（Terraform/Ansible）→ 云平台</div>';
+  s+='<div class="map-legend" id="mapLegend"></div></div>';
+  s+='<div class="map-body"><div class="map-canvas"><div class="map-scroll"><svg id="mapsvg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'+mapEdgesSvg()+mapNodesSvg()+'</svg></div></div>';
+  s+='<div class="map-detail" id="mapDetail"><div class="map-placeholder">👆 点击图中的知识点，这里会显示它的先修、关联与自动引申</div></div></div>';
+  s+='</div>';
+  host.innerHTML=s;
+  markVisited('map');
+  var lg=document.getElementById('mapLegend');
+  if(lg){lg.innerHTML=Object.keys(MAP_COLORS).map(function(k){return '<span class="lg-item"><i style="background:'+MAP_COLORS[k]+'"></i>'+MAP_CAT[k]+'</span>';}).join('');}
+  window.scrollTo(0,0);
+}
+
+function mapNodesSvg(){
+  var out='';
+  MAP_NODES.forEach(function(n){
+    var c=MAP_COLORS[n.cat];
+    out+='<g class="map-node" data-id="'+n.id+'" tabindex="0">';
+    out+='<rect x="'+n.x+'" y="'+n.y+'" width="'+RW+'" height="'+RH+'" rx="12" fill="'+c+'" opacity="0.92"/>';
+    out+='<text x="'+(n.x+RW/2)+'" y="'+(n.y+RH/2+5)+'" text-anchor="middle" font-size="13" fill="#fff" font-weight="600">'+mapEsc(n.label)+'</text>';
+    out+='</g>';
+  });
+  return out;
+}
+
+function mapEdgesSvg(){
+  var defs='<defs><marker id="mapArr" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto"><path d="M0,0 L11,4 L0,8 Z" fill="#94a3b8"/></marker></defs>';
+  var out=defs;
+  MAP_EDGES.forEach(function(e){
+    var a=mapNodeById(e.s),b=mapNodeById(e.t);if(!a||!b)return;
+    var ca=mapCenter(a),cb=mapCenter(b);
+    var dash=e.type==='rel'?'stroke-dasharray="6 5"':'';
+    var color=e.type==='rel'?'#94a3b8':'#64748b';
+    var marker=e.type==='pre'?' marker-end="url(#mapArr)"':'';
+    out+='<line x1="'+ca.x+'" y1="'+ca.y+'" x2="'+cb.x+'" y2="'+cb.y+'" stroke="'+color+'" stroke-width="2" '+dash+' '+marker+' data-s="'+e.s+'" data-t="'+e.t+'"/>';
+  });
+  return out;
+}
+
+function mapEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function mapSelect(id){
+  var n=mapNodeById(id);if(!n)return;
+  document.querySelectorAll('.map-node').forEach(function(g){g.classList.toggle('sel',g.getAttribute('data-id')===id);});
+  document.querySelectorAll('#mapsvg line').forEach(function(l){l.classList.toggle('on',l.getAttribute('data-s')===id||l.getAttribute('data-t')===id);});
+  var d=document.getElementById('mapDetail');if(!d)return;
+  d.innerHTML=mapDetailHtml(n);
+  window.scrollTo(0,0);
+}
+
+function mapDetailHtml(n){
+  var h='<div class="map-dtitle"><span class="map-badge" style="background:'+MAP_COLORS[n.cat]+'">'+MAP_CAT[n.cat]+'</span><h2>'+mapEsc(n.label)+'</h2></div>';
+  h+='<p class="map-ddesc">'+n.desc+'</p>';
+  if(n.jump){h+='<a class="map-go" href="'+n.jump+'">去学习本章 →</a>';}
+  var pres=MAP_EDGES.filter(function(e){return e.t===n.id&&e.type==='pre';}).map(function(e){return mapNodeById(e.s);}).filter(Boolean);
+  if(pres.length){h+='<div class="map-sec"><h4>📚 先修知识</h4><div class="map-chips">'+pres.map(function(p){return '<button class="chip" onclick="mapSelect(\''+p.id+'\')">'+mapEsc(p.label)+'</button>';}).join('')+'</div></div>';}
+  var nexts=MAP_EDGES.filter(function(e){return e.s===n.id&&e.type==='pre';}).map(function(e){return mapNodeById(e.t);}).filter(Boolean);
+  if(nexts.length){h+='<div class="map-sec"><h4>➡️ 学到这之后</h4><div class="map-chips">'+nexts.map(function(p){return '<button class="chip" onclick="mapSelect(\''+p.id+'\')">'+mapEsc(p.label)+'</button>';}).join('')+'</div></div>';}
+  var rels=[];
+  MAP_EDGES.forEach(function(e){ if((e.s===n.id||e.t===n.id)&&e.type==='rel'){ rels.push(mapNodeById(e.s===n.id?e.t:e.s)); } });
+  rels=rels.filter(Boolean).filter(function(x,i,a){return a.indexOf(x)===i;});
+  if(rels.length){h+='<div class="map-sec"><h4>🔗 关联知识</h4><div class="map-chips">'+rels.map(function(p){return '<button class="chip" onclick="mapSelect(\''+p.id+'\')">'+mapEsc(p.label)+'</button>';}).join('')+'</div></div>';}
+  if(n.extra&&n.extra.length){
+    h+='<div class="map-sec"><h4>✨ 自动引申 · 相关技术</h4><div class="map-extra">'+n.extra.map(function(x){return '<div class="extra-card"><b>'+mapEsc(x.name)+'</b><p>'+x.intro+'</p></div>';}).join('')+'</div></div>';
+  }
+  return h;
+}
+
+document.addEventListener('click',function(e){
+  var g=e.target.closest?e.target.closest('.map-node'):null;
+  if(g){mapSelect(g.getAttribute('data-id'));}
+});
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function inlineLinks(s){
+  s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  s=s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g,function(m,alt,src){return '<img src="'+src+'" alt="'+alt+'">';});
+  s=s.replace(/\[([^\]]+)\]\(([^)]+)\)/g,function(m,txt,href){
+    if(/^\d{2}-[^)]*\.md$/.test(href)){href='#ch'+href.slice(0,2);}
+    return '<a href="'+href+'">'+txt+'</a>';
+  });
+  return s;
+}
+function inline(s){
+  var parts=s.split('`'),out='';
+  for(var i=0;i<parts.length;i++){
+    if(i%2===1){out+='<code>'+esc(parts[i])+'</code>';}
+    else{out+=inlineLinks(parts[i]);}
+  }
+  return out;
+}
+function renderBlock(text){
+  var lines=text.replace(/\r\n/g,'\n').split('\n');var html='';var i=0;
+  while(i<lines.length){
+    var line=lines[i];
+    if(line.trim()===''){i++;continue;}
+    if(/^```/.test(line.trim())){
+      var lang=line.trim().replace(/```/g,'');var code=[];i++;
+      while(i<lines.length&&!/^```/.test(lines[i].trim())){code.push(lines[i]);i++;}
+      i++;
+      var lbl=lang||'txt';
+      html+='<div class="pre"><div class="pre-bar"><span class="lang">'+esc(lbl)+'</span><button class="copy">复制</button></div><pre><code>'+esc(code.join('\n'))+'</code></pre></div>';
+      continue;
+    }
+    var h=line.match(/^(#{1,6})\s+(.*)$/);
+    if(h){var l=h[1].length;html+='<h'+l+'>'+inline(h[2])+'</h'+l+'>';i++;continue;}
+    if(/^---+\s*$/.test(line.trim())){html+='<hr>';i++;continue;}
+    if(/^>/.test(line)){
+      var q=[];while(i<lines.length&&/^>/.test(lines[i])){q.push(lines[i].replace(/^>\s?/,''));i++;}
+      html+='<blockquote>'+renderBlock(q.join('\n'))+'</blockquote>';continue;
+    }
+    if(/\|/.test(line)&&i+1<lines.length&&/^\s*\|?[\s:|-]+\|?\s*$/.test(lines[i+1])&&lines[i+1].indexOf('-')>=0){
+      var header=line.split('|').map(function(s){return s.trim();}).filter(function(s){return s!=='';});
+      i+=2;var rows=[];
+      while(i<lines.length&&/\|/.test(lines[i])){rows.push(lines[i].split('|').map(function(s){return s.trim();}).filter(function(s){return s!=='';}));i++;}
+      var t='<table><thead><tr>';header.forEach(function(c){t+='<th>'+inline(c)+'</th>';});t+='</tr></thead><tbody>';
+      rows.forEach(function(r){t+='<tr>';r.forEach(function(c){t+='<td>'+inline(c)+'</td>';});t+='</tr>';});
+      t+='</tbody></table>';html+=t;continue;
+    }
+    if(/^\s*[-*]\s+/.test(line)||/^\s*\d+\.\s+/.test(line)){
+      var ordered=/^\s*\d+\.\s+/.test(line);var items=[];
+      while(i<lines.length){
+        var l=lines[i];if(l.trim()===''){i++;continue;}
+        var m=l.match(/^(\s*)([-*]|\d+\.)\s+(.*)$/);if(!m)break;
+        items.push({ind:m[1].length,txt:m[3]});i++;
+      }
+      var tag=ordered?'ol':'ul';
+      var out='<'+tag+'>';
+      items.forEach(function(it){out+='<li'+(it.ind>0?' style="margin-left:'+(it.ind<4?18:36)+'px"':'')+'>'+inline(it.txt)+'</li>';});
+      out+='</'+tag+'>';html+=out;continue;
+    }
+    var para=[];var starts=/^(#{1,6}\s|```|\s*[-*]\s+|\s*\d+\.\s+|>|---)/;
+    while(i<lines.length&&lines[i].trim()!==''&&!starts.test(lines[i])){para.push(lines[i]);i++;}
+    html+='<p>'+inline(para.join(' '))+'</p>';
+  }
+  return html;
+}
+</script>
+<button class="to-top" id="toTop">↑</button>
+</body>
+</html>

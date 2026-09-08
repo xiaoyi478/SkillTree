@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" font-family="Microsoft YaHei, sans-serif">
+  <rect width="720" height="400" fill="#f7f9fc"/>
+  <text x="360" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1f2d3d">镜像是"一层层叠起来"的（分层 + 缓存）</text>
+
+  <!-- 层堆叠 -->
+  <rect x="90" y="270" width="300" height="46" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="240" y="298" text-anchor="middle" font-size="14" fill="#475569">第3层　COPY 代码（容易变）</text>
+  <rect x="90" y="218" width="300" height="46" rx="8" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="240" y="246" text-anchor="middle" font-size="14" fill="#92400e">第2层　RUN 安装依赖</text>
+  <rect x="90" y="166" width="300" height="46" rx="8" fill="#e0f2fe" stroke="#0ea5e9"/>
+  <text x="240" y="194" text-anchor="middle" font-size="14" fill="#075985">第1层　FROM 基础镜像</text>
+
+  <text x="240" y="348" text-anchor="middle" font-size="13" fill="#64748b">每执行一次 RUN / COPY 就多加一层</text>
+
+  <!-- 右：说明 -->
+  <rect x="440" y="150" width="240" height="170" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="560" y="180" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f2d3d">为什么重要？</text>
+  <text x="455" y="210" font-size="13" fill="#334155">· Docker 会缓存每一层</text>
+  <text x="455" y="234" font-size="13" fill="#334155">· 某层没变 → 直接复用缓存</text>
+  <text x="455" y="258" font-size="13" fill="#334155">· 所以把"常变的"放下面</text>
+  <text x="455" y="282" font-size="13" fill="#334155">（配置依赖前面，复制代码后面）</text>
+  <text x="455" y="306" font-size="13" fill="#16a34a">→ 构建更快、镜像更小</text>
+
+  <text x="360" y="382" text-anchor="middle" font-size="13" fill="#64748b">提示：把不变的行放前面能充分利用缓存，改代码不用重新装依赖</text>
+</svg>

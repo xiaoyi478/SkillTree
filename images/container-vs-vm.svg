@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="Microsoft YaHei, sans-serif">
+  <rect width="760" height="380" fill="#f7f9fc"/>
+  <text x="380" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1f2d3d">容器 vs 虚拟机</text>
+
+  <!-- 左：虚拟机 -->
+  <rect x="40" y="70" width="320" height="270" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="40" y="70" width="320" height="38" rx="14" fill="#64748b"/>
+  <text x="200" y="94" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">虚拟机 VM（重）</text>
+  <rect x="60" y="126" width="280" height="34" rx="8" fill="#e0f2fe" stroke="#0ea5e9"/>
+  <text x="200" y="148" text-anchor="middle" font-size="14" fill="#075985">你的应用 App</text>
+  <rect x="60" y="168" width="280" height="42" rx="8" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="200" y="194" text-anchor="middle" font-size="14" fill="#92400e">独立 Guest OS（几 GB）</text>
+  <rect x="60" y="218" width="280" height="34" rx="8" fill="#ede9fe" stroke="#8b5cf6"/>
+  <text x="200" y="240" text-anchor="middle" font-size="14" fill="#5b21b6">Hypervisor（虚拟化层）</text>
+  <rect x="60" y="260" width="280" height="34" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="200" y="282" text-anchor="middle" font-size="13" fill="#475569">宿主机硬件 / 内核</text>
+
+  <!-- 右：容器 -->
+  <rect x="400" y="70" width="320" height="270" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="400" y="70" width="320" height="38" rx="14" fill="#22c55e"/>
+  <text x="560" y="94" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">容器（轻巧，秒级启动）</text>
+  <rect x="420" y="126" width="280" height="34" rx="8" fill="#e0f2fe" stroke="#0ea5e9"/>
+  <text x="560" y="148" text-anchor="middle" font-size="14" fill="#075985">你的应用 App</text>
+  <rect x="420" y="168" width="280" height="42" rx="8" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="560" y="194" text-anchor="middle" font-size="14" fill="#92400e">运行库 / 依赖（几十 MB）</text>
+  <rect x="420" y="218" width="280" height="34" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="560" y="240" text-anchor="middle" font-size="13" fill="#475569">共享宿主机内核（共用！）</text>
+  <text x="560" y="283" text-anchor="middle" font-size="13" fill="#16a34a">√ 轻量  √ 启动快  √ 占用少</text>
+  <text x="560" y="305" text-anchor="middle" font-size="12" fill="#94a3b8">× 隔离比虚拟机弱一些</text>
+
+  <text x="380" y="360" text-anchor="middle" font-size="14" fill="#64748b">虚拟机像"一栋带配套的大别墅"；容器像"公寓楼里的一间房"，水电共用</text>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="Microsoft YaHei, sans-serif">
+  <rect width="760" height="380" fill="#f7f9fc"/>
+  <text x="380" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1f2d3d">Jenkins 流水线（CI/CD 一键自动化）</text>
+
+  <!-- Jenkins 框 -->
+  <rect x="60" y="90" width="250" height="210" rx="16" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <text x="185" y="126" text-anchor="middle" font-size="17" font-weight="bold" fill="#4338ca">Jenkins</text>
+  <text x="185" y="150" text-anchor="middle" font-size="12" fill="#334155">自动化流水线工厂</text>
+
+  <rect x="84" y="168" width="200" height="30" rx="7" fill="#dbeafe" stroke="#3b82f6"/>
+  <text x="184" y="188" text-anchor="middle" font-size="13" fill="#075985">① 拉取代码</text>
+  <rect x="84" y="204" width="200" height="30" rx="7" fill="#dcfce7" stroke="#22c55e"/>
+  <text x="184" y="224" text-anchor="middle" font-size="13" fill="#15803d">② 构建 / 编译</text>
+  <rect x="84" y="240" width="200" height="30" rx="7" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="184" y="260" text-anchor="middle" font-size="13" fill="#92400e">③ 测试</text>
+
+  <!-- 输入：代码 -->
+  <rect x="360" y="100" width="180" height="70" rx="12" fill="#fff" stroke="#0ea5e9" stroke-width="2"/>
+  <text x="450" y="132" text-anchor="middle" font-size="15" font-weight="bold" fill="#0369a1">你的代码库</text>
+  <text x="450" y="155" text-anchor="middle" font-size="12" fill="#334155">Git / GitHub</text>
+
+  <!-- 输出：发布 -->
+  <rect x="560" y="100" width="170" height="70" rx="12" fill="#fff" stroke="#22c55e" stroke-width="2"/>
+  <text x="645" y="132" text-anchor="middle" font-size="15" font-weight="bold" fill="#15803d">发布 / 部署</text>
+  <text x="645" y="155" text-anchor="middle" font-size="12" fill="#334155">打包 → 部署到服务器</text>
+
+  <!-- 产出交付物 -->
+  <text x="450" y="220" text-anchor="middle" font-size="13" fill="#64748b">push 提交代码触发</text>
+
+  <!-- 箭头 -->
+  <path d="M315 135 L358 135" stroke="#0ea5e9" stroke-width="2.5" fill="none" marker-end="url(#j1)"/>
+  <path d="M510 135 L558 135" stroke="#22c55e" stroke-width="2.5" fill="none" marker-end="url(#j2)"/>
+
+  <!-- 结果提示 -->
+  <rect x="360" y="250" width="370" height="60" rx="12" fill="#f0fdf4" stroke="#22c55e"/>
+  <text x="545" y="278" text-anchor="middle" font-size="13" fill="#15803d">继续集成 CI：频繁自动构建+测试</text>
+  <text x="545" y="298" text-anchor="middle" font-size="13" fill="#15803d">持续部署 CD：测试通过就自动发布</text>
+
+  <text x="380" y="360" text-anchor="middle" font-size="13" fill="#64748b">你只管「推代码 + 点构建」，其余 Jenkins 自动完成</text>
+  <defs>
+    <marker id="j1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#0ea5e9"/></marker>
+    <marker id="j2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#22c55e"/></marker>
+  </defs>
+</svg>

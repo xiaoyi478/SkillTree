@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="Microsoft YaHei, sans-serif">
+  <rect width="760" height="400" fill="#f7f9fc"/>
+  <text x="380" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1f2d3d">Nacos 架构：服务发现 + 配置中心</text>
+
+  <!-- Nacos 中心 -->
+  <rect x="270" y="120" width="220" height="180" rx="16" fill="#eef2ff" stroke="#6366f1" stroke-width="2"/>
+  <text x="380" y="172" text-anchor="middle" font-size="18" font-weight="bold" fill="#4338ca">Nacos</text>
+  <rect x="292" y="192" width="176" height="34" rx="8" fill="#dbeafe" stroke="#3b82f6"/>
+  <text x="380" y="214" text-anchor="middle" font-size="13" fill="#075985">服务发现（注册中心）</text>
+  <rect x="292" y="234" width="176" height="34" rx="8" fill="#fed7aa" stroke="#f59e0b"/>
+  <text x="380" y="256" text-anchor="middle" font-size="13" fill="#92400e">配置中心</text>
+
+  <!-- 服务A -->
+  <rect x="40" y="90" width="180" height="110" rx="14" fill="#fff" stroke="#22c55e" stroke-width="2"/>
+  <text x="130" y="125" text-anchor="middle" font-size="15" font-weight="bold" fill="#15803d">服务 A</text>
+  <text x="130" y="150" text-anchor="middle" font-size="12" fill="#334155">（订单服务）</text>
+  <text x="130" y="172" text-anchor="middle" font-size="11" fill="#64748b">启动时"注册报到"</text>
+
+  <!-- 服务B -->
+  <rect x="540" y="90" width="180" height="110" rx="14" fill="#fff" stroke="#0ea5e9" stroke-width="2"/>
+  <text x="630" y="125" text-anchor="middle" font-size="15" font-weight="bold" fill="#0369a1">服务 B</text>
+  <text x="630" y="150" text-anchor="middle" font-size="12" fill="#334155">（库存服务）</text>
+  <text x="630" y="172" text-anchor="middle" font-size="11" fill="#64748b">调用前"发现找地址"</text>
+
+  <!-- 配置拉取 -->
+  <rect x="540" y="290" width="180" height="66" rx="12" fill="#fff" stroke="#f59e0b" stroke-width="2"/>
+  <text x="630" y="318" text-anchor="middle" font-size="14" fill="#92400e">应用 / 配置客户端</text>
+  <text x="630" y="340" text-anchor="middle" font-size="11" fill="#64748b">启动时拉取配置</text>
+
+  <!-- 箭头 -->
+  <path d="M225 140 L270 175" stroke="#22c55e" stroke-width="2.5" fill="none" marker-end="url(#m1)"/>
+  <text x="245" y="150" text-anchor="middle" font-size="11" fill="#16a34a">注册</text>
+  <path d="M495 175 L538 140" stroke="#0ea5e9" stroke-width="2.5" fill="none" marker-end="url(#m2)"/>
+  <text x="518" y="150" text-anchor="middle" font-size="11" fill="#0369a1">发现</text>
+  <path d="M495 250 L538 300" stroke="#f59e0b" stroke-width="2.5" fill="none" marker-end="url(#m3)"/>
+  <text x="518" y="282" text-anchor="middle" font-size="11" fill="#b45309">推送配置</text>
+
+  <!-- 备注 -->
+  <text x="380" y="382" text-anchor="middle" font-size="13" fill="#64748b">服务调用方靠 Nacos 找到目标；配置统一放 Nacos，改一处处处生效</text>
+  <defs>
+    <marker id="m1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#22c55e"/></marker>
+    <marker id="m2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#0ea5e9"/></marker>
+    <marker id="m3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#f59e0b"/></marker>
+  </defs>
+</svg>

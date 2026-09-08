@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" font-family="Microsoft YaHei, sans-serif">
+  <rect width="740" height="340" fill="#f7f9fc"/>
+  <text x="370" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1f2d3d">数据卷：把数据放到"容器外"</text>
+
+  <!-- 容器（虚线、可销毁） -->
+  <rect x="60" y="100" width="280" height="180" rx="14" fill="#fff" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="200" y="130" text-anchor="middle" font-size="15" font-weight="bold" fill="#64748b">容器（可随时删除）</text>
+  <rect x="90" y="150" width="220" height="44" rx="8" fill="#fef3c7" stroke="#f59e0b"/>
+  <text x="200" y="178" text-anchor="middle" font-size="14" fill="#92400e">/data（容器内目录）</text>
+  <text x="200" y="245" text-anchor="middle" font-size="12" fill="#94a3b8">容器没了，/data 也烟消云散…</text>
+  <text x="200" y="265" text-anchor="middle" font-size="12" fill="#ef4444">除非——挂到外面</text>
+
+  <!-- 数据卷 -->
+  <rect x="420" y="100" width="280" height="180" rx="14" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="560" y="130" text-anchor="middle" font-size="15" font-weight="bold" fill="#15803d">数据卷 / 宿主机目录</text>
+  <rect x="450" y="170" width="200" height="44" rx="8" fill="#fff" stroke="#22c55e"/>
+  <text x="550" y="198" text-anchor="middle" font-size="14" fill="#15803d">数据存在这里（独立保存）</text>
+  <text x="560" y="250" text-anchor="middle" font-size="12" fill="#16a34a">容器删了，数据还在 👌</text>
+
+  <!-- 挂载连接 -->
+  <path d="M310 172 L420 172" stroke="#22c55e" stroke-width="3" fill="none" marker-end="url(#c1)"/>
+  <path d="M420 200 L310 200" stroke="#f59e0b" stroke-width="2.5" fill="none" marker-end="url(#c2)"/>
+  <text x="365" y="160" text-anchor="middle" font-size="12" fill="#16a34a">挂载 -v</text>
+  <text x="365" y="232" text-anchor="middle" font-size="12" fill="#b45309">写/读</text>
+
+  <text x="370" y="320" text-anchor="middle" font-size="13" fill="#64748b">语法：-v 宿主机路径/卷名:容器内路径　（如 docker run -v mydata:/data ...）</text>
+  <defs>
+    <marker id="c1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#22c55e"/></marker>
+    <marker id="c2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#f59e0b"/></marker>
+  </defs>
+</svg>

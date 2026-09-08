@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" font-family="Microsoft YaHei, sans-serif">
+  <rect width="740" height="340" fill="#f7f9fc"/>
+  <text x="370" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#1f2d3d">网络：同一网络内容器用"名字"互访</text>
+
+  <!-- 网络外框 -->
+  <rect x="60" y="80" width="620" height="210" rx="16" fill="#eef2ff" stroke="#6366f1" stroke-width="2" stroke-dasharray="8 5"/>
+  <text x="370" y="110" text-anchor="middle" font-size="15" font-weight="bold" fill="#4338ca">自定义网络：mynet</text>
+
+  <!-- alice -->
+  <rect x="110" y="150" width="160" height="90" rx="12" fill="#fff" stroke="#0ea5e9" stroke-width="2"/>
+  <text x="190" y="185" text-anchor="middle" font-size="15" font-weight="bold" fill="#0369a1">alice</text>
+  <text x="190" y="210" text-anchor="middle" font-size="12" fill="#64748b">容器（nginx）</text>
+
+  <!-- bob -->
+  <rect x="470" y="150" width="160" height="90" rx="12" fill="#fff" stroke="#f59e0b" stroke-width="2"/>
+  <text x="550" y="185" text-anchor="middle" font-size="15" font-weight="bold" fill="#b45309">bob</text>
+  <text x="550" y="210" text-anchor="middle" font-size="12" fill="#64748b">容器（nginx）</text>
+
+  <!-- 互访箭头 -->
+  <path d="M275 195 L465 195" stroke="#6366f1" stroke-width="2.5" fill="none" marker-end="url(#d1)"/>
+  <text x="370" y="185" text-anchor="middle" font-size="12" fill="#6366f1">curl http://bob</text>
+  <path d="M465 220 L275 220" stroke="#f59e0b" stroke-width="2.5" fill="none" marker-end="url(#d2)"/>
+  <text x="370" y="238" text-anchor="middle" font-size="12" fill="#b45309">回复</text>
+
+  <text x="370" y="322" text-anchor="middle" font-size="13" fill="#64748b">关键：同一个网络里的容器，可以用【容器名】当域名互相访问，不用记 IP</text>
+  <defs>
+    <marker id="d1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#6366f1"/></marker>
+    <marker id="d2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 Z" fill="#f59e0b"/></marker>
+  </defs>
+</svg>

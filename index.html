@@ -216,25 +216,7 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
 
 /* 高亮 */
 mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
-/* 划词高亮 / 批注 */
-mark.ann{ border-radius:3px; padding:0 1px; cursor:pointer; }
-mark.ann.y{ background:#fde68a; color:#78350f; }
-mark.ann.g{ background:#bbf7d0; color:#14532d; }
-mark.ann.b{ background:#a7f3d0; color:#1e3a8a; }
-mark.ann.n{ background:#fbcfe8; color:#831843; text-decoration:underline dotted; }
-mark.ann:hover{ box-shadow:0 0 0 2px rgba(0,0,0,.12); }
-.ann-tip{ font-size:13px; color:var(--muted); text-align:center; margin:14px 0 0; }
-.ann-bar{ position:fixed; z-index:90; background:#0f172a; border-radius:11px; padding:6px; display:flex; gap:4px; align-items:center; box-shadow:0 10px 30px rgba(0,0,0,.35); }
-.ann-bar button{ border:none; background:transparent; font-size:16px; cursor:pointer; border-radius:7px; padding:5px 7px; }
-.ann-bar button:hover{ background:rgba(255,255,255,.15); }
-.ann-bar input{ width:170px; background:#1e293b; color:#e2e8f0; border:1px solid #334155; border-radius:7px; padding:5px 8px; font-size:12.5px; }
-.ann-pop{ position:fixed; z-index:90; background:#fff; border:1px solid var(--line); border-radius:11px; padding:10px 12px; width:240px; box-shadow:0 12px 34px rgba(15,23,42,.25); }
-.ann-pop .ap-t{ display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
-.ann-pop .ap-t b{ font-size:13px; color:var(--ink); }
-.ann-pop .ap-del{ border:none; background:#fee2e2; color:#b91c1c; font-size:12px; border-radius:7px; padding:3px 9px; cursor:pointer; }
-.ann-pop .ap-note{ font-size:13px; color:#334155; }
-.toast{ position:fixed; left:50%; bottom:60px; transform:translateX(-50%); z-index:95; background:#0f172a; color:#fff; padding:11px 20px; border-radius:12px; font-size:14px; box-shadow:0 10px 30px rgba(0,0,0,.3); }
-.toast.hide{ opacity:0; }
+
 
 /* 翻页 */
 .pager{ display:flex; justify-content:space-between; margin-top:24px; gap:14px; }
@@ -368,7 +350,9 @@ mark.ann:hover{ box-shadow:0 0 0 2px rgba(0,0,0,.12); }
 }
 
 /* ===== 首页学习看板 ===== */
-.dash{ background:linear-gradient(135deg,#ecfdf5,#ffffff); border:1px solid #dbe4f3; border-radius:18px; padding:20px 24px; margin-bottom:22px; box-shadow:var(--shadow); }
+.dash{ background:#fff; border:1px solid var(--line); border-radius:18px; padding:22px 24px; margin-bottom:22px; box-shadow:var(--shadow); }
+.dash-hero{ display:grid; grid-template-columns:minmax(0,1.6fr) minmax(0,1fr); gap:16px; align-items:stretch; margin-bottom:14px; }
+.dash-hero .monitor,.dash-hero .lvl-box{ margin-bottom:0; }
 .dash-top{ display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; }
 .dash-num{ font-size:38px; font-weight:800; color:var(--blue); line-height:1; }
 .dash-lab{ display:block; font-size:13px; color:var(--muted); margin-top:4px; }
@@ -432,6 +416,8 @@ mark.ann:hover{ box-shadow:0 0 0 2px rgba(0,0,0,.12); }
 .notes-box{ width:100%; max-width:720px; }
 .notes-box textarea{ width:100%; min-height:110px; padding:12px 14px; border:1.6px solid var(--line); border-radius:12px; font-size:14px; font-family:inherit; resize:vertical; line-height:1.7; }
 .notes-box textarea:focus{ outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px rgba(99,102,241,.12); }
+
+@media(max-width:980px){ .dash-hero{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -451,7 +437,6 @@ mark.ann:hover{ box-shadow:0 0 0 2px rgba(0,0,0,.12); }
   </aside>
   <div class="main">
     <div class="content" id="content"></div>
-    <div class="ann-tip" id="annTip" style="display:none">🖍 划选章节中的文字即可<b>高亮 / 批注</b>，点高亮可查看或删除。</div>
     <div class="pager">
       <a href="#" id="prev"><span>上一章</span><b></b></a>
       <a href="#" id="next"><span>下一章</span><b></b></a>
@@ -482,7 +467,6 @@ mark.ann:hover{ box-shadow:0 0 0 2px rgba(0,0,0,.12); }
 - **🗺️ 学习路线图 / 知识图谱**：点「学习路线图」，可视化各知识点关联，点击节点显示先修/关联，并**自动引申相关技术**（含 Git、K8s、Prometheus、GitLab CI、AI 运维等），适合你从 **DevOps/SRE + AIOps 涨薪**方向自主拓展
 - **🔍 站内全文搜索**：顶部搜索框实时搜所有章节的标题与正文，命中可高亮定位
 - **📈 学习进度记录（全自动）**：打开章节即自动记为"已学"，自动统计学习时长/次数；「📊 学习记录」页可看每日/累计与近7天（保存在本机）
-- **🖍 划词高亮 / 批注**：在章节里选中文字即可高亮（黄/绿/蓝）或加批注，自动保存，点高亮可查看/删除
 - **📝 在线测验内嵌**：左侧「在线测验」直接做题，无需单独文件
 - **⌨️ 键盘翻页**：← / → 快速切换章节
 - 含全部配图、代码高亮（带一键复制）、表格
@@ -3666,8 +3650,7 @@ function levelHtml(){
 function homeDashboard(){
   var nextId=firstUnDone();
   var h='<div class="dash">';
-  h+=progressMonitorHtml();
-  h+=levelHtml();
+  h+='<div class="dash-hero">'+progressMonitorHtml()+levelHtml()+'</div>';
   h+='<div class="dash-origin">🎯 <b>你的起点（运维 + Linux/MySQL）：</b>🟢 <b>初级</b>(01-08) 可快速过/跳过；重点投入 🟡 <b>中级</b> 与 🔴 <b>深度</b>(对标 SRE/资深)。学完即具竞争力。</div>';
   h+='<div class="dash-tiers"><b>🚀 三级进阶 · 学完有竞争力：</b><span class="ti p">🟢 初级＝能独立容器化部署</span><span class="ti m">🟡 中级＝能搭云原生平台+自动化+监控+项目</span><span class="ti d">🔴 深度＝能对标 SRE/平台工程师</span></div>';
   h+='<div class="dash-actions">';
@@ -3754,10 +3737,10 @@ function fmtShort(sec){
 }
 
 // ---- 备份 / 同步（导出/导入 进度+批注+学习记录） ----
-function backupObj(){return {v:3,progress:loadProg(),ann:annGet(),days:daysGet(),study:logGet(),exported:new Date().toISOString()};}
+function backupObj(){return {v:4,progress:loadProg(),days:daysGet(),study:logGet(),exported:new Date().toISOString()};}
 function bkMsg(m){var e=document.getElementById('bkMsg');if(e)e.textContent=m;}
 function backupHtml(){
-  return '<div class="bk-head"><span>💾 备份 / 同步（进度 · 高亮批注 · 学习记录）</span></div>'
+  return '<div class="bk-head"><span>💾 备份 / 同步（进度 · 学习记录）</span></div>'
     +'<div class="bk-btns">'
     +'<button class="bk-btn" onclick="doExport()">⬇ 导出备份文件</button>'
     +'<button class="bk-btn" onclick="doCopy()">⧉ 复制分享码</button>'
@@ -3765,7 +3748,7 @@ function backupHtml(){
     +'</div>'
     +'<textarea id="bkArea" placeholder="在另一台设备上：导出/复制分享码 -> 到这里粘贴 -> 点导入，数据就同步了"></textarea>'
     +'<div class="bk-msg" id="bkMsg"></div>'
-    +'<div class="bk-tip">学习进度、高亮批注、学习记录会一起备份/导入。不同设备不同浏览器，用这一个功能保持一致。</div>';
+    +'<div class="bk-tip">学习进度与学习记录会一起备份/导入。不同设备不同浏览器，用这一个功能保持一致。</div>';
 }
 function doExport(){
   try{
@@ -3786,7 +3769,6 @@ function doImport(){
   try{
     var o=JSON.parse(a.value.trim());
     if(o.progress)localStorage.setItem(PROG_KEY,JSON.stringify(o.progress));
-    if(o.ann)localStorage.setItem(ANN_KEY,JSON.stringify(o.ann));
     if(o.days)localStorage.setItem(DAYS_KEY,JSON.stringify(o.days));
     if(o.study)localStorage.setItem(LOG_KEY,JSON.stringify(o.study));
     bkMsg('✅ 导入成功！本设备数据已更新。');
@@ -3794,97 +3776,6 @@ function doImport(){
   }catch(e){bkMsg('❌ 导入失败，内容格式不对');}
 }
 
-// ---- 划词高亮 / 批注 ----
-var ANN_KEY='dsh_ann_v1';
-function annGet(){try{return JSON.parse(localStorage.getItem(ANN_KEY))||{};}catch(e){return {};}}
-function annSave(o){try{localStorage.setItem(ANN_KEY,JSON.stringify(o));}catch(e){}}
-function annColorName(c){return {y:'🟡 高亮',g:'🟢 高亮',b:'🔵 高亮',n:'💬 批注'}[c]||'高亮';}
-function annWrapText(txt,color,note){
-  var content=document.getElementById('content');if(!content)return null;
-  var st=document.createTreeWalker(content,NodeFilter.SHOW_TEXT,null),hit=null;
-  while(st.nextNode()){var nd=st.currentNode;
-    if(nd.parentNode&&nd.parentNode.classList&&nd.parentNode.classList.contains('ann'))continue;
-    if(!nd.nodeValue)continue;
-    var at=nd.nodeValue.indexOf(txt);if(at>=0){hit={node:nd,at:at};break;}
-  }
-  if(!hit)return null;
-  var r=document.createRange();r.setStart(hit.node,hit.at);r.setEnd(hit.node,hit.at+txt.length);
-  var m=document.createElement('mark');m.className='ann '+color;m.dataset.text=txt;m.dataset.color=color;m.dataset.note=note||'';if(note)m.title=note;
-  try{r.surroundContents(m);return m;}catch(e){return null;}
-}
-function reapplyAnn(id){
-  var all=annGet(),list=all[id];if(!list||!list.length)return;
-  list.slice().forEach(function(a){ if(a&&a.text)annWrapText(a.text,a.color||'y',a.note||''); });
-}
-function annSaveOne(id,a){
-  var all=annGet();all[id]=all[id]||[];
-  var dup=all[id].some(function(x){return x.text===a.text&&x.color===a.color;});
-  if(!dup)all[id].push(a);
-  annSave(all);
-}
-function annDel(id,a){
-  var all=annGet();all[id]=(all[id]||[]).filter(function(x){return !(x.text===a.text&&x.color===a.color);});annSave(all);
-  reapplyAnn(id);
-}
-function currentChapter(){var id=(location.hash.replace('#','')||'home');return ORDER.indexOf(id)>0?id:null;}
-function annBarHide(){var b=document.getElementById('annBar');if(b)b.remove();}
-function annBarShow(r,raw){
-  var e=document.createElement('div');e.id='annBar';e.className='ann-bar';
-  var rect=r.getBoundingClientRect();
-  e.innerHTML='<button data-c="y" title="黄色高亮">🟡</button><button data-c="g" title="绿色高亮">🟢</button><button data-c="b" title="蓝色高亮">🔵</button><button data-c="n" class="note" title="批注（带笔记）">💬 批注</button><input type="text" id="annNoteIn" placeholder="批注内容(可选)…" maxlength="120" style="display:none">';
-  document.body.appendChild(e);
-  var x=Math.max(8,Math.min(rect.left+rect.width/2-100,window.innerWidth-220));var y=Math.max(8,rect.top-46);
-  e.style.left=x+'px';e.style.top=y+'px';
-  e.addEventListener('click',function(ev){
-    var b=ev.target.closest?ev.target.closest('button'):null;if(!b)return;
-    var c=b.getAttribute('data-c');var txt=(raw||'').trim();var id=currentChapter();if(!id||txt.length<2){annBarHide();return;}
-    if(c==='n'){
-      var inp=e.querySelector('#annNoteIn');if(inp){inp.style.display='block';inp.focus();
-        inp.onkeydown=function(ke){if(ke.key==='Enter'){doAnn(id,txt,'n',inp.value.trim());annBarHide();}};}
-      return;
-    }
-    doAnn(id,txt,c,'');annBarHide();
-  });
-}
-function doAnn(id,txt,color,note){
-  if(!txt)return;
-  var m=annWrapText(txt,color,note);
-  if(m){annSaveOne(id,{text:txt,color:color,note:note||'',ts:Date.now()});}
-  else{var t=document.createElement('div');t.className='toast';t.textContent='高亮失败：请只选一段连续的纯文字';document.body.appendChild(t);setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},2200);}
-}
-function toastMsg(txt){
-  var t=document.createElement('div');t.className='toast';t.textContent=txt;document.body.appendChild(t);
-  setTimeout(function(){t.classList.add('hide');},1800);setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},2300);
-}
-(function(){
-  var content=document.getElementById('content');if(!content)return;
-  content.addEventListener('mouseup',function(){
-    var id=currentChapter();if(!id)return;
-    setTimeout(function(){
-      var sel=window.getSelection();if(!sel||sel.isCollapsed||sel.rangeCount===0){annBarHide();return;}
-      var r=sel.getRangeAt(0);
-      var inside=content.contains(r.commonAncestorContainer);
-      if(!inside){annBarHide();return;}
-      var txt=r.toString().trim();if(txt.length<2||txt.length>300){annBarHide();return;}
-      var marks=content.querySelectorAll('mark.ann');
-      for(var i=0;i<marks.length;i++){if(r.intersectsNode(marks[i])){annBarHide();return;}}
-      annBarShow(r,r.toString());
-      sel.removeAllRanges();
-    },10);
-  });
-  content.addEventListener('click',function(e){
-    var m=e.target.closest?e.target.closest('mark.ann'):null;
-    if(!m)return;annBarHide();
-    var id=currentChapter();if(!id)return;
-    var c=document.createElement('div');c.className='ann-pop';c.id='annPop';
-    c.innerHTML='<div class="ap-t"><b>'+annColorName(m.dataset.color||'y')+'</b><button class="ap-del">🗑 删除</button></div><div class="ap-note">'+(m.dataset.note?m.dataset.note:'（无批注）')+'</div>';
-    document.body.appendChild(c);
-    var rect=m.getBoundingClientRect();var x=Math.max(8,Math.min(rect.left,window.innerWidth-260));c.style.left=x+'px';c.style.top=(rect.bottom+6)+'px';
-    c.querySelector('.ap-del').onclick=function(){var tx=m.dataset.text,co=m.dataset.color;annDel(id,{text:tx,color:co});c.remove();toastMsg('已删除高亮');};
-    setTimeout(function(){var kill=function(ev){if(!c.contains(ev.target)){c.remove();document.removeEventListener('click',kill);}};document.addEventListener('click',kill);},50);
-  });
-})();
-document.addEventListener('click',function(e){var b=document.getElementById('annBar');if(b&&!b.contains(e.target))annBarHide();});
 document.addEventListener('keydown',function(e){
   if(e.target&&(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'))return;
   if(e.key==='ArrowLeft'){var pv=document.getElementById('prev');if(pv&&pv.style.visibility!=='hidden'){location.hash=pv.getAttribute('href');}}
@@ -3960,12 +3851,6 @@ function render(id){
   else{pv.style.visibility='hidden';}
   if(i2<ORDER.length-1){nx.style.visibility='visible';nx.href='#'+ORDER[i2+1];nx.querySelector('b').textContent=TITLES[ORDER[i2+1]];}
   else{nx.style.visibility='hidden';}
-  var at=document.getElementById('annTip');
-  if(id==='home'){if(at)at.style.display='none';}
-  else{
-    if(at)at.style.display='block';
-    reapplyAnn(id);
-  }
   markVisited(id);window.scrollTo(0,0);
 }
 function highlightTerm(root,term){

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>升级打怪 · 职业形象 | 运维/DevOps/AIOps 成长站</title>
+<title>SkillTree</title>
 <style>/* ===== Docker 本地学习网站 · 美化版 ===== */
 
 :root{
@@ -45,6 +45,13 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
 }
 .brand b{ color:#fff; font-size:18px; letter-spacing:.3px; display:block; }
 .brand small{ display:block; color:#93a4bd; font-size:12px; font-weight:400; margin-top:2px; }
+.side-toggle{ margin-left:auto; background:rgba(255,255,255,.08); color:#cbd5e1; border:none; border-radius:9px; width:34px; height:34px; font-size:17px; cursor:pointer; flex:none; }
+.side-toggle:hover{ background:rgba(255,255,255,.18); color:#fff; }
+.side-open{ display:none; position:fixed; top:14px; left:14px; z-index:60; background:var(--grad); color:#fff; border:none; border-radius:10px; padding:9px 15px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 6px 16px rgba(59,130,246,.4); }
+.site.side-collapsed .sidebar{ width:0; min-width:0; padding:0; overflow:hidden; border-right:none; }
+.site.side-collapsed .side-toggle{ display:none; }
+.site.side-collapsed .side-open{ display:block; }
+.site.side-collapsed .main{ max-width:1230px; }
 
 /* 搜索 */
 .search-box{ position:relative; margin:0 6px 16px; }
@@ -84,6 +91,35 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
 .nav a.active .tag{ background:rgba(255,255,255,.22); color:#fff; }
 .nav a.done::after{ content:"✓"; margin-left:auto; color:#34d399; font-weight:700; }
 .nav a.done .tag{ margin-left:6px; }
+.lvtag{ font-style:normal; font-size:10px; margin-left:6px; padding:1px 7px; border-radius:20px; font-weight:600; }
+.lvtag.p{ background:rgba(16,185,129,.24); color:#6ee7b7; }
+.lvtag.m{ background:rgba(245,158,11,.24); color:#fcd34d; }
+.lvtag.d{ background:rgba(239,68,68,.28); color:#fca5a5; }
+.nav a.active .lvtag.d{ color:#fff; }
+.dash-origin{ margin-top:12px; background:#f1f5f9; border:1px solid var(--line); border-radius:12px; padding:11px 14px; font-size:13.5px; color:#334155; }
+.dash-origin b{ color:var(--ink); }
+/* 进度监控 */
+.monitor{ background:linear-gradient(135deg,#0f172a,#1e293b); border-radius:14px; padding:16px 18px; margin-bottom:14px; }
+.mon-head{ display:flex; justify-content:space-between; align-items:center; color:#e2e8f0; font-size:15px; margin-bottom:10px; }
+.mon-head b{ color:#fff; }
+.mon-head span{ font-size:13px; color:#94a3b8; }
+.mon-head span b{ color:#60a5fa; }
+.mon-track{ height:10px; background:rgba(255,255,255,.12); border-radius:10px; overflow:hidden; margin-bottom:14px; }
+.mon-track i{ display:block; height:100%; width:0; background:linear-gradient(90deg,#3b82f6,#8b5cf6); border-radius:10px; }
+.mon-cats{ display:flex; flex-direction:column; gap:8px; }
+.mon-cat{ display:flex; align-items:center; gap:10px; }
+.mc-lab{ width:96px; color:#cbd5e1; font-size:13px; flex:none; }
+.mc-bar{ flex:1; height:8px; background:rgba(255,255,255,.12); border-radius:8px; overflow:hidden; }
+.mc-bar i{ display:block; height:100%; width:0; background:linear-gradient(90deg,#10b981,#34d399); border-radius:8px; }
+.mc-num{ width:44px; text-align:right; color:#94a3b8; font-size:12px; }
+.mon-next{ margin-top:12px; color:#aebbd0; font-size:13.5px; }
+.mon-next a{ color:#60a5fa; font-weight:600; }
+.dash-tiers{ margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12.5px; color:#475569; }
+.dash-tiers b{ color:var(--ink); }
+.dash-tiers .ti{ color:#fff; border-radius:18px; padding:3px 10px; font-size:12px; font-weight:600; }
+.dash-tiers .ti.p{ background:#10b981; }
+.dash-tiers .ti.m{ background:#d97706; }
+.dash-tiers .ti.d{ background:#dc2626; }
 .nav a.seen:not(.done):not(.active)::after{ content:"●"; margin-left:auto; color:#64748b; font-size:8px; }
 .nav a.seen:not(.done) .tag{ margin-left:6px; }
 .nav .sec{ font-size:11px; color:#64748b; font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin:20px 10px 8px; }
@@ -109,23 +145,24 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
   background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
   padding:40px 48px; box-shadow:var(--shadow);
   animation:fade .35s ease;
+  font-size:16px; line-height:1.85; overflow-x:auto;
 }
 @keyframes fade{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
 
 /* 排版 */
 .content h1{
-  font-size:28px; margin:0 0 20px; padding-bottom:18px; color:var(--ink);
-  border-bottom:none; position:relative; font-weight:800; letter-spacing:.2px;
+  font-size:30px; margin:0 0 22px; padding-bottom:18px; color:var(--ink);
+  border-bottom:none; position:relative; font-weight:800; letter-spacing:.2px; line-height:1.3;
 }
 .content h1::after{ content:""; position:absolute; left:0; bottom:0; width:96px; height:4px; border-radius:4px; background:var(--grad); }
-.content h2{ font-size:21px; margin-top:34px; color:var(--ink); border-left:none; padding-left:0; position:relative; }
-.content h2::before{ content:""; position:absolute; left:-16px; top:6px; bottom:6px; width:4px; border-radius:4px; background:var(--grad); }
-.content h3{ font-size:17px; margin-top:26px; color:#1e293b; }
-.content p{ margin:14px 0; }
+.content h2{ font-size:23px; margin-top:36px; color:var(--ink); border-left:none; padding-left:0; position:relative; line-height:1.4; border-bottom:1px solid var(--line-2); padding-bottom:8px; }
+.content h2::before{ content:""; position:absolute; left:-16px; top:6px; bottom:10px; width:4px; border-radius:4px; background:var(--grad); }
+.content h3{ font-size:18px; margin-top:28px; color:#1e293b; line-height:1.5; }
+.content p{ margin:15px 0; line-height:1.85; }
 .content a{ color:var(--blue-2); text-decoration:none; font-weight:500; }
 .content a:hover{ text-decoration:underline; }
-.content ul,.content ol{ padding-left:26px; margin:12px 0; }
-.content li{ margin:6px 0; }
+.content ul,.content ol{ padding-left:28px; margin:12px 0; }
+.content li{ margin:7px 0; line-height:1.8; }
 .content li::marker{ color:var(--indigo); }
 
 /* 图片 */
@@ -149,7 +186,7 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
 .content blockquote p{ margin:6px 0; }
 
 /* 表格 */
-.content table{ border-collapse:separate; border-spacing:0; width:100%; margin:18px 0; font-size:14.5px; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+.content table{ border-collapse:separate; border-spacing:0; width:100%; margin:18px 0; font-size:14.5px; line-height:1.6; border:1px solid var(--line); border-radius:12px; overflow:hidden; min-width:420px; }
 .content th,.content td{ border:none; padding:11px 14px; text-align:left; }
 .content th{ background:#f1f5f9; font-weight:700; color:var(--ink); border-bottom:1px solid var(--line); }
 .content td{ border-bottom:1px solid var(--line-2); color:var(--text); }
@@ -252,8 +289,10 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
 .map-head .map-legend{ display:flex; gap:14px; flex-wrap:wrap; font-size:12.5px; color:#475569; margin-bottom:4px; }
 .map-legend .lg-item{ display:flex; gap:6px; align-items:center; }
 .map-legend .lg-item i{ width:12px; height:12px; border-radius:4px; display:inline-block; }
-.map-body{ display:grid; grid-template-columns:1fr 340px; gap:18px; align-items:start; }
-.map-scroll{ overflow-x:auto; background:#fbfcfe; border:1px solid var(--line); border-radius:14px; padding:10px; }
+.map-body{ display:grid; grid-template-columns:minmax(0,1fr) 340px; gap:18px; align-items:start; }
+.map-body > *{ min-width:0; }
+.map-scroll{ overflow-x:auto; background:#fbfcfe; border:1px solid var(--line); border-radius:14px; padding:10px; max-width:100%; }
+.map-hint{ font-size:12px; color:var(--muted); margin:0 0 6px; }
 #mapsvg{ display:block; }
 .map-node{ cursor:pointer; }
 .map-node rect{ transition:all .15s; }
@@ -334,6 +373,16 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
 .dai-btn:hover{ transform:translateY(-1px); }
 .dai-btn.on{ background:#10b981; }
 .dai-tip{ text-align:center; font-size:12px; color:var(--muted); margin-top:10px; }
+/* 备份 / 同步 */
+.bk-wrap{ margin-top:14px; background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; box-shadow:var(--shadow); }
+.bk-head{ font-size:14.5px; font-weight:700; color:var(--ink); margin-bottom:12px; }
+.bk-btns{ display:flex; gap:9px; flex-wrap:wrap; margin-bottom:10px; }
+.bk-btn{ background:#f1f5f9; border:1px solid var(--line); color:var(--text); border-radius:10px; padding:9px 15px; font-size:13.5px; font-weight:600; cursor:pointer; transition:all .15s; }
+.bk-btn:hover{ border-color:var(--indigo); color:var(--indigo); }
+.bk-wrap textarea{ width:100%; min-height:70px; padding:11px 13px; border:1.6px solid var(--line); border-radius:11px; font-size:12.5px; font-family:Consolas,monospace; resize:vertical; }
+.bk-wrap textarea:focus{ outline:none; border-color:var(--indigo); }
+.bk-msg{ font-size:13px; color:var(--text); min-height:18px; margin-top:8px; }
+.bk-tip{ font-size:12px; color:var(--muted); margin-top:6px; }
 .dash-growth{ margin-top:14px; font-size:13.5px; color:#475569; padding-top:12px; border-top:1px solid var(--line-2); }
 .dash-growth b{ color:var(--blue-2); }
 
@@ -349,7 +398,7 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
 <body>
 <div class="site">
   <aside class="sidebar">
-    <div class="brand"><span class="logo">⚔️</span><span><b>升级打怪 · 职业形象</b><small>运维 · DevOps · AIOps 成长站</small></span></div>
+    <div class="brand"><span class="logo">🌳</span><span><b>SkillTree</b></span><button id="sideToggle" class="side-toggle" onclick="toggleSide()" title="收起/展开目录">☰</button></div>
     <div class="search-box">
       <input id="searchInput" type="text" placeholder="🔍 搜索章节 / 关键词…" autocomplete="off">
       <div class="search-results" id="searchResults"></div>
@@ -360,7 +409,7 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
     </div>
     <div class="nav">
       <a href="#map" data-id="map">🗺️ 学习路线图</a>
-      <a href='#home' data-id='home'>首页 · 学习指南</a><div class='nav-group' id='g1'><button class='nav-head' data-group='g1'>📗 Docker 基础<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch01' data-id='ch01'>01 · 学习路线图（照着做 · 就能学会） <span class='tag'>01</span></a><a href='#ch02' data-id='ch02'>02 · Docker 基础概念 <span class='tag'>02</span></a><a href='#ch03' data-id='ch03'>03 · 安装 Docker 与环境准备（零基础版） <span class='tag'>03</span></a><a href='#ch04' data-id='ch04'>04 · Docker 核心命令（零基础版） <span class='tag'>04</span></a><a href='#ch05' data-id='ch05'>05 · Dockerfile 与镜像构建（零基础版） <span class='tag'>05</span></a><a href='#ch06' data-id='ch06'>06 · 数据卷与网络（零基础版） <span class='tag'>06</span></a><a href='#ch07' data-id='ch07'>07 · Docker Compose（零基础版） <span class='tag'>07</span></a><a href='#ch08' data-id='ch08'>08 · 最佳实践与安全（零基础版） <span class='tag'>08</span></a></div></div><div class='nav-group' id='g2'><button class='nav-head' data-group='g2'>🛠️ 训练与自测<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch09' data-id='ch09'>09 · 训练：实验手册（照着做 · 就学会） <span class='tag'>09</span></a><a href='#ch10' data-id='ch10'>10 · 考试：试题与答案（Docker 入门） <span class='tag'>10</span></a></div></div><div class='nav-group' id='g3'><button class='nav-head' data-group='g3'>🚀 进阶扩展<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch11' data-id='ch11'>11 · Nacos 入门（零基础 · 照着做就学会） <span class='tag'>11</span></a><a href='#ch12' data-id='ch12'>12 · Jenkins 入门（零基础 · 照着做就学会） <span class='tag'>12</span></a></div></div><div class='nav-group' id='g4'><button class='nav-head' data-group='g4'>🔝 运维涨薪<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch13' data-id='ch13'>13 · Git 入门（零基础 · 照着做就学会） <span class='tag'>13</span></a><a href='#ch14' data-id='ch14'>14 · Kubernetes 入门（零基础 · 照着做就学会） <span class='tag'>14</span></a><a href='#ch15' data-id='ch15'>15 · Prometheus 监控入门（零基础 · 照着做就学会） <span class='tag'>15</span></a><a href='#ch18' data-id='ch18'>18 · 6 个月，从运维到 DevOps/AIOps 涨薪计划 <span class='tag'>18</span></a></div></div><div class='nav-group' id='g5'><button class='nav-head' data-group='g5'>🎯 实战·简历项目<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch16' data-id='ch16'>16 · 实战项目 & 简历写作（学完就落地） <span class='tag'>16</span></a></div></div><div class='nav-group' id='g6'><button class='nav-head' data-group='g6'>🤖 AI 学习<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch17' data-id='ch17'>17 · AI 入门 & AI 运维（零基础 · 照着做就学会） <span class='tag'>17</span></a></div></div>
+      <a href='#home' data-id='home'>首页 · 学习指南</a><div class='nav-group' id='g1'><button class='nav-head' data-group='g1'>🗺️ 路线 · 计划<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch01' data-id='ch01'>01 · 学习路线图（照着做 · 就能学会） <em class='lvtag p'>初级</em> <span class='tag'>01</span></a><a href='#ch18' data-id='ch18'>18 · 6 个月，从运维到 DevOps/AIOps 涨薪计划 <em class='lvtag m'>中级</em> <span class='tag'>18</span></a></div></div><div class='nav-group' id='g2'><button class='nav-head' data-group='g2'>📚 知识 · 初级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch02' data-id='ch02'>02 · Docker 基础概念 <em class='lvtag p'>初级</em> <span class='tag'>02</span></a><a href='#ch03' data-id='ch03'>03 · 安装 Docker 与环境准备（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>03</span></a><a href='#ch04' data-id='ch04'>04 · Docker 核心命令（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>04</span></a><a href='#ch05' data-id='ch05'>05 · Dockerfile 与镜像构建（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>05</span></a><a href='#ch06' data-id='ch06'>06 · 数据卷与网络（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>06</span></a><a href='#ch07' data-id='ch07'>07 · Docker Compose（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>07</span></a><a href='#ch08' data-id='ch08'>08 · 最佳实践与安全（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>08</span></a></div></div><div class='nav-group' id='g3'><button class='nav-head' data-group='g3'>📚 知识 · 中级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch11' data-id='ch11'>11 · Nacos 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>11</span></a><a href='#ch12' data-id='ch12'>12 · Jenkins 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>12</span></a><a href='#ch13' data-id='ch13'>13 · Git 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>13</span></a><a href='#ch14' data-id='ch14'>14 · Kubernetes 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>14</span></a><a href='#ch15' data-id='ch15'>15 · Prometheus 监控入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>15</span></a><a href='#ch17' data-id='ch17'>17 · AI 入门 & AI 运维（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>17</span></a></div></div><div class='nav-group' id='g4'><button class='nav-head' data-group='g4'>📚 知识 · 深度<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch19' data-id='ch19'>19 · 深度 · Kubernetes 实操进阶 <em class='lvtag d'>深度</em> <span class='tag'>19</span></a><a href='#ch20' data-id='ch20'>20 · 深度 · GitOps + Helm + IaC（平台工程） <em class='lvtag d'>深度</em> <span class='tag'>20</span></a><a href='#ch21' data-id='ch21'>21 · 深度 · 可观测性进阶（Metrics/Logs/Traces） <em class='lvtag d'>深度</em> <span class='tag'>21</span></a><a href='#ch22' data-id='ch22'>22 · 深度 · SRE 与平台工程（对标高薪岗） <em class='lvtag d'>深度</em> <span class='tag'>22</span></a></div></div><div class='nav-group' id='g5'><button class='nav-head' data-group='g5'>🛠 实践 · 项目<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch09' data-id='ch09'>09 · 训练：实验手册（照着做 · 就学会） <em class='lvtag p'>初级</em> <span class='tag'>09</span></a><a href='#ch16' data-id='ch16'>16 · 实战项目 & 简历（落地 · 简历亮点） <em class='lvtag m'>中级</em> <span class='tag'>16</span></a></div></div><div class='nav-group' id='g6'><button class='nav-head' data-group='g6'>🧪 测验 · 考试<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch10' data-id='ch10'>10 · 考试：试题与答案（Docker 入门） <em class='lvtag p'>初级</em> <span class='tag'>10</span></a></div></div>
       <a class="quiz" href="#quiz" data-id="quiz">📝 在线测验</a>
     </div>
   </aside>
@@ -382,9 +431,9 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
     <div class="note">本网站为离线本地版，全部内容与图片均在本地文件夹内，可放心断网使用。学习进度与笔记保存在本机浏览器，不会上传。</div>
   </div>
 </div>
-<script type='text/plain' id='home'># ⚔️ 升级打怪 · 职业形象（照着做 · 就能学会）
+<script type='text/plain' id='home'># 🌳 SkillTree
 
-这里是你的**职业成长站**：每学一章=打怪拿经验，打卡=每日签到，完成章节、刷上等级，把技能刷成能涨薪的"满级装备"。**看懂了就开始照着做。**
+这里是你的**职业技能树**：每学一章=点亮一个技能点，打卡=每日灌溉，把 Docker→K8s→CI/CD→监控→AI 一路点到"能涨薪"的枝叶。**看懂了就开始照着做。**
 
 ## 怎么读：照着做就学会
 
@@ -435,12 +484,20 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
 | 13 | [13-Git入门.md](13-Git入门.md) | 版本控制，CI/CD 的上游 | 30 分钟 |
 | 14 | [14-Kubernetes入门.md](14-Kubernetes入门.md) | 容器集群编排（涨薪关键） | 1 小时 |
 | 15 | [15-Prometheus监控入门.md](15-Prometheus监控入门.md) | 监控/可观测性 | 40 分钟 |
-| 16 | [16-实战项目与简历.md](16-实战项目与简历.md) | 4 个可落地项目 + 简历写法 | 2~3 小时 |
-| 17 | [17-AI入门与AI运维.md](17-AI入门与AI运维.md) | AI 入门 + AIOps 智能运维 | 40 分钟 |
+| 16 | [16-实战项目与简历.md](16-实战项目与简历.md) | 3 个可落地·简历亮点项目 + 简历写法 | 2~3 小时 |
+| 18 | [18-6个月运维涨薪计划.md](18-6个月运维涨薪计划.md) | 你的 6 个月进阶计划 | 30 分钟 |
+| 19 | [19-深度Kubernetes实操进阶.md](19-深度Kubernetes实操进阶.md) | 🔴 StatefulSet/网络/存储/调度/HPA | 1 小时 |
+| 20 | [20-深度GitOps与IaC.md](20-深度GitOps与IaC.md) | 🔴 Helm/ArgoCD/Terraform（平台工程） | 1 小时 |
+| 21 | [21-深度可观测性进阶.md](21-深度可观测性进阶.md) | 🔴 PromQL/OpenTelemetry/Loki/告警 | 1 小时 |
+| 22 | [22-深度SRE与平台工程.md](22-深度SRE与平台工程.md) | 🔴 SLO/错误预算/自愈（对标高薪） | 1 小时 |
 
-> 🧭 **第 11~17 章为「运维涨薪」进阶**：掌握 Docker 后，沿 **Nacos/Jenkins → Git → K8s → Prometheus → 实战项目 → AI 运维** 拓展，每个领域学完都有**能写进简历的项目**。
-> 💡 适合你（运维·懂 Linux/MySQL）：主路线 **DevOps/SRE + Kubernetes + CI/CD + 监控 + AIOPS**。
-> 每天 1~1.5 小时，**2 周左右**学完基础，再花 1~2 周做项目即可用于简历。
+> 🧭 **三级进阶（初级 → 中级 → 深度）· 学完有竞争力**：
+> - 🟢 **初级**(01-10)＝能独立容器化部署
+> - 🟡 **中级**(11-18)＝能搭云原生平台 + 自动化 + 监控 + 项目 + AI 运维
+> - 🔴 **深度**(19-22)＝能对标 **SRE / 平台工程师**（GitOps · 可观测性进阶 · SRE 可靠性）
+>
+> 💡 适合你（运维·懂 Linux/MySQL）：**初级可跳过，重点投入中级 + 深度**，每个领域学完都有**能写进简历的项目**。
+> 每天 1~1.5 小时，**2 周左右**学完初级，再花 2~3 周在中级+深度上出项目，即可具备竞争力。
 
 ## 先看一个 60 秒的例子
 
@@ -2985,96 +3042,75 @@ docker run -d --name grafana -p 3000:3000 grafana/grafana
 
 到这里，你的"运维涨薪线"（Docker → Git → K8s → 监控）就有了一套完整的学习内容。可回 [09](09-训练-实验手册.md) 复习或 [10-考试](10-考试-试题与答案.md) 自测。
 </script>
-<script type='text/plain' id='ch16'># 16 · 实战项目 & 简历写作（学完就落地）
+<script type='text/plain' id='ch16'># 16 · 实战项目 & 简历（落地 · 简历亮点）
 
-学完前面几章，**把知识做成一个个能上线的项目**，才是真正会了、也才有东西写进简历。这一章给你 4 个**照着做就能落地**的简历项目，每个对应一个知识领域，并告诉你怎么写简历。
+这一章给你 **3 个能真正做出来、且是简历亮点的旗舰项目**。判断标准：**① 你能自己跑通（落地）② 能写出一句有说服力、有结果量化的简历描述（亮点）。** 每个项目都给出**技术栈 + 落地步骤 + 简历写法**。
 
-> 心法：**每个领域学完 → 做一个项目跑起来 → 写进简历一句话。** 4 个项目做完，你的简历项目栏就充实了。
-
----
-
-## 一、项目怎么选（原则）
-
-- **能自己独立跑通**（照着做就行，不依赖公司环境）
-- **看得见成果**（有网页/有接口/有监控图）
-- **可量化**（能写"提升了 XX"、"保障了 XX"）
+> 秘籍：**项目要"真、真、真"**——真实做出来、用真技术栈、能量化结果。这样才叫亮点，面试才经得起问。
 
 ---
 
-## 二、4 个可落地的简历项目
+## 项目 A · 云原生应用上线平台（最通用、必做）
+**目标**：把一个应用**从 0 上线到 Kubernetes**，含持久化、自动扩缩、监控告警。
 
-### 项目 1 · Docker 化个人网站上线（对应 Docker 领域）
-**技术栈**：Docker、Docker Compose、Nginx、MySQL
-**照着做要点**：
-- 写 `Dockerfile` 打一个自己的网页/应用镜像
-- 用 `docker-compose.yml` 同时起「应用 + 数据库」，数据用卷持久化
-- 端口映射，浏览器访问成功
-**简历一句话**：
-> 使用 Docker/Compose 将应用+数据库容器化部署，数据卷持久化，实现一条命令一键启动整套服务。
+**技术栈**：Docker、Kubernetes(本地 k3d/minikube)、Helm、Nginx/Ingress、Prometheus+Grafana
 
-### 项目 2 · Git + CI/CD 自动部署（对应 Git/Jenkins 领域）
-**技术栈**：Git、Jenkins、Docker
-**照着做要点**：
-- 项目推到 GitHub
-- Jenkins 配一条流水线：拉代码 → 构建镜像 → 推送到服务器
-- 提交代码→自动触发构建
-**简历一句话**：
-> 搭建基于 Git+Jenkins 的 CI/CD 流水线，实现代码提交自动构建与部署，减少人工上线。
+**落地步骤（照着做）**
+1. 写 `Dockerfile` 打应用镜像。
+2. `k3d cluster create` 起集群，`kubectl create deployment` + `service`。
+3. 数据库用 `StatefulSet` + `PVC` 持久化；配置用 `ConfigMap/Secret`。
+4. 用 **Helm** 把整套打包成 Chart，`helm install` 一键部署。
+5. 加 **HPA** 自动扩缩；**Prometheus** 采集 + **Grafana** 面板 + **Alertmanager** 告警。
 
-### 项目 3 · K8s 部署 + 监控（对应 K8s/Prometheus 领域）
-**技术栈**：Kubernetes、Docker、Prometheus、Grafana
-**照着做要点**：
-- k3d/minikube 起集群，Deployment 部署应用，Service 暴露
-- Prometheus 采集指标 + Grafana 出监控面板
-**简历一句话**：
-> 使用 K8s 部署高可用应用并接入 Prometheus/Grafana 监控，实现自动扩缩与故障告警。
-
-### 项目 4 · Nacos 配置/注册中心（对应微服务领域）
-**技术栈**：Nacos、Spring Cloud（可选）
-**照着做要点**：
-- Docker 跑 Nacos，配置中心存放统一配置
-- 注册一个服务，看服务列表发现实例
-**简历一句话**：
-> 搭建 Nacos 配置中心与服务注册，实现配置统一管理与服务发现。
+**简历一句话（亮点）**
+> 基于 K8s+Helm 构建应用上线平台，配置探针与状态集实现 MySQL 持久化与 HPA 自动扩缩，接入 Prometheus/Grafana 监控告警，实现一条命令一键部署与高可用运行。
 
 ---
 
-## 三、简历怎么写得加分
+## 项目 B · CI/CD + GitOps 自动化交付（最加分、DevOps 招牌）
+**目标**：**提交代码 → 自动构建 → 自动发布 → 可回滚**，全程无人值守。
 
-通用模板（STAR）：
-- **做了什么**：一句话讲清项目。
-- **技术栈**：列出用到的主要技术。
-- **结果/价值**：尽量**量化**（如"部署效率提升""故障可发现""可扩展"）。
+**技术栈**：Git、Jenkins/GitLab CI、Docker、私有镜像仓库、Helm、ArgoCD(GitOps)
 
-示例（改写成更适合自己的）：
-> 负责运维平台化建设，基于 Docker/K8s 将应用容器化并建立 CI/CD 与监控体系，实现一键部署、秒级扩缩、异常自动告警。
+**落地步骤（照着做）**
+1. 项目推 GitHub，配置 **GitHub Actions 或 Jenkins** 流水线：拉码→测试→构建镜像。
+2. 镜像**推私有仓库**（Harbor/阿里云 ACR），打成版本标签。
+3. **部署**：用 Helm 发布到 K8s；再进阶用 **ArgoCD 做 GitOps**（改 Git→自动同步集群）。
+4. 做**回滚**：先金丝雀/灰度，异常自动回滚上一版本。
+
+**简历一句话（亮点）**
+> 搭建 Git→CI→CD→GitOps 自动化交付链路，代码提交自动构建/发布，支持灰度与一键回滚；上线时间从 30 分钟降至约 5 分钟，人工操作减少 90%。
+
+---
+
+## 项目 C · 可观测性 + AI 智能运维助手（差异化亮点）
+**目标**：让系统"看得见"，并让**大模型帮忙排障**——这是别人少有的差异化。
+
+**技术栈**：Prometheus、Grafana、Loki(日志)/ELK、Python、大模型 API / Ollama
+
+**落地步骤（照着做）**
+1. **指标**：Prometheus 采集 + Grafana 面板；用 **PromQL** 写错误率/延迟面板。
+2. **日志**：Loki + Promtail 采集，Grafana 用 LogQL 查询。
+3. **告警**：Alertmanager 规则，出问题通知到钉钉/邮件。
+4. **AI 助手**：Python 脚本接大模型，粘贴报错/日志 → 返回诊断与排查命令；或本地 Ollama 跑模型。
+
+**简历一句话（亮点）**
+> 搭建指标+日志+告警一体的可观测性平台，并基于大模型构建智能运维助手，实现日志/告警自动分析与排障建议，告警降噪、平均排障时间明显缩短。
 
 ---
 
-## 四、除了纯运维，还有这些路线（供你选）
-
-你已会 Linux/MySQL/运维，又学了容器化，**很多方向都通**：
-
-| 路线 | 关键技能 | 是否适合你 |
-| --- | --- | --- |
-| **DevOps / SRE** | Docker/K8s/CI-CD/监控/IaC | ✅ 最对口，是你的主路线 |
-| **云平台工程师** | 云厂商容器/编排/数据库 | ✅ 进阶，结合运维经验 |
-| **测试开发 / 自动化** | 脚本/接口/CI | ✅ 可考虑，容器助力测试环境 |
-| **运维开发（平台开发）** | Shell/Go/Python + K8s | ✅ 薪资更高，需补一门语言 |
-| **后端开发（过渡）** | Java/Go/Spring + 数据库 | ⚠️ 可选，有 Linux/MySQL 基础，但要补后端 |
-| **AI 运维 / AIOps** | Python + 大模型 API / Ollama + 日志 | ✅ 高价值新方向，你运维背景 + Docker 可直接上手（见第 17 章） |
-
-> **年龄/性别不是问题**：28 岁在技术圈还很年轻；女性在运维/DevOps 里细致、稳重、沟通好，是优势。**关键是持续学+项目落地**，用项目和成果说话，比年龄更有说服力。
-
----
+## 💎 让项目成为"亮点"的 5 个方法
+1. **量化结果**：用数字说话（时间、人工、可用性、降噪率）。如"上线时间 30→5 分钟"。
+2. **真技术栈**：用主流真实工具（K8s/Helm/ArgoCD/Prometheus），别用玩具替代。
+3. **做成"平台"而非"单点"**：把多个能力串成一个平台（上线、交付、监控、排障）。
+4. **可演示 + 有文档**：能截图/录屏演示，写 `.md` 文档，面试可讲。
+5. **体现可靠性/规模**：谈高可用、自动扩缩、监控告警、回滚，体现"生产思维"。
 
 ## ✍️ 本章达标 · 照着做就学会
+**照着做**：从上面**选 1 个**完整落地并跑通（推荐先做项目 A 云原生上线）。
+**✅ 过关标准**：项目能独立运行、可在本地演示；写出一句**"做了什么 + 技术栈 + 量化结果"**的简历描述。
 
-**照着做：** 从上面对应你已学章节的**项目里挑 1 个**，完整做完并跑通。
-
-**✅ 过关标准：** 项目能独立运行；能写出一句"做了什么+技术栈+价值"的简历描述。
-
-> 项目不贪多，**一个领域一个项目、每个都真跑通**，就是最好的简历。
+> 提醒：**一个项目深耕 > 三个项目的皮毛。** 挑一个做到"能演示、能量化、能讲清"，就是简历里最亮的那个。
 </script>
 <script type='text/plain' id='ch17'># 17 · AI 入门 & AI 运维（零基础 · 照着做就学会）
 
@@ -3259,9 +3295,231 @@ if __name__ == "__main__":
 
 **✅ 过关标准：** 你能清楚说出"**我这个月学什么、做什么项目、写在简历哪一段**"。
 </script>
+<script type='text/plain' id='ch19'># 19 · 深度 · Kubernetes 实操进阶
+
+第 14 章你学会了 K8s 基础。这一章是**对标 SRE/资深**的进阶：把 K8s 用得专业——有状态服务、网络、存储、调度、自动扩缩。掌握了这些，你才真正"会运维 K8s"。
+
+---
+
+## 1. 有状态应用 StatefulSet
+第 14 章的 Deployment 适合"无状态"应用。数据库等**有状态**要用 **StatefulSet**（每个 Pod 有稳定网络名和持久化存储）。
+```yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata: { name: mysql }
+spec:
+  serviceName: mysql
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8
+          env:
+            - { name: MYSQL_ROOT_PASSWORD, value: secret }
+          volumeMounts: [ { name: data, mountPath: /var/lib/mysql } ]
+  volumeClaimTemplates:
+    - metadata: { name: data }
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources: { requests: { storage: 5Gi } }
+```
+- 每个 Pod 有固定名（`mysql-0`），用 `kubectl get sts`,`kubectl get pvc` 查看。
+
+## 2. 网络：Service / Ingress / CNI
+- **Service**：给一组 Pod 稳定访问地址（ClusterIP/NodePort/LoadBalancer）。
+- **Ingress**：7 层入口（域名、路径路由、HTTPS）。示例 `kubectl apply -f ingress.yaml`。
+- **CNI**：集群网络插件（Calico/Flannel/Cilium），处理 Pod 间通信与网络策略。
+- **DNS**：服务间用 `<服务名>.<命名空间>` 相互解析。
+
+## 3. 存储：PV / PVC / StorageClass
+- **PersistentVolume (PV)**：一块存储；**PersistentVolumeClaim (PVC)**：申请存储。
+- **StorageClass**：动态供给（如云盘、本地路径）。Pod 通过 PVC 挂载，重启/迁移数据不丢。
+
+## 4. 调度与亲和性
+- `nodeSelector` / `nodeAffinity`：把 Pod 调度到指定节点。
+- **污点与容忍**（taints/tolerations）：特定节点只允许特定 Pod。
+- 让关键服务更稳、更合理地分布。
+
+## 5. 自动扩缩 HPA
+```bash
+kubectl autoscale deployment myweb --cpu-percent=60 --min=2 --max=10
+```
+- 按 CPU/内存**自动增删副本**；配合 `kubectl get hpa` 查看。
+
+## 6. 配置与更新策略
+- **ConfigMap / Secret**：把配置、密钥从镜像里解耦。
+- **更新策略**：Deployment 默认滚动更新；可用 `strategy: RollingUpdate`、`maxSurge`/`maxUnavailable` 控制；金丝雀发布可用 Argo Rollouts/Ingress 分流。
+
+---
+
+## ✍️ 本章达标 · 照着做（用 k3d/minikube）
+```bash
+kubectl create namespace prod
+kubectl apply -f mysql-sts.yaml        # 上面那个 StatefulSet
+kubectl get sts, pvc
+kubectl create configmap app-cfg --from-literal=APP_ENV=prod
+kubectl autoscale deployment myweb --cpu-percent=60 --min=2 --max=10
+kubectl get hpa
+```
+**✅ 过关标准**：能创建 StatefulSet + PVC 并看到数据持久化思路；能建 HPA 并理解自动扩缩；能说出 Service/Ingress/CNI/StorageClass 各管什么。
+
+> **学到这一层，你就从"会跑 K8s"变成"会运维 K8s"了。**
+</script>
+<script type='text/plain' id='ch20'># 20 · 深度 · GitOps + Helm + IaC（平台工程）
+
+第 12 章你做了传统 CI/CD（Jenkins 手动触发）。这一章进入**平台工程**核心：**GitOps**、**Helm**、**IaC**。这三点是"高级运维/平台工程师"的标配，也是你**竞争力**的关键。
+
+---
+
+## 1. GitOps：Git 是唯一真源
+**理念**：把"环境的期望状态"（部署清单、配置）**放进 Git**；一个控制器（如 **ArgoCD / Flux**）**监听 Git 并与集群同步**。你改 Git → 集群自动变。
+- 好处：**可审计**（改了什么全在 Git）、**可回滚**、**声明式**、**无人值守**。
+
+### 关键对象（ArgoCD）
+```bash
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl get pods -n argocd
+```
+- ArgoCD 会按 `Application` 资源里指向的 **Git 仓库路径** 去同步部署到集群。
+- 核心概念：**Application、Sync（同步）、Auto-sync（自动同步）、Sync Policy（Sync/Prune）**。
+
+## 2. Helm：K8s 的"包管理"
+把一堆 YAML 模板打包成 **Chart**（`Chart.yaml` + `values.yaml` + `templates/`），用 `values` 一键换配置。
+```bash
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install mymysql bitnami/mysql --set auth.rootPassword=secret
+helm list
+```
+- 一条命令部署**整套**（含 Service/PVC/Secret），改 `values.yaml` 即改配置。
+
+## 3. IaC：Terraform 基础设施即代码
+把**云资源/集群**用代码描述，`terraform apply` 一键创建。
+```hcl
+provider "aws" { region = "cn-north-1" }
+resource "aws_s3_bucket" "b" { bucket = "my-bucket" }
+```
+```bash
+terraform init && terraform plan && terraform apply
+```
+- 好处：**可版本化、可重复、可审计**；一次写好，多环境/多云通用。
+> 提示：Terraform 常与 GitOps 配合——**Terraform 管"资源"，ArgoCD 管"集群里的应用"**。
+
+---
+
+## ✍️ 本章达标 · 照着做
+1. **Helm**：`helm install` 用官方 Chart 部署一个应用并修改 `--set` 参数。
+2. **GitOps 概念**：装 ArgoCD，理解 Application 指向 Git 仓库并同步。
+3. **理解**：`terraform`（管资源）、`Helm`（管集群内应用）、`ArgoCD/Flux`（GitOps 自动同步）三者分工。
+
+**✅ 过关标准**：能用 Helm 一条命令部署一套应用；能说清 GitOps 是怎么"让 Git 驱动集群"的；知道 IaC 与 GitOps 的关系。
+
+> **掌握 GitOps+Helm+IoC，你就真正站在"平台工程师"的门槛上了。**
+</script>
+<script type='text/plain' id='ch21'># 21 · 深度 · 可观测性进阶（Metrics/Logs/Traces）
+
+第 15 章你看了 Prometheus + Grafana。这一章进阶到"云原生可观测性"：**指标 + 日志 + 链路**三支柱，以及 PromQL、告警、日志平台。这是**高级运维/ SRE** 的必备能力。
+
+---
+
+## 1. 三支柱
+- **指标 Metrics**：数值型（CPU、QPS、延迟）—— Prometheus。
+- **日志 Logs**：事件型（报错、访问）—— **Loki / ELK**。
+- **链路 Traces**：请求串联（跨微服务调用）—— **OpenTelemetry / Jaeger**。
+
+> **统一采集**：**OpenTelemetry** 把指标/日志/链路用一种协议采集，输出到 Prometheus/Loki/Jaeger。
+
+## 2. PromQL：写出更有用的查询
+```promql
+# 过去5分钟 CPU 使用率
+rate(container_cpu_usage_seconds_total[5m])
+# 5分钟内请求错误率
+sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m]))
+# 机器内存可用率
+100 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100)
+```
+- 常用函数：`rate`、`sum`、`by`、`increase`、`histogram_quantile`。
+
+## 3. 告警 Alertmanager
+写告警规则 `alert.rules.yml`：
+```yaml
+groups:
+  - name: app
+    rules:
+      - alert: HighErrorRate
+        expr: sum(rate(http_requests_total{status=~"5.."}[5m])) > 0.05
+        for: 2m
+        labels: { severity: critical }
+        annotations: { summary: "错误率超过 5%" }
+```
+```bash
+# Prometheus 配置里引用并热加载
+curl -X POST http://localhost:9090/-/reload
+```
+- Alertmanager 负责**去重、分组、抑制、路由**（发到钉钉/邮件/企业微信）。
+
+## 4. 日志平台 Loki
+```bash
+docker run -d -p 3100:3100 grafana/loki
+docker run -d -p 3101:3100 -v "$PWD/promtail-config.yaml:/mnt/config.yaml" grafana/promtail
+```
+- Promtail 采日志 → Loki 存储 → Grafana 用 **LogQL** 查询（`{app="myapp"} |= "error"`）。
+
+---
+
+## ✍️ 本章达标 · 照着做
+1. 在 Grafana 里用 **PromQL** 写一个"错误率"或"CPU 使用率"面板。
+2. 写一条**告警规则**（如错误率>5% 触发 critical），并在 Alertmanager 看到告警。
+3. 用 **Loki + Promtail** 采集服务日志并在 Grafana 能 LogQL 查询。
+
+**✅ 过关标准**：能自己写 PromQL 出监控图、能配置并触达一条告警、能查日志。
+
+> **做到这层，你就是"看得见系统"的高级运维——故障没发生你就能发现。**
+</script>
+<script type='text/plain' id='ch22'># 22 · 深度 · SRE 与平台工程（对标高薪岗）
+
+这一章是整条路线的**天花板**——**SRE / 平台工程师**。它不再只是"会用工具"，而是站在**可靠性、规模化、工程化**的高度看系统。这是高薪岗位的核心，也是你差异化竞争力的来源。
+
+---
+
+## 1. SRE 是什么
+**Site Reliability Engineer**：用**软件工程**的方式解决**运维问题**。核心追求：**可靠性 + 规模化 + 自动化**。相比传统运维，更偏"**用代码保证系统稳定**"。
+
+## 2. 核心指标：SLO / SLI / 错误预算
+- **SLI（服务等级指标）**：衡量指标，如可用性、延迟、错误率。
+- **SLO（服务等级目标）**：目标的数值，如"可用性 99.9%""P95 延迟 < 200ms"。
+- **错误预算（Error Budget）**：`1 - SLO`。例如 SLO=99.9% → 每月允许约 **43 分钟**不可用；预算用完了，就该**减速/不要发新功能**，先保稳定。
+
+> 一句话：**用 SLO 量化"多稳定才算好"，用错误预算决策"能不能上线新东西"。**
+
+## 3. 容量与自愈
+- **容量规划**：根据流量/SLO 计算需要的副本/资源；配合 **HPA** 自动扩缩。
+- **自愈**：Liveness/Readiness 探针、滚动更新、失败自动重启、多副本；故障自动恢复。
+
+## 4. 变更与可靠性
+- 变更用 **CI/CD + GitOps** 自动化、可回滚；先灰度（金丝雀）再全量。
+- 关注 **MTTR（平均恢复时间）**、**回滚能力**、**影响面控制**。
+
+## 5. 平台工程（Platform Engineering）
+- 把"重复运维"做成**自服务平台**：给开发提供一键部署、日志、监控、权限（如内部开发者平台、门户）。
+- 用 **IaC/Terraform + GitOps/ArgoCD + Helm** 沉淀成"平台能力"。
+- 是当前**高薪、吃香**的方向（很多大厂在招平台工程师/SRE）。
+
+---
+
+## ✍️ 本章达标 · 照着做
+1. 为一个你熟悉的服务，**写一个 SLO**（如可用性 99.9%、P95 < 300ms），并给出对应的 **SLI** 与**错误预算**。
+2. 写出对应的**告警规则**与**容量/自愈**方案（几副本、如何扩缩、探针）。
+3. 用一段话写成**简历/职责**：比如"负责 X 的服务可靠性，设定 SLO/错误预算……"
+
+**✅ 过关标准**：能为一个服务完整定义 **SLO/SLI/错误预算 + 告警 + 容量自愈**，并讲清 SRE 与平台工程的价值。
+
+> **学完这一层，你就从"会用工具的人"变成了"能设计系统稳定性的工程师"——这正是竞争力所在。**
+</script>
 <script>
 var currentId=function(){return location.hash.replace('#','')||'home';};
-var ORDER=['home','ch01','ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch09','ch10','ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch18'];
+var ORDER=['home','ch01','ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch09','ch10','ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch18','ch19','ch20','ch21','ch22'];
 var TITLES={};
 ORDER.forEach(function(k){
   var el=document.getElementById(k);
@@ -3269,6 +3527,36 @@ ORDER.forEach(function(k){
 });
 TITLES['home']='首页 · 学习指南';
 TITLES['quiz']='在线测验';
+// 内容分类（知识/项目/测验/计划）与进度监控
+var CATS=[
+  {key:'knowledge',label:'📚 知识',chs:['ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch11','ch12','ch13','ch14','ch15','ch17','ch19','ch20','ch21','ch22']},
+  {key:'project',label:'🛠 实践·项目',chs:['ch09','ch16']},
+  {key:'exam',label:'🧪 测验·考试',chs:['ch10']},
+  {key:'plan',label:'🗺️ 路线·计划',chs:['ch01','ch18']}
+];
+function catProgress(){
+  var p=loadProg();
+  return CATS.map(function(c){var done=0;c.chs.forEach(function(id){if(p[id]&&p[id].done)done++;});var total=c.chs.length;return {label:c.label,done:done,total:total,pct:total?Math.round(done/total*100):0};});
+}
+function firstUnDone(){
+  var p=loadProg();
+  for(var i=0;i<CATS.length;i++)for(var j=0;j<CATS[i].chs.length;j++){var id=CATS[i].chs[j];if(!(p[id]&&p[id].done))return id;}
+  return null;
+}
+function progressMonitorHtml(){
+  var p=loadProg();var cs=catProgress();
+  var totalChs=cs.reduce(function(s,c){return s+c.total;},0);
+  var doneChs=cs.reduce(function(s,c){return s+c.done;},0);
+  var overall=totalChs?Math.round(doneChs/totalChs*100):0;
+  var next=firstUnDone();
+  var h='<div class="monitor">';
+  h+='<div class="mon-head"><b>📈 学习进度监控</b><span>完成 <b>'+doneChs+'/'+totalChs+'</b> 章 · '+overall+'%</span></div>';
+  h+='<div class="mon-track"><i style="width:'+overall+'%"></i></div>';
+  h+='<div class="mon-cats">'+cs.map(function(c){return '<div class="mon-cat"><span class="mc-lab">'+c.label+'</span><span class="mc-bar"><i style="width:'+c.pct+'%"></i></span><span class="mc-num">'+c.done+'/'+c.total+'</span></div>';}).join('')+'</div>';
+  h+='<div class="mon-next">下一步：'+(next?'<a href="#'+next+'">'+(TITLES[next]||'')+'</a>':'全部完成 🎉')+'</div>';
+  h+='</div>';
+  return h;
+}
 
 var idx=[];
 ORDER.forEach(function(k){var el=document.getElementById(k); if(el) idx.push({id:k,title:TITLES[k],text:el.textContent.toLowerCase()});});
@@ -3354,15 +3642,12 @@ function levelHtml(){
     +'<div class="lvl-note">每完成一章 +100 XP，每次打卡 +20 XP，攒满 300 升一级</div></div>';
 }
 function homeDashboard(){
-  var p=loadProg();var done=0,total=0;
-  ORDER.forEach(function(k){ if(k==='home')return; total++; if(p[k]&&p[k].done)done++; });
-  var pct=total?Math.round(done/total*100):0;
-  var nextId=null;for(var i=0;i<ORDER.length;i++){var k=ORDER[i];if(k==='home')continue;if(!(p[k]&&p[k].done)){nextId=k;break;}}
+  var nextId=firstUnDone();
   var h='<div class="dash">';
-  h+='<div class="dash-top"><div class="dash-item"><span class="dash-num">'+pct+'%</span><span class="dash-lab">已完成 '+done+'/'+total+' 章</span></div>';
-  h+='<div class="dash-todo"><b>下一步：</b>'+(nextId?(TITLES[nextId]||''):'全部完成 🎉')+'</div></div>';
-  h+='<div class="dash-track"><i style="width:'+pct+'%"></i></div>';
+  h+=progressMonitorHtml();
   h+=levelHtml();
+  h+='<div class="dash-origin">🎯 <b>你的起点（运维 + Linux/MySQL）：</b>🟢 <b>初级</b>(01-08) 可快速过/跳过；重点投入 🟡 <b>中级</b> 与 🔴 <b>深度</b>(对标 SRE/资深)。学完即具竞争力。</div>';
+  h+='<div class="dash-tiers"><b>🚀 三级进阶 · 学完有竞争力：</b><span class="ti p">🟢 初级＝能独立容器化部署</span><span class="ti m">🟡 中级＝能搭云原生平台+自动化+监控+项目</span><span class="ti d">🔴 深度＝能对标 SRE/平台工程师</span></div>';
   h+='<div class="dash-actions">';
   if(nextId){h+='<a class="dash-btn primary" href="#'+nextId+'">▶ 继续学习：'+(TITLES[nextId]||'')+'</a>';}
   else{h+='<a class="dash-btn primary" href="#ch01">▶ 重新学习</a>';}
@@ -3371,8 +3656,9 @@ function homeDashboard(){
   h+='<a class="dash-btn plan" href="#ch18">📅 我的 6 个月涨薪计划</a>';
   h+='</div>';
   h+='<div class="dash-plan"><b>📅 6 个月计划：</b><span class="dp">❶ Docker</span><span>→</span><span class="dp">❷ Git+CI/CD</span><span>→</span><span class="dp">❸ K8s</span><span>→</span><span class="dp">❹ 监控</span><span>→</span><span class="dp">❺ 微服务+AI</span><span>→</span><span class="dp">❻ 综合求职</span></div>';
-  h+='<div class="dash-growth">🔝 <b>你的运维涨薪线：</b>'+(TITLES['ch08']||'Docker')+' → '+(TITLES['ch13']||'Git')+' → '+(TITLES['ch14']||'K8s')+' → '+(TITLES['ch15']||'Prometheus')+' → CI/CD · IaC · AIOps</div>';
+  h+='<div class="dash-growth">🔝 <b>你的运维涨薪线：</b>'+(TITLES['ch08']||'Docker')+' → '+(TITLES['ch13']||'Git')+' → '+(TITLES['ch14']||'K8s')+' → '+(TITLES['ch15']||'Prometheus')+' → GitOps · SRE · AIOps</div>';
   h+='<div class="dai-wrap" id="dailyCard">'+dailyHtml()+'</div>';
+  h+='<div class="bk-wrap" id="bkCard">'+backupHtml()+'</div>';
   h+='</div>';
   return h;
 }
@@ -3409,6 +3695,48 @@ function dMark(){
   var c=document.getElementById('dailyCard');if(c)c.innerHTML=dailyHtml();
 }
 
+// ---- 备份 / 同步（导出/导入 进度+笔记+打卡） ----
+function allNotes(){try{return JSON.parse(localStorage.getItem(NOTES_KEY))||{};}catch(e){return {};}}
+function backupObj(){return {v:1,progress:loadProg(),notes:allNotes(),daily:dGet(),exported:new Date().toISOString()};}
+function bkMsg(m){var e=document.getElementById('bkMsg');if(e)e.textContent=m;}
+function backupHtml(){
+  return '<div class="bk-head"><span>💾 备份 / 同步（进度 · 笔记 · 打卡）</span></div>'
+    +'<div class="bk-btns">'
+    +'<button class="bk-btn" onclick="doExport()">⬇ 导出备份文件</button>'
+    +'<button class="bk-btn" onclick="doCopy()">⧉ 复制分享码</button>'
+    +'<button class="bk-btn" onclick="var a=document.getElementById(\'bkArea\');if(a&&a.value.trim()){doImport();}else{bkMsg(\'请先粘贴分享码\');}">⬆ 导入</button>'
+    +'</div>'
+    +'<textarea id="bkArea" placeholder="在另一台设备上：导出/复制分享码 -> 到这里粘贴 -> 点导入，数据就同步了"></textarea>'
+    +'<div class="bk-msg" id="bkMsg"></div>'
+    +'<div class="bk-tip">进度、笔记、每日打卡会一起备份/导入。不同设备不同浏览器，用这一个功能保持一致。</div>';
+}
+function doExport(){
+  try{
+    var blob=new Blob([JSON.stringify(backupObj(),null,2)],{type:'application/json'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download='dsh_backup.json';document.body.appendChild(a);a.click();document.body.removeChild(a);
+    bkMsg('✅ 已下载备份文件，可在其他设备导入。');
+  }catch(e){bkMsg('❌ 导出失败');}
+}
+function doCopy(){
+  var a=document.getElementById('bkArea');
+  if(a)a.value=JSON.stringify(backupObj());
+  if(a){a.select();try{document.execCommand('copy');}catch(e){}}
+  bkMsg('⧉ 已生成并复制分享码，去另一设备粘贴导入。');
+}
+function doImport(){
+  var a=document.getElementById('bkArea');if(!a||!a.value.trim()){bkMsg('请先粘贴分享码或内容');return;}
+  try{
+    var o=JSON.parse(a.value.trim());
+    if(o.progress)localStorage.setItem(PROG_KEY,JSON.stringify(o.progress));
+    if(o.notes)localStorage.setItem(NOTES_KEY,JSON.stringify(o.notes));
+    if(o.daily)localStorage.setItem(DAILY_KEY,JSON.stringify(o.daily));
+    bkMsg('✅ 导入成功！本设备数据已更新。');
+    drawProgress();
+    var c=document.getElementById('dailyCard');if(c)c.innerHTML=dailyHtml();
+  }catch(e){bkMsg('❌ 导入失败，内容格式不对');}
+}
+
 // 章节笔记（localStorage）
 var NOTES_KEY='dsh_docker_notes_v1';
 function loadNotes(id){try{var o=JSON.parse(localStorage.getItem(NOTES_KEY))||{};return o[id]||'';}catch(e){return '';}}
@@ -3429,6 +3757,14 @@ document.addEventListener('keydown',function(e){
   if(e.key==='ArrowLeft'){var pv=document.getElementById('prev');if(pv&&pv.style.visibility!=='hidden'){location.hash=pv.getAttribute('href');}}
   else if(e.key==='ArrowRight'){var nx=document.getElementById('next');if(nx&&nx.style.visibility!=='hidden'){location.hash=nx.getAttribute('href');}}
 });
+// 侧栏收起/展开
+var SIDE_KEY='dsh_side_collapsed';
+function toggleSide(){
+  var s=document.querySelector('.site');if(!s)return;
+  var c=s.classList.toggle('side-collapsed');
+  try{localStorage.setItem(SIDE_KEY,c?'1':'0');}catch(e){}
+}
+(function(){ try{ if(localStorage.getItem(SIDE_KEY)==='1'){var s=document.querySelector('.site');if(s)s.classList.add('side-collapsed');} }catch(e){} })();
 
 var content=document.getElementById('content');
 // 复制代码按钮（委托）
@@ -3807,7 +4143,11 @@ var MAP_NODES = [
   {id:'prometheus', label:'Prometheus 监控', cat:'ext', x:820, y:450, jump:'#ch15', desc:'监控指标与告警（可观测性）。站内已开课：第 15 章 Prometheus 入门。', extra:[{name:'Grafana',intro:'可视化监控面板。'},{name:'Alertmanager',intro:'告警通知。'}]},
   {id:'terraform',  label:'Terraform/Ansible',cat:'ext', x:1040, y:185, desc:'基础设施即代码(IaC)，一键创建环境。', extra:[{name:'多云 IaC',intro:'一套脚本管理多环境/多平台。'}]},
   {id:'cloud',      label:'云平台',          cat:'ext', x:1040, y:320, desc:'云厂商（阿里云/腾讯云/AWS）容器与编排产品。', extra:[]},
-  {id:'aiops',      label:'AI 运维 (AIOps)', cat:'ext', x:1040, y:455, jump:'#ch17', desc:'用大模型做智能运维：日志分析、告警降噪、智能排障。站内已开课：第 17 章。', extra:[{name:'大模型 API',intro:'用 Python 调大模型做自己的智能工具。'},{name:'Ollama',intro:'用 Docker 本地跑开源模型，数据不外泄。'}]}
+  {id:'aiops',      label:'AI 运维 (AIOps)', cat:'ext', x:1040, y:455, jump:'#ch17', desc:'用大模型做智能运维：日志分析、告警降噪、智能排障。站内已开课：第 17 章。', extra:[{name:'大模型 API',intro:'用 Python 调大模型做自己的智能工具。'},{name:'Ollama',intro:'用 Docker 本地跑开源模型，数据不外泄。'}]},
+  {id:'k8sdeep',    label:'K8s 实操进阶',   cat:'ext', x:560, y:560, jump:'#ch19', desc:'StatefulSet/网络/存储/调度/HPA，对标资深。站内已开课：第 19 章。', extra:[]},
+  {id:'obsdeep',    label:'可观测性进阶',   cat:'ext', x:820, y:560, jump:'#ch21', desc:'OpenTelemetry/PromQL/Loki/告警。站内已开课：第 21 章。', extra:[]},
+  {id:'gitops',     label:'GitOps/IaC',     cat:'ext', x:1040, y:560, jump:'#ch20', desc:'Helm+ArgoCD+Terraform：平台工程核心。站内已开课：第 20 章。', extra:[{name:'Helm',intro:'K8s 包管理。'},{name:'Terraform',intro:'基础设施即代码。'}]},
+  {id:'sre',        label:'SRE/平台工程',   cat:'ext', x:1040, y:640, jump:'#ch22', desc:'SLO/错误预算/自愈，对标高薪岗。站内已开课：第 22 章。', extra:[{name:'SLO/SLI',intro:'量化“多稳定才算好”。'},{name:'错误预算',intro:'用预算决策能否上线。'}]}
 ];
 
 var MAP_EDGES = [
@@ -3839,7 +4179,12 @@ var MAP_EDGES = [
   {s:'terraform',t:'cloud',type:'rel'},
   {s:'prometheus',t:'cloud',type:'rel'},
   {s:'k8s',t:'aiops',type:'rel'},
-  {s:'prometheus',t:'aiops',type:'rel'}
+  {s:'prometheus',t:'aiops',type:'rel'},
+  {s:'k8s',t:'k8sdeep',type:'rel'},
+  {s:'prometheus',t:'obsdeep',type:'rel'},
+  {s:'dockerfile',t:'gitops',type:'rel'},
+  {s:'gitops',t:'sre',type:'rel'},
+  {s:'k8sdeep',t:'sre',type:'rel'}
 ];
 /* 去掉重复边（id 相同） */
 (function(){const seen={};const out=[];MAP_EDGES.forEach(function(e){const k=e.s+'|'+e.t+'|'+e.type;if(!seen[k]){seen[k]=1;out.push(e);}});MAP_EDGES.length=0;out.forEach(function(e){MAP_EDGES.push(e);});})();
@@ -3854,13 +4199,13 @@ function mapCenter(n){return {x:n.x+RW/2,y:n.y+RH/2};}
 function renderMap(){
   var host=document.getElementById('content');
   if(!host)return;
-  var W=1200,H=620;
+  var W=1200,H=720;
   var s='<div class="map-wrap">';
   s+='<div class="map-head"><h1>🗺️ 学习路线图 · 知识关联（运维/DevOps 成长向）</h1>';
   s+='<p>你已懂 <b>Linux / MySQL / 运维</b>，可直接用 Docker 跑 Nacos、Jenkins，并按下面的<b>涨薪路线</b>拓展。点任一知识点，看它的<b>先修 / 关联 / 自动引申</b>。实线箭头=先后递进，虚线=相互关联。</p>';
-  s+='<div class="map-growth">🔝 <b>运维涨薪进阶线：</b>Docker 精通 → <b>Kubernetes</b>（集群编排）→ CI/CD 流水线（Jenkins/GitLab CI）→ 可观测性（Prometheus/Grafana）→ 基础设施即代码（Terraform/Ansible）→ 云平台</div>';
+  s+='<div class="map-growth">🚀 <b>三级进阶 · 学完有竞争力：</b>🟢初级 Docker → 🟡中级 K8s / CI-CD / 监控 / 微服务 / AI → 🔴深度 GitOps / 可观测性进阶 / SRE·平台工程（对标高薪）</div>';
   s+='<div class="map-legend" id="mapLegend"></div></div>';
-  s+='<div class="map-body"><div class="map-canvas"><div class="map-scroll"><svg id="mapsvg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'+mapEdgesSvg()+mapNodesSvg()+'</svg></div></div>';
+  s+='<div class="map-body"><div class="map-canvas"><div class="map-hint">← 左右滑动查看完整路线图，点击节点看关联自动引申 →</div><div class="map-scroll"><svg id="mapsvg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">'+mapEdgesSvg()+mapNodesSvg()+'</svg></div></div>';
   s+='<div class="map-detail" id="mapDetail"><div class="map-placeholder">👆 点击图中的知识点，这里会显示它的先修、关联与自动引申</div></div></div>';
   s+='</div>';
   host.innerHTML=s;
@@ -3996,5 +4341,6 @@ function renderBlock(text){
 }
 </script>
 <button class="to-top" id="toTop">↑</button>
+<button class="side-open" id="sideOpen" onclick="toggleSide()">☰ 目录</button>
 </body>
 </html>

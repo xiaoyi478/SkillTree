@@ -50,7 +50,7 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
 .side-open{ display:none; position:fixed; top:14px; left:14px; z-index:60; background:var(--grad); color:#fff; border:none; border-radius:10px; padding:9px 15px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 6px 16px rgba(59,130,246,.4); }
 .site.side-collapsed .sidebar{ width:0; min-width:0; padding:0; overflow:hidden; border-right:none; }
 .site.side-collapsed .side-toggle{ display:none; }
-.site.side-collapsed .side-open{ display:block; }
+.site.side-collapsed ~ .side-open{ display:block; }
 .site.side-collapsed .main{ max-width:1230px; }
 
 /* 搜索 */
@@ -440,9 +440,6 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
       <a href="#" id="prev"><span>上一章</span><b></b></a>
       <a href="#" id="next"><span>下一章</span><b></b></a>
     </div>
-    <div class="done-row" id="doneRow" style="display:none">
-      <button id="doneBtn" onclick="toggleDone(currentId())">🎯 标记为已学完</button>
-    </div>
     <div class="notes-row" id="notesRow" style="display:none">
       <button id="notesBtn" onclick="toggleNotes(currentId())">📝 写笔记</button>
       <div class="notes-box" id="notesBox" style="display:none">
@@ -454,7 +451,7 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
 </div>
 <script type='text/plain' id='home'># 🌳 SkillTree
 
-这里是你的**职业技能树**：每学一章=点亮一个技能点，打卡=每日灌溉，把 Docker→K8s→CI/CD→监控→AI 一路点到"能涨薪"的枝叶。**看懂了就开始照着做。**
+这里是你的**职业技能树**：每学一章=点亮一个技能点，学习时长与进度自动记录，把 Docker→K8s→CI/CD→监控→AI 一路点到"能涨薪"的枝叶。**看懂了就开始照着做。**
 
 ## 怎么读：照着做就学会
 
@@ -474,7 +471,7 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
 - **🎯 首页学习看板**：打开即见学习进度、下一步学什么、快捷入口与「运维涨薪进阶线」
 - **🗺️ 学习路线图 / 知识图谱**：点「学习路线图」，可视化各知识点关联，点击节点显示先修/关联，并**自动引申相关技术**（含 Git、K8s、Prometheus、GitLab CI、AI 运维等），适合你从 **DevOps/SRE + AIOps 涨薪**方向自主拓展
 - **🔍 站内全文搜索**：顶部搜索框实时搜所有章节的标题与正文，命中可高亮定位
-- **📈 学习进度记录**：自动记录读过的章节，手动「标记为已学完」，侧栏显示完成进度（保存在本机）
+- **📈 学习进度记录（全自动）**：打开章节即自动记为"已学"，自动统计学习时长/次数；「📊 学习记录」页可看每日/累计与近7天（保存在本机）
 - **📝 章节学习笔记**：每章可写笔记并自动保存到本机
 - **📝 在线测验内嵌**：左侧「在线测验」直接做题，无需单独文件
 - **⌨️ 键盘翻页**：← / → 快速切换章节
@@ -3597,13 +3594,6 @@ var PROG_KEY='dsh_docker_progress_v1';
 function loadProg(){try{return JSON.parse(localStorage.getItem(PROG_KEY))||{};}catch(e){return {};}}
 function saveProg(p){try{localStorage.setItem(PROG_KEY,JSON.stringify(p));}catch(e){}}
 function markVisited(id){var p=loadProg();p[id]=p[id]||{};p[id].visited=true;saveProg(p);drawProgress();}
-function toggleDone(id){var p=loadProg();p[id]=p[id]||{};p[id].done=!p[id].done;saveProg(p);drawProgress();refreshDoneBtn(id);}
-function refreshDoneBtn(id){
-  var btn=document.getElementById('doneBtn');if(!btn)return;
-  var p=loadProg();var done=p[id]&&p[id].done;
-  if(done){btn.classList.add('done');btn.textContent='✓ 已标记为已学完（点击取消）';}
-  else{btn.classList.remove('done');btn.textContent='🎯 标记为已学完';}
-}
 function drawProgress(){
   var p=loadProg();var done=0,total=ORDER.length;
   document.querySelectorAll('.nav a').forEach(function(a){
@@ -3651,8 +3641,9 @@ function onLevelTag(lv){
 function levelHtml(){
   var p=loadProg(),done=0;
   ORDER.forEach(function(k){if(k==='home')return;if(p[k]&&p[k].done)done++;});
-  var checkins=Object.keys(dGet()).length;
-  var xp=done*100+checkins*20;
+  var tSec=0;var D=daysGet();for(var k2 in D){if(D.hasOwnProperty(k2))tSec+=D[k2];}
+  var min=Math.round(tSec/60000);
+  var xp=done*100+min*2;
   var lv=Math.floor(xp/300)+1;
   var need=xp%300,total=300;
   var pct=Math.round(need/total*100);
@@ -3660,7 +3651,7 @@ function levelHtml(){
     +'<span class="lvl-name">'+onLevelTag(lv)+'</span>'
     +'<span class="lvl-xp">'+xp+' XP</span></div>'
     +'<div class="lvl-track"><i style="width:'+pct+'%"></i></div>'
-    +'<div class="lvl-note">每完成一章 +100 XP，每次打卡 +20 XP，攒满 300 升一级</div></div>';
+    +'<div class="lvl-note">已学 '+done+' 章(+100/章) · 累计学习 '+min+' 分钟(+2/分)，攒满 300 升一级（自动统计）</div></div>';
 }
 function homeDashboard(){
   var nextId=firstUnDone();
@@ -3678,43 +3669,14 @@ function homeDashboard(){
   h+='</div>';
   h+='<div class="dash-plan"><b>📅 6 个月计划：</b><span class="dp">❶ Docker</span><span>→</span><span class="dp">❷ Git+CI/CD</span><span>→</span><span class="dp">❸ K8s</span><span>→</span><span class="dp">❹ 监控</span><span>→</span><span class="dp">❺ 微服务+AI</span><span>→</span><span class="dp">❻ 综合求职</span></div>';
   h+='<div class="dash-growth">🔝 <b>你的运维涨薪线：</b>'+(TITLES['ch08']||'Docker')+' → '+(TITLES['ch13']||'Git')+' → '+(TITLES['ch14']||'K8s')+' → '+(TITLES['ch15']||'Prometheus')+' → GitOps · SRE · AIOps</div>';
-  h+='<div class="dai-wrap" id="dailyCard">'+dailyHtml()+'</div>';
   h+='<div class="bk-wrap" id="bkCard">'+backupHtml()+'</div>';
   h+='</div>';
   return h;
 }
 
-// ---- 每日学习打卡看板 ----
-var DAILY_KEY='dsh_daily_v1';
+// ---- 日期工具（自动学习记录用） ----
 function dateKey(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function dToday(){return dateKey(new Date());}
-function dGet(){try{return JSON.parse(localStorage.getItem(DAILY_KEY))||{};}catch(e){return {};}}
-function dSave(o){try{localStorage.setItem(DAILY_KEY,JSON.stringify(o));}catch(e){}}
-function dStreak(o){
-  var n=0,d=new Date();
-  if(!o[dateKey(d)]){d.setDate(d.getDate()-1);}
-  while(o[dateKey(d)]){n++;d.setDate(d.getDate()-1);}
-  return n;
-}
-function dailyHtml(){
-  var o=dGet(),today=dToday();
-  var names=['日','一','二','三','四','五','六'];
-  var week='';
-  for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var k=dateKey(d);
-    var isToday=(k===today),on=!!o[k];
-    week+='<div class="dday'+(isToday?' today':'')+(on?' on':'')+'"><span class="dd-lab">'+names[d.getDay()]+'</span><span class="dd-dot">'+(on?'✓':'')+'</span></div>';}
-  var streak=dStreak(o),done=!!o[today];
-  return '<div class="dai-head"><span>📆 每日学习打卡</span><span class="dai-streak">🔥 连续学习 <b>'+streak+'</b> 天</span></div>'
-    +'<div class="dai-week">'+week+'</div>'
-    +'<div class="dai-act"><button class="dai-btn'+(done?' on':'')+'" onclick="dMark()">'+(done?'今日已打卡 ✓':'打卡 · 今日学习完成')+'</button></div>'
-    +'<div class="dai-tip">每天学完就点一下打卡，坚持打卡形成习惯。</div>';
-}
-function dMark(){
-  var o=dGet(),k=dToday();
-  if(o[k]){delete o[k];}else{o[k]={done:true};}
-  dSave(o);
-  var c=document.getElementById('dailyCard');if(c)c.innerHTML=dailyHtml();
-}
 
 // ---- 自动学习记录（时长/次数/历史，无需手动） ----
 var LOG_KEY='dsh_log_v2', DAYS_KEY='dsh_days_v2';
@@ -3736,6 +3698,9 @@ function studyOpen(id){
   var L=logGet();L[id]=L[id]||{title:TITLES[id]||id,visits:0,ms:0,last:0};
   L[id].title=TITLES[id]||id;L[id].visits=(L[id].visits||0)+1;L[id].last=Date.now();
   logSave(L);studyCur=id;studyStart=Date.now();
+  // 自动记录：打开即视为"已学/已读"
+  var p=loadProg();p[id]=p[id]||{};p[id].done=true;p[id].visited=true;
+  saveProg(p);drawProgress();
 }
 window.addEventListener('beforeunload',function(){flushStudy();});
 function fmtMs(ms){
@@ -3778,12 +3743,12 @@ function fmtShort(sec){
   return Math.floor(m/60)+'h';
 }
 
-// ---- 备份 / 同步（导出/导入 进度+笔记+打卡） ----
+// ---- 备份 / 同步（导出/导入 进度+笔记+学习记录） ----
 function allNotes(){try{return JSON.parse(localStorage.getItem(NOTES_KEY))||{};}catch(e){return {};}}
-function backupObj(){return {v:1,progress:loadProg(),notes:allNotes(),daily:dGet(),exported:new Date().toISOString()};}
+function backupObj(){return {v:2,progress:loadProg(),notes:allNotes(),days:daysGet(),study:logGet(),exported:new Date().toISOString()};}
 function bkMsg(m){var e=document.getElementById('bkMsg');if(e)e.textContent=m;}
 function backupHtml(){
-  return '<div class="bk-head"><span>💾 备份 / 同步（进度 · 笔记 · 打卡）</span></div>'
+  return '<div class="bk-head"><span>💾 备份 / 同步（进度 · 笔记 · 学习记录）</span></div>'
     +'<div class="bk-btns">'
     +'<button class="bk-btn" onclick="doExport()">⬇ 导出备份文件</button>'
     +'<button class="bk-btn" onclick="doCopy()">⧉ 复制分享码</button>'
@@ -3791,7 +3756,7 @@ function backupHtml(){
     +'</div>'
     +'<textarea id="bkArea" placeholder="在另一台设备上：导出/复制分享码 -> 到这里粘贴 -> 点导入，数据就同步了"></textarea>'
     +'<div class="bk-msg" id="bkMsg"></div>'
-    +'<div class="bk-tip">进度、笔记、每日打卡会一起备份/导入。不同设备不同浏览器，用这一个功能保持一致。</div>';
+    +'<div class="bk-tip">学习进度、笔记、学习记录会一起备份/导入。不同设备不同浏览器，用这一个功能保持一致。</div>';
 }
 function doExport(){
   try{
@@ -3813,10 +3778,10 @@ function doImport(){
     var o=JSON.parse(a.value.trim());
     if(o.progress)localStorage.setItem(PROG_KEY,JSON.stringify(o.progress));
     if(o.notes)localStorage.setItem(NOTES_KEY,JSON.stringify(o.notes));
-    if(o.daily)localStorage.setItem(DAILY_KEY,JSON.stringify(o.daily));
+    if(o.days)localStorage.setItem(DAYS_KEY,JSON.stringify(o.days));
+    if(o.study)localStorage.setItem(LOG_KEY,JSON.stringify(o.study));
     bkMsg('✅ 导入成功！本设备数据已更新。');
     drawProgress();
-    var c=document.getElementById('dailyCard');if(c)c.innerHTML=dailyHtml();
   }catch(e){bkMsg('❌ 导入失败，内容格式不对');}
 }
 
@@ -3871,7 +3836,6 @@ if(toTop){
 function render(id){
   flushStudy();   // 结算上一个章节的停留时长
   if(id==='quiz'){
-    document.getElementById('doneRow').style.display='none';
     document.getElementById('prev').style.visibility='hidden';
     document.getElementById('next').style.visibility='hidden';
     document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')==='quiz');});
@@ -3880,7 +3844,6 @@ function render(id){
     return;
   }
   if(id==='map'){
-    document.getElementById('doneRow').style.display='none';
     document.getElementById('prev').style.visibility='hidden';
     document.getElementById('next').style.visibility='hidden';
     document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')==='map');});
@@ -3889,7 +3852,6 @@ function render(id){
     return;
   }
   if(id==='records'){
-    document.getElementById('doneRow').style.display='none';
     document.getElementById('prev').style.visibility='hidden';
     document.getElementById('next').style.visibility='hidden';
     document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')==='records');});
@@ -3913,11 +3875,9 @@ function render(id){
   else{pv.style.visibility='hidden';}
   if(i2<ORDER.length-1){nx.style.visibility='visible';nx.href='#'+ORDER[i2+1];nx.querySelector('b').textContent=TITLES[ORDER[i2+1]];}
   else{nx.style.visibility='hidden';}
-  var dr=document.getElementById('doneRow');
   var nr=document.getElementById('notesRow');
-  if(id==='home'){dr.style.display='none';nr.style.display='none';}
+  if(id==='home'){nr.style.display='none';}
   else{
-    dr.style.display='flex';refreshDoneBtn(id);
     nr.style.display='flex';
     var nb=document.getElementById('notesBox');if(nb)nb.style.display='none';
     var na=document.getElementById('notesArea');if(na)na.value=loadNotes(id);

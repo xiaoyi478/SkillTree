@@ -114,6 +114,26 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
 .mc-num{ width:44px; text-align:right; color:#94a3b8; font-size:12px; }
 .mon-next{ margin-top:12px; color:#aebbd0; font-size:13.5px; }
 .mon-next a{ color:#60a5fa; font-weight:600; }
+/* 学习记录页 */
+.rec-wrap h1{ margin-bottom:8px; }
+.rec-intro{ color:var(--muted); font-size:13.5px; margin:0 0 16px; }
+.rec-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:18px; }
+.rec-card{ background:linear-gradient(135deg,#eef4ff,#fff); border:1px solid var(--line); border-radius:14px; padding:16px; text-align:center; }
+.rec-card b{ display:block; font-size:22px; color:var(--blue-2); margin-bottom:4px; }
+.rec-card span{ font-size:12.5px; color:var(--muted); }
+.rec-sec{ margin:6px 0 18px; }
+.rec-sec h3{ font-size:16px; margin:0 0 10px; }
+.rec-week{ display:flex; align-items:flex-end; gap:8px; height:150px; padding:6px 2px 0; }
+.rw{ flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; height:100%; }
+.rw i{ width:60%; background:linear-gradient(180deg,#3b82f6,#60a5fa); border-radius:6px 6px 0 0; min-height:4px; }
+.rw span{ font-size:12px; color:var(--muted); margin-top:6px; }
+.rw em{ font-size:11px; color:var(--muted); font-style:normal; margin-bottom:4px; }
+.rw.today i{ background:linear-gradient(180deg,#10b981,#34d399); }
+.rw.today span{ color:var(--green-2); font-weight:700; }
+.rec-list{ list-style:none; margin:0; padding:0; }
+.rec-list li{ display:flex; justify-content:space-between; gap:12px; align-items:baseline; padding:10px 12px; border:1px solid var(--line); border-radius:10px; margin-bottom:8px; background:#fff; flex-wrap:wrap; }
+.rec-list b{ font-size:14px; color:var(--ink); }
+.rec-list span{ font-size:12.5px; color:var(--muted); }
 .dash-tiers{ margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12.5px; color:#475569; }
 .dash-tiers b{ color:var(--ink); }
 .dash-tiers .ti{ color:#fff; border-radius:18px; padding:3px 10px; font-size:12px; font-weight:600; }
@@ -409,6 +429,7 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
     </div>
     <div class="nav">
       <a href="#map" data-id="map">🗺️ 学习路线图</a>
+      <a href="#records" data-id="records">📊 学习记录</a>
       <a href='#home' data-id='home'>首页 · 学习指南</a><div class='nav-group' id='g1'><button class='nav-head' data-group='g1'>🗺️ 路线 · 计划<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch01' data-id='ch01'>01 · 学习路线图（照着做 · 就能学会） <em class='lvtag p'>初级</em> <span class='tag'>01</span></a><a href='#ch18' data-id='ch18'>18 · 6 个月，从运维到 DevOps/AIOps 涨薪计划 <em class='lvtag m'>中级</em> <span class='tag'>18</span></a></div></div><div class='nav-group' id='g2'><button class='nav-head' data-group='g2'>📚 知识 · 初级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch02' data-id='ch02'>02 · Docker 基础概念 <em class='lvtag p'>初级</em> <span class='tag'>02</span></a><a href='#ch03' data-id='ch03'>03 · 安装 Docker 与环境准备（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>03</span></a><a href='#ch04' data-id='ch04'>04 · Docker 核心命令（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>04</span></a><a href='#ch05' data-id='ch05'>05 · Dockerfile 与镜像构建（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>05</span></a><a href='#ch06' data-id='ch06'>06 · 数据卷与网络（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>06</span></a><a href='#ch07' data-id='ch07'>07 · Docker Compose（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>07</span></a><a href='#ch08' data-id='ch08'>08 · 最佳实践与安全（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>08</span></a></div></div><div class='nav-group' id='g3'><button class='nav-head' data-group='g3'>📚 知识 · 中级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch11' data-id='ch11'>11 · Nacos 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>11</span></a><a href='#ch12' data-id='ch12'>12 · Jenkins 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>12</span></a><a href='#ch13' data-id='ch13'>13 · Git 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>13</span></a><a href='#ch14' data-id='ch14'>14 · Kubernetes 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>14</span></a><a href='#ch15' data-id='ch15'>15 · Prometheus 监控入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>15</span></a><a href='#ch17' data-id='ch17'>17 · AI 入门 & AI 运维（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>17</span></a></div></div><div class='nav-group' id='g4'><button class='nav-head' data-group='g4'>📚 知识 · 深度<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch19' data-id='ch19'>19 · 深度 · Kubernetes 实操进阶 <em class='lvtag d'>深度</em> <span class='tag'>19</span></a><a href='#ch20' data-id='ch20'>20 · 深度 · GitOps + Helm + IaC（平台工程） <em class='lvtag d'>深度</em> <span class='tag'>20</span></a><a href='#ch21' data-id='ch21'>21 · 深度 · 可观测性进阶（Metrics/Logs/Traces） <em class='lvtag d'>深度</em> <span class='tag'>21</span></a><a href='#ch22' data-id='ch22'>22 · 深度 · SRE 与平台工程（对标高薪岗） <em class='lvtag d'>深度</em> <span class='tag'>22</span></a></div></div><div class='nav-group' id='g5'><button class='nav-head' data-group='g5'>🛠 实践 · 项目<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch09' data-id='ch09'>09 · 训练：实验手册（照着做 · 就学会） <em class='lvtag p'>初级</em> <span class='tag'>09</span></a><a href='#ch16' data-id='ch16'>16 · 实战项目 & 简历（落地 · 简历亮点） <em class='lvtag m'>中级</em> <span class='tag'>16</span></a></div></div><div class='nav-group' id='g6'><button class='nav-head' data-group='g6'>🧪 测验 · 考试<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch10' data-id='ch10'>10 · 考试：试题与答案（Docker 入门） <em class='lvtag p'>初级</em> <span class='tag'>10</span></a></div></div>
       <a class="quiz" href="#quiz" data-id="quiz">📝 在线测验</a>
     </div>
@@ -3695,6 +3716,68 @@ function dMark(){
   var c=document.getElementById('dailyCard');if(c)c.innerHTML=dailyHtml();
 }
 
+// ---- 自动学习记录（时长/次数/历史，无需手动） ----
+var LOG_KEY='dsh_log_v2', DAYS_KEY='dsh_days_v2';
+function logGet(){try{return JSON.parse(localStorage.getItem(LOG_KEY))||{};}catch(e){return {};}}
+function logSave(o){try{localStorage.setItem(LOG_KEY,JSON.stringify(o));}catch(e){}}
+function daysGet(){try{return JSON.parse(localStorage.getItem(DAYS_KEY))||{};}catch(e){return {};}}
+function daysSave(o){try{localStorage.setItem(DAYS_KEY,JSON.stringify(o));}catch(e){}}
+var studyCur=null, studyStart=0;
+function addStudy(id,ms){
+  if(!id||!ms||ms<=0)return;
+  var L=logGet();L[id]=L[id]||{title:TITLES[id]||id,visits:0,ms:0,last:0};
+  L[id].title=TITLES[id]||id;L[id].ms=(L[id].ms||0)+ms;L[id].last=Date.now();
+  logSave(L);
+  var D=daysGet();var k=dToday();D[k]=(D[k]||0)+ms;daysSave(D);
+}
+function flushStudy(){ if(studyCur){ addStudy(studyCur,Date.now()-studyStart); studyCur=null; } }
+function studyOpen(id){
+  flushStudy();
+  var L=logGet();L[id]=L[id]||{title:TITLES[id]||id,visits:0,ms:0,last:0};
+  L[id].title=TITLES[id]||id;L[id].visits=(L[id].visits||0)+1;L[id].last=Date.now();
+  logSave(L);studyCur=id;studyStart=Date.now();
+}
+window.addEventListener('beforeunload',function(){flushStudy();});
+function fmtMs(ms){
+  if(!ms||ms<=0)return '0 分钟';
+  var m=Math.round(ms/60000);if(m===0)return '<1 分钟';
+  if(m<60)return m+' 分钟';
+  return Math.floor(m/60)+' 小时 '+(m%60)+' 分';
+}
+function recordsHtml(){
+  var L=logGet(),D=daysGet(),today=dToday();
+  var totalSec=0;for(var k in D){if(D.hasOwnProperty(k))totalSec+=D[k];}
+  var names=['日','一','二','三','四','五','六'],week=[];
+  for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var kk=dateKey(d);week.push({lab:names[d.getDay()],sec:D[kk]||0,today:kk===today});}
+  var mx=1;week.forEach(function(x){if(x.sec>mx)mx=x.sec;});
+  var recs=Object.keys(L).map(function(k){return L[k];}).sort(function(a,b){return (b.last||0)-(a.last||0);}).slice(0,12);
+  var h='<div class="rec-wrap"><h1>📊 我的学习记录</h1>';
+  h+='<p class="rec-intro">打开章节即自动记录：停留时长、阅读次数、历史。关闭/切换页面会自动结算，无需手动。</p>';
+  h+='<div class="rec-cards">'
+    +'<div class="rec-card"><b>'+fmtMs(D[today]||0)+'</b><span>今日学习</span></div>'
+    +'<div class="rec-card"><b>'+fmtMs(totalSec)+'</b><span>累计学习</span></div>'
+    +'<div class="rec-card"><b>'+(Object.keys(L).length)+'</b><span>读过的章节</span></div>'
+    +'<div class="rec-card"><b>'+Object.keys(D).length+'</b><span>学习天数</span></div></div>';
+  h+='<div class="rec-sec"><h3>近 7 天学习时长</h3><div class="rec-week">';
+  week.forEach(function(x){
+    var pct=Math.max(4,Math.round(x.sec/mx*100));
+    h+='<div class="rw'+(x.today?' today':'')+'"><i style="height:'+pct+'%"></i><span>'+x.lab+'</span><em>'+fmtShort(x.sec)+'</em></div>';
+  });
+  h+='</div></div>';
+  h+='<div class="rec-sec"><h3>最近学习</h3>';
+  h+=(recs.length?'<ul class="rec-list">'+recs.map(function(r){
+    return '<li><b>'+(r.title||'章节')+'</b><span>读过 '+r.visits+' 次 · 累计 '+fmtMs(r.ms)+' · '+(r.last?new Date(r.last).toLocaleString():'')+'</span></li>';
+  }).join('')+'</ul>':'<p>还没有记录——去打开一个章节，就会自动出现在这里。</p>');
+  h+='</div></div>';
+  return h;
+}
+function fmtShort(sec){
+  if(!sec)return '0';
+  var m=Math.round(sec/60000);
+  if(m<60)return m+'分';
+  return Math.floor(m/60)+'h';
+}
+
 // ---- 备份 / 同步（导出/导入 进度+笔记+打卡） ----
 function allNotes(){try{return JSON.parse(localStorage.getItem(NOTES_KEY))||{};}catch(e){return {};}}
 function backupObj(){return {v:1,progress:loadProg(),notes:allNotes(),daily:dGet(),exported:new Date().toISOString()};}
@@ -3786,6 +3869,7 @@ if(toTop){
   toTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
 }
 function render(id){
+  flushStudy();   // 结算上一个章节的停留时长
   if(id==='quiz'){
     document.getElementById('doneRow').style.display='none';
     document.getElementById('prev').style.visibility='hidden';
@@ -3804,8 +3888,17 @@ function render(id){
     renderMap();
     return;
   }
+  if(id==='records'){
+    document.getElementById('doneRow').style.display='none';
+    document.getElementById('prev').style.visibility='hidden';
+    document.getElementById('next').style.visibility='hidden';
+    document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')==='records');});
+    content.innerHTML=recordsHtml();
+    return;
+  }
   var el=document.getElementById(id);if(!el){location.hash='#home';return;}
   content.innerHTML=(id==='home'?homeDashboard():'')+renderBlock(el.textContent);
+  if(id!=='home')studyOpen(id);   // 自动记录：打开章节 → 开始计时
   if(lastSearch){
     var terms=lastSearch.toLowerCase();
     var nodes=content.querySelectorAll('p,li,h1,h2,h3,h4,th,td');
@@ -3855,7 +3948,7 @@ function highlightTerm(root,term){
 }
 function route(){
   var h=location.hash.replace('#','');
-  if(h==='quiz'||h==='map'||ORDER.indexOf(h)>=0){render(h);}
+  if(h==='quiz'||h==='map'||h==='records'||ORDER.indexOf(h)>=0){render(h);}
   else{render('home');}
 }
 document.getElementById('searchInput').addEventListener('input',function(){lastSearch=this.value.trim();doSearch();});

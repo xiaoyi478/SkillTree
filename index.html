@@ -81,17 +81,17 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
 /* 导航 */
 .nav{ display:flex; flex-direction:column; gap:3px; }
 .nav a{
-  display:flex; align-items:center; padding:10px 12px; border-radius:11px; color:#b9c6d9;
-  text-decoration:none; font-size:14.5px; margin:1px 0; position:relative;
+  display:flex; align-items:center; padding:7px 10px; border-radius:10px; color:#b9c6d9;
+  text-decoration:none; font-size:13px; margin:1px 0; position:relative;
   transition:all .15s; border:1px solid transparent;
 }
 .nav a:hover{ background:rgba(255,255,255,.07); color:#fff; }
 .nav a.active{ background:var(--grad); color:#fff; font-weight:600; box-shadow:0 6px 18px rgba(59,130,246,.35); }
-.nav a .tag{ margin-left:auto; font-size:11px; color:#64748b; background:rgba(255,255,255,.06); padding:1px 8px; border-radius:20px; }
+.nav a .tag{ margin-left:auto; font-size:10px; color:#64748b; background:rgba(255,255,255,.06); padding:1px 7px; border-radius:20px; }
 .nav a.active .tag{ background:rgba(255,255,255,.22); color:#fff; }
 .nav a.done::after{ content:"✓"; margin-left:auto; color:#34d399; font-weight:700; }
 .nav a.done .tag{ margin-left:6px; }
-.lvtag{ font-style:normal; font-size:10px; margin-left:6px; padding:1px 7px; border-radius:20px; font-weight:600; }
+.lvtag{ font-style:normal; font-size:9px; margin-left:5px; padding:0 6px; border-radius:20px; font-weight:600; }
 .lvtag.p{ background:rgba(16,185,129,.24); color:#6ee7b7; }
 .lvtag.m{ background:rgba(245,158,11,.24); color:#fcd34d; }
 .lvtag.d{ background:rgba(239,68,68,.28); color:#fca5a5; }
@@ -116,24 +116,24 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
 .mon-next a{ color:#6ee7b7; font-weight:600; }
 /* 学习记录页 */
 .rec-wrap h1{ margin-bottom:8px; }
-.rec-intro{ color:var(--muted); font-size:13.5px; margin:0 0 16px; }
-.rec-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:18px; }
-.rec-card{ background:linear-gradient(135deg,#ecfdf5,#fff); border:1px solid var(--line); border-radius:14px; padding:16px; text-align:center; }
-.rec-card b{ display:block; font-size:22px; color:var(--blue-2); margin-bottom:4px; }
-.rec-card span{ font-size:12.5px; color:var(--muted); }
-.rec-sec{ margin:6px 0 18px; }
-.rec-sec h3{ font-size:16px; margin:0 0 10px; }
-.rec-week{ display:flex; align-items:flex-end; gap:8px; height:150px; padding:6px 2px 0; }
+.rec-intro{ color:var(--muted); font-size:12.5px; margin:0 0 14px; }
+.rec-cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-bottom:16px; }
+.rec-card{ background:linear-gradient(135deg,#ecfdf5,#fff); border:1px solid var(--line); border-radius:14px; padding:11px; text-align:center; }
+.rec-card b{ display:block; font-size:17px; color:var(--blue-2); margin-bottom:2px; }
+.rec-card span{ font-size:11.5px; color:var(--muted); }
+.rec-sec{ margin:4px 0 16px; }
+.rec-sec h3{ font-size:14.5px; margin:0 0 8px; }
+.rec-week{ display:flex; align-items:flex-end; gap:8px; height:140px; padding:6px 2px 0; }
 .rw{ flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; height:100%; }
 .rw i{ width:60%; background:linear-gradient(180deg,#10b981,#6ee7b7); border-radius:6px 6px 0 0; min-height:4px; }
-.rw span{ font-size:12px; color:var(--muted); margin-top:6px; }
-.rw em{ font-size:11px; color:var(--muted); font-style:normal; margin-bottom:4px; }
+.rw span{ font-size:11.5px; color:var(--muted); margin-top:6px; }
+.rw em{ font-size:10.5px; color:var(--muted); font-style:normal; margin-bottom:4px; }
 .rw.today i{ background:linear-gradient(180deg,#10b981,#34d399); }
 .rw.today span{ color:var(--green-2); font-weight:700; }
 .rec-list{ list-style:none; margin:0; padding:0; }
-.rec-list li{ display:flex; justify-content:space-between; gap:12px; align-items:baseline; padding:10px 12px; border:1px solid var(--line); border-radius:10px; margin-bottom:8px; background:#fff; flex-wrap:wrap; }
-.rec-list b{ font-size:14px; color:var(--ink); }
-.rec-list span{ font-size:12.5px; color:var(--muted); }
+.rec-list li{ display:flex; justify-content:space-between; gap:12px; align-items:baseline; padding:8px 11px; border:1px solid var(--line); border-radius:10px; margin-bottom:7px; background:#fff; flex-wrap:wrap; }
+.rec-list b{ font-size:13px; color:var(--ink); }
+.rec-list span{ font-size:11.5px; color:var(--muted); }
 .dash-tiers{ margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12.5px; color:#475569; }
 .dash-tiers b{ color:var(--ink); }
 .dash-tiers .ti{ color:#fff; border-radius:18px; padding:3px 10px; font-size:12px; font-weight:600; }
@@ -147,8 +147,8 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
 .nav-group{ margin:2px 0; }
 .nav-head{
   width:100%; display:flex; align-items:center; justify-content:space-between;
-  background:transparent; border:none; color:#9fb0c8; padding:9px 12px; border-radius:10px;
-  font-size:14px; font-weight:700; cursor:pointer; font-family:inherit; text-align:left; transition:background .15s;
+  background:transparent; border:none; color:#9fb0c8; padding:7px 10px; border-radius:10px;
+  font-size:13px; font-weight:700; cursor:pointer; font-family:inherit; text-align:left; transition:background .15s;
 }
 .nav-head:hover{ background:rgba(255,255,255,.07); color:#fff; }
 .nav-head .chev{ color:#64748b; font-size:13px; transition:transform .2s; margin-left:6px; }
@@ -430,19 +430,47 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
 .p-chip{ border:1px solid var(--line); background:#f8fafc; color:var(--text); text-decoration:none; font-size:13px; border-radius:18px; padding:5px 13px; transition:all .15s; }
 .p-chip:hover{ border-color:var(--green); color:var(--green-2); background:#f0fdf7; }
 .p-extra{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-top:6px; }
-.p-extra b{ font-size:13.5px; color:var(--ink); }</style>
+.p-extra b{ font-size:13.5px; color:var(--ink); }
+/* 首页·成长计划表 */
+.home-plan{ margin-top:16px; background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; box-shadow:var(--shadow); }
+.hp-head{ font-weight:700; color:var(--ink); font-size:14.5px; margin-bottom:10px; }
+.hp-table{ display:flex; flex-direction:column; }
+.hp-row{ display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px dashed var(--line-2); font-size:13.5px; }
+.hp-row:last-child{ border-bottom:none; }
+.hp-m{ width:44px; font-weight:700; color:var(--green-2); flex:none; }
+.hp-t{ width:150px; font-weight:600; color:var(--ink); flex:none; }
+.hp-c{ width:92px; color:var(--muted); flex:none; font-size:12.5px; }
+.hp-p{ flex:1; color:var(--text); }
+@media(max-width:720px){ .hp-row{ flex-wrap:wrap; } .hp-t{ width:auto; flex:1; } .hp-c{ width:auto; } }
+/* 首页多区块 */
+.home-page > section.home-sec + section{ margin-top:8px; }
+.home-page h2{ margin-top:30px; margin-bottom:10px; }
+
+/* 目录宽度调节把手 */
+.resizer{ width:7px; flex:none; cursor:col-resize; background:transparent; position:relative; }
+.resizer::after{ content:""; position:absolute; left:2px; top:0; bottom:0; width:3px; background:transparent; transition:background .15s; border-radius:3px; }
+.resizer:hover::after{ background:rgba(16,185,129,.4); }
+.site.side-collapsed .resizer{ display:none; }
+
+/* 学习时长折线图 */
+.ct-bar{ display:flex; gap:6px; margin-bottom:8px; }
+.ct-btn{ border:1px solid var(--line); background:#f8fafc; color:var(--text); font-size:12px; border-radius:16px; padding:3px 12px; cursor:pointer; }
+.ct-btn.on{ background:var(--green); color:#fff; border-color:var(--green); }
+.line-chart{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 12px 4px; }
+.line-chart svg{ display:block; }
+.lc-note{ font-size:12px; color:var(--muted); margin-bottom:6px; }
+.lc-note b{ color:var(--green-2); }</style>
 </head>
 <body>
 <div class="site">
   <aside class="sidebar">
     <div class="brand"><span class="logo">🌳</span><span><b>SkillTree</b></span><button id="sideToggle" class="side-toggle" onclick="toggleSide()" title="收起/展开目录">☰</button></div>
     <div class="nav">
-      <a href="#map" data-id="map">🗺️ 学习路线图</a>
-      <a href="#records" data-id="records">📊 学习记录</a>
-      <a href='#home' data-id='home'>首页</a><div class='nav-group' id='g1'><button class='nav-head' data-group='g1'>🗺️ 路线 · 计划<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch18' data-id='ch18'>18 · SkillTree 成长计划（6 个月） <em class='lvtag m'>中级</em> <span class='tag'>18</span></a></div></div><div class='nav-group' id='g2'><button class='nav-head' data-group='g2'>📚 知识 · 初级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch02' data-id='ch02'>02 · Docker 基础概念 <em class='lvtag p'>初级</em> <span class='tag'>02</span></a><a href='#ch03' data-id='ch03'>03 · 安装 Docker 与环境准备（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>03</span></a><a href='#ch04' data-id='ch04'>04 · Docker 核心命令（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>04</span></a><a href='#ch05' data-id='ch05'>05 · Dockerfile 与镜像构建（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>05</span></a><a href='#ch06' data-id='ch06'>06 · 数据卷与网络（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>06</span></a><a href='#ch07' data-id='ch07'>07 · Docker Compose（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>07</span></a><a href='#ch08' data-id='ch08'>08 · 最佳实践与安全（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>08</span></a></div></div><div class='nav-group' id='g3'><button class='nav-head' data-group='g3'>📚 知识 · 中级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch11' data-id='ch11'>11 · Nacos 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>11</span></a><a href='#ch12' data-id='ch12'>12 · Jenkins 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>12</span></a><a href='#ch13' data-id='ch13'>13 · Git 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>13</span></a><a href='#ch14' data-id='ch14'>14 · Kubernetes 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>14</span></a><a href='#ch15' data-id='ch15'>15 · Prometheus 监控入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>15</span></a><a href='#ch17' data-id='ch17'>17 · AI 入门 & AI 运维（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>17</span></a></div></div><div class='nav-group' id='g4'><button class='nav-head' data-group='g4'>📚 知识 · 深度<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch19' data-id='ch19'>19 · 深度 · Kubernetes 实操进阶 <em class='lvtag d'>深度</em> <span class='tag'>19</span></a><a href='#ch20' data-id='ch20'>20 · 深度 · GitOps + Helm + IaC（平台工程） <em class='lvtag d'>深度</em> <span class='tag'>20</span></a><a href='#ch21' data-id='ch21'>21 · 深度 · 可观测性进阶（Metrics/Logs/Traces） <em class='lvtag d'>深度</em> <span class='tag'>21</span></a><a href='#ch22' data-id='ch22'>22 · 深度 · SRE 与平台工程（对标高薪岗） <em class='lvtag d'>深度</em> <span class='tag'>22</span></a></div></div><div class='nav-group' id='g5'><button class='nav-head' data-group='g5'>🛠 实践 · 项目<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch09' data-id='ch09'>09 · 训练：实验手册（照着做 · 就学会） <em class='lvtag p'>初级</em> <span class='tag'>09</span></a><a href='#ch16' data-id='ch16'>16 · 实战项目 & 简历（落地 · 简历亮点） <em class='lvtag m'>中级</em> <span class='tag'>16</span></a></div></div>
+      <a href='#home' data-id='home'>首页</a><div class='nav-group' id='g1'><button class='nav-head' data-group='g1'>📚 知识 · 初级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch02' data-id='ch02'>02 · Docker 基础概念 <em class='lvtag p'>初级</em> <span class='tag'>02</span></a><a href='#ch03' data-id='ch03'>03 · 安装 Docker 与环境准备（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>03</span></a><a href='#ch04' data-id='ch04'>04 · Docker 核心命令（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>04</span></a><a href='#ch05' data-id='ch05'>05 · Dockerfile 与镜像构建（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>05</span></a><a href='#ch06' data-id='ch06'>06 · 数据卷与网络（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>06</span></a><a href='#ch07' data-id='ch07'>07 · Docker Compose（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>07</span></a><a href='#ch08' data-id='ch08'>08 · 最佳实践与安全（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>08</span></a></div></div><div class='nav-group' id='g2'><button class='nav-head' data-group='g2'>📚 知识 · 中级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch11' data-id='ch11'>11 · Nacos 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>11</span></a><a href='#ch12' data-id='ch12'>12 · Jenkins 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>12</span></a><a href='#ch13' data-id='ch13'>13 · Git 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>13</span></a><a href='#ch14' data-id='ch14'>14 · Kubernetes 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>14</span></a><a href='#ch15' data-id='ch15'>15 · Prometheus 监控入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>15</span></a><a href='#ch17' data-id='ch17'>17 · AI 入门 & AI 运维（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>17</span></a></div></div><div class='nav-group' id='g3'><button class='nav-head' data-group='g3'>📚 知识 · 深度<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch19' data-id='ch19'>19 · 深度 · Kubernetes 实操进阶 <em class='lvtag d'>深度</em> <span class='tag'>19</span></a><a href='#ch20' data-id='ch20'>20 · 深度 · GitOps + Helm + IaC（平台工程） <em class='lvtag d'>深度</em> <span class='tag'>20</span></a><a href='#ch21' data-id='ch21'>21 · 深度 · 可观测性进阶（Metrics/Logs/Traces） <em class='lvtag d'>深度</em> <span class='tag'>21</span></a><a href='#ch22' data-id='ch22'>22 · 深度 · SRE 与平台工程（对标高薪岗） <em class='lvtag d'>深度</em> <span class='tag'>22</span></a></div></div><div class='nav-group' id='g4'><button class='nav-head' data-group='g4'>🛠 实践 · 项目<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch09' data-id='ch09'>09 · 训练：实验手册（照着做 · 就学会） <em class='lvtag p'>初级</em> <span class='tag'>09</span></a><a href='#ch16' data-id='ch16'>16 · 实战项目 & 简历（落地 · 简历亮点） <em class='lvtag m'>中级</em> <span class='tag'>16</span></a></div></div>
       <a class="quiz" href="#quiz" data-id="quiz">📝 在线测验</a>
     </div>
   </aside>
+  <div class="resizer" id="sideResizer" title="拖动调整目录宽度"></div>
   <div class="main">
     <div class="content" id="content"></div>
     <div class="pager">
@@ -452,32 +480,7 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
     <div class="note">本网站为离线本地版，全部内容与图片均在本地文件夹内，可放心断网使用。学习进度与批注保存在本机浏览器，不会上传。</div>
   </div>
 </div>
-<script type='text/plain' id='home'># 🌳 SkillTree
-
-你的**职业技能树**：把 Docker → K8s → CI/CD → 监控 → AI → SRE 一路点亮，学完能上手、能写进简历、能涨薪。
-
-## 三步用起来
-1. **学**：左侧按「知识 / 实践项目 / 测验 / 计划」点章节，跟着每章的「✍️ 达标任务」照做（打开章节即自动记录进度与时长）。
-2. **看进度**：首页自动显示学习进度与时长；点「📊 学习记录」看每日/累计明细。
-3. **出项目**：学一段落就按「🛠 实战项目」做一个**能演示、能写进简历**的项目。
-
-## 常用入口
-- 🗺️ **学习路线图**（初级→中级→深度三阶段）
-- 📅 **SkillTree 成长计划**（第 18 章：你的 6 个月路线）
-- 📝 **在线测验** ｜ 📊 **学习记录**
-
-## 60 秒小例子
-装好 Docker 后运行：
-
-```bash
-docker run -d -p 80:80 --name myweb nginx
-```
-
-浏览器打开 `http://localhost` —— 你的第一台容器服务器就上线了。
-
----
-
-> 🔧 想改内容：编辑 `source\` 里的 md → 运行 `pwsh -File source\build_site.ps1` 重新生成 `index.html`；上传 `deploy\index.html` 即可更新线上（SkillTree 仓库）。
+<script type='text/plain' id='home'>> 🔧 SkillTree 学习站源码：教程在 `source\`，改后运行 `pwsh -File source\build_site.ps1` 生成 `index.html`；把 `deploy\` 内容上传到 GitHub（SkillTree 仓库）即可更新线上。
 </script>
 <script type='text/plain' id='ch02'># 02 · Docker 基础概念
 
@@ -2728,25 +2731,6 @@ if __name__ == "__main__":
 
 > 学完这个，你的"运维涨薪系列"就多了**AI 运维（AIOps）**这一高价值方向。
 </script>
-<script type='text/plain' id='ch18'># 18 · SkillTree 成长计划（6 个月）
-
-目标：**6 个月**从"基础运维"升级为 **DevOps / AIOps**，每个阶段都做一个能写进简历的项目。节奏：**工作日 40~60 分钟 + 周末做项目**。
-
-| 阶段 | 主题 | 学哪几章 | 落地项目 | 简历亮点 |
-| --- | --- | --- | --- | --- |
-| 1 月 | Docker 精通 | 02–08 | ① Docker 化网站上线 | 会容器化部署 |
-| 2 月 | Git + CI/CD | 13、12 | ② Git→Jenkins 自动部署 | 会自动化流水线 |
-| 3 月 | Kubernetes | 14 | ③ K8s 部署应用 | 会集群编排 |
-| 4 月 | 监控/可观测 | 15 | ③完善：K8s+Prometheus | 会监控告警 |
-| 5 月 | 微服务 + AI | 11、17 | ④ Nacos + AI 运维助手 | 会微服务+AI |
-| 6 月 | 综合 + 求职 | 16 | 综合项目 + 简历/面试 | 简历完整可谈薪 |
-
-**每月套路**：先学对应章节 → 照做该阶段项目 → 用一句话"做了什么+技术栈+量化结果"写进简历 → 过。
-
-**三点提醒**：① 项目 > 证书；② 简历要量化（如"上线时间 30→5 分钟"）；③ 年龄/性别不是门槛，28 岁经验是资产。
-
-**达标**：能说清"我这个月学什么、做什么项目、写在简历哪段"即可。
-</script>
 <script type='text/plain' id='ch19'># 19 · 深度 · Kubernetes 实操进阶
 
 第 14 章你学会了 K8s 基础。这一章是**对标 SRE/资深**的进阶：把 K8s 用得专业——有状态服务、网络、存储、调度、自动扩缩。掌握了这些，你才真正"会运维 K8s"。
@@ -2971,7 +2955,7 @@ docker run -d -p 3101:3100 -v "$PWD/promtail-config.yaml:/mnt/config.yaml" grafa
 </script>
 <script>
 var currentId=function(){return location.hash.replace('#','')||'home';};
-var ORDER=['home','ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch09','ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch18','ch19','ch20','ch21','ch22'];
+var ORDER=['home','ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch09','ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch19','ch20','ch21','ch22'];
 var TITLES={};
 ORDER.forEach(function(k){
   var el=document.getElementById(k);
@@ -2982,8 +2966,7 @@ TITLES['quiz']='在线测验';
 // 内容分类（知识/项目/测验/计划）与进度监控
 var CATS=[
   {key:'knowledge',label:'📚 知识',chs:['ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch11','ch12','ch13','ch14','ch15','ch17','ch19','ch20','ch21','ch22']},
-  {key:'project',label:'🛠 实践·项目',chs:['ch09','ch16']},
-  {key:'plan',label:'🗺️ 路线·计划',chs:['ch18']}
+  {key:'project',label:'🛠 实践·项目',chs:['ch09','ch16']}
 ];
 function catProgress(){
   var p=loadProg();
@@ -3049,23 +3032,22 @@ document.querySelectorAll('.nav-head').forEach(function(h){
   });
 });
 
-// 首页学习看板（进度 + 下一步 + 快捷入口）
+// 首页学习看板（进度）
 function homeDashboard(){
-  var nextId=firstUnDone();
   var h='<div class="dash">';
   h+=progressMonitorHtml();
-  h+='<div class="dash-origin">🎯 <b>你的起点（运维 + Linux/MySQL）：</b>🟢 <b>初级</b>(02-10) 可快速过/跳过；重点投入 🟡 <b>中级</b> 与 🔴 <b>深度</b>(对标 SRE/资深)。学完即具竞争力。</div>';
-  h+='<div class="dash-tiers"><b>🚀 三级进阶 · 学完有竞争力：</b><span class="ti p">🟢 初级＝能独立容器化部署</span><span class="ti m">🟡 中级＝能搭云原生平台+自动化+监控+项目</span><span class="ti d">🔴 深度＝能对标 SRE/平台工程师</span></div>';
-  h+='<div class="dash-actions">';
-  if(nextId){h+='<a class="dash-btn primary" href="#'+nextId+'">▶ 继续学习：'+(TITLES[nextId]||'')+'</a>';}
-  else{h+='<a class="dash-btn primary" href="#ch02">▶ 重新学习</a>';}
-  h+='<a class="dash-btn" href="#map">🗺️ 学习路线图</a>';
-  h+='<a class="dash-btn" href="#quiz">📝 在线测验</a>';
-  h+='<a class="dash-btn plan" href="#ch18">📅 我的 6 个月涨薪计划</a>';
   h+='</div>';
-  h+='<div class="dash-plan"><b>📅 6 个月计划：</b><span class="dp">❶ Docker</span><span>→</span><span class="dp">❷ Git+CI/CD</span><span>→</span><span class="dp">❸ K8s</span><span>→</span><span class="dp">❹ 监控</span><span>→</span><span class="dp">❺ 微服务+AI</span><span>→</span><span class="dp">❻ 综合求职</span></div>';
-  h+='<div class="dash-growth">🔝 <b>你的运维涨薪线：</b>'+(TITLES['ch08']||'Docker')+' → '+(TITLES['ch13']||'Git')+' → '+(TITLES['ch14']||'K8s')+' → '+(TITLES['ch15']||'Prometheus')+' → GitOps · SRE · AIOps</div>';
-  h+='</div>';
+  return h;
+}
+function homePlanHtml(){
+  var R=[['1月','Docker 精通','02–09','① Docker 化网站上线'],
+         ['2月','Git + CI/CD','12、13','② Git→Jenkins 自动部署'],
+         ['3月','Kubernetes','14','③ K8s 部署应用'],
+         ['4月','监控 / 可观测','15','③完善 + Prometheus'],
+         ['5月','微服务 + AI','11、17','④ Nacos + AI 运维助手'],
+         ['6月','综合 + 求职','16','综合项目 + 简历/面试']];
+  var h='<div class="home-plan"><div class="hp-head">📅 SkillTree 成长计划（6 个月 · 每月一个项目）</div>';
+  h+='<div class="hp-table">'+R.map(function(r){return '<div class="hp-row"><span class="hp-m">'+r[0]+'</span><span class="hp-t">'+r[1]+'</span><span class="hp-c">'+r[2]+'</span><span class="hp-p">'+r[3]+'</span></div>';}).join('')+'</div></div>';
   return h;
 }
 
@@ -3107,29 +3089,47 @@ function fmtMs(ms){
 function recordsHtml(){
   var L=logGet(),D=daysGet(),today=dToday();
   var totalSec=0;for(var k in D){if(D.hasOwnProperty(k))totalSec+=D[k];}
-  var names=['日','一','二','三','四','五','六'],week=[];
-  for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var kk=dateKey(d);week.push({lab:names[d.getDay()],sec:D[kk]||0,today:kk===today});}
-  var mx=1;week.forEach(function(x){if(x.sec>mx)mx=x.sec;});
   var recs=Object.keys(L).map(function(k){return L[k];}).sort(function(a,b){return (b.last||0)-(a.last||0);}).slice(0,12);
-  var h='<div class="rec-wrap"><h1>📊 我的学习记录</h1>';
+  var h='<div class="rec-wrap"><h2>📊 我的学习记录</h2>';
   h+='<p class="rec-intro">打开章节即自动记录：停留时长、阅读次数、历史。关闭/切换页面会自动结算，无需手动。</p>';
   h+='<div class="rec-cards">'
     +'<div class="rec-card"><b>'+fmtMs(D[today]||0)+'</b><span>今日学习</span></div>'
     +'<div class="rec-card"><b>'+fmtMs(totalSec)+'</b><span>累计学习</span></div>'
     +'<div class="rec-card"><b>'+(Object.keys(L).length)+'</b><span>读过的章节</span></div>'
     +'<div class="rec-card"><b>'+Object.keys(D).length+'</b><span>学习天数</span></div></div>';
-  h+='<div class="rec-sec"><h3>近 7 天学习时长</h3><div class="rec-week">';
-  week.forEach(function(x){
-    var pct=Math.max(4,Math.round(x.sec/mx*100));
-    h+='<div class="rw'+(x.today?' today':'')+'"><i style="height:'+pct+'%"></i><span>'+x.lab+'</span><em>'+fmtShort(x.sec)+'</em></div>';
-  });
-  h+='</div></div>';
+  h+='<div class="rec-sec"><h3>学习时长趋势</h3>';
+  h+='<div class="ct-bar"><button class="ct-btn on" data-n="7" onclick="setRange(7)">7 天</button><button class="ct-btn" data-n="14" onclick="setRange(14)">14 天</button><button class="ct-btn" data-n="30" onclick="setRange(30)">30 天</button></div>';
+  h+='<div class="line-chart" id="lineChart"></div></div>';
   h+='<div class="rec-sec"><h3>最近学习</h3>';
   h+=(recs.length?'<ul class="rec-list">'+recs.map(function(r){
     return '<li><b>'+(r.title||'章节')+'</b><span>读过 '+r.visits+' 次 · 累计 '+fmtMs(r.ms)+' · '+(r.last?new Date(r.last).toLocaleString():'')+'</span></li>';
   }).join('')+'</ul>':'<p>还没有记录——去打开一个章节，就会自动出现在这里。</p>');
   h+='</div></div>';
   return h;
+}
+function setRange(n){
+  if(typeof renderLine!=='function')return;
+  document.querySelectorAll('.ct-btn').forEach(function(b){b.classList.toggle('on',(b.getAttribute('data-n')||'')==String(n));});
+  renderLine(n);
+}
+function renderLine(n){
+  var el=document.getElementById('lineChart');if(!el)return;
+  var D=daysGet(),today=dToday(),days=[];
+  for(var i=n-1;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var kk=dateKey(d);var min=Math.round(((D[kk]||0)/60000)*10)/10;days.push({lab:(d.getMonth()+1)+'/'+d.getDate(),min:min,today:kk===today});}
+  var W=640,H=200,P=30,BL=H-24;
+  var mx=Math.max(10,Math.max.apply(null,days.map(function(x){return x.min;}))*1.15);
+  var x=function(idx){return P+(W-2*P)*(n===1?0:idx/(n-1));};
+  var y=function(v){return BL-(v/mx)*(BL-16);};
+  var pts=days.map(function(xx,i){return x(i).toFixed(1)+','+y(xx.min).toFixed(1);}).join(' ');
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">';
+  for(var g=0;g<=4;g++){var gy=16+(BL-16)*g/4;var val=mx*(4-g)/4;svg+='<line x1="'+P+'" y1="'+gy+'" x2="'+(W-P)+'" y2="'+gy+'" stroke="#eef2f7" stroke-width="1"/>';svg+='<text x="'+(P-6)+'" y="'+(gy+4)+'" text-anchor="end" font-size="10" fill="#94a3b8">'+Math.round(val)+'</text>';}
+  if(n===1){svg+='<circle cx="'+x(0)+'" cy="'+y(days[0].min)+'" r="3" fill="#10b981"/>';}
+  svg+='<polyline points="'+pts+'" fill="none" stroke="#10b981" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+  svg+='<line x1="'+P+'" y1="'+BL+'" x2="'+(W-P)+'" y2="'+BL+'" stroke="#cbd5e1" stroke-width="1"/>';
+  var step=Math.ceil(n/10);days.forEach(function(xx,idx){if(idx%step===0||xx.today){svg+='<text x="'+x(idx)+'" y="'+(BL+16)+'" text-anchor="middle" font-size="9.5" fill="#94a3b8">'+xx.lab+'</text>';}if(xx.today){svg+='<circle cx="'+x(idx)+'" cy="'+y(xx.min)+'" r="3.5" fill="#059669" stroke="#fff"/>';}});
+  svg+='</svg>';
+  var avg=(days.reduce(function(s,x){return s+x.min;},0)/days.length).toFixed(1);
+  el.innerHTML='<div class="lc-note">日均 <b>'+avg+'</b> 分钟 · 共 '+days.reduce(function(s,x){return s+x.min;},0)+' 分钟</div>'+svg;
 }
 function fmtShort(sec){
   if(!sec)return '0';
@@ -3151,6 +3151,25 @@ function toggleSide(){
   try{localStorage.setItem(SIDE_KEY,c?'1':'0');}catch(e){}
 }
 (function(){ try{ if(localStorage.getItem(SIDE_KEY)==='1'){var s=document.querySelector('.site');if(s)s.classList.add('side-collapsed');} }catch(e){} })();
+// 目录宽度可拖动调节
+(function(){
+  var RES_KEY='dsh_side_width';
+  try{var w=parseInt(localStorage.getItem(RES_KEY),10);if(w&&w>=170&&w<=540){var ss=document.querySelector('.sidebar');if(ss){ss.style.width=w+'px';ss.style.minWidth=w+'px';}}}catch(e){}
+  var rz=document.getElementById('sideResizer');if(!rz)return;
+  rz.addEventListener('mousedown',function(ev){
+    ev.preventDefault();
+    var side=document.querySelector('.sidebar');if(!side)return;
+    var startX=ev.clientX,startW=side.getBoundingClientRect().width;
+    function mm(e){
+      var w=Math.max(170,Math.min(540,startW+e.clientX-startX));
+      side.style.width=w+'px';side.style.minWidth=w+'px';
+      try{localStorage.setItem(RES_KEY,String(w));}catch(err){}
+    }
+    function up(){document.removeEventListener('mousemove',mm);document.removeEventListener('mouseup',up);document.body.style.cursor='';document.body.style.userSelect='';}
+    document.addEventListener('mousemove',mm);document.addEventListener('mouseup',up);
+    document.body.style.cursor='col-resize';document.body.style.userSelect='none';
+  });
+})();
 
 var content=document.getElementById('content');
 // 复制代码按钮（委托）
@@ -3173,21 +3192,20 @@ if(toTop){
 }
 // 学习路径（简单版：三阶段卡片）
 function shortName(id){var t=TITLES[id]||id;var i=t.indexOf('·');return i>=0?t.slice(i+1).trim():t;}
-function renderMap(){
-  var host=document.getElementById('content');if(!host)return;
+function pathHtml(){
   var TIERS=[
     {lv:'🟢 初级', color:'#10b981', goal:'能独立用 Docker 部署上线', chs:['ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch09']},
-    {lv:'🟡 中级', color:'#d97706', goal:'能搭云原生平台 + 自动化 + 监控 + AI', chs:['ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch18']},
+    {lv:'🟡 中级', color:'#d97706', goal:'能搭云原生平台 + 自动化 + 监控 + AI', chs:['ch11','ch12','ch13','ch14','ch15','ch17']},
     {lv:'🔴 深度', color:'#dc2626', goal:'能对标 SRE / 平台工程师', chs:['ch19','ch20','ch21','ch22']}
   ];
-  var h='<div class="path"><h1>🗺️ 学习路径 · 技能树</h1><p class="path-sub">沿 🟢初级 → 🟡中级 → 🔴深度 一步步点亮技能树，点任一章节即可开始学习（打开即自动记录进度）。</p>';
+  var h='<section class="home-sec"><h2>🗺️ 学习路径</h2><p class="path-sub">沿 🟢初级 → 🟡中级 → 🔴深度 点亮技能树，点章节即可学习（打开即自动记录进度）。</p>';
   TIERS.forEach(function(t){
     h+='<div class="p-tier"><div class="p-tier-head"><span class="p-lv" style="background:'+t.color+'">'+t.lv+'</span><span class="p-goal">💪 '+t.goal+'</span></div>'
       +'<div class="p-chips">'+t.chs.map(function(id){return '<a class="p-chip" href="#'+id+'">'+shortName(id)+'</a>';}).join('')+'</div></div>';
   });
-  h+='<div class="p-extra"><b>更多：</b><a class="p-chip" href="#records">📊 学习记录</a><a class="p-chip" href="#quiz">📝 在线测验</a></div>';
-  h+='</div>';
-  host.innerHTML=h;
+  h+=homePlanHtml();
+  h+='</section>';
+  return h;
 }
 function render(id){
   flushStudy();   // 结算上一个章节的停留时长
@@ -3199,24 +3217,14 @@ function render(id){
     quizRender();
     return;
   }
-  if(id==='map'){
-    document.getElementById('prev').style.visibility='hidden';
-    document.getElementById('next').style.visibility='hidden';
-    document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')==='map');});
-    openGroupOf('home');
-    renderMap();
-    return;
-  }
-  if(id==='records'){
-    document.getElementById('prev').style.visibility='hidden';
-    document.getElementById('next').style.visibility='hidden';
-    document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')==='records');});
-    content.innerHTML=recordsHtml();
-    return;
-  }
   var el=document.getElementById(id);if(!el){location.hash='#home';return;}
-  content.innerHTML=(id==='home'?homeDashboard():'')+renderBlock(el.textContent);
-  if(id!=='home')studyOpen(id);   // 自动记录：打开章节 → 开始计时
+  if(id==='home'){
+    content.innerHTML='<div class="home-page">'+homeDashboard()+pathHtml()+recordsHtml()+'</div>';
+    if(typeof renderLine==='function')renderLine(7);
+  } else {
+    content.innerHTML=renderBlock(el.textContent);
+    studyOpen(id);   // 自动记录：打开章节 → 开始计时
+  }
   document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')===id);});
   openGroupOf(id);
   var i2=ORDER.indexOf(id);
@@ -3229,7 +3237,7 @@ function render(id){
 }
 function route(){
   var h=location.hash.replace('#','');
-  if(h==='quiz'||h==='map'||h==='records'||ORDER.indexOf(h)>=0){render(h);}
+  if(h==='quiz'||ORDER.indexOf(h)>=0){render(h);}
   else{render('home');}
 }
 window.addEventListener('hashchange',route);

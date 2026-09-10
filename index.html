@@ -36,6 +36,7 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
   width:312px; min-width:312px; padding:24px 16px 30px;
   background:linear-gradient(180deg,var(--sidebar-bg1) 0%,var(--sidebar-bg2) 100%);
   color:#cbd5e1; position:sticky; top:0; height:100vh; overflow:auto;
+  transition:width .22s ease, min-width .22s ease, padding .22s ease;
   border-right:1px solid rgba(255,255,255,.04);
 }
 .brand{ display:flex; gap:12px; align-items:center; padding:8px 10px 20px; margin-bottom:16px; border-bottom:1px solid rgba(255,255,255,.08); }
@@ -48,9 +49,12 @@ body{ margin:0; font-family:"Microsoft YaHei","PingFang SC",system-ui,-apple-sys
 .side-toggle{ margin-left:auto; background:rgba(255,255,255,.08); color:#cbd5e1; border:none; border-radius:9px; width:34px; height:34px; font-size:17px; cursor:pointer; flex:none; }
 .side-toggle:hover{ background:rgba(255,255,255,.18); color:#fff; }
 .side-open{ display:none; position:fixed; top:14px; left:14px; z-index:60; background:var(--grad); color:#fff; border:none; border-radius:10px; padding:9px 15px; font-size:14px; font-weight:600; cursor:pointer; box-shadow:0 6px 16px rgba(59,130,246,.4); }
-.site.side-collapsed .sidebar{ width:0; min-width:0; padding:0; overflow:hidden; border-right:none; }
+/* 收起时用 !important：否则拖动过宽度后，内联 style 会盖住这条规则导致收不起来 */.site.side-collapsed .sidebar{ width:0 !important; min-width:0 !important; padding:0 !important; overflow:hidden; border-right:none; }
 .site.side-collapsed .side-toggle{ display:none; }
-.site.side-collapsed ~ .side-open{ display:block; }
+.site.side-collapsed ~ .side-open{ display:block; animation:sideIn .2s ease; }
+@keyframes sideIn{ from{ opacity:0; transform:translateX(-8px); } to{ opacity:1; transform:none; } }
+.side-open:hover{ filter:brightness(1.06); }
+@media(max-width:900px){ .side-open{ top:auto; bottom:18px; left:50%; transform:translateX(-50%); } }
 .site.side-collapsed .main{ max-width:1230px; }
 
 /* 搜索 */
@@ -562,7 +566,50 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
 .wz-svc-st.created{ background:#e0f2fe; color:#075985; }
 .wz-svc-st.running{ background:#10b981; color:#fff; }
 .wz-svc-st.stopped{ background:#e2e8f0; color:#64748b; }
-.wz-logs{ font-family:Consolas, monospace; font-size:12.5px; line-height:1.75; color:#134e4a; background:#0f172a; color:#a7f3d0; border-radius:10px; padding:12px 14px; min-height:96px; max-height:180px; overflow:auto; white-space:pre-wrap; }</style>
+.wz-logs{ font-family:Consolas, monospace; font-size:12.5px; line-height:1.75; color:#134e4a; background:#0f172a; color:#a7f3d0; border-radius:10px; padding:12px 14px; min-height:96px; max-height:180px; overflow:auto; white-space:pre-wrap; }
+/* ===== 动画扩展：命令执行流程 ===== */
+.cf-tabs{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
+.cf-tab{ font-size:12.5px; padding:6px 12px; border-radius:999px; border:1px solid #a7f3d0; background:#fff; color:#047857; cursor:pointer; font-family:Consolas, monospace; }
+.cf-tab:hover{ background:#ecfdf5; }
+.cf-tab.on{ background:linear-gradient(135deg,#34d399,#10b981); color:#fff; border-color:#10b981; font-weight:600; }
+.cf-chain{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-bottom:14px; padding:12px; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:12px; }
+.cf-comp{ font-size:12px; padding:7px 11px; border-radius:10px; background:#fff; border:1px solid var(--line); color:#475569; transition:all .25s ease; }
+.cf-comp.active{ background:linear-gradient(135deg,#34d399,#10b981); border-color:#10b981; color:#fff; font-weight:700; transform:translateY(-2px); box-shadow:0 4px 10px rgba(16,185,129,.28); }
+.cf-comp.done{ background:#dcfce7; border-color:#86efac; color:#166534; }
+.cf-arrow{ color:#94a3b8; font-size:14px; }
+.cf-steps{ margin-bottom:12px; }
+.cf-step{ border-left:3px solid #e2e8f0; padding:9px 12px; margin-bottom:6px; border-radius:0 10px 10px 0; background:#fff; opacity:.55; transition:all .25s ease; }
+.cf-step b{ display:block; font-size:13.5px; color:var(--ink); margin-bottom:2px; }
+.cf-step span{ font-size:12.5px; color:var(--muted); line-height:1.7; }
+.cf-step.active{ border-left-color:#10b981; background:#f0fdf4; opacity:1; transform:translateX(3px); }
+.cf-step.active b{ color:#065f46; }
+.cf-step.done{ border-left-color:#86efac; opacity:.9; }
+.cf-step.done b::after{ content:' ✓'; color:#10b981; }
+@media(max-width:820px){ .cf-chain{ gap:4px; } .cf-comp{ font-size:11px; padding:5px 8px; } .cf-arrow{ display:none; } }
+/* ===== 命令与参数解读 ===== */
+.cm-list{ margin-top:4px; }
+.cm-row{ border:1px solid var(--line); border-radius:12px; margin-bottom:8px; background:#fff; overflow:hidden; transition:border-color .2s ease; }
+.cm-row.open{ border-color:#6ee7b7; box-shadow:0 1px 6px rgba(16,185,129,.10); }
+.cm-head{ display:flex; align-items:center; gap:10px; padding:11px 14px; cursor:pointer; }
+.cm-head:hover{ background:#f0fdf4; }
+.cm-cmd{ font-family:Consolas, monospace; font-size:13px; color:#065f46; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:8px; padding:3px 9px; white-space:nowrap; }
+.cm-desc{ font-size:13px; color:var(--muted); flex:1; }
+.cm-arrow{ font-size:15px; color:#10b981; font-weight:700; width:18px; text-align:center; }
+.cm-body{ display:none; padding:0 14px 12px 14px; border-top:1px dashed #d1fae5; }
+.cm-body.on{ display:block; animation:pqIn .2s ease; }
+.cm-args{ list-style:none; margin:10px 0 0; padding:0; }
+.cm-args li{ display:flex; gap:12px; padding:7px 0; border-bottom:1px dashed #f1f5f9; font-size:13px; align-items:flex-start; }
+.cm-args li:last-child{ border-bottom:none; }
+.cm-args code{ font-family:Consolas, monospace; font-size:12.5px; color:#1e40af; background:#eff6ff; border-radius:6px; padding:2px 8px; min-width:190px; flex:0 0 auto; }
+.cm-args span{ color:var(--ink); line-height:1.75; }
+.cm-ex{ margin-top:10px; font-size:12.5px; color:var(--muted); background:#f8fafc; border-radius:8px; padding:8px 10px; }
+.cm-ex code{ font-family:Consolas, monospace; color:#065f46; }
+@media(max-width:820px){
+  .cm-head{ flex-wrap:wrap; }
+  .cm-cmd{ white-space:normal; word-break:break-all; }
+  .cm-args li{ flex-direction:column; gap:4px; }
+  .cm-args code{ min-width:0; }
+}</style>
 </head>
 <body>
 <div class="site">
@@ -654,14 +701,6 @@ docker run -d -p 8080:80 --name myweb nginx
 1. 虚拟机自带**一整套操作系统**；容器**共用你宿主机的内核**，只是被"隔离 + 限权"的进程 → 更小、更快。
 2. **不会**。容器只是镜像上面加的一层"可写层"，删容器只删这层；镜像层是**只读**的，永远在。
 3. **能**，而且**互不影响**——每个容器都有自己独立的可写层和隔离环境。
-
----
-
-## 😵 新手最常见的 4 个困惑
-- **"容器和虚拟机到底啥区别？"** → 虚拟机＝带全套家具的**独栋别墅**；容器＝公寓里的**一间房**（水电管道共用）。
-- **"删了容器，数据不就没了吗？"** → 对，可写层里的会没。所以重要数据要放**数据卷**（第 06 章）。
-- **"我在容器里改的文件，下次进去怎么没了？"** → 你改的是可写层；重建容器＝换了一层新的。**要留下就用 `-v` 挂载。**
-- **"`docker ps` 里啥都没有，是我删了吗？"** → `docker ps` 只看**正在运行**的；已停止的要 `docker ps -a` 才看得到。
 
 ---
 
@@ -791,6 +830,10 @@ docker run hello-world
 
 ---
 
+## 🎬 交互动画：命令执行流程（你敲下命令后发生了什么）
+
+[[widget:cmdflow]]
+
 ## ▶️ 第一步：先跑起来（照抄，1 分钟）
 ```bash
 docker run hello-world
@@ -879,6 +922,10 @@ docker rmi nginx       # 删：如果连"菜谱"也不要了
 
 ---
 
+## 📖 命令与参数解读（47 条，点开看每个参数什么意思）
+
+[[widget:cmds]]
+
 ## ❓ 自测 3 问（能答对＝真会了）
 1. `docker ps` 和 `docker ps -a` 差在哪？
 2. `-p 8080:80` 里，**前面**的 8080 和**后面**的 80 分别是谁的端口？
@@ -888,15 +935,6 @@ docker rmi nginx       # 删：如果连"菜谱"也不要了
 1. `ps` 只看**正在运行**的；`-a` 连**已停止**的一起看（a＝all）。
 2. **前面 8080 是你电脑（宿主机）的**端口，**后面 80 是容器里面**的端口 —— 像"外面的门牌 8080 通向里面的 80 号房间"。
 3. 在。它只是"下班"了，用 `docker start 名字` 能再叫醒；要彻底消失得 `docker rm`。
-
----
-
-## 😵 新手最常见的 5 个困惑
-- **"为什么浏览器打不开 localhost:8080？"** → 三查：容器还在跑吗（`docker ps`）？端口写对了吗（必须 `-p`）？8080 被别的软件占用了吗（换 8090 试试）。
-- **"为什么我 `exit` 出来，容器还在跑？"** → `exec` 只是"临时开门进去看一眼"，你走它照样上班。
-- **"为什么 `docker rm` 报错删不掉？"** → 它还在跑。先 `docker stop`，或强删 `docker rm -f 名字`。
-- **"`docker rmi` 删镜像报错？"** → 还有容器在用这个镜像。先把用它的容器删掉。
-- **"命令记不住怎么办？"** → 不用背！回到这张小抄，或用 `docker 命令 --help` 现查。
 
 ---
 
@@ -1007,14 +1045,6 @@ docker run -d -p 8080:80 --name mysite myfirstweb:1.0
 
 ---
 
-## 😵 新手最常见的 4 个困惑
-- **"build 报错说找不到 Dockerfile？"** → 你不在那个文件夹里，或文件名不对（必须是 `Dockerfile`，没有后缀，也不能是 `Dockerfile.txt`）。
-- **"为什么我的网页是 Nginx 默认页，不是我的？"** → `COPY` 的目标路径写错了，必须是 `/usr/share/nginx/html/index.html`。
-- **"改了代码怎么没变？"** → 忘了重新 `build`（见上面口诀）。
-- **"`1.0` 是什么？"** → 版本**标签(tag)**，方便你区分"第几版"。不写默认是 `latest`。
-
----
-
 ## ✍️ 本章达标 · 照着做就学会
 1. 建 `myweb` 文件夹，放入 `index.html` 和 `Dockerfile`（内容见上）
 2. 执行：`cd myweb` → `docker build -t myfirstweb:1.0 .` → `docker run -d -p 8080:80 myfirstweb:1.0`
@@ -1116,14 +1146,6 @@ Docker 给**用户自定义网络**配了**内置 DNS**：你把容器放进 `my
 1. **不会**。数据在容器外面的卷里；只有 `docker volume rm` 才会删掉。
 2. 要**在同一个"自定义网络"里**（如都加 `--network mynet`），这样才有内置 DNS 按名字解析。
 3. 8080 是**你电脑（宿主机）**的；80 是**容器里面**的。
-
----
-
-## 😵 新手最常见的 4 个困惑
-- **"我重启/重建容器，数据怎么没了？"** → 你没挂数据卷。凡是"要留下"的目录（数据库数据、上传文件），都要 `-v`。
-- **"两个容器 `curl 名字` 报错找不到？"** → 它们**不在同一个网络**里（或你用的是默认 bridge，没有名字解析）。
-- **"`-v` 后面路径写错了怎么办？"** → 冒号**前面**是**你电脑上的路径/卷名**，冒号**后面**是**容器里的路径**，别写反。
-- **"容器能上网吗？"** → 默认 bridge 网络下可以（Docker 通过 NAT 让它出去）。
 
 ---
 
@@ -1239,14 +1261,6 @@ docker compose down
 
 ---
 
-## 😵 新手最常见的 4 个困惑
-- **"提示 yaml 格式错误？"** → 99% 是缩进用了 Tab，或冒号后没空格。重写这两处。
-- **"改了代码怎么生效？"** → 如果服务是 `build: .` 自己构建的，要 `docker compose up -d --build` 重新构建。
-- **"`down` 会不会把数据库数据删了？"** → **不会**（只删容器和网络）。要连数据卷一起删才用 `docker compose down -v`（**慎用**）。
-- **"为什么端口不写 `-p` 的引号？"** → YAML 里 `ports:` 建议写成 `- "8080:80"`（带引号更稳妥）。
-
----
-
 ## ✍️ 本章达标 · 照着做就学会
 1. 新建 `docker-compose.yml`（内容照抄上面那份）
 2. `docker compose up -d` → `docker compose ps` → 浏览器看 `http://localhost:8080`
@@ -1338,13 +1352,6 @@ docker system prune -a  # 清理没用到的镜像/容器/缓存（省空间）
 
 ---
 
-## 😵 新手最常见的 3 个困惑
-- **"我用 `RUN rm` 删了文件，镜像怎么没小？"** → 文件是在**更早的层**里产生的，删掉它只是"在新一层盖住"，前面那层仍然占体积 → 所以要**在同一层里清理**。
-- **"多阶段构建是什么？"** → 用"构建阶段"编译，再把成品复制到"运行阶段"的小镜像里，把编译工具全丢掉（进阶技巧）。
-- **"`prune` 会不会把我在跑的服务删了？"** → 不会删正在使用的；但会删**停止的容器、没用的镜像和缓存**。
-
----
-
 ## ✍️ 本章达标 · 照着做就学会
 1. `docker images` 记下某个镜像的大小
 2. 把它的 Dockerfile 基础镜像换成 `-slim` 或 `-alpine`，重新构建
@@ -1354,7 +1361,7 @@ docker system prune -a  # 清理没用到的镜像/容器/缓存（省空间）
 <script type='text/plain' id='ch09'># 09 · 动手实验手册
 
 > **怎么用**：从实验 1 开始，一个做完再做下一个。每个实验都写清了 **照抄的命令**、**👉 你应该看到什么**、**✅ 过关标准**。
-> 只要每一步都看到"预期的样子"，你就是真的会了。**报错不可怕**：把红字复制去搜，或在"新手困惑"里找答案。
+> 只要每一步都看到"预期的样子"，你就是真的会了。**报错不可怕**：把红字复制去搜，或回头看对应章节的分步讲解。
 
 ---
 
@@ -1576,14 +1583,6 @@ name: hello
 
 ---
 
-## 😵 新手困惑
-- **"控制台打不开？"** → 三查：容器在跑吗（`docker ps`）；端口是不是 8848；启动要等十几秒（Nacos 启动稍慢）。
-- **"服务列表是空的？"** → 正常。要等你把**真正的服务**接进 Nacos，它才会注册上来。
-- **"我改了配置，程序会自己变吗？"** → 程序需要接入 Nacos 客户端（通常配合 Spring Cloud），才能自动感知变更。
-- **"Nacos 和 Docker 什么关系？"** → 没关系。Nacos 只是个软件，**我们用 Docker 把它跑起来**（省得手动装 Java 环境）。
-
----
-
 ## ✍️ 本章达标 · 照着做就学会
 ```bash
 docker run -d --name mynacos -e MODE=standalone -p 8848:8848 -p 9848:9848 nacos/nacos-server:v2.2.3
@@ -1651,14 +1650,6 @@ date
 1. **CI＝一改代码就自动构建+测试**；**CD＝测试通过就自动发布**。
 2. 从容器里读：`docker exec myjenkins cat /var/jenkins_home/secrets/initialAdminPassword`。
 3. 启动时挂**命名卷**：`-v jenkins_home:/var/jenkins_home`。
-
----
-
-## 😵 新手困惑
-- **"8080 端口被占用？"** → 你之前的 nginx 可能也在 8080。换成 `-p 8081:8080`，然后访问 `http://localhost:8081`。
-- **"一直转圈/打不开？"** → Jenkins 启动慢，等 1~3 分钟；也可 `docker logs myjenkins` 看进度。
-- **"初始密码文件读不到？"** → 容器还没启动完；等一会儿再读。
-- **"蓝色点=成功，红色=失败"** → 对。点进构建编号看"控制台输出"就知道失败在哪一步。
 
 ---
 
@@ -1736,14 +1727,6 @@ git push -u origin main
 1. `git add 文件` → `git commit -m "说明"` →（要上传再加 `git push`）。
 2. 看**提交历史**（一行一条存档记录）。
 3. `commit` 是**存到本机**的仓库；`push` 是**上传到远程**（GitHub）。
-
----
-
-## 😵 新手困惑
-- **"为什么要 `git add` 不能直接 commit？"** → 它是"挑本次要存档哪些文件"，避免把不想提交的东西也存进去。
-- **"push 让我输入密码？"** → GitHub 现在要**令牌（Personal Access Token）**当密码用（GitHub → Settings → Developer settings 里生成）。
-- **"改坏了想回退？"** → `git log` 找到上一个存档，`git checkout 存档号 -- 文件名` 或 `git reset` 回退。
-- **"分支是必须的吗？"** → 初学不用。先熟练 **add → commit → push** 这条主线。
 
 ---
 
@@ -1838,14 +1821,6 @@ k3d cluster delete mycluster           # 不玩了，删掉整个集群
 1. **Pod**（一个 Pod 里可以装 1 个或多个容器，它们共享网络和存储）。
 2. 因为你声明的是"**要 2 个副本**"；K8s 的控制器发现实际只有 1 个，就**自动补一个**（自愈）。
 3. 给一组 Pod 一个**固定访问入口**（虚拟 IP + 负载均衡）；Pod 会换，Service 的地址不变。
-
----
-
-## 😵 新手困惑
-- **"本地跑 K8s 会不会很吃资源？"** → 用 `k3d`（K8s 跑在 Docker 里）比较轻；不用了 `k3d cluster delete` 删掉即可。
-- **"Pod 和容器有什么区别？"** → Pod 是 K8s 的"最小单位"，里面**包着一个或多个容器**（像一个"小盒子"）。
-- **"`kubectl` 和 Docker 命令像不像？"** → 思路一致：`docker run` ↔ `kubectl create deployment`；`docker ps` ↔ `kubectl get pods`。
-- **"为什么访问要那个 3xxxx 端口？"** → NodePort 会随机分配一个高位端口对外，用 `kubectl get svc` 看你自己的那串数字。
 
 ---
 
@@ -1956,14 +1931,6 @@ docker run -d --name grafana -p 3000:3000 grafana/grafana
 1. **这个目标挂了 / 采集不到**（`1` 才是正常活着）。
 2. **不会**。Grafana 只是"画图的"，数据由 Prometheus 采集，Grafana 去 Prometheus 里**查**。
 3. 因为 Grafana 跑在**容器里**，容器里的 `localhost` 指的是**它自己**，不是宿主机 → 要填宿主机 IP 或用同一 Docker 网络里的服务名。
-
----
-
-## 😵 新手困惑
-- **"指标（metrics）和日志（logs）有什么区别？"** → 指标是**数字**（CPU 80%、QPS 300），适合画图和告警；日志是**文字**，适合查"到底哪一行报错了"。**两个都要。**
-- **"为什么计数器只会涨？"** → 它记的是"累计发生过多少次"。想看"每秒多少"，要用 `rate(xxx_total[1m])`。
-- **"一台机器怎么监控？"** → 装 **node_exporter**，它把机器的 CPU/内存/磁盘吐出来给 Prometheus。
-- **"要多复杂才能上监控？"** → 一个人管两台机器也值得上：**你睡觉时它替你盯着。**
 
 ---
 
@@ -2171,14 +2138,6 @@ docker run -d --name loki -p 3100:3100 grafana/loki
 
 ---
 
-## 😵 新手困惑
-- **"我没有公司项目，个人项目算数吗？"** → 算，**只要你能讲清楚设计和踩坑**。很多转行成功的人就是靠 2–3 个做得扎实的个人项目。
-- **"三个项目太多做不完？"** → **先做完 A**（能独立部署），A 做完简历就能改；B、C 是加分项，边工作边补。
-- **"这些工具公司没用怎么办？"** → 技术是通的：会 Compose → Kubernetes 上手快；会 Jenkins → 换成 GitLab CI 也很快。
-- **"要不要买台云服务器？"** → 推荐买一台最低配的（几十块/月），**有一个公网 IP 的完整环境**，做实验和截图都方便。
-
----
-
 ## ✍️ 本章达标 · 照着做就学会
 **✅ 过关标准（每条都对应一条简历）：**
 1. 能在 GitHub 上找到一个你写的项目，README 里有架构图和"怎么跑起来"。
@@ -2299,14 +2258,6 @@ print(ask(prompt))
 1. 因为模型不知道你的环境；**你给的背景越具体（系统、版本、报错原文、已经试过什么），它越准。**
 2. 本地：**免费、数据不出内网、断网可用**，但模型小、能力弱；在线：**强**，但要联网、可能收费、数据要出网（涉密不能传）。
 3. RAG ＝ **先去你的资料库里检索相关内容，再连同问题一起给模型**。解决"模型不知道你公司内部情况 / 会瞎编"的问题。
-
----
-
-## 😵 新手困惑
-- **"它会不会瞎编？"** → 会（叫"幻觉"）。**凡是它给的命令，先想一遍再敲**，尤其在删数据、改防火墙这种事上。
-- **"我数学不好/不会 Python 能学吗？"** → 能。你只需要 **基本 Python 读写 + 调 API**，重点是"会描述问题"，不是训练模型。
-- **"公司数据能发给在线 AI 吗？"** → 一般**不能**。涉密的用本地模型，或走公司内网批准的通道。
-- **"AIOps 是不是很高端？"** → 平时做的 **告警聚合、日志分析、根因推荐、自动生成周报**，就是 AIOps。你上面的"日志分析小助手"已经算入门了。
 
 ---
 
@@ -2528,15 +2479,6 @@ kubectl rollout history deployment/web     # 看历史版本
 
 ---
 
-## 😵 新手困惑
-- **"到底该用 Deployment 还是 StatefulSet？"** → 记忆口诀：**要顺序、要固定名字、要每份自己的盘 → StatefulSet；其余都用 Deployment。**
-- **"PVC 一直 Pending 怎么办？"** → `kubectl describe pvc <名字>` 看事件；常见原因是**没有 StorageClass / 没有可用 PV**。
-- **"生产该用 NodePort 吗？"** → 一般不用。**统一走 Ingress 或 LoadBalancer**，NodePort 主要用来调试。
-- **"Secret 安全吗？"** → 默认只是 base64 编码，**不算加密**。要真安全需要开 etcd 加密 + RBAC 权限收紧。
-- **"HPA 不扩容？"** → 检查：① Pod 有没有写 `resources.requests.cpu`；② metrics-server 装了没（`kubectl top pods` 能不能出数）。
-
----
-
 ## ✍️ 本章达标 · 照着做就学会
 ```bash
 k3d cluster create deep
@@ -2689,15 +2631,6 @@ resource "aws_instance" "web" {
 1. **尽量不要**。手工改会和 Git 不一致，可能被自动纠偏撤销，而且**变更失去审计和回滚能力**。要改就改 Git。
 2. `values.yaml` 是**填空的答案**（参数值）；`templates/` 是**带占位符的模板**（YAML 骨架），渲染后才是真正的 K8s 清单。
 3. `plan` 是**预演**（只告诉你将要增/改/删什么，不动真资源）；`apply` 才真正执行。分两步是为了**上线前先审阅**，避免误删生产资源。
-
----
-
-## 😵 新手困惑
-- **"ArgoCD 和 Jenkins 是不是重复了？"** → 不重复：**Jenkins 负责"造"（构建镜像），ArgoCD 负责"送"（把期望状态同步到集群）**。这就是 CI 与 CD 的分工。
-- **"Helm 值不值得学？"** → 值得，**它是 K8s 生态的包管理事实标准**，装监控、装 Ingress 基本都靠它。
-- **"Terraform state 丢了会怎样？"** → 很麻烦，它会以为资源不存在而**重复创建**。所以 state 要放**远端存储（如 S3）+ 加锁**。
-- **"这些我公司都没用，学了有用吗？"** → 这些是**正在大量招聘的技能**。哪怕公司只用了 Compose，你能讲清 GitOps 思路，面试就领先一大截。
-- **"一个人也要搞这么复杂吗？"** → 不必全上。**先上"配置全放 Git"，这一步收益最大、成本最低。**
 
 ---
 
@@ -2874,15 +2807,6 @@ docker run -d --name jaeger -p 16686:16686 -p 4317:4317 jaegertracing/all-in-one
 
 ---
 
-## 😵 新手困惑
-- **"三件套都要上吗？"** → 不用。**先上指标 + 告警**（性价比最高），有微服务、排查跨服务慢的时候再上链路。
-- **"`rate` 和一些函数记不住？"** → 不用背。**记住四个就够**：`rate()` 求速率、`sum by()` 分组、`histogram_quantile()` 求分位、`predict_linear()` 预测。其余现查现用。
-- **"日志量太大存不下怎么办？"** → 三步：**只留有用的**（降日志级别）、**设保留期**（如 7 天自动删）、**大日志别进 Loki**（用对象存储归档）。
-- **"告警太多了，怎么减？"** → ① 加 `for` 时长；② 用抑制规则（大故障时不发小告警）；③ 按服务聚合；④ **删掉没人处理的告警**（不处理的告警就是噪音）。
-- **"没有微服务，需要链路吗？"** → 单体应用先不用，**指标 + 日志足够**。
-
----
-
 ## ✍️ 本章达标 · 照着做就学会
 ```promql
 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
@@ -3038,15 +2962,6 @@ readinessProbe:
 
 ---
 
-## 😵 新手困惑
-- **"我公司没有 SLO，是不是就用不上？"** → 用得上。**你可以自己给负责的服务定一个**，并在周报里说"本月可用率 99.93%，达标" —— 这就是你的亮点。
-- **"99.9% 和 99.99% 差很多吗？"** → 差**10 倍成本**。99.9% 一个月能停 43 分钟；99.99% 只能停 4 分钟，往往需要多机房。**不是越高越好，够用就好。**
-- **"SRE 要写代码吗？"** → 要，但**不是写业务代码**：写自动化脚本、写监控规则、写运维工具。**会 Python + shell 就够起步。**
-- **"运维会被 AI 取代吗？"** → 被取代的是"**只会手工重复操作**"。**会设计系统、能定标准、能用 AI 提效的人更值钱。**
-- **"我该先学什么才涨薪最快？"** → 顺序建议：**Docker（已学）→ K8s 能部署 → CI/CD 能自动化 → 监控告警 → SLO 与自动化运维**。前四项是**面试硬通货**，最后一项是**从运维到 SRE 的分水岭**。
-
----
-
 ## ✍️ 本章达标 · 照着做就学会
 **✅ 过关标准（每条都能写进简历/面试答案）：**
 1. 给你负责的一个服务，写出它的 **SLI（怎么测）+ SLO（目标多少）+ 错误预算（每月几分钟）**。
@@ -3115,21 +3030,34 @@ function drawProgress(){
   var pc=document.getElementById('progPct');if(pc)pc.textContent=Math.round(done/total*100)+'%';
 }
 
-// 导航分组折叠
-function setGroupOpen(id,open){
+// 导航分组折叠：状态会记住，且不会强行收起你手动展开的其他分组
+var GRP_KEY='dsh_nav_groups';
+function grpGet(){try{return JSON.parse(localStorage.getItem(GRP_KEY))||{};}catch(e){return {};}}
+function grpSet(o){try{localStorage.setItem(GRP_KEY,JSON.stringify(o));}catch(e){}}
+function setGroupOpen(id,open,save){
   var g=document.getElementById(id);if(!g)return;
   g.classList.toggle('closed',!open);
   var ch=g.querySelector('.chev');if(ch)ch.textContent=open?'▾':'▸';
+  if(save!==false){var st=grpGet();st[id]=!!open;grpSet(st);}
 }
 function openGroupOf(id){
-  var anyOpen=false;
+  var hit=null;
   document.querySelectorAll('.nav-group').forEach(function(g){
-    var has=!!g.querySelector('a[data-id="'+id+'"]');
-    setGroupOpen(g.id,has);
-    if(has)anyOpen=true;
+    if(g.querySelector('a[data-id="'+id+'"]'))hit=g.id;
   });
-  if(!anyOpen){setGroupOpen('g1',true);}
+  if(hit){ setGroupOpen(hit,true); return; }   // 只展开当前章节所在分组，其他分组保持你手动设置的状态
+  var any=false;
+  document.querySelectorAll('.nav-group').forEach(function(g){if(!g.classList.contains('closed'))any=true;});
+  if(!any){setGroupOpen('g1',true);}            // 首页/测验页：一个都没展开时，默认开第一组
 }
+// 初始化：应用上次记住的展开状态（没有记录时只展开第一组）
+(function(){
+  var st=grpGet(),restored=false;
+  document.querySelectorAll('.nav-group').forEach(function(g){if(st[g.id]!==undefined)restored=true;});
+  document.querySelectorAll('.nav-group').forEach(function(g){
+    setGroupOpen(g.id, restored ? !!st[g.id] : (g.id==='g1'), false);
+  });
+})();
 document.querySelectorAll('.nav-head').forEach(function(h){
   h.addEventListener('click',function(){
     var gid=h.getAttribute('data-group');
@@ -3351,6 +3279,8 @@ function mountWidgets(){
     else if(n==='volume'){slots[i].innerHTML=wVolHtml();}
     else if(n==='port'){slots[i].innerHTML=wPortHtml();wPortSet('none');}
     else if(n==='compose'){slots[i].innerHTML=wCmpHtml();}
+    else if(n==='cmdflow'){slots[i].innerHTML=wCmdHtml();wCmdReset();}
+    else if(n==='cmds'){slots[i].innerHTML=wCmdsHtml();cmPick(0);}
   }
 }
 /* --- 动画 1：K8s 自愈 --- */
@@ -3600,6 +3530,364 @@ function wCmpDown(){
     function(){cmpBox('cmpNet','off');cmpSt('cmpNetSt','Removed','stopped');cmpLog(' ⠿ Network proj_default   Removed');},
     function(){cmpLog('✔ 全清干净了（数据要留住的话，记得给数据库配数据卷）。');}
   ]);
+}
+/* --- 动画 5：命令执行流程（你敲下命令后，Docker 内部发生了什么） --- */
+var CF_COMPS=['你输入命令','docker CLI','dockerd 守护进程','containerd','runc','Linux 内核'];
+var CF=[
+ { name:'docker run', cmd:'docker run -d -p 8080:80 nginx', steps:[
+   {c:0,t:'① 客户端解析命令',d:'把 run（要创建容器）、-d（后台跑）、-p 8080:80（做端口映射）、nginx（用哪个镜像）拆开，然后通过 /var/run/docker.sock 这个"门铃"把请求发给 dockerd。'},
+   {c:2,t:'② dockerd 先找镜像',d:'dockerd 收到请求，先看本地有没有 nginx 这个镜像。本地没有，就去镜像仓库（Docker Hub）按层下载。'},
+   {c:2,t:'③ dockerd 转交任务',d:'镜像准备好了，dockerd 自己不干创建的细活，而是让 containerd 去创建容器。'},
+   {c:3,t:'④ containerd 准备环境',d:'用 overlay2 把镜像的各层叠成一个可用的文件系统，并启动一个 shim 进程专门"看住"这个容器。'},
+   {c:4,t:'⑤ runc 真正动手',d:'runc 创建 namespaces（隔离进程/网络/文件系统）、设置 cgroups（限制 CPU 和内存）、切进容器的根目录，最后执行 nginx。'},
+   {c:5,t:'⑥ 容器进程跑起来了',d:'容器里的 1 号进程（PID 1）就是 nginx。它本质上是宿主机上的一个普通进程，只是被套上了"隔离罩"。'},
+   {c:1,t:'⑦ 返回结果',d:'dockerd 把容器 ID 返回给 CLI，终端打印出那一长串 ID。端口则由 iptables 做 DNAT：宿主机 8080 → 容器 80。'}
+ ]},
+ { name:'docker ps', cmd:'docker ps', steps:[
+   {c:1,t:'① CLI 发出请求',d:'把 ps 请求通过 /var/run/docker.sock 发给 dockerd。'},
+   {c:2,t:'② dockerd 去查账',d:'dockerd 自己不全记容器状态，它去问 containerd 以及自己维护的元数据。'},
+   {c:3,t:'③ containerd 返回清单',d:'containerd 返回容器列表和状态：哪些还在跑、各自什么名字和 ID。'},
+   {c:1,t:'④ CLI 画表格',d:'最后那张漂亮的表格是 docker 客户端排版出来的，服务端只给数据。'}
+ ]},
+ { name:'docker pull', cmd:'docker pull nginx', steps:[
+   {c:1,t:'① CLI 请求拉取',d:'告诉 dockerd：我要 nginx 这个镜像。'},
+   {c:2,t:'② 鉴权 + 拿清单',d:'dockerd 连上镜像仓库，先做身份验证，再取回 manifest（这个镜像由哪些层组成、每层的 sha256 摘要）。'},
+   {c:2,t:'③ 分层下载 + 校验',d:'各层并行下载，每层下载完立刻校验摘要，保证没被篡改；本地已有的层直接跳过 —— 这就是第二次拉取很快的原因。'},
+   {c:2,t:'④ 存成本地只读层',d:'所有层按顺序落到本地，成为可以被多个容器共享的只读层。'},
+   {c:1,t:'⑤ 返回结果',d:'打印 Status: Downloaded newer image for nginx:latest。'}
+ ]},
+ { name:'docker build', cmd:'docker build -t myimg .', steps:[
+   {c:1,t:'① 先打包"构建上下文"',d:'CLI 把你指定的目录（最后那个点 .）打包，连同 Dockerfile 一起发给 dockerd —— 所以 .dockerignore 能明显加快这一步。'},
+   {c:2,t:'② dockerd 交给 BuildKit',d:'构建不是 dockerd 自己一条条硬跑，而是交给内置的构建引擎 BuildKit 执行。'},
+   {c:2,t:'③ 逐条指令生成层',d:'按顺序执行 FROM / COPY / RUN 等指令，每条指令的结果生成一层；没变化的层直接命中缓存，所以第二次构建快很多。'},
+   {c:2,t:'④ 打标签存本地',d:'全部成功 → 给最终结果打上 myimg:latest，存进本地镜像库。'},
+   {c:1,t:'⑤ 返回镜像 ID',d:'构建过程中产生的临时容器会在结束后被清理掉，不会留下来占地方。'}
+ ]},
+ { name:'docker exec', cmd:'docker exec -it web sh', steps:[
+   {c:1,t:'① -it 是什么意思',d:'-i 保持输入打开，-t 分配一个伪终端；CLI 把请求发给 dockerd。'},
+   {c:2,t:'② 转给 containerd',d:'dockerd 转给 containerd，containerd 找到 web 这个容器对应的 shim 进程。'},
+   {c:3,t:'③ 新进程"加入"容器',d:'shim 让新起的 sh 进程加入到容器已有的 namespaces 里 —— 所以你能看到容器里的进程和文件，而不是宿主机的。'},
+   {c:5,t:'④ 你就在容器里了',d:'敲 exit 只退出这个 sh，容器本身照常在跑（这是新手最容易搞混的一点）。'}
+ ]},
+ { name:'docker stop', cmd:'docker stop web', steps:[
+   {c:1,t:'① CLI 请求停止',d:'告诉 dockerd：停掉名叫 web 的容器。'},
+   {c:2,t:'② 先发 SIGTERM',d:'dockerd 让 containerd 给容器里的 1 号进程发 SIGTERM，意思是"请你优雅地退出"。'},
+   {c:3,t:'③ 等 10 秒收尾',d:'默认等 10 秒，让程序把正在处理的事做完、连接关掉、数据写盘（所以有时候停容器不是立刻就停）。'},
+   {c:5,t:'④ 超时再 SIGKILL',d:'10 秒还不退，就直接 SIGKILL 强制杀掉。这也是为什么给应用配好"优雅退出"很重要。'}
+ ]}
+];
+var cfCmd=0,cfIdx=-1,cfTimer=null;
+function wCmdHtml(){
+  var tabs='';
+  CF.forEach(function(f,i){tabs+='<button class="cf-tab" id="cfTab'+i+'" onclick="wCmdPick('+i+')">'+esc(f.name)+'</button>';});
+  var chain='';
+  CF_COMPS.forEach(function(n,i){chain+='<div class="cf-comp" id="cfComp'+i+'">'+esc(n)+'</div>'+(i<CF_COMPS.length-1?'<span class="cf-arrow">›</span>':'');});
+  return '<div class="wz">'
+   +'<div class="wz-title">⚙️ 交互动画：你敲下一条命令后，Docker 内部发生了什么</div>'
+   +'<div class="cf-tabs">'+tabs+'</div>'
+   +'<div class="wz-code-line"><span class="wz-code" id="cfCmd">docker run -d -p 8080:80 nginx</span></div>'
+   +'<div class="cf-chain">'+chain+'</div>'
+   +'<div class="wz-actions"><button class="wz-btn" onclick="wCmdPlay()">▶ 执行这条命令</button>'
+   +'<button class="wz-btn ghost" onclick="wCmdReset()">↺ 重来</button>'
+   +'<span class="wz-badge" id="cfBadge">还没开始</span></div>'
+   +'<div class="cf-steps" id="cfSteps"></div>'
+   +'<div class="wz-log" id="cfLog">选左边任意一条命令，再点「执行这条命令」，按顺序看每一步是谁在干活。</div>'
+   +'<div class="wz-note">一句话总结这条流水线：<b>你 → docker CLI → dockerd → containerd → runc → Linux 内核（namespaces + cgroups）</b>。容器不是什么黑科技，就是被内核"隔离 + 限速"过的普通进程。</div>'
+   +'</div>';
+}
+function cfEl(id){return document.getElementById(id);}
+function wCmdReset(){
+  if(cfTimer){clearTimeout(cfTimer);cfTimer=null;}
+  cfIdx=-1;
+  var f=CF[cfCmd];
+  var c=cfEl('cfCmd');if(c)c.textContent=f.cmd;
+  for(var i=0;i<CF.length;i++){var tb=cfEl('cfTab'+i);if(tb)tb.className='cf-tab'+(i===cfCmd?' on':'');}
+  for(var j=0;j<CF_COMPS.length;j++){var cp=cfEl('cfComp'+j);if(cp)cp.className='cf-comp';}
+  var box=cfEl('cfSteps');
+  if(box){
+    var h='';
+    f.steps.forEach(function(s,k){h+='<div class="cf-step" id="cfStep'+k+'"><b>'+esc(s.t)+'</b><span>'+esc(s.d)+'</span></div>';});
+    box.innerHTML=h;
+  }
+  var bd=cfEl('cfBadge');if(bd){bd.textContent='还没开始';bd.className='wz-badge';}
+  var lg=cfEl('cfLog');if(lg)lg.textContent='共 '+f.steps.length+' 步，点「执行这条命令」开始。';
+}
+function wCmdPick(i){
+  cfCmd=i;
+  wCmdReset();
+}
+function wCmdPlay(){
+  if(cfTimer){clearTimeout(cfTimer);cfTimer=null;}
+  cfIdx=-1;
+  var f=CF[cfCmd];
+  // 清掉上一次的进度，保留步骤列表
+  for(var k=0;k<f.steps.length;k++){var s=cfEl('cfStep'+k);if(s)s.className='cf-step';}
+  for(var j=0;j<CF_COMPS.length;j++){var cp=cfEl('cfComp'+j);if(cp)cp.className='cf-comp';}
+  var bd=cfEl('cfBadge');if(bd){bd.textContent='执行中 …';bd.className='wz-badge wait';}
+  function next(){
+    if(cfIdx>=0){
+      var p=cfEl('cfStep'+cfIdx);
+      if(p)p.className='cf-step done';
+    }
+    cfIdx++;
+    if(cfIdx>=f.steps.length){
+      for(var j2=0;j2<CF_COMPS.length;j2++){var c2=cfEl('cfComp'+j2);if(c2&&c2.className.indexOf('active')>=0)c2.className='cf-comp done';}
+      if(bd){bd.textContent='执行完成 ✅';bd.className='wz-badge good';}
+      var lg0=cfEl('cfLog');if(lg0)lg0.textContent='命令执行完了。回过头再看一遍这 '+f.steps.length+' 步，就知道每条命令背后是谁在干活。';
+      cfTimer=null;return;
+    }
+    var st=f.steps[cfIdx],cur=cfEl('cfStep'+cfIdx);
+    if(cur)cur.className='cf-step active';
+    for(var j3=0;j3<CF_COMPS.length;j3++){
+      var cc=cfEl('cfComp'+j3);
+      if(!cc)continue;
+      if(j3===st.c)cc.className='cf-comp active';
+      else if(cc.className.indexOf('done')<0)cc.className='cf-comp';
+    }
+    if(bd)bd.textContent='第 '+(cfIdx+1)+'/'+f.steps.length+' 步';
+    var lg=cfEl('cfLog');if(lg)lg.textContent=st.t+'：'+st.d;
+    cfTimer=setTimeout(next,900);
+  }
+  next();
+}
+/* --- 动画 6：命令与参数解读（点命令展开每个参数什么意思） --- */
+var CMD_CATS=[
+ {n:'🖼 镜像', items:[
+  {c:'docker pull <镜像:标签>', d:'从仓库下载镜像到本地', a:[
+    ['镜像:标签','不写标签默认 latest；生产建议写死版本，比如 nginx:1.25，避免哪天 latest 变了把你搞崩'],
+    ['--platform linux/amd64','指定架构（Mac 的 M 芯片拉 x86 镜像时会用到）']], e:'docker pull nginx:alpine'},
+  {c:'docker images', d:'列出本地镜像', a:[
+    ['-a','连中间层镜像一起列出来'],
+    ['-q','只输出镜像 ID（常配合删除用：docker rmi $(docker images -q)）'],
+    ['--filter dangling=true','只看"悬空镜像"（名字显示为 none 的那些）'],
+    ['--format','自定义输出列，如 --format "{{.Repository}}:{{.Tag}} {{.Size}}"']], e:'docker images --format "{{.Repository}}:{{.Tag}}\t{{.Size}}"'},
+  {c:'docker tag <源> <目标>', d:'给镜像起一个别名（打标签）', a:[
+    ['目标格式','仓库地址/用户名/名字:版本 —— 要推到 Docker Hub，名字必须以你的用户名开头'],
+    ['说明','同一个镜像可以有多个标签，不会复制文件，共用同一份层']], e:'docker tag nginx:1.25 myname/web:v1'},
+  {c:'docker push <镜像>', d:'把镜像推到仓库', a:[
+    ['前提 1','先 docker login 登录'],
+    ['前提 2','镜像名必须写成 用户名/名字:版本，否则会被拒绝']], e:'docker push myname/web:v1'},
+  {c:'docker build -t <名字> .', d:'根据 Dockerfile 构建镜像', a:[
+    ['-t 名字:标签','给构建结果命名（不写名字只能用镜像 ID）'],
+    ['-f <路径>','指定 Dockerfile 文件（默认找当前目录的 Dockerfile，适合名字不标准时）'],
+    ['--no-cache','不用缓存，从头构建（排查"改了却没生效"的经典手段）'],
+    ['--build-arg K=V','把值传给 Dockerfile 里的 ARG'],
+    ['--target <阶段>','多阶段构建时只构建到某个阶段（比如只构建 builder）'],
+    ['最后的 .','构建上下文目录，代表"把当前目录发给 Docker"，漏了直接报错']], e:'docker build -t myweb:1.0 .'},
+  {c:'docker history <镜像>', d:'看镜像每一层是怎么来的', a:[
+    ['用途','排查"镜像为什么这么大"：哪一层加了什么、占多大，一目了然']], e:'docker history myweb:1.0'},
+  {c:'docker rmi <镜像>', d:'删除镜像', a:[
+    ['-f','强制删除（被容器引用也能删，但容器会变成"无镜像可依"的状态）']], e:'docker rmi myweb:1.0'},
+  {c:'docker save / load', d:'导出 / 导入镜像文件（离线传镜像）', a:[
+    ['save -o 文件','把镜像存成 tar：docker save -o nginx.tar nginx:1.25'],
+    ['load -i 文件','从 tar 恢复：docker load -i nginx.tar']], e:'docker save -o nginx.tar nginx:1.25'},
+  {c:'docker login / logout', d:'登录 / 退出镜像仓库', a:[
+    ['--password-stdin','从管道读密码，比 -p 安全（不会留在命令历史里）']], e:'echo "$TOKEN" | docker login -u myname --password-stdin'}
+ ]},
+ {n:'📦 容器', items:[
+  {c:'docker run [参数] <镜像> [命令]', d:'创建并启动容器（参数最多的一条，重点看）', a:[
+    ['-d','后台运行；不加就占着你的终端'],
+    ['-it','交互式 + 伪终端，进容器调试用（后面一般跟 sh 或 bash）'],
+    ['--name 名字','给容器起名字；不起就是随机名，后面不好引用'],
+    ['-p 宿主机:容器','端口映射。左边是宿主机的门牌号，右边是容器里的'],
+    ['-P','随机映射到宿主机高位端口（少用，端口不好记）'],
+    ['-v 卷:容器路径','挂数据卷：-v mydata:/data（命名卷，推荐）'],
+    ['-v 宿主路径:容器路径:ro','挂宿主机目录并可设只读（:ro）/ 可写（:rw，默认）'],
+    ['--mount','更明确的挂载写法：--mount type=bind,src=/host,dst=/data'],
+    ['-e KEY=VALUE','设环境变量（改配置最常用）'],
+    ['--env-file .env','从文件批量读环境变量（密码别写进命令）'],
+    ['--network 网络名','加入某个网络；同一网络里才能用容器名互访'],
+    ['--restart unless-stopped','重启策略（详见"参数陷阱"那一类）'],
+    ['--rm','容器退出就自动删掉（一次性任务、调试常用）'],
+    ['-m 512m / --cpus 1.5','限制内存 / CPU（防某个容器把机器吃光）'],
+    ['-w /app / -u 1000','指定工作目录 / 以哪个用户身份运行'],
+    ['--entrypoint','覆盖镜像默认的入口程序（排查容器"起不来"时有用）'],
+    ['--health-cmd','配健康检查命令，配合 docker ps 的 STATUS 看 healthy']],
+   e:'docker run -d --name web -p 8080:80 -e TZ=Asia/Shanghai -v mydata:/data --restart unless-stopped nginx:1.25'},
+  {c:'docker ps', d:'查看容器', a:[
+    ['不加参数','只看"正在运行"的（新手最常见疑问：我容器呢？加 -a）'],
+    ['-a','连已停止的一起显示'],
+    ['-q','只输出 ID（配合 docker rm $(docker ps -aq) 清干净）'],
+    ['-s','显示每个容器占了多少磁盘'],
+    ['-n 5','只看最近创建的 5 个'],
+    ['--filter status=exited','按状态/名字过滤：--filter name=web'],
+    ['--format','自定义列，如 --format "table {{.Names}}\t{{.Status}}"']], e:'docker ps -a --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'},
+  {c:'docker start / stop / restart', d:'启动 / 停止 / 重启容器', a:[
+    ['stop -t 30','给程序 30 秒优雅退出再强杀（默认 10 秒）'],
+    ['start -a','启动并把输出附着到当前终端'],
+    ['restart','等价于 stop + start']], e:'docker stop -t 30 web'},
+  {c:'docker rm <容器>', d:'删除容器', a:[
+    ['-f','运行中也能删（会先强制停止）'],
+    ['-v','连它的匿名数据卷一起删（否则卷会残留占空间）']], e:'docker rm -fv web'},
+  {c:'docker exec -it <容器> sh', d:'在"运行中"的容器里执行命令', a:[
+    ['-it','交互式进容器（要敲命令必须加）'],
+    ['-u root','以 root 进去（镜像默认用户权限不够时用）'],
+    ['-w /app','指定进去后所在目录'],
+    ['-e K=V / -d','临时环境变量 / 后台执行'],
+    ['注意','容器停止时不能用 exec，改用 docker run -it --rm 镜像 sh']], e:'docker exec -it -u root web sh'},
+  {c:'docker logs <容器>', d:'查看容器日志（stdout/stderr）', a:[
+    ['-f','持续跟踪，像 tail -f'],
+    ['--tail 100','只看最后 100 行（日志多的时候必加）'],
+    ['-t','每行前面加时间戳'],
+    ['--since 10m','只看最近 10 分钟（也支持 --until）']], e:'docker logs -f --tail 100 -t web'},
+  {c:'docker inspect <容器|镜像>', d:'看完整配置（JSON）', a:[
+    ['-f','提取单个字段：-f "{{.State.Status}}"'],
+    ['常用字段','{{.State.Status}} 状态、{{.State.RestartCount}} 重启次数、{{.NetworkSettings.IPAddress}} 容器 IP、{{json .Mounts}} 挂载'],
+    ['用途','容器起不来时第一个该看的命令']], e:'docker inspect -f "{{.State.Status}} {{.RestartCount}}" web'},
+  {c:'docker stats', d:'实时看资源占用（CPU/内存/网络）', a:[
+    ['--no-stream','只打印一次就退出（写脚本、留证据用）']], e:'docker stats --no-stream'},
+  {c:'docker cp <容器>:<路径> <本地路径>', d:'容器和宿主机之间拷文件', a:[
+    ['说明','容器运行中也能拷；反过来写就是把本地文件拷进容器']], e:'docker cp web:/etc/nginx/nginx.conf ./nginx.conf'},
+  {c:'docker update --cpus 2 --memory 1g <容器>', d:'运行时调整资源限制', a:[
+    ['好处','不用重启容器就能改限制']], e:'docker update --cpus 2 --memory 1g web'},
+  {c:'docker top / docker diff', d:'看容器里的进程 / 看容器改了哪些文件', a:[
+    ['top','列出容器内的进程（相当于容器里的 ps）'],
+    ['diff','列出被改动的文件：A 新增、C 修改、D 删除（排查"数据写到哪了"）']], e:'docker diff web'},
+  {c:'docker commit <容器> <镜像>', d:'把容器当前状态存成镜像', a:[
+    ['不推荐','不可复现、体积大、说不清改了什么 —— 用 Dockerfile 才是正道'],
+    ['唯一合理场景','临时抢救一个正在跑的环境用于排错']], e:'（建议改用 docker build）'}
+ ]},
+ {n:'🌐 网络', items:[
+  {c:'docker network ls', d:'看有哪些网络', a:[
+    ['默认三个','bridge（默认）、host、none']], e:'docker network ls'},
+  {c:'docker network create --driver bridge mynet', d:'建自定义网络（推荐）', a:[
+    ['关键点','自定义 bridge 网络自带"名字解析"：容器之间可以直接用容器名互访；默认的 bridge 网络不支持'],
+    ['--subnet 172.20.0.0/16','指定网段（避免和公司内网冲突时用）'],
+    ['--gateway','指定网关地址']], e:'docker network create --driver bridge mynet'},
+  {c:'docker network inspect mynet', d:'看这个网络里有哪些容器、各是什么 IP', a:[
+    ['用途','排查"两个容器为什么互相 ping 不通"']], e:'docker network inspect mynet'},
+  {c:'docker network connect mynet <容器>', d:'把已在运行的容器接进网络', a:[
+    ['好处','不用删掉重建容器'],
+    ['反向','docker network disconnect 断开']], e:'docker network connect mynet web'},
+  {c:'docker network rm / prune', d:'删除网络', a:[
+    ['prune','清理没被使用的网络']], e:'docker network prune'},
+  {c:'--network host', d:'让容器直接用宿主机的网络', a:[
+    ['好处','性能最好、不用 -p 映射'],
+    ['代价','没有网络隔离，端口冲突会直接撞上；只适合特定场景']], e:'docker run --network host nginx'}
+ ]},
+ {n:'💾 数据卷', items:[
+  {c:'docker volume ls / create / inspect', d:'看 / 建 / 查数据卷', a:[
+    ['inspect','能看到卷在宿主机上的真实路径（Mountpoint）—— 想直接备份数据就靠它']], e:'docker volume inspect mydata'},
+  {c:'docker run -v mydata:/data', d:'用命名卷保存数据（推荐）', a:[
+    ['命名卷','由 Docker 管理，位置固定、跨容器复用、docker volume 命令能查到'],
+    ['对比绑定目录','-v /host/path:/data 直接用宿主机目录，开发时方便，但依赖宿主机目录结构']], e:'docker run -d -v mydata:/var/lib/mysql mysql:8.0'},
+  {c:'docker run -v /host/html:/usr/share/nginx/html:ro', d:'挂宿主机目录 + 只读', a:[
+    ['结尾 :ro / :rw','只读 / 可写（默认可写）'],
+    ['常见坑','把宿主机"空目录"挂到容器里有文件的目录上，容器原有文件会被盖住看不见']], e:'docker run -d -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html:ro nginx'},
+  {c:'docker volume rm / prune', d:'删除数据卷', a:[
+    ['prune','只删"没被任何容器使用"的卷'],
+    ['警告','卷里是数据，删之前想清楚；数据库卷千万别顺手 prune']], e:'docker volume prune'}
+ ]},
+ {n:'🧹 系统 / 清理', items:[
+  {c:'docker version / docker info', d:'版本 / 系统信息', a:[
+    ['info 重点看','Storage Driver（存储驱动）、Registry Mirrors（镜像加速器）、Docker Root Dir（数据存哪）、容器数量']], e:'docker info'},
+  {c:'docker system df', d:'谁占了磁盘（镜像/容器/卷/缓存各多少）', a:[
+    ['-v','看每一项的明细（哪几个镜像/卷最大）']], e:'docker system df -v'},
+  {c:'docker system prune', d:'大扫除，回收磁盘', a:[
+    ['默认删','已停止的容器、没用到的网络、悬空镜像、构建缓存'],
+    ['-a','连"没在被使用的镜像"也删（占空间大头）'],
+    ['--volumes','连数据卷一起删 —— 数据会真的没，慎用']], e:'docker system prune -a'},
+  {c:'docker events', d:'实时事件流（谁创建/销毁了容器）', a:[
+    ['--filter type=container','只看容器事件'],
+    ['--since 1h','看过去一小时']], e:'docker events --filter type=container'},
+  {c:'docker export / import', d:'导出容器文件系统 / 导入成镜像', a:[
+    ['和 save 的区别','export 只导出文件系统，会丢掉历史层和元数据；save 才是完整镜像']], e:'docker export web -o web.tar'}
+ ]},
+ {n:'🧩 Compose', items:[
+  {c:'docker compose up -d', d:'按 yml 把服务全拉起来', a:[
+    ['-d','后台运行'],
+    ['-f 文件','指定 compose 文件（默认 docker-compose.yml）'],
+    ['--build','先重新构建镜像再起（改了 Dockerfile 必须加）'],
+    ['--force-recreate','强制重建容器（改不动、状态怪的时候用）'],
+    ['--scale web=3','把 web 起 3 个副本']], e:'docker compose up -d --build'},
+  {c:'docker compose down', d:'停止并删除容器 + 网络', a:[
+    ['-v','连数据卷一起删 —— 数据库数据会没，慎用'],
+    ['--rmi all','连镜像也一起删'],
+    ['和 stop 的区别','stop 只停不删；down 停完还会把容器和网络删掉']], e:'docker compose down'},
+  {c:'docker compose ps / logs / restart / build', d:'常用子命令', a:[
+    ['ps','看这个项目的服务状态'],
+    ['logs -f --tail=100 web','看某个服务的日志（用服务名）'],
+    ['restart web','只重启 web 这一个服务'],
+    ['build --no-cache','重新构建镜像不用缓存']], e:'docker compose logs -f --tail=100 web'},
+  {c:'docker compose exec <服务> <命令>', d:'进服务的容器里操作', a:[
+    ['注意','这里用"服务名"（yml 里的 key），不是容器名']], e:'docker compose exec db mysql -uroot -p'},
+  {c:'docker compose config', d:'把 yml 展开成最终配置', a:[
+    ['用途','排查 YAML 缩进、变量没生效、最终值到底是什么']], e:'docker compose config'},
+  {c:'docker compose pull / push / top', d:'拉镜像 / 推镜像 / 看进程', a:[
+    ['pull','按 yml 把所有服务用到的镜像拉下来']], e:'docker compose pull'}
+ ]},
+ {n:'⚠️ 参数陷阱', items:[
+  {c:'-p 写反了', d:'最常见的错误', a:[
+    ['正确','-p 宿主机端口:容器端口，例如 -p 8080:80'],
+    ['写反','-p 80:8080 表示宿主机 80 → 容器 8080；如果容器里服务监听的是 80，就等于白映射']], e:'docker run -d -p 8080:80 nginx   # 浏览器访问 localhost:8080'},
+  {c:'--restart 重启策略怎么选', d:'容器挂了/重启机器后要不要自动起来', a:[
+    ['no','默认，不自动重启'],
+    ['on-failure','非正常退出才重启（可写 on-failure:5 限制次数）'],
+    ['always','总是重启（手动 stop 后，Docker 重启也会再起来）'],
+    ['unless-stopped','除了"你手动停掉的"，其他都自动重启 —— 生产最常用']], e:'docker run -d --restart unless-stopped nginx'},
+  {c:'--rm 和 -d 一起用要注意', d:'容器一退出就消失', a:[
+    ['后果','容器没了，日志和现场也一起没了，事后没法排查'],
+    ['建议','要留证据就别加 --rm；一次性任务（跑个脚本）适合加']], e:'docker run --rm -it alpine sh'},
+  {c:'命名卷 vs 绑定目录（-v 的两种写法）', d:'数据放哪、谁来管', a:[
+    ['命名卷 mydata:/data','Docker 管理，推荐用于数据库等生产数据'],
+    ['绑定目录 /host/path:/data','直接映射宿主机目录，开发改代码方便，但依赖宿主机结构'],
+    ['只读挂载 :ro','防止容器改坏宿主机文件']], e:'docker run -v mydata:/data  # 或 -v $(pwd)/conf:/etc/nginx/conf.d:ro'},
+  {c:'docker system prune --volumes 会删数据', d:'清理命令的隐藏地雷', a:[
+    ['会删','没有容器在用的数据卷（里面可能是你的数据库文件）'],
+    ['建议','先 docker volume ls + docker system df -v 看清楚，再决定']], e:'docker system df -v   # 先看再删'}
+ ]}
+];
+var cmCat=0;
+function wCmdsHtml(){
+  var tabs='';
+  CMD_CATS.forEach(function(c,i){tabs+='<button class="cf-tab" id="cmTab'+i+'" onclick="cmPick('+i+')">'+esc(c.n)+'</button>';});
+  return '<div class="wz">'
+   +'<div class="wz-title">📖 命令与参数解读（点任意一条命令展开）</div>'
+   +'<div class="cf-tabs">'+tabs+'</div>'
+   +'<div class="wz-actions"><button class="wz-btn ghost" onclick="cmAll(1)">全部展开</button>'
+   +'<button class="wz-btn ghost" onclick="cmAll(0)">全部收起</button>'
+   +'<span class="wz-badge" id="cmBadge"></span></div>'
+   +'<div class="cm-list" id="cmList"></div>'
+   +'<div class="wz-note">用法建议：不要背。先照着例子敲，遇到不懂的参数再回来点开看 —— 这样记住的是"我遇到过的问题"，不是一串字母。</div>'
+   +'</div>';
+}
+function cmPick(i){
+  cmCat=i;
+  var box=document.getElementById('cmList'),cat=CMD_CATS[i];
+  for(var k=0;k<CMD_CATS.length;k++){var tb=document.getElementById('cmTab'+k);if(tb)tb.className='cf-tab'+(k===i?' on':'');}
+  if(!box)return;
+  var h='';
+  cat.items.forEach(function(it,j){
+    h+='<div class="cm-row" id="cmRow'+j+'">'
+      +'<div class="cm-head" onclick="cmToggle('+j+')">'
+      +'<code class="cm-cmd">'+esc(it.c)+'</code>'
+      +'<span class="cm-desc">'+esc(it.d)+'</span>'
+      +'<span class="cm-arrow" id="cmArr'+j+'">＋</span></div>'
+      +'<div class="cm-body" id="cmBody'+j+'"><ul class="cm-args">';
+    it.a.forEach(function(p){h+='<li><code>'+esc(p[0])+'</code><span>'+esc(p[1])+'</span></li>';});
+    h+='</ul><div class="cm-ex">例：<code>'+esc(it.e)+'</code></div></div></div>';
+  });
+  box.innerHTML=h;
+  var bd=document.getElementById('cmBadge');
+  if(bd)bd.textContent=cat.n.replace(/^\S+\s/,'')+' · '+cat.items.length+' 条命令';
+}
+function cmToggle(j){
+  var b=document.getElementById('cmBody'+j),r=document.getElementById('cmRow'+j),ar=document.getElementById('cmArr'+j);
+  if(!b)return;
+  var on=b.className.indexOf('on')>=0;
+  b.className='cm-body'+(on?'':' on');
+  if(r)r.className='cm-row'+(on?'':' open');
+  if(ar)ar.textContent=on?'＋':'－';
+}
+function cmAll(open){
+  var cat=CMD_CATS[cmCat];
+  cat.items.forEach(function(it,j){
+    var b=document.getElementById('cmBody'+j),r=document.getElementById('cmRow'+j),ar=document.getElementById('cmArr'+j);
+    if(!b)return;
+    b.className='cm-body'+(open?' on':'');
+    if(r)r.className='cm-row'+(open?' open':'');
+    if(ar)ar.textContent=open?'－':'＋';
+  });
 }
 function render(id){
   flushStudy();   // 结算上一个章节的停留时长

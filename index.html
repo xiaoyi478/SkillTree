@@ -459,14 +459,118 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
 .line-chart{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 12px 4px; }
 .line-chart svg{ display:block; }
 .lc-note{ font-size:12px; color:var(--muted); margin-bottom:6px; }
-.lc-note b{ color:var(--green-2); }</style>
+.lc-note b{ color:var(--green-2); }
+/* 复习（闪卡 + 错题本） */
+.mon-rev{ margin-top:10px; font-size:13px; color:#aebbd0; }
+.mon-rev b{ color:#6ee7b7; }
+.mon-rev a{ color:#6ee7b7; font-weight:600; }
+.rv-wrap h2{ margin-top:0; }
+.rv-intro{ font-size:13px; color:var(--muted); margin:0 0 14px; }
+.rv-tabs{ display:flex; gap:8px; margin-bottom:14px; }
+.rv-tab{ border:1px solid var(--line); background:#f8fafc; color:var(--text); border-radius:18px; padding:5px 14px; font-size:13px; cursor:pointer; }
+.rv-tab.on{ background:var(--green); border-color:var(--green); color:#fff; }
+.rv-tab b{ margin-left:4px; }
+.rv-card{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:22px; box-shadow:var(--shadow); }
+.rv-meta{ display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-bottom:12px; }
+.rv-ch{ background:#f1f5f9; border-radius:14px; padding:2px 10px; }
+.rv-q{ font-size:18px; font-weight:700; color:var(--ink); line-height:1.6; margin-bottom:10px; }
+.rv-tip{ font-size:12.5px; color:var(--muted); margin-bottom:14px; }
+.rv-a{ font-size:16px; color:#065f46; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:12px; padding:14px 16px; margin-bottom:14px; line-height:1.7; }
+.rv-btns{ display:flex; gap:10px; flex-wrap:wrap; }
+.rv-rate{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; font-size:13px; color:var(--muted); }
+.rv-btn{ border:1px solid var(--line); background:#f8fafc; color:var(--text); border-radius:11px; padding:9px 18px; font-size:14px; cursor:pointer; font-weight:600; }
+.rv-btn:hover{ border-color:var(--green); color:var(--green-2); }
+.rv-btn.primary{ background:var(--grad); color:#fff; border-color:transparent; }
+.rv-btn.bad{ background:#fef2f2; border-color:#fecaca; color:#b91c1c; }
+.rv-btn.mid{ background:#fffbeb; border-color:#fde68a; color:#b45309; }
+.rv-btn.good{ background:#ecfdf5; border-color:#a7f3d0; color:#047857; }
+.rv-done{ text-align:center; padding:26px 10px; }
+.rv-emoji{ font-size:40px; }
+.rv-done h3{ margin:8px 0; }
+.rv-done p{ color:var(--muted); font-size:14px; }
+.rv-done .rv-btns{ justify-content:center; }
+.rv-mis-item{ border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px; background:#fff; }
+.rv-mis-q{ font-size:14.5px; font-weight:600; color:var(--ink); margin-bottom:6px; }
+.rv-mis-a{ font-size:13.5px; color:#047857; margin-bottom:4px; }
+.rv-mis-e{ font-size:12.5px; color:var(--muted); }
+/* ===== 学前小测（先猜后学） ===== */
+.pq{ border:1px dashed #6ee7b7; background:linear-gradient(180deg,#f0fdf4,#ffffff); border-radius:14px; padding:16px 18px; margin:0 0 22px; }
+.pq-head{ display:flex; flex-direction:column; gap:4px; margin-bottom:10px; }
+.pq-head b{ font-size:15px; color:#065f46; }
+.pq-head span{ font-size:12.5px; color:var(--muted); }
+.pq-list{ margin:0; padding-left:20px; }
+.pq-list li{ margin-bottom:10px; }
+.pq-q{ font-size:14.5px; color:var(--ink); font-weight:600; margin-bottom:6px; }
+.pq-btn{ font-size:12.5px; padding:4px 12px; border-radius:8px; border:1px solid #34d399; background:#fff; color:#047857; cursor:pointer; }
+.pq-btn:hover{ background:#ecfdf5; }
+.pq-a{ display:none; margin-top:8px; padding:9px 12px; border-left:3px solid #10b981; background:#f0fdf4; border-radius:0 8px 8px 0; font-size:13.5px; color:#065f46; }
+.pq-a.on{ display:block; animation:pqIn .25s ease; }
+@keyframes pqIn{ from{opacity:0;transform:translateY(-4px);} to{opacity:1;transform:none;} }
+.pq-foot{ font-size:12.5px; color:var(--muted); margin-top:6px; }
+
+/* ===== 交互动画（章节内挂载） ===== */
+.wz{ border:1px solid var(--line); border-radius:16px; padding:18px; margin:20px 0; background:#fff; box-shadow:0 1px 3px rgba(4,63,44,.06); }
+.wz-title{ font-size:15px; font-weight:700; color:#065f46; margin-bottom:14px; }
+.wz-row{ display:flex; flex-wrap:wrap; gap:12px; margin-bottom:14px; }
+.pod{ display:flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:2px solid #34d399; background:#ecfdf5; font-size:13px; transition:all .35s ease; }
+.pod b{ font-family:Consolas, monospace; font-size:12.5px; color:#065f46; }
+.pod-ico{ font-size:17px; }
+.pod-st{ font-size:11.5px; padding:1px 7px; border-radius:999px; background:#10b981; color:#fff; }
+.pod.dead{ border-color:#f87171; background:#fef2f2; opacity:.75; transform:scale(.97); }
+.pod.dead .pod-st{ background:#ef4444; }
+.pod.gone{ opacity:0; transform:scale(.85); }
+.wz-actions{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; }
+.wz-btn{ font-size:13px; padding:8px 14px; border-radius:10px; border:none; background:linear-gradient(135deg,#34d399,#10b981); color:#fff; font-weight:600; cursor:pointer; }
+.wz-btn:hover{ filter:brightness(1.05); }
+.wz-btn.ghost{ background:#fff; border:1px solid #a7f3d0; color:#047857; }
+.wz-log{ font-size:13px; color:#065f46; background:#f0fdf4; border-left:3px solid #10b981; border-radius:0 8px 8px 0; padding:9px 12px; min-height:20px; }
+.wz-note{ font-size:12.5px; color:var(--muted); margin-top:10px; line-height:1.7; }
+.wz-switch{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; font-size:13px; margin-bottom:14px; }
+.wz-code{ font-family:Consolas, monospace; font-size:12.5px; background:#0f172a; color:#7dd3fc; padding:5px 10px; border-radius:8px; }
+.wz-stage{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:14px; }
+.wz-box,.wz-disk{ border:2px solid #34d399; border-radius:12px; overflow:hidden; min-width:190px; transition:all .3s ease; }
+.wz-box.flash{ animation:wzFlash .6s ease; }
+@keyframes wzFlash{ 0%{transform:scale(1);} 40%{transform:scale(.94);border-color:#f87171;} 100%{transform:scale(1);} }
+.wz-disk{ border-color:#cbd5e1; opacity:.5; }
+.wz-disk.on{ border-color:#0ea5e9; opacity:1; }
+.wz-box-h{ font-size:12.5px; font-weight:700; color:#fff; background:#10b981; padding:6px 12px; }
+.wz-disk .wz-box-h{ background:#94a3b8; }
+.wz-disk.on .wz-box-h{ background:#0ea5e9; }
+.wz-box-b{ font-size:12.5px; color:var(--ink); padding:12px; font-family:Consolas, monospace; background:#f8fafc; }
+.wz-arrow{ font-size:12.5px; color:var(--muted); }
+@media(max-width:820px){ .wz-stage{ flex-direction:column; align-items:stretch; } .wz-arrow{ text-align:center; } }
+/* ===== 动画扩展：端口映射 / Compose ===== */
+.wz-code-line{ margin-bottom:12px; }
+.wz-stage-3{ align-items:stretch; }
+.wz-stage-3 .wz-box{ flex:1 1 180px; }
+.wz-stage-3 .wz-box.wins{ border-color:#10b981; box-shadow:0 0 0 3px rgba(16,185,129,.18); }
+.wz-pipe{ position:relative; flex:1 1 150px; min-width:130px; height:56px; display:flex; align-items:center; justify-content:center; }
+.wz-pipe::before{ content:''; position:absolute; left:0; right:0; top:50%; height:2px; background:repeating-linear-gradient(90deg,#a7f3d0 0 8px,transparent 8px 16px); }
+.wz-pipe-lbl{ position:relative; z-index:2; font-size:11.5px; color:#0f766e; background:#f0fdf4; border:1px solid #a7f3d0; border-radius:999px; padding:2px 10px; white-space:nowrap; }
+.wz-pkt{ position:absolute; left:0; top:50%; width:12px; height:12px; margin-top:-6px; border-radius:50%; background:#10b981; box-shadow:0 0 0 4px rgba(16,185,129,.18); opacity:0; z-index:3; }
+.wz-pkt.run{ animation:pktRun .9s ease forwards; }
+@keyframes pktRun{ 0%{ left:0; opacity:1; } 100%{ left:100%; opacity:1; margin-left:-12px; } }
+.wz-badge{ font-size:12.5px; font-weight:600; padding:6px 12px; border-radius:999px; background:#f1f5f9; color:#475569; }
+.wz-badge.wait{ background:#fef9c3; color:#854d0e; }
+.wz-badge.good{ background:#dcfce7; color:#166534; }
+.wz-badge.bad{ background:#fee2e2; color:#991b1b; }
+.wz-svc{ display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; border:2px dashed #cbd5e1; background:#f8fafc; font-size:13px; transition:all .3s ease; }
+.wz-svc.on{ border-style:solid; border-color:#34d399; background:#ecfdf5; }
+.wz-svc.on.off{ border-color:#cbd5e1; background:#f1f5f9; opacity:.65; }
+.wz-svc-n{ font-weight:600; color:var(--ink); }
+.wz-svc-st{ font-size:11.5px; padding:1px 8px; border-radius:999px; background:#e2e8f0; color:#475569; margin-left:auto; }
+.wz-svc-st.created{ background:#e0f2fe; color:#075985; }
+.wz-svc-st.running{ background:#10b981; color:#fff; }
+.wz-svc-st.stopped{ background:#e2e8f0; color:#64748b; }
+.wz-logs{ font-family:Consolas, monospace; font-size:12.5px; line-height:1.75; color:#134e4a; background:#0f172a; color:#a7f3d0; border-radius:10px; padding:12px 14px; min-height:96px; max-height:180px; overflow:auto; white-space:pre-wrap; }</style>
 </head>
 <body>
 <div class="site">
   <aside class="sidebar">
     <div class="brand"><span class="logo">🌳</span><span><b>SkillTree</b></span><button id="sideToggle" class="side-toggle" onclick="toggleSide()" title="收起/展开目录">☰</button></div>
     <div class="nav">
-      <a href='#home' data-id='home'>首页</a><div class='nav-group' id='g1'><button class='nav-head' data-group='g1'>📚 知识 · 初级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch02' data-id='ch02'>02 · Docker 基础概念 <em class='lvtag p'>初级</em> <span class='tag'>02</span></a><a href='#ch03' data-id='ch03'>03 · 安装 Docker 与环境准备（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>03</span></a><a href='#ch04' data-id='ch04'>04 · Docker 核心命令（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>04</span></a><a href='#ch05' data-id='ch05'>05 · Dockerfile 与镜像构建（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>05</span></a><a href='#ch06' data-id='ch06'>06 · 数据卷与网络（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>06</span></a><a href='#ch07' data-id='ch07'>07 · Docker Compose（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>07</span></a><a href='#ch08' data-id='ch08'>08 · 最佳实践与安全（零基础版） <em class='lvtag p'>初级</em> <span class='tag'>08</span></a></div></div><div class='nav-group' id='g2'><button class='nav-head' data-group='g2'>📚 知识 · 中级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch11' data-id='ch11'>11 · Nacos 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>11</span></a><a href='#ch12' data-id='ch12'>12 · Jenkins 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>12</span></a><a href='#ch13' data-id='ch13'>13 · Git 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>13</span></a><a href='#ch14' data-id='ch14'>14 · Kubernetes 入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>14</span></a><a href='#ch15' data-id='ch15'>15 · Prometheus 监控入门（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>15</span></a><a href='#ch17' data-id='ch17'>17 · AI 入门 & AI 运维（零基础 · 照着做就学会） <em class='lvtag m'>中级</em> <span class='tag'>17</span></a></div></div><div class='nav-group' id='g3'><button class='nav-head' data-group='g3'>📚 知识 · 深度<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch19' data-id='ch19'>19 · 深度 · Kubernetes 实操进阶 <em class='lvtag d'>深度</em> <span class='tag'>19</span></a><a href='#ch20' data-id='ch20'>20 · 深度 · GitOps + Helm + IaC（平台工程） <em class='lvtag d'>深度</em> <span class='tag'>20</span></a><a href='#ch21' data-id='ch21'>21 · 深度 · 可观测性进阶（Metrics/Logs/Traces） <em class='lvtag d'>深度</em> <span class='tag'>21</span></a><a href='#ch22' data-id='ch22'>22 · 深度 · SRE 与平台工程（对标高薪岗） <em class='lvtag d'>深度</em> <span class='tag'>22</span></a></div></div><div class='nav-group' id='g4'><button class='nav-head' data-group='g4'>🛠 实践 · 项目<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch09' data-id='ch09'>09 · 训练：实验手册（照着做 · 就学会） <em class='lvtag p'>初级</em> <span class='tag'>09</span></a><a href='#ch16' data-id='ch16'>16 · 实战项目 & 简历（落地 · 简历亮点） <em class='lvtag m'>中级</em> <span class='tag'>16</span></a></div></div>
+      <a href='#home' data-id='home'>首页</a><div class='nav-group' id='g1'><button class='nav-head' data-group='g1'>📚 知识 · 初级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch02' data-id='ch02'>02 · Docker 是什么？ <em class='lvtag p'>初级</em> <span class='tag'>02</span></a><a href='#ch03' data-id='ch03'>03 · 安装 Docker <em class='lvtag p'>初级</em> <span class='tag'>03</span></a><a href='#ch04' data-id='ch04'>04 · 核心命令 <em class='lvtag p'>初级</em> <span class='tag'>04</span></a><a href='#ch05' data-id='ch05'>05 · 自己做镜像 <em class='lvtag p'>初级</em> <span class='tag'>05</span></a><a href='#ch06' data-id='ch06'>06 · 数据不丢 + 容器互通 <em class='lvtag p'>初级</em> <span class='tag'>06</span></a><a href='#ch07' data-id='ch07'>07 · Docker Compose <em class='lvtag p'>初级</em> <span class='tag'>07</span></a><a href='#ch08' data-id='ch08'>08 · 最佳实践与安全 <em class='lvtag p'>初级</em> <span class='tag'>08</span></a></div></div><div class='nav-group' id='g2'><button class='nav-head' data-group='g2'>📚 知识 · 中级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch11' data-id='ch11'>11 · Nacos 入门 <em class='lvtag m'>中级</em> <span class='tag'>11</span></a><a href='#ch12' data-id='ch12'>12 · Jenkins 入门 <em class='lvtag m'>中级</em> <span class='tag'>12</span></a><a href='#ch13' data-id='ch13'>13 · Git 入门 <em class='lvtag m'>中级</em> <span class='tag'>13</span></a><a href='#ch14' data-id='ch14'>14 · Kubernetes 入门 <em class='lvtag m'>中级</em> <span class='tag'>14</span></a><a href='#ch15' data-id='ch15'>15 · Prometheus 监控入门 <em class='lvtag m'>中级</em> <span class='tag'>15</span></a><a href='#ch17' data-id='ch17'>17 · AI 入门与 AI 运维（AIOps） <em class='lvtag m'>中级</em> <span class='tag'>17</span></a></div></div><div class='nav-group' id='g3'><button class='nav-head' data-group='g3'>📚 知识 · 深度<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch19' data-id='ch19'>19 · 深度 · Kubernetes 实操进阶 <em class='lvtag d'>深度</em> <span class='tag'>19</span></a><a href='#ch20' data-id='ch20'>20 · 深度 · GitOps + Helm + IaC <em class='lvtag d'>深度</em> <span class='tag'>20</span></a><a href='#ch21' data-id='ch21'>21 · 深度 · 可观测性进阶 <em class='lvtag d'>深度</em> <span class='tag'>21</span></a><a href='#ch22' data-id='ch22'>22 · 深度 · SRE 与平台工程 <em class='lvtag d'>深度</em> <span class='tag'>22</span></a></div></div><div class='nav-group' id='g4'><button class='nav-head' data-group='g4'>🛠 实践 · 项目<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch09' data-id='ch09'>09 · 动手实验手册 <em class='lvtag p'>初级</em> <span class='tag'>09</span></a><a href='#ch16' data-id='ch16'>16 · 实战项目 & 简历 <em class='lvtag m'>中级</em> <span class='tag'>16</span></a></div></div>
+      <a class="quiz" href="#review" data-id="review">🔁 复习</a>
       <a class="quiz" href="#quiz" data-id="quiz">📝 在线测验</a>
     </div>
   </aside>
@@ -482,1473 +586,882 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
 </div>
 <script type='text/plain' id='home'>> 🔧 SkillTree 学习站源码：教程在 `source\`，改后运行 `pwsh -File source\build_site.ps1` 生成 `index.html`；把 `deploy\` 内容上传到 GitHub（SkillTree 仓库）即可更新线上。
 </script>
-<script type='text/plain' id='ch02'># 02 · Docker 基础概念
+<script type='text/plain' id='ch02'># 02 · Docker 是什么？
 
-这一章是整个 Docker 的**地基**。用生活中的类比把概念讲清楚，看完这章你就知道 Docker 到底在解决什么问题。
-
----
-
-## 1. 先回答一个问题：为什么要学 Docker？
-
-### 曾经的烦恼
-
-想象你写好了一个网站程序，在你自己电脑上跑得好好的。但换一台电脑，或者交给别人部署，就出一堆问题：
-
-- 对方电脑没有装 Python / Java / Node 环境
-- 版本对不上，程序报错
-- 配置不同，跑不起来
-
-**痛点**：程序能不能跑起来，不取决于你的代码，而取决于"环境"。
-
-### Docker 的解决思路
-
-Docker 说：**把程序和它需要的整个环境一起打包成一个"盒子"，搬到哪都能一模一样地跑。**
-
-这个"盒子"就是你程序的**完整环境快照**——操作系统、运行环境、依赖、代码、配置全都在里面。
-
-> **一句话：Docker 解决了"在我电脑上明明能跑"的问题。**
+## 🎯 先记这一句
+**Docker 的作用：把"你的程序 + 它需要的环境"打包成一个盒子，搬到哪都能一样跑。**
+它解决的是那句话——"**在我电脑上明明能跑啊！**"
 
 ---
 
-## 2. 三个最核心的概念
+## 🧭 先看顺序（照着走，不要跳）
+![学习顺序](images/learn-order.svg)
 
-### 2.1 镜像（Image）
-
-**镜像**可以想象成一张**菜谱**、一个**光盘镜像**、或一份**安装包**。
-
-- 它是**只读的、固定的蓝图**，里面写好了"要装什么、怎么启动"。
-- 它自己不会运行，只是一个"模板"。
-- 比如 `nginx` 镜像，里面就打包好了 Nginx 程序 + 它的依赖 + 启动方式。
-
-### 2.2 容器（Container）
-
-**容器**是镜像的**运行实例**，就像按菜谱做出来的**一盘菜**。
-
-- 同一个镜像可以开出**很多个**容器，互相独立、互不干扰。
-- 容器是**运行中的、可读写的**，你可以进去改东西。
-- 容器**默认是一次性的**：关掉/删除就没了（里面的数据也会没，这就是后面数据卷要解决的问题）。
-
-> **类比总结：**
-> - 镜像 = 菜谱（静态说明书）
-> - 容器 = 按菜谱做出来的菜（动态实例）
-> - 一个菜谱能做很多道菜 → 一个镜像能开很多容器
-
-### 2.3 仓库（Registry）
-
-**仓库**是**存放镜像的"图书馆/超市"**。
-
-- 你用 `docker pull` 从仓库下载镜像。
-- 最常见的公共仓库是 **Docker Hub**，上面有几十万个现成镜像。
-- 你也可以把自制的镜像 `docker push` 上传到仓库，分享给别人。
-
-> 📷 三大概念关系图：
-> ![镜像/容器/仓库关系图](images/image-container-registry.svg)
+**这一章是"① 准备"**：先搞懂"是什么、干嘛用"。看完就往下走 →
+下一章 [03 安装](03-安装与环境准备.md)（② 装环境）→ 再 [04 核心命令](04-核心命令.md)（③ 跑通第一条命令 + ④ 认识镜像/容器）。
 
 ---
 
-## 3. 容器 vs 虚拟机（重要区别）
-
-很多人第一次接触容器会想到虚拟机（VM，比如 VMware、VirtualBox）。它们确实有点像，但**完全不同**。
-
-| 对比项 | 虚拟机（VM） | 容器（Container） |
+## 🧠 一个比喻，记住全部
+| 你听到的词 | 其实就是 | 说明 |
 | --- | --- | --- |
-| 占用 | 每个虚拟机含完整操作系统，很大（几个 GB） | 共享宿主机内核，很小（几十 MB） |
-| 启动速度 | 慢，要启动整个系统（几十秒~分钟） | 快，秒级启动 |
-| 资源 | 占用大量内存和硬盘 | 轻量、占用少 |
-| 隔离 | 强，完全独立的操作系统 | 弱一些，共享操作系统内核 |
-| 类比 | 一栋带独立配套的大别墅 | 公寓楼里的一间房 |
+| **镜像 Image** | **菜谱** | 写清楚"要什么、怎么做"。只是纸，自己不会做菜 |
+| **容器 Container** | **按菜谱做出的一盘菜** | 真的能吃；一盘坏了，菜谱不受影响 |
+| **仓库 Registry** | **图书馆 / 超市** | 存放菜谱的地方（Docker Hub 最大） |
+| **Dockerfile** | **你写的新菜谱** | 按它就能做出你自己的镜像 |
 
-**关键一句话：容器共享宿主机的操作系统内核，所以启动快、体积小；虚拟机包含自己的操作系统，所以重但隔离更彻底。**
+> 一个菜谱能做很多盘菜 → **一个镜像能开出很多容器，而且互不影响。**
 
-> 📷 对比图：
-> ![容器vs虚拟机](images/container-vs-vm.svg)
-
-> 简单理解：**虚拟机是"自己住一整栋楼"**（啥都自己带，重）；**容器是"住公寓"**（管道、水电共用，轻）。
+![关系图](images/image-container-registry.svg)
+![容器和虚拟机的区别](images/container-vs-vm.svg)
 
 ---
 
-## 4. Docker 的工作原理（大致了解即可）
+## ▶️ 先动手（照抄，30 秒）
+```bash
+docker run hello-world
+```
+👉 看到 **"Hello from Docker!"** 就说明：Docker 成功**下载了镜像并把它跑起来了**。
 
-不用记，有个印象就行：
+```bash
+docker run -d -p 8080:80 --name myweb nginx
+```
+👉 浏览器打开 `http://localhost:8080`，看到 Nginx 页面 = 你已经**跑起一台 Web 服务器**。
 
-- **Docker 客户端（Client）**：就是你敲命令的地方（终端）。
-- **Docker 守护进程（Daemon）**：真正干活的后台服务，负责创建、运行、删除容器。
-- 你敲 `docker run`，客户端把请求发给守护进程，守护进程帮你干活。
-
-三者关系就像：**你跟服务员点餐（客户端），后厨真正做菜（守护进程），菜谱是镜像。**
-
-> 📷 工作流程：
-> ![Docker工作流程](images/docker-architecture.svg)
+> 看不懂参数没关系，第 04 章会讲。**先感受"一条命令就有服务器"。**
 
 ---
 
-## 5. 常见术语速查表（自测）
+## 🤔 边做边懂：为什么它"搬到哪都能跑"？
+只要理解 **3 句话**：
 
-| 术语 | 意思 | 生活类比 |
-| --- | --- | --- |
-| 镜像 Image | 只读的打包模板 | 菜谱 |
-| 容器 Container | 镜像的运行实例 | 做出来的菜 |
-| 仓库 Registry | 存放镜像的地方 | 图书馆、超市 |
-| Dockerfile | 描述如何构建镜像的脚本 | 写菜谱的方法 |
-| 拉取 Pull | 从仓库下载镜像 | 从超市买菜谱 |
-| 推送 Push | 上传镜像到仓库 | 把菜谱挂到图书馆 |
-| 卷 Volume | 容器里能保存下来的数据 | 外接的冰箱/储物柜 |
+1. **镜像是"千层饼"**：一层基础系统 + 一层依赖 + 一层你的代码。改东西只加一层，下面的层不用重做 → 所以构建快、省空间。
+2. **容器 = 镜像 + 最上面一层"可写层"**：运行时盖一层能写的；你改文件只改这层，**下面的镜像层永远不动** → 所以一个镜像能跑很多个互不干扰的容器。
+3. **容器和你电脑共用同一个操作系统内核**，不像虚拟机要自带一整套系统 → 所以它**又小又快**，启动一眨眼。
+
+![镜像千层饼与写时复制](images/image-layers-cow.svg)
+
+> 想查资料时才会用到这些词：隔离叫 **namespace**、限资源叫 **cgroup**、分层叫 **overlayfs**。**现在记不住完全没关系。**
+
+---
+
+## ❓ 自测 3 问（能答对，就是真懂了）
+1. 为什么说"容器不是小虚拟机"？
+2. 我把容器删了，镜像会没吗？为什么？
+3. 一个镜像能同时跑 3 个容器吗？它们会互相影响吗？
+
+**答案：**
+1. 虚拟机自带**一整套操作系统**；容器**共用你宿主机的内核**，只是被"隔离 + 限权"的进程 → 更小、更快。
+2. **不会**。容器只是镜像上面加的一层"可写层"，删容器只删这层；镜像层是**只读**的，永远在。
+3. **能**，而且**互不影响**——每个容器都有自己独立的可写层和隔离环境。
+
+---
+
+## 😵 新手最常见的 4 个困惑
+- **"容器和虚拟机到底啥区别？"** → 虚拟机＝带全套家具的**独栋别墅**；容器＝公寓里的**一间房**（水电管道共用）。
+- **"删了容器，数据不就没了吗？"** → 对，可写层里的会没。所以重要数据要放**数据卷**（第 06 章）。
+- **"我在容器里改的文件，下次进去怎么没了？"** → 你改的是可写层；重建容器＝换了一层新的。**要留下就用 `-v` 挂载。**
+- **"`docker ps` 里啥都没有，是我删了吗？"** → `docker ps` 只看**正在运行**的；已停止的要 `docker ps -a` 才看得到。
+
+---
+
+## 📌 本章只需记住 3 件事
+1. **镜像是菜谱，容器是做出来的菜**，一个镜像能开很多容器。
+2. 容器**共用宿主内核**，所以比虚拟机**小、快**。
+3. 容器能删就删，**镜像是只读的、不会坏**。
 
 ---
 
 ## ✍️ 本章达标 · 照着做就学会
-
-这一章是概念，先不用敲。等装好 Docker 后，第一件事就跑通它：
-
-**照着做（装好 Docker 后）：**
-```bash
-docker --version
-docker run hello-world
-```
-
-**✅ 过关标准：** `docker --version` 输出版本号；`docker run hello-world` 打印出 "Hello from Docker!"。
-
-**答不出也别急，下一章装好 Docker，动手实操一下这些问题自然就明白了。** 进入 [03-安装与环境准备](03-安装与环境准备.md)。
-</script>
-<script type='text/plain' id='ch03'># 03 · 安装 Docker 与环境准备（零基础版）
-
-这一章手把手教你装好 Docker。**跟着做即可，不用理解原理。** 找到你需要的平台看对应部分。
-
----
-
-## 0. 装之前先知道
-
-- 你需要**能联网**。
-- 推荐用 **Windows**（有图形界面，最容易上手）；macOS 和 Linux 也都能装。
-- 装好后你要用的只是一个**终端**（黑色命令行窗口）。
-
----
-
-## 1. 装 Windows 版（推荐：Docker Desktop）
-
-> 如果还没确定，**建议先学 Windows 版**，它有图形界面，对新手友好。
-
-### 步骤
-
-1. 打开浏览器访问 Docker 官网下载页：
-   `https://www.docker.com/products/docker-desktop/`
-2. 点 **Download for Windows**，下载安装包。
-3. 双击安装包，一路点 **Next / 下一步**。
-4. 安装时如果提示勾选 **"Use WSL 2 instead of Hyper-V"**，保持勾选（这是推荐选项）。
-5. 装完后重启电脑。
-6. 启动 **Docker Desktop**，等右下角的小鲸鱼图标变成绿色/稳定状态（表示 Docker 引擎已就绪）。
-   - 如果提示需要启用 WSL 2，按它给的提示操作（一般是运行一条升级命令，或勾选"适用于 Linux 的 Windows 子系统"）。
-
-### 验证是否装好
-
-打开终端（Windows 搜索"PowerShell"或"命令提示符"），输入：
-
-```bash
-docker --version
-```
-
-能看到类似 `Docker version x.x.x` 就成功了。
-
-再输入（测试能否正常下载运行）：
-
-```bash
-docker run hello-world
-```
-
-如果打印出一段"Hello from Docker!"的文字，恭喜，**Docker 装好了！**
-
-> **注意**：`docker run hello-world` 会第一次联网下载一个测试镜像，稍等片刻即可。
-
----
-
-## 2. 装 macOS 版（Docker Desktop）
-
-1. 访问 `https://www.docker.com/products/docker-desktop/`
-2. 选择 **Download for Mac**，下载 `.dmg` 文件。
-3. 双击打开，把 Docker 图标拖到 Applications。
-4. 首次运行会要求授权（输密码），按提示继续。
-5. 等小鲸鱼图标稳定。
-
-验证：
-
-```bash
-docker --version
-docker run hello-world
-```
-
----
-
-## 3. 装 Linux 版（Ubuntu 为例）
-
-Windows 和 macOS 用图形界面；Linux 用命令行装。
-
-不同发行版命令略有不同，以下是 **Ubuntu** 最常见的方式：
-
-```bash
-# 1. 更新软件源
-sudo apt-get update
-
-# 2. 安装 Docker
-sudo apt-get install -y docker.io
-
-# 3. 启动 Docker 并设为开机自启
-sudo systemctl enable docker
-sudo systemctl start docker
-
-# 4. 验证
-docker --version
-sudo docker run hello-world
-```
-
-> Linux 上每次运行 `docker` 都要加 `sudo`，想省事可以让当前用户加入 docker 用户组：
-> `sudo usermod -aG docker $USER`，然后注销再登录即可。
-
----
-
-## 4. 装好后，认识一下你的终端
-
-装好之后，你大部分时间都在**终端**里敲命令。先记住 3 个基本命令：
-
-```bash
-# 列出当前目录的文件
-ls
-
-# 看看 Docker 都装了什么
-docker --help        # 按 q 退出帮助页
-docker --version     # 查看版本
-```
-
-> 报错怎么办？别慌，把红色的报错信息复制去搜索引擎搜，基本都有答案。
-
----
-
-## 5. 通不过怎么办（常见问题）
-
-| 问题 | 解决 |
-| --- | --- |
-| Windows 提示没有 WSL 2 | 以管理员身份打开 PowerShell，运行 `wsl --update`，或按提示启用"适用于 Linux 的 Windows 子系统" |
-| 点击运行没反应 / 鲸鱼图标一直灰 | 重启电脑；或检查 Docker Desktop 设置里是否启用了 WSL 2 |
-| `Permission denied`（Linux） | 命令前加 `sudo`，或按上面加入 docker 用户组 |
-| 下载 `hello-world` 很慢/超时 | 需要配置 Docker 镜像加速（国内网络常用），见下方 |
-
-### 国内网络加速（可选，建议配置）
-
-如果下载镜像很慢，可以配置镜像加速源。以 Docker Desktop 为例：
-
-- 打开 Docker Desktop → **Settings** → **Docker Engine**
-- 在 `registry-mirrors` 里加一个国内加速地址（如阿里云、腾讯云的），保存并重启。
-
-示例配置（`~/.docker/daemon.json` 或 Docker Desktop 的 Settings 里）：
-
-```json
-{
-  "registry-mirrors": ["https://你的加速地址.mirror.aliyuncs.com"]
-}
-```
-
-> 加速地址需要去阿里云/腾讯云等平台注册后获取专属地址，这里只示例格式。
-
----
-
-## ✍️ 本章达标 · 照着做就学会
-
 **照着做：**
 ```bash
 docker --version
 docker run hello-world
+docker run -d -p 8080:80 --name myweb nginx
 ```
-
-**✅ 过关标准：** 两行都成功——`docker --version` 有版本号，且 `docker run hello-world` 打印出 "Hello from Docker!"。
-
-**现在你已经成功踏入 Docker 世界了！** 进入 [04-核心命令](04-核心命令.md) 学习常用命令。
+**✅ 过关标准：** 看到 `Hello from Docker!`，并且浏览器能打开 `http://localhost:8080` 的 Nginx 页面。
+**清理：** `docker stop myweb && docker rm myweb`
 </script>
-<script type='text/plain' id='ch04'># 04 · Docker 核心命令（零基础版）
+<script type='text/plain' id='ch03'># 03 · 安装 Docker
 
-这一章讲日常最常用的命令。**每条命令都先给用法，再解释它在做什么**，跟着敲一遍就记住了。不用背，用的时候回来查。
+> **本章位置：② 装环境。顺序：① 先看清你的电脑 → ② 下载安装 → ③ 验证"真的装好了" → ④ 网慢就加速 → ⑤ 装不上怎么办。**
+> 上一章 [02 是什么](02-Docker基础概念.md) | 下一章 [04 核心命令](04-核心命令.md)
 
-> 提示：任何时候想看某个命令有哪些用法，就敲 `docker 命令名 --help`，比如 `docker run --help`。
+## 🎯 一句话先懂
+Docker 是个**软件**。想让电脑"会做容器菜"，先把这个软件装上——**装一次，长期用**。
+
+## 🧠 生活比喻
+就像**先装好厨房，才能做菜**。这一章就是"装厨房"。
 
 ---
 
-## 1. 命令总览（一张表看懂）
+![安装 Docker 三步走](images/install-three-steps.svg)
 
-| 想要达到的目的 | 用这条命令 |
+## ▶️ 第一步：先确认你的电脑
+- **Windows 10/11** 或 **macOS**：装 **Docker Desktop**（有图形界面，最省事）✅ 推荐新手
+- **Linux（Ubuntu 等）**：用命令行安装
+- 需要**能上网**（要下载安装包和镜像）
+- Windows 需要开启 **WSL 2**（安装时会提示，按提示点就行）
+
+## ▶️ 第二步：安装
+
+### 如果你是 Windows / macOS（推荐）
+1. 打开官网下载页：`https://www.docker.com/products/docker-desktop/`
+2. 下载 **Docker Desktop**，双击安装，一路"下一步"
+3. 装完**重启电脑**
+4. 启动 **Docker Desktop**（桌面上的小鲸鱼图标 🐳）
+
+👉 **你应该看到**：右下角/菜单栏的小鲸鱼图标变成**稳定状态**（不是灰色转圈），说明引擎已就绪。
+
+### 如果你是 Linux（Ubuntu）
+```bash
+sudo apt-get update
+sudo apt-get install -y docker.io
+sudo systemctl enable docker
+sudo systemctl start docker
+```
+👉 **你应该看到**：命令跑完没有红色报错（`enable/start` 打印几行提示是正常的）。
+
+---
+
+## ▶️ 第三步：验证"真的装好了"（关键）
+打开终端（Windows 搜"PowerShell"），输入：
+```bash
+docker --version
+```
+👉 **你应该看到**：类似 `Docker version 27.x.x, build ...` —— **有版本号 = 装成功了**。
+
+再输入：
+```bash
+docker run hello-world
+```
+👉 **你应该看到**：一堆英文里有一句 **"Hello from Docker!"**。
+**看到这句，说明安装 100% 成功**（它自动下载了一个小测试镜像并跑了一次）。
+
+> 第一次会下载镜像，等几秒到几十秒都正常。
+
+---
+
+## ▶️ 第四步（可选）：下载太慢就加速
+如果 `docker run` 卡在下载很久，可以配置**镜像加速**（国内网络常见做法）：
+- Docker Desktop：**Settings → Docker Engine**，在 `registry-mirrors` 里加一个加速地址 → 保存重启
+- 加速地址到阿里云/腾讯云等平台注册后获取（这里不写死具体地址）
+
+---
+
+## ❓ 自测 3 问
+1. 怎么确认 Docker 装好了？
+2. `docker run hello-world` 这条命令在干什么？
+3. Windows 上装 Docker，官网推荐装的叫什么？
+
+**答案：**
+1. `docker --version` **能输出版本号**，并且 `docker run hello-world` 能打印 **"Hello from Docker!"**。
+2. 下载一个很小的测试镜像并**跑一次**，用来验证"下载 + 运行"整条链路都正常。
+3. **Docker Desktop**。
+
+---
+
+## 😵 装不上的 5 个常见问题
+| 现象 | 怎么办 |
 | --- | --- |
-| 下载一个镜像 | `docker pull 镜像名` |
-| 启动一个容器 | `docker run 镜像名` |
-| 查看正在运行的容器 | `docker ps` |
-| 查看所有容器（含已停止） | `docker ps -a` |
-| 查看本地有哪些镜像 | `docker images` |
-| 进入容器内部 | `docker exec -it 容器名 bash` |
-| 停止容器 | `docker stop 容器名` |
-| 启动已停止的容器 | `docker start 容器名` |
-| 删除容器 | `docker rm 容器名` |
-| 删除镜像 | `docker rmi 镜像名` |
-| 查看容器/镜像日志 | `docker logs 容器名` |
-
-下面逐个展开。
+| Windows 提示缺 WSL 2 | 以管理员运行 PowerShell 执行 `wsl --update`，或按提示启用"适用于 Linux 的 Windows 子系统" |
+| 小鲸鱼图标一直是灰的 | 重启电脑；或打开 Docker Desktop 设置里启用 WSL 2 |
+| Linux 里 `docker` 报权限不足 | 命令前加 `sudo`，或把用户加入 docker 组后重新登录 |
+| `docker run` 一直卡住 | 网络问题，配置镜像加速 |
+| `docker --version` 提示找不到命令 | 没装成功或没重启终端；重开一个终端再试 |
 
 ---
 
-## 2. 镜像（Image）相关命令
+## ✍️ 本章达标 · 照着做就学会
+```bash
+docker --version
+docker run hello-world
+```
+**✅ 过关标准：** ① 有版本号；② 看到 **"Hello from Docker!"**。
+做到这两条，就可以进入下一章 [04 核心命令](04-核心命令.md) 了。</script>
+<script type='text/plain' id='ch04'># 04 · 核心命令
 
-镜像 = 菜谱，先有镜像才能「开」容器。
+> **本章位置：③ 跑通 + ④ 认识镜像/容器。顺序：先跑出一个结果 → 再看背后发生了什么 → 最后系统学命令。**
 
-### 2.1 查看本地镜像
+## 🎯 一句话先懂
+用 Docker 就 4 个动作：**找菜谱（镜像）→ 做菜（跑容器）→ 看桌上有什么（查状态）→ 收盘子（删除）**。
+
+## 📷 先看一眼"背后发生了什么"
+![docker run 六步](images/docker-run-steps.svg)
+
+---
+
+## ▶️ 第一步：先跑起来（照抄，1 分钟）
+```bash
+docker run hello-world
+```
+👉 **你应该看到**：一堆文字，里面有一句 **"Hello from Docker!"**。
+这就说明：你**成功下载了一个镜像，并让它跑了一次**。
+
+```bash
+docker run -d -p 8080:80 --name myweb nginx
+```
+👉 **你应该看到**：屏幕上吐出一长串字母数字（那是容器编号）。
+👉 然后打开浏览器，访问 **http://localhost:8080** —— 看到 "Welcome to nginx!" 页面。
+**恭喜：你有一台 Web 服务器了。**
+
+> 这条命令每个字的意思（先看一眼，不用背）：
+> - `docker run` ＝ 请 Docker **做菜**
+> - `-d` ＝ 在**后台**做（不占着我的窗口）
+> - `-p 8080:80` ＝ **门牌转发**：外面的 8080 号门 → 通往容器里的 80 号门
+> - `--name myweb` ＝ 给这盘菜**起个名字**，以后好找
+> - `nginx` ＝ 用**哪张菜谱**（镜像）
+
+![端口映射](images/port-mapping.svg)
+
+---
+
+## ▶️ 第二步：看看现在有什么
+```bash
+docker ps
+```
+👉 **你应该看到**：一行记录，里面有 `myweb`，状态是 `Up`（正在运行）。
+
+```bash
+docker ps -a
+```
+👉 **你应该看到**：连**已经停止**的容器也在（比如刚才的 `hello-world`）。
+> 记住口诀：**`ps` 看"活着的"，`ps -a` 看"所有的"（a = all）。**
 
 ```bash
 docker images
 ```
-
-**解释**：列出本机已经下载好的镜像。你会看到类似下表：
-
-```
-REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
-nginx        latest    a1b2c3d4e5f6   2 weeks ago    142MB
-```
-
-- `REPOSITORY` = 镜像名
-- `TAG` = 版本标签（`latest` 表示最新）
-- `IMAGE ID` = 镜像的唯一标识
-- `SIZE` = 大小
-
-### 2.2 下载镜像
-
-```bash
-docker pull nginx
-docker pull ubuntu:22.04
-```
-
-**解释**：从仓库下载镜像。`docker pull nginx` 下载最新版 Nginx；`ubuntu:22.04` 下载 Ubuntu 22.04 版。
-
-### 2.3 删除镜像
-
-```bash
-docker rmi 镜像ID或镜像名
-```
-
-**解释**：删除本地镜像。如果还有容器在用这个镜像，会删不掉，需要先删容器。
+👉 **你应该看到**：本机有哪些"菜谱"（nginx、hello-world…）和它们的大小。
 
 ---
 
-## 3. 容器（Container）相关命令
-
-容器 = 按菜谱做出来的菜，是真正在运行的东西。
-
-### 3.1 启动容器（最重要的一条）
-
-```bash
-docker run -d -p 80:80 --name myweb nginx
-```
-
-**逐部分解释：**
-- `docker run` → 启动一个容器
-- `nginx` → 用哪个镜像
-- `-d` → 后台运行（detached），不加的话会一直占用当前终端
-- `-p 80:80` → 端口映射：**宿主机(你电脑)的80端口 → 容器内的80端口**，这样你才能从浏览器访问
-- `--name myweb` → 给容器起个名字，方便后面操作
-
-**常用搭配：**
-```bash
-# 前台运行（会占用终端，Ctrl+C 停止）
-docker run -it ubuntu bash
-
-# 给容器设个名字+后台运行
-docker run -d --name myweb nginx
-
-# 运行一个简单测试镜像
-docker run hello-world
-```
-
-- `-it` → 交互模式（interactive + tty），适合进容器里干活
-- 命令最后的 `bash` → 容器里启动后要执行的程序（这里是打开一个 shell）
-
-> 📷 端口映射示意图：
-> ![端口映射](images/port-mapping.svg)
-
-### 3.2 查看容器
-
-```bash
-docker ps       # 只看正在运行的
-docker ps -a    # 看所有（包括已停止的）
-```
-
-**解释**：`-a` 表示 all，能看到已经退出/停止的容器。
-
-### 3.3 停止 / 启动容器
-
-```bash
-docker stop myweb       # 停止
-docker start myweb      # 重新启动已停止的
-docker restart myweb    # 重启
-```
-
-### 3.4 进入容器内部
-
+## ▶️ 第三步：进到容器里面看看
 ```bash
 docker exec -it myweb bash
 ```
-
-**解释**：进入容器内部，像可以进去看看装了啥、改配置文件。`bash` 换成 `sh` 也可以（有的瘦身镜像没有 bash）。
-
-### 3.5 查看容器日志
-
+👉 **你应该看到**：命令提示符变了（像 `root@a1b2c3:/#`），说明你**已经站在容器里面**了。
 ```bash
-docker logs myweb
-docker logs -f myweb   # -f 实时跟随，像 tail -f
+ls /usr/share/nginx/html
+exit
 ```
-
-**解释**：看容器里程序打印的输出，排查问题很有用。`-f` 会一直跟随新日志，按 `Ctrl+C` 退出。
-
-### 3.6 删除容器
-
-```bash
-docker rm myweb          # 删除已停止的容器
-docker rm -f myweb       # 强制删除（即使正在运行）
-docker container prune   # 一键删除所有已停止的容器
-```
+👉 你会看到 `index.html` 等文件；`exit` 是**退出来**（退出来容器还在跑，别怕）。
 
 ---
 
-## 4. 一个完整的"生命周期"例子
-
-跟着敲一遍，把所有命令串起来：
-
+## ▶️ 第四步：用完收拾干净（重要，不然硬盘会满）
 ```bash
-# 1. 下载镜像
-docker pull hello-world
-
-# 2. 用镜像启动容器（hello-world 跑完就退出）
-docker run hello-world
-
-# 3. 下载并后台运行一个网站容器
-docker run -d -p 8080:80 --name mysite nginx
-
-# 4. 查看正在运行的容器
-docker ps
-
-# 5. 浏览器访问 http://localhost:8080 就能看到 Nginx 页面！
-
-# 6. 查看日志
-docker logs mysite
-
-# 7. 停止并删除
-docker stop mysite
-docker rm mysite
+docker stop myweb      # 停：让它下班
+docker rm myweb        # 删：把盘子收走
+docker rmi nginx       # 删：如果连"菜谱"也不要了
 ```
+👉 **你应该看到**：`docker ps -a` 里已经没有 `myweb` 了。
 
 ---
 
-## 5. 进阶：后台运行交互式任务
+🎬 先玩一下：为什么容器里的服务，外面访问不到
 
-给一个实用的例子：跑一个 Python 环境。
+[[widget:port]]
 
-```bash
-docker run -it --rm python:3.11 bash
-```
-
-- `--rm` → 容器退出后自动删除，避免残留
-- 进去后就可以敲 Python 命令，退出时容器自动清理，非常干净
-
----
-
-## 6. 常用组合速查（贴到笔记里）
-
-```bash
-# 查看当前占用的磁盘
-docker system df
-
-# 清理所有停用的容器、悬空镜像、缓存（慎用）
-docker system prune
-
-# 查看某个容器的详细信息（IP、网络、配置）
-docker inspect myweb
-```
-
----
-
-## ✍️ 本章达标 · 照着做就学会
-
-**照着做：**
-```bash
-# 1. 后台启动一个 Nginx 容器，映射 8080 端口，命名 myc
-docker run -d -p 8080:80 --name myc nginx
-
-# 2. 看看它是否在运行
-docker ps
-
-# 3. 看它的日志
-docker logs myc
-
-# 4. 不用了，停止并删除（不占资源）
-docker stop myc
-docker rm myc
-```
-
-**✅ 过关标准：** `docker ps` 里看到 `myc` 在运行；浏览器打开 `http://localhost:8080` 出现 Nginx 欢迎页；`stop` + `rm` 后 `docker ps -a` 不再有它。
-
-练完去 [05-Dockerfile与镜像构建](05-Dockerfile与镜像构建.md)，学习怎么自己造一个镜像。
-</script>
-<script type='text/plain' id='ch05'># 05 · Dockerfile 与镜像构建（零基础版）
-
-前面我们用现成的 `nginx`、`ubuntu` 镜像。这一章教你自己**写一份"制造说明"（Dockerfile）**，把自己的程序打包成镜像。
-
-> 类比：**Dockerfile 就是一份"新菜谱"**。你写下步骤 → 执行 `docker build`（按菜谱做菜）→ 得到一个新的镜像（一盘菜）。
-
----
-
-## 1. 什么是 Dockerfile
-
-一张 Dockerfile 是一个**纯文本文件**（默认名字就叫 `Dockerfile`），里面一行行写"怎么造镜像"。
-
-每一行是一个**指令**，常见指令如下：
-
-| 指令 | 作用 | 生活类比 |
+## 🔍 常用命令小抄（每个都配"它干嘛"）
+| 你想干嘛 | 命令 | 大白话 |
 | --- | --- | --- |
-| `FROM` | 基于哪个基础镜像开始 | 用哪本基础菜谱 |
-| `WORKDIR` | 设置工作目录 | 把厨房台面整理好 |
-| `COPY` | 把文件复制进镜像 | 把食材放进厨房 |
-| `RUN` | 构建时执行命令 | 做菜过程中的加工 |
-| `EXPOSE` | 声明容器对外端口 | 告诉别人这个菜配哪个盘子 |
-| `CMD` | 容器启动时执行的命令 | 最后端上桌的动作 |
-| `ENV` | 设置环境变量 | 预设调料用量 |
+| 下载菜谱 | `docker pull nginx` | 把镜像拉到本机 |
+| 做菜（跑起来） | `docker run -d -p 8080:80 --name myweb nginx` | 起一个容器 |
+| 看活着的 | `docker ps` | 只看正在运行的 |
+| 看所有的 | `docker ps -a` | 含已停止的 |
+| 看菜谱 | `docker images` | 本地有哪些镜像 |
+| 看日志 | `docker logs myweb` | 看它内部打印了什么 |
+| 进容器 | `docker exec -it myweb bash` | 钻进去看 |
+| 让它下班 | `docker stop myweb` | 停止 |
+| 再叫它上班 | `docker start myweb` | 启动已停止的 |
+| 收盘子 | `docker rm myweb` | 删除容器 |
+| 撕菜谱 | `docker rmi nginx` | 删除镜像 |
 
 ---
 
-## 2. 第一个 Dockerfile：简易网页
+## ❓ 自测 3 问（能答对＝真会了）
+1. `docker ps` 和 `docker ps -a` 差在哪？
+2. `-p 8080:80` 里，**前面**的 8080 和**后面**的 80 分别是谁的端口？
+3. 容器停掉（stop）以后，它还在吗？
 
-### 第 1 步：准备一个网页文件
+**答案：**
+1. `ps` 只看**正在运行**的；`-a` 连**已停止**的一起看（a＝all）。
+2. **前面 8080 是你电脑（宿主机）的**端口，**后面 80 是容器里面**的端口 —— 像"外面的门牌 8080 通向里面的 80 号房间"。
+3. 在。它只是"下班"了，用 `docker start 名字` 能再叫醒；要彻底消失得 `docker rm`。
 
-新建一个文件夹，比如 `myweb`，进入后创建一个 `index.html`：
+---
 
+## 😵 新手最常见的 5 个困惑
+- **"为什么浏览器打不开 localhost:8080？"** → 三查：容器还在跑吗（`docker ps`）？端口写对了吗（必须 `-p`）？8080 被别的软件占用了吗（换 8090 试试）。
+- **"为什么我 `exit` 出来，容器还在跑？"** → `exec` 只是"临时开门进去看一眼"，你走它照样上班。
+- **"为什么 `docker rm` 报错删不掉？"** → 它还在跑。先 `docker stop`，或强删 `docker rm -f 名字`。
+- **"`docker rmi` 删镜像报错？"** → 还有容器在用这个镜像。先把用它的容器删掉。
+- **"命令记不住怎么办？"** → 不用背！回到这张小抄，或用 `docker 命令 --help` 现查。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+```bash
+docker run hello-world
+docker run -d -p 8080:80 --name myweb nginx
+docker ps
+docker exec -it myweb bash
+ls /usr/share/nginx/html
+exit
+docker stop myweb && docker rm myweb
+```
+**✅ 过关标准：** ① 看到 "Hello from Docker!"；② 浏览器打开 `http://localhost:8080` 见到 Nginx 页面；③ 能进容器并退出；④ 最后 `docker ps -a` 里没有 myweb。</script>
+<script type='text/plain' id='ch05'># 05 · 自己做镜像
+
+> **本章位置：⑤ 造镜像。顺序：① 准备两个文件 → ② 写一张"菜谱" → ③ 做成镜像 → ④ 跑起来 → ⑤ 浏览器里看到你自己的网页。**
+
+## 🎯 一句话先懂
+前面用的是别人的菜谱（nginx）；这一章**你自己写一张菜谱**，把"你的网页"做成一个专属镜像。
+
+## 🧠 用生活比喻记住
+- **Dockerfile** ＝ 你写的**菜谱**（就几行字，说明"用什么锅、放什么料、怎么上桌"）
+- **docker build** ＝ 按菜谱**做一次菜**（得到一个镜像）
+- **docker run** ＝ 把这盘菜**端上桌**（得到一个容器）
+
+![镜像分层](images/dockerfile-layer.svg)
+
+---
+
+## ▶️ 第一步：准备两个文件（像准备食材）
+新建一个文件夹 `myweb`，在里面放两个文件：
+
+**① `index.html`（你要展示的网页）**
 ```html
-<!DOCTYPE html>
-<html>
-<head><title>我的第一个 Docker 应用</title></head>
-<body>
-  <h1>你好，Docker！🚀</h1>
-  <p>这个网页是用 Docker 跑起来的。</p>
-</body>
-</html>
+<h1>你好，这是我的网站</h1>
+<p>这个网页是我自己用 Docker 打包的。</p>
 ```
 
-### 第 2 步：在同目录创建 Dockerfile
-
-在同一目录下新建一个名为 `Dockerfile` 的文件（注意没有后缀名），内容如下：
-
+**② `Dockerfile`（菜谱，注意这个文件名没有后缀）**
 ```dockerfile
-# 基于 nginx 镜像，省去自己搭 Web 服务器
 FROM nginx
-
-# 把我们制作的网页复制到 nginx 的网站目录
 COPY index.html /usr/share/nginx/html/index.html
-
-# 声明容器用 80 端口
 EXPOSE 80
 ```
 
-**逐行解释：**
-- `FROM nginx` → 用官方 nginx 镜像当基础（就像用现成炉子）
-- `COPY index.html /usr/share/nginx/html/index.html` → 把本地的网页拷进镜像指定路径
-- `EXPOSE 80` → 声明容器监听 80 端口（只是声明，真正让外部访问还要 `-p`）
+> 就 3 行，每行的意思：
+> - `FROM nginx` ＝ **拿现成的 nginx 当锅**（省得自己搭 Web 服务器）
+> - `COPY index.html …` ＝ **把我的网页文件放进锅里的网站目录**
+> - `EXPOSE 80` ＝ **声明"我这个菜用 80 号盘子上桌"**（只是声明，能不能从外面看还要 `-p`）
 
-### 第 3 步：构建镜像
+---
 
-在**这个目录**（有 Dockerfile 和 index.html 的地方）打开终端，运行：
-
+## ▶️ 第二步：做成镜像（照抄）
+**先进入 myweb 文件夹**（很重要，`build` 要在放 Dockerfile 的目录里执行）：
 ```bash
+cd myweb
 docker build -t myfirstweb:1.0 .
 ```
+👉 **你应该看到**：一行行 `Step 1/3 …`、`Step 2/3 …`，最后出现 **`Successfully tagged myfirstweb:1.0`**。
 
-**逐部分解释：**
-- `docker build` → 构建镜像
-- `-t myfirstweb:1.0` → 给镜像起名 `myfirstweb`，版本 `1.0`
-- `.` → 表示"用当前目录的 Dockerfile"
-
-### 第 4 步：运行并测试
-
-```bash
-docker run -d -p 8080:80 myfirstweb:1.0
-```
-
-浏览器访问 `http://localhost:8080`，就能看到你写的网页了！
-
----
-
-## 3. 更真实的例子：打包一个 Python 程序
-
-如果我想打包一个用 Python 写的程序，Dockerfile 长这样：
-
-```dockerfile
-# 用 Python 3.11 官方镜像做基础
-FROM python:3.11
-
-# 设置工作目录
-WORKDIR /app
-
-# 先复制依赖文件（如果只有这一个文件就直接复制）
-COPY requirements.txt .
-
-# 安装依赖
-RUN pip install -r requirements.txt
-
-# 复制项目代码
-COPY . .
-
-# 声明端口（如果这个程序用 8000 端口）
-EXPOSE 8000
-
-# 容器启动时运行的程序
-CMD ["python", "app.py"]
-```
-
-> **要点**：尽量先把 `requirements.txt` 复制进来安装依赖，再复制代码，这样代码改动后能利用缓存，构建更快。
-
----
-
-## 4. 镜像的"分层"概念（理解一下）
-
-镜像不是一块石头，而是**一层层叠起来**的，像千层蛋糕。
-
-> 📷 分层示意图：
-> ![镜像分层](images/dockerfile-layer.svg)
-
-- 每执行一个 `RUN`、`COPY` 就形成一层。
-- Docker **层层缓存**：构建时如果某层没变，就复用之前的缓存，秒级完成。
-- 所以**把容易变的指令放后面**（比如复制代码），把不易变的放前面（安装依赖）。
-
-> **为什么要知道这个？** 因为能帮你写出**更小、更快**的镜像，这是后面 [08-最佳实践](08-最佳实践与安全.md) 的重点。
-
----
-
-## 5. 常用指令详解
-
-### FROM
-```dockerfile
-FROM ubuntu:22.04
-FROM node:20-alpine        # alpine 是极小的版本
-FROM python:3.11-slim
-```
-每个 Dockerfile 必须以 `FROM` 开头（除特殊情况）。
-
-### WORKDIR
-```dockerfile
-WORKDIR /app
-```
-相当于进去之前先 `cd` 到某个目录，之后命令都在这运行。
-
-### COPY（复制文件进镜像）
-```dockerfile
-COPY 源路径 目标路径
-COPY index.html /usr/share/nginx/html/
-COPY . /app
-```
-
-### RUN（构建时执行的命令）
-```dockerfile
-RUN apt-get update && apt-get install -y curl
-RUN pip install -r requirements.txt
-```
-
-### CMD 与 ENTRYPOINT（启动命令）
-```dockerfile
-CMD ["python", "app.py"]        # 数组写法（推荐）
-CMD python app.py               # 另一种写法
-```
-`CMD` 是默认启动命令，可以被 `docker run` 后面跟的参数覆盖。
-
-### ENV（环境变量）
-```dockerfile
-ENV NODE_ENV=production
-```
-
----
-
-## 6. 完整构建流程（背下来）
+> 这条命令每个字什么意思：
+> - `docker build` ＝ **按菜谱做菜**
+> - `-t myfirstweb:1.0` ＝ 给成品**起名 `myfirstweb`、版本 `1.0`**
+> - 最后那个 **`.`（一个点）** ＝ "菜谱就在**当前这个文件夹**里"（**很容易漏，漏了就报错**）
 
 ```bash
-# 1. 进入项目目录（要有 Dockerfile）
-cd myproject
-
-# 2. 构建镜像
-docker build -t myapp:1.0 .
-
-# 3. 查看镜像
 docker images
-
-# 4. 运行它
-docker run -d -p 8080:80 myapp:1.0
-
-# 5. 测试后，删掉容器和镜像
-docker rm -f $(docker ps -aq)
-docker rmi myapp:1.0
 ```
+👉 **你应该看到**：列表里出现 **`myfirstweb  1.0`** —— 你自己的镜像诞生了。
+
+---
+
+## ▶️ 第三步：跑起来，浏览器看效果
+```bash
+docker run -d -p 8080:80 --name mysite myfirstweb:1.0
+```
+👉 浏览器打开 **http://localhost:8080** —— 看到 **"你好，这是我的网站"**，就是你写的那个网页！
+
+**✅ 到这一步，你已经完成了"把自己的程序打包成镜像并上线"的全流程。**
+
+---
+
+## 🤔 为什么"改了网页"要重新 build？
+改 `index.html` 后，直接刷新浏览器**看不到变化** —— 因为镜像里装的是**当时那一版**文件。
+要看到新内容，得**再做一次菜**：
+```bash
+docker rm -f mysite                 # 先把旧的收掉
+docker build -t myfirstweb:1.0 .    # 重新做一次镜像
+docker run -d -p 8080:80 --name mysite myfirstweb:1.0
+```
+> 口诀：**改了文件 → 重新 build → 重新 run**。
+
+![千层饼与写时复制](images/image-layers-cow.svg)
+> 上图：镜像是"千层饼"，每一行 `COPY`/`RUN` 加一层；改代码只影响你那一层，所以重建很快。
+
+---
+
+## ❓ 自测 3 问
+1. Dockerfile 里 `FROM nginx` 是什么意思？
+2. 构建命令最后的那个"点"（`.`）能不能少？
+3. 写了 `EXPOSE 80`，是不是就能从浏览器直接访问了？
+
+**答案：**
+1. **以 nginx 镜像作为基础**（相当于"拿现成的锅/炉子"开始）。
+2. **不能少**。那个点表示"当前目录"，告诉 Docker 去哪找 Dockerfile 和文件。
+3. **不能**。`EXPOSE` 只是"声明"，真正对外开放要在 `docker run` 里加 **`-p`** 做端口映射。
+
+---
+
+## 😵 新手最常见的 4 个困惑
+- **"build 报错说找不到 Dockerfile？"** → 你不在那个文件夹里，或文件名不对（必须是 `Dockerfile`，没有后缀，也不能是 `Dockerfile.txt`）。
+- **"为什么我的网页是 Nginx 默认页，不是我的？"** → `COPY` 的目标路径写错了，必须是 `/usr/share/nginx/html/index.html`。
+- **"改了代码怎么没变？"** → 忘了重新 `build`（见上面口诀）。
+- **"`1.0` 是什么？"** → 版本**标签(tag)**，方便你区分"第几版"。不写默认是 `latest`。
 
 ---
 
 ## ✍️ 本章达标 · 照着做就学会
+1. 建 `myweb` 文件夹，放入 `index.html` 和 `Dockerfile`（内容见上）
+2. 执行：`cd myweb` → `docker build -t myfirstweb:1.0 .` → `docker run -d -p 8080:80 myfirstweb:1.0`
+3. 浏览器打开 `http://localhost:8080`
 
-**照着做（先建一个 `myweb` 文件夹，放入 `index.html` 和 `Dockerfile`）：**
+**✅ 过关标准：** `docker images` 里有 `myfirstweb:1.0`，且浏览器显示**你自己写的网页**（不是 Nginx 默认页）。</script>
+<script type='text/plain' id='ch06'># 06 · 数据不丢 + 容器互通
 
-`index.html`：
-```html
-<h1>我的 Docker 镜像</h1>
-```
+> **本章位置：⑥ 进阶第一课。顺序：① 先看"数据会丢" → ② 用数据卷把数据留住 → ③ 两个容器放进"同一个群"互相访问。**
 
-`Dockerfile`：
-```dockerfile
-FROM nginx
-COPY index.html /usr/share/nginx/html/index.html
-EXPOSE 80
-```
-
-在 `myweb` 目录里执行：
-```bash
-docker build -t myfirstweb:1.0 .
-docker run -d -p 8080:80 myfirstweb:1.0
-```
-
-**✅ 过关标准：** `docker images` 里有 `myfirstweb:1.0`；浏览器访问 `http://localhost:8080` 看到你自己写的网页。
-
-练完去 [06-数据卷与网络](06-数据卷与网络.md)，学习数据怎么保存、容器怎么互通。
-</script>
-<script type='text/plain' id='ch06'># 06 · 数据卷与网络（零基础版）
-
-容器默认是"用完就丢"的：删了容器，里面改的数据也没了。这一章解决两个核心问题：
-
-1. **数据怎么保下来？** → 用 **数据卷（Volume）**
-2. **容器之间怎么通？** → 用 **网络（Network）**
+## 🎯 一句话先懂
+容器像**一次性饭盒**：扔了，里面的东西就没了。
+- 想让数据留下 → 把数据放在饭盒**外面的冰箱**里（**数据卷**）
+- 想让两个容器说话 → 把它们拉进**同一个群**（**网络**）
 
 ---
 
-# 第一部分：数据卷（Volume）
+# 第一部分：让数据不丢（数据卷）
 
-## 1. 问题场景
+## 🎬 先玩一下：为什么数据会丢，挂卷为什么就不丢
 
-你启动一个容器，往里面存了数据（比如数据库、上传的文件）。然后 `docker rm` 删掉容器 —— **数据全没了**。
+[[widget:volume]]
 
-因为容器是"一次性"的，里面的文件系统随容器一起销毁。
-
-## 2. 解决方案：把数据挂在外面
-
-思路：**容器里面的某些目录，用外部的一个地方来存**。这样即使删掉容器，数据还在外面。
-
-> 📷 数据卷示意图：
-> ![数据卷](images/volume.svg)
-
-这就像：把容器当成一个"临时工位"，但你的重要资料放在**外面的一个保险柜**里，工位拆了资料还在。
-
-## 3. 两种方式
-
-### 方式一：命名卷（推荐，由 Docker 管理）
-
+## ▶️ 第一步：先亲眼看到"数据会丢"
 ```bash
-docker volume create mydata           # 创建一个数据卷
-docker run -d -v mydata:/data ubuntu sleep 1000   # 把卷挂到容器里的 /data
+docker run --rm -it busybox sh -c "echo 你好 > /data.txt; cat /data.txt"
 ```
-
-### 方式二：绑定挂载（直接挂你电脑的某个文件夹）
-
+👉 **你应该看到**：打印出 `你好`（文件确实写进容器了）。
+然后再跑一次：
 ```bash
-docker run -d -v /本地/路径:/容器内/路径 ubuntu sleep 1000
+docker run --rm busybox cat /data.txt
 ```
+👉 **你应该看到**：`No such file or directory` —— **文件没了！**
+> 因为上一次容器用完就删了，它里面写的东西**跟着一起消失**。这就是要解决的问题。
 
-> **区别**：命名卷 Docker 帮你管理存哪，比较省心；绑定挂载是把你电脑上的**文件夹直接连进去**，适合开发时改代码立刻生效。
-
-## 4. 一条最常用的挂载命令
-
-```bash
-docker run -d -p 8080:80 -v "$PWD/html:/usr/share/nginx/html" nginx
-```
-
-- `-v "$PWD/html:/usr/share/nginx/html"` → 把**当前目录下的 html 文件夹**连到容器里的 nginx 网站目录
-- 这样你直接改电脑上的 html，网页内容立刻变（不用重新构建镜像）
-
-> `$PWD` 表示当前所在目录（Windows PowerShell 用 `$PWD` 或 `(Get-Location).Path`，macOS/Linux 用 `$PWD` 或 `$(pwd)`）。
-
-## 5. 管理数据卷的命令
-
-```bash
-docker volume ls              # 列出所有卷
-docker volume inspect mydata  # 查看卷详情（存哪了）
-docker volume rm mydata       # 删除卷（会删数据，慎用）
-```
-
-## 6. 实战：给 Nginx 挂载本地目录
-
-```bash
-# 1. 建一个文件夹并放个网页
-mkdir web
-echo "这是从本地挂载的网页" > web/index.html
-
-# 2. 启动 nginx，把 web 目录挂到容器
-docker run -d -p 8080:80 -v "$PWD/web:/usr/share/nginx/html" nginx
-
-# 3. 访问 http://localhost:8080 就显示你写的网页；改 web/index.html 刷新即变
-```
-
-### 数据卷小结
-- 容器会消失，但**数据卷不跟着消失**。
-- 挂载用 `-v 宿主机路径:容器内路径`。
-- 开发用"绑定挂载"很方便，改代码即时生效。
-
----
-
-# 第二部分：网络（Network）
-
-## 1. 问题场景
-
-你想让两个容器互相通信，比如「一个 Web 网站」和「一个数据库」。它们各自是独立容器，怎么连？
-
-## 2. 方案：把容器放进同一个"网络"
-
-Docker 有一个叫**网桥（bridge）**的默认网络。把一个容器加入到某网络后，它们就能**用容器名互相访问**。
-
-> 类比：把几个容器放进**同一个微信群**，群里的人可以互相喊话（用名字找到对方）。
-
-> 📷 网络互通示意图：
-> ![网络互通](images/network-bridge.svg)
-
-## 3. 常用网络命令
-
-```bash
-docker network ls               # 列出所有网络
-docker network create mynet     # 自定义创建网络
-docker network inspect mynet    # 查看网络细节
-docker network connect mynet 容器名   # 把容器加入网络
-```
-
-## 4. 端口映射（对外访问）
-
-之前的 `-p` 就是端口映射，让**外部**能访问容器：
-
-```bash
-docker run -d -p 8080:80 nginx
-```
-- `8080` = 你电脑（宿主机）上的端口
-- `80` = 容器里的端口
-- 浏览器访问 `http://localhost:8080`
-
-> 端口映射是"宿主机↔容器"；网络互通是"容器↔容器"。别搞混了。
-
-## 5. 实战：Web + 数据库 / 两个容器互通
-
-下面让一个 Nginx 和另一个容器通信：
-
-```bash
-# 1. 创建网络
-docker network create mynet
-
-# 2. 启动第一个容器，加入网络
-docker run -d --name web1 --network mynet nginx
-
-# 3. 启动第二个容器，加入同一网络，并给它干活
-docker run -d --name worker --network mynet --entrypoint sh nginx -c "sleep 1000"
-
-# 4. 进入 web1，用容器名访问 worker（这里用 curl 测试）
-docker exec -it web1 bash
-# 在容器里执行：
-#   apt-get update && apt-get install -y curl
-#   curl http://worker
-```
-
-> **关键点**：同一网络里的容器，可以用**容器名**当域名互相访问（如 `http://worker`），不用记 IP。这是 Compose 自动做好的事，也是为什么 Compose 很方便。
-
-## 6. 网络模式简表（了解即可）
-
-| 模式 | 特点 |
-| --- | --- |
-| `bridge`（默认） | 容器间通过自定义网络互通，对外靠 `-p` |
-| `host` | 容器直接用宿主机网络，端口不隔离 |
-| `none` | 没有网络 |
-| `container:xxx` | 共享另一个容器的网络 |
-
----
-
-# 本章小结
-
-- **数据卷**解决"数据别丢"：`-v 宿主机:容器` 挂载外部存储。
-- **网络**解决"容器互连"：`--network 网络名`，同网络内用**容器名**互通。
-- **端口映射**解决"外部访问"：`-p 宿主机:容器`。
-
----
-
-## ✍️ 本章达标 · 照着做就学会
-
-**照着做（① 数据不丢）：**
+## ▶️ 第二步：用"数据卷"把数据存在外面
 ```bash
 docker volume create mydata
-docker run -d --name w1 -v mydata:/data busybox sh -c "echo hello > /data/a.txt; sleep 1000"
-docker run --rm -v mydata:/data busybox cat /data/a.txt   # 应输出 hello
+docker run --rm -v mydata:/data busybox sh -c "echo 你好 > /data/a.txt"
+docker run --rm -v mydata:/data busybox cat /data/a.txt
 ```
+👉 **你应该看到**：第二次打印出 `你好` —— **数据保住了！**（虽然容器已经删了）
 
-**照着做（② 双容器互通）：**
+> `-v mydata:/data` 每个字的意思：
+> - `-v` ＝ **挂载**（像给饭盒接一根管子通到冰箱）
+> - `mydata` ＝ **冰箱的名字**（Docker 帮你管的一块存储）
+> - `/data` ＝ **饭盒里的哪个位置**接这根管子
+
+![数据卷](images/volume.svg)
+
+## 🤔 为什么这样数据就不丢了？
+数据实际存在**容器外面**（宿主机上），容器只是"接了个管子"看它。所以：
+**删容器 ≠ 删数据**。要删数据得单独 `docker volume rm mydata`。
+
+## ▶️ 第三步：也可以直接挂你自己的文件夹（开发常用）
+```bash
+mkdir html
+echo "这是我电脑上的网页" > html/index.html
+docker run -d -p 8080:80 --name site -v "$PWD/html:/usr/share/nginx/html" nginx
+```
+👉 浏览器打开 `http://localhost:8080` 看到你写的字；**改电脑上的 html 文件，刷新浏览器立刻就变**（不用重新 build）。
+
+---
+
+# 第二部分：让两个容器互通（网络）
+
+## ▶️ 第四步：把它们放进"同一个群"
 ```bash
 docker network create mynet
 docker run -d --name alice --network mynet nginx
 docker run -d --name bob   --network mynet nginx
-docker exec -it alice bash
-# 进去后执行：
-#   apt-get update && apt-get install -y curl
-#   curl http://bob
+docker exec -it alice sh
+# 进去以后执行（没有 curl 就先 apt-get update && apt-get install -y curl）：
+curl http://bob
 ```
+👉 **你应该看到**：alice 里 `curl http://bob` 拿到了 bob 的网页。
+**注意：你用的是名字 `bob`，不是 IP 地址。**
 
-**✅ 过关标准：** ① `cat /data/a.txt` 输出 `hello`（删除容器后数据仍在）；② 在 alice 容器里能 `curl http://bob` 访问到。
+![网络互通](images/network-bridge.svg)
 
-接下来去 [07-Docker-Compose](07-Docker-Compose.md)，学怎么"一条命令启动多个容器"。
-</script>
-<script type='text/plain' id='ch07'># 07 · Docker Compose（零基础版）
+## 🤔 为什么用"名字"就能找到对方？
+Docker 给**用户自定义网络**配了**内置 DNS**：你把容器放进 `mynet`，它就能把 `bob` 这个名字翻译成对应的 IP。
+> 对比：**默认的 bridge 网络没有名字解析**，只能用 IP —— 所以**推荐自己建网络**（Compose 会自动建）。
 
-上面我们用 `docker run` 一个个启动容器。但如果一个应用有 5、6 个容器（Web、数据库、缓存…），一个个手动启动太麻烦、也不好管理。
-
-**Docker Compose** 就是来干这个的：**写一个配置文件，一条命令同时启动/管理所有容器。**
-
-> 类比：`docker run` 是"一个一个点菜"；**Compose 是"点一桌套餐"**，配置好一份菜单（`docker-compose.yml`），一条命令全部上齐。
-
-> 📷 Compose 示意图：
-> ![Compose](images/compose-overview.svg)
+## 📷 上网和端口到底怎么回事（看一眼图就懂）
+![容器网络：veth/网桥/DNAT](images/network-veth-bridge.svg)
+- 容器要有网卡，Docker 就拉一根**虚拟网线(veth)**，一头在容器里(`eth0`)，一头插到**宿主机上的网桥(docker0)**；网桥像"虚拟交换机"。
+- 要从外面访问，`-p 8080:80` 会在宿主机加一条**转发规则**：进来的包**目的地改写成容器地址**。
+  → 所以**容器并没有占用你电脑的 8080 端口**（端口冲突是发生在你电脑这一层）。
 
 ---
 
-## 1. 安装 Compose
+## ❓ 自测 3 问
+1. 我把容器删了，放在**数据卷**里的数据会没吗？
+2. 两个容器要能"用名字互相访问"，需要满足什么条件？
+3. `-p 8080:80` 中，8080 是谁的端口？80 是谁的？
 
-- **Docker Desktop（Windows/macOS）**：已经自带了，直接在终端用 `docker compose` 即可。
-- **Linux**：需要额外安装。可以用 Docker 官方插件方式，或单独安装 `docker-compose`。
+**答案：**
+1. **不会**。数据在容器外面的卷里；只有 `docker volume rm` 才会删掉。
+2. 要**在同一个"自定义网络"里**（如都加 `--network mynet`），这样才有内置 DNS 按名字解析。
+3. 8080 是**你电脑（宿主机）**的；80 是**容器里面**的。
 
-检查是否可用：
+---
 
+## 😵 新手最常见的 4 个困惑
+- **"我重启/重建容器，数据怎么没了？"** → 你没挂数据卷。凡是"要留下"的目录（数据库数据、上传文件），都要 `-v`。
+- **"两个容器 `curl 名字` 报错找不到？"** → 它们**不在同一个网络**里（或你用的是默认 bridge，没有名字解析）。
+- **"`-v` 后面路径写错了怎么办？"** → 冒号**前面**是**你电脑上的路径/卷名**，冒号**后面**是**容器里的路径**，别写反。
+- **"容器能上网吗？"** → 默认 bridge 网络下可以（Docker 通过 NAT 让它出去）。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
 ```bash
-docker compose version
+# 数据不丢
+docker volume create mydata
+docker run --rm -v mydata:/data busybox sh -c "echo 你好 > /data/a.txt"
+docker run --rm -v mydata:/data busybox cat /data/a.txt      # 应输出 你好
+
+# 容器互通
+docker network create mynet
+docker run -d --name alice --network mynet nginx
+docker run -d --name bob   --network mynet nginx
+docker exec -it alice sh -c "curl -s http://bob | head -1"
 ```
-（新版写法是 `docker compose` 中间有空格；老版本是 `docker-compose`。本教程用新版 `docker compose`。）
+**✅ 过关标准：** ① `cat /data/a.txt` 能输出 `你好`（且删掉容器后还在）；② alice 能用**名字 bob** 访问到对方。</script>
+<script type='text/plain' id='ch07'># 07 · Docker Compose
+
+> **本章位置：⑥ 进阶。顺序：① 先感受痛点 → ② 写一份"菜单" → ③ 一条命令全上齐 → ④ 看状态/日志 → ⑤ 一条命令全停。**
+
+## 🎯 一句话先懂
+以前每个服务都要单独 `docker run`（还要建网络、记端口、记名字）；
+现在把要求写进**一份菜单文件**，**一条命令全上齐**。
+
+## 🧠 生活比喻
+- `docker run` ＝ **一道一道点菜**（麻烦，容易漏）
+- **Compose** ＝ 点**一桌套餐**：菜单写好，一句话全部上齐
+
+![Compose](images/compose-overview.svg)
 
 ---
 
-## 2. 核心文件：docker-compose.yml
-
-Compose 靠一个叫 `docker-compose.yml` 的配置文件工作。它是 **YAML 格式**，特点是**用缩进表示层级，非常易读**。
-
-> YAML 有个关键点：**缩进必须用空格，不能用 Tab**，且缩进要对齐。
-
----
-
-## 3. 第一个例子：一个 Web 应用
-
-在项目目录创建 `docker-compose.yml`：
-
+## ▶️ 第一步：写菜单（新建文件 `docker-compose.yml`）
 ```yaml
 services:
   web:
     image: nginx
     ports:
       - "8080:80"
-```
-
-**逐行解释：**
-- `services:` → 定义要启动的服务（容器）列表
-- `web:` → 第一个服务的名字，随便起，但后面引用要用它
-- `image: nginx` → 起这个服务用哪个镜像
-- `ports:` → 端口映射列表
-- `- "8080:80"` → 把宿主机 8080 映射到容器 80
-
-### 启动
-
-```bash
-docker compose up -d
-```
-
-- `up` → 启动所有服务
-- `-d` → 后台运行
-
-浏览器访问 `http://localhost:8080`，看到 Nginx 页面。
-
-### 停止
-
-```bash
-docker compose down
-```
-
----
-
-## 4. 更完整的例子：Web + 数据库（重点）
-
-一个真实项目通常有"应用"+ "数据库"。用 Compose 把它们一起起，并让它们互通。
-
-创建 `docker-compose.yml`：
-
-```yaml
-services:
-  # Web 应用
-  app:
-    image: python:3.11-slim
-    command: python -m http.server 8000
-    ports:
-      - "8000:8000"
-    depends_on:
-      - db
-
-  # 数据库
   db:
     image: postgres:16
     environment:
-      POSTGRES_PASSWORD: secret123
-      POSTGRES_DB: mydb
+      POSTGRES_PASSWORD: secret
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - dbdata:/var/lib/postgresql/data
 
-# 定义数据卷（保存数据库数据，防止重启丢失）
 volumes:
-  db-data:
+  dbdata:
 ```
 
-**逐部分解释：**
-- `depends_on: - db` → `app` 要在 `db` 启动后才启动（先起数据库）
-- `environment:` → 设置环境变量（这里是数据库密码、库名）
-- `volumes: - db-data:/var/lib/postgresql/data` → 把数据库的数据存到命名卷 `db-data`，重启不丢
-- `volumes:`（文件最下面）→ 声明要用到哪些命名卷
+> 逐行解释：
+> - `services:` ＝ "下面开始列**服务**（每个服务＝一个容器）"
+> - `web:` / `db:` ＝ **两个服务的名字**（随便起，但后面要引用）
+> - `image: nginx` ＝ 用哪张"菜谱"
+> - `ports:` `- "8080:80"` ＝ 端口映射（同 `-p`）
+> - `environment:` ＝ 给容器设的**环境变量**（这里给数据库设密码）
+> - `volumes: - dbdata:/var/lib/...` ＝ **数据存到命名卷**（数据库重启不丢）
+> - 文件最下面的 `volumes: dbdata:` ＝ **声明要用的卷**
 
-### 启动与验证
+## ⚠️ YAML 三条铁律（错了必报错）
+1. **缩进只能用空格，不能用 Tab**
+2. **冒号后面要有空格**：写 `image: nginx` 而不是 `image:nginx`
+3. **同一层要对齐**（比如 `web:` 和 `db:` 左边对齐）
 
+---
+
+## ▶️ 第二步：一条命令全上齐
 ```bash
 docker compose up -d
-docker compose ps          # 看所有服务状态
-docker compose logs app    # 看某个服务的日志
 ```
-
-> **关键（重要）**：在同一个 compose 里，服务之间可以用**服务名**当主机名互访。比如 `app` 服务里要连数据库，就填 `db:5432`，Compose 会自动建网络并解析。**你不用手动配置网络！**
-
----
-
-## 5. 常用 Compose 命令速查
+👉 **你应该看到**：先下载/启动，最后打印出 `Container xxx-web-1  Started`、`Started` 之类的字样，**两个服务都起来了**。
 
 ```bash
-docker compose up -d          # 启动所有服务（后台）
-docker compose up -d --build  # 有自定义镜像时，先重新构建再启动
-docker compose ps             # 查看服务状态
-docker compose logs -f        # 实时查看日志（全部服务）
-docker compose logs -f app    # 只看某个服务
-docker compose down           # 停止并删除所有容器
-docker compose down -v        # 停止并删除容器 + 数据卷（删数据，慎用）
-docker compose restart        # 重启所有服务
-docker compose exec app bash  # 进入某个服务的容器
+docker compose ps
 ```
+👉 **你应该看到**：`web` 和 `db` 两行，状态都是 **running**。
+
+```bash
+docker compose logs web
+```
+👉 **你应该看到**：web（nginx）的日志。
+
+浏览器打开 **http://localhost:8080** → 能看到 nginx 页面。
+
+## ▶️ 第三步：一条命令全停
+```bash
+docker compose down
+```
+👉 **你应该看到**：`Stopped` / `Removed` 字样，两个容器都清掉了（数据卷 `dbdata` 默认**保留**，所以数据库数据还在）。
 
 ---
 
-## 6. 常用字段速查
+🎬 先玩一下：一条 up -d 到底按什么顺序干活
 
-| 字段 | 作用 | 示例 |
-| --- | --- | --- |
-| `image` | 用哪个镜像 | `image: nginx` |
-| `build` | 用本目录的 Dockerfile 构建 | `build: .` |
-| `ports` | 端口映射 | `- "8080:80"` |
-| `volumes` | 挂载数据卷 | `- myvol:/data` |
-| `environment` | 环境变量 | `- KEY=value` 或键值对 |
-| `depends_on` | 启动顺序 | `- db` |
-| `command` | 覆盖容器启动命令 | `- python app.py` |
-| `restart` | 崩溃后自动重启策略 | `restart: always` |
+[[widget:compose]]
+
+## 🤔 为什么 Compose 里"服务名"能当域名用？
+因为 Compose 会**自动建一个网络**，把所有服务放进去，而自定义网络**自带名字解析**：
+所以你在 `web` 里连数据库，直接写 **`db:5432`** 就行（`db` 就是服务名），不用管 IP。
 
 ---
 
-## 7. 动手做一个完整小项目（推荐）
+## ❓ 自测 3 问
+1. 用 Compose 启动全部服务，用哪条命令？停掉全部呢？
+2. Compose 里 `web` 服务要连数据库，主机名该写什么？
+3. YAML 里最容易被忽略、一写就报错的是什么？
 
-做一个"网页应用 + 数据库"的小项目：
+**答案：**
+1. 启动 `docker compose up -d`；停止并删除 `docker compose down`。
+2. 写 **服务名** `db`（Compose 自动建网络并解析名字）。
+3. **缩进**（只能用空格、不能 Tab）和**冒号后的空格**。
 
-1. 建一个文件夹，放一个简单 Python 网页程序（`app.py`）。
-2. 写 `Dockerfile`（基于 python 镜像）。
-3. 写 `docker-compose.yml`，包含 `app`（用 `build: .`）和 `db`（用 postgres）。
-4. `docker compose up -d --build`。
-5. 浏览器访问，验证网页能连上数据库。
+---
 
-具体每一步，见 [09-实验手册](09-训练-实验手册.md) 的**实验 7**。
+## 😵 新手最常见的 4 个困惑
+- **"提示 yaml 格式错误？"** → 99% 是缩进用了 Tab，或冒号后没空格。重写这两处。
+- **"改了代码怎么生效？"** → 如果服务是 `build: .` 自己构建的，要 `docker compose up -d --build` 重新构建。
+- **"`down` 会不会把数据库数据删了？"** → **不会**（只删容器和网络）。要连数据卷一起删才用 `docker compose down -v`（**慎用**）。
+- **"为什么端口不写 `-p` 的引号？"** → YAML 里 `ports:` 建议写成 `- "8080:80"`（带引号更稳妥）。
 
 ---
 
 ## ✍️ 本章达标 · 照着做就学会
+1. 新建 `docker-compose.yml`（内容照抄上面那份）
+2. `docker compose up -d` → `docker compose ps` → 浏览器看 `http://localhost:8080`
+3. `docker compose down`
 
-**照着做：**
-```bash
-docker compose up -d --build   # 启动 web + db
-docker compose ps              # 看状态
-docker compose logs web        # 看 web 日志
-docker compose down            # 一键停止
-```
+**✅ 过关标准：** `docker compose ps` 里 `web`、`db` 都是 running；浏览器能打开 nginx；`down` 能一条命令停干净。</script>
+<script type='text/plain' id='ch08'># 08 · 最佳实践与安全
 
-**✅ 过关标准：** `docker compose ps` 显示 `web` 和 `db` 都是 running；浏览器访问 `http://localhost:5000` 看到文字；`docker compose down` 能一键全部停止。
+> **本章位置：⑥ 进阶。顺序：① 先看镜像多大 → ② 把它做小 → ③ 把容器用安全 → ④ 定期清理。**
 
-接下来去 [08-最佳实践与安全](08-最佳实践与安全.md)，学习怎么把镜像做小、用得安全。
-</script>
-<script type='text/plain' id='ch08'># 08 · 最佳实践与安全（零基础版）
-
-学会用之后，这一章教你**用得更好、更安全**。分两部分：把镜像做小做快、把容器用安全。
+## 🎯 一句话先懂
+同一件事，"会做"和"做得好"差三步：**镜像更小、构建更快、用得更安全**。
 
 ---
 
-# 第一部分：让镜像更小、构建更快
-
-## 1. 用瘦身基础镜像
-
-同一程序，不同的基础镜像大小差别很大：
-
-| 基础镜像 | 说明 | 大小 |
-| --- | --- | --- |
-| `python:3.11` | 完整版，含很多工具 | 较大 |
-| `python:3.11-slim` | 精简版，够用 | 中等 |
-| `python:3.11-alpine` | 极简版（基于 Alpine Linux） | 很小 |
-
-**建议**：优先用带 `-slim` 或 `-alpine` 的基础镜像。
-
-```dockerfile
-FROM python:3.11-slim   # 比 python:3.11 小很多
+## ① 先看现状：镜像有多大？
+```bash
+docker images
 ```
+👉 **你应该看到**：每个镜像的 `SIZE`（比如几百 MB）。**越小越好**：下载快、占用少、启动快。
 
-## 2. 一条命令只做一件事 / 合并层
+## ② 把镜像做小（3 个立刻见效的办法）
 
-每条 `RUN`、`COPY` 会生成一层，层越多镜像越大。把相关命令**合并**成一条：
-
+**办法 1：换更小的"锅"（基础镜像）**
 ```dockerfile
-# 不好：多层
+# 之前的写法（大）
+FROM python:3.11
+# 换成精简版（小很多）
+FROM python:3.11-slim
+# 或者极简版（更小）
+FROM python:3.11-alpine
+```
+> nginx 也有小版本：`nginx:alpine`。
+
+**办法 2：把多条 `RUN` 合并，并在同一条里清理垃圾**
+```dockerfile
+# 不好：分了三层，中间产生的东西都留在镜像里
 RUN apt-get update
 RUN apt-get install -y curl
 RUN apt-get clean
 
-# 更好：合并，并清理缓存
+# 更好：一条命令做完，顺手清理
 RUN apt-get update && \
     apt-get install -y curl && \
     rm -rf /var/lib/apt/lists/*
 ```
 
-## 3. 用 .dockerignore 排除无关文件
-
-就像 `.gitignore`，建一个 `.dockerignore` 文件，让构建时不复制进来没用的东西：
-
+**办法 3：加一个 `.dockerignore`（跟"垃圾桶清单"一样）**
+在项目里新建文件 `.dockerignore`，写上不想打进镜像的东西：
 ```
 node_modules
 .git
 *.log
 __pycache__
 ```
+> 好处：**构建更快、镜像更小**，也不会把没用的东西带进去。
 
-> 这能显著减小"上下文"体积，构建更快。
+![分层与体积](images/image-layers-cow.svg)
+> 记住：一层只增不减。**在同一层里"下载了又删掉"，才真的省体积。**
 
-## 4. 利用缓存：把易变的放后面
-
-构建时 Docker 会缓存不变的行。所以把**容易变的放后面**：
-
-```dockerfile
-# 1. 依赖（不常变）放前面
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-# 2. 代码（常改）放后面
-COPY . .
-```
-
-这样每次改代码，不会重新装依赖，构建会快很多。
-
-## 5. 多阶段构建（进阶，了解即可）
-
-用"构建阶段 + 运行阶段"，把编译工具去掉，只留运行产物 → 镜像更小。
-
-```dockerfile
-# 构建阶段
-FROM node:20 AS build
-WORKDIR /app
-COPY . .
-RUN npm install && npm run build
-
-# 运行阶段（只复制构建产物）
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-```
-
----
-
-# 第二部分：安全与规范
-
-## 1. 不要用 root 运行
-
-容器默认用 root 运行不安全。用普通用户跑：
-
+## ③ 把容器用安全（三条底线）
+1. **别用 root 跑**（能用普通用户就用普通用户）：
 ```dockerfile
 FROM node:20-alpine
-# 创建用户（node 镜像自带 node 用户）
 USER node
-CMD ["node", "app.js"]
+CMD ["node","app.js"]
 ```
+2. **别把密码写进镜像**（写成 `ENV PASSWORD=123` 等于把密码贴在菜谱上）→ 运行时用环境变量/密钥传入。
+3. **用可信的官方镜像**（`nginx`、`python`、`postgres`…），别乱拉来路不明的镜像。
 
-## 2. 别把密码/密钥写进镜像
-
-```dockerfile
-# ❌ 不要这样：密码被烧进镜像
-ENV DB_PASSWORD=123456
-```
-
-→ 运行/部署时用环境变量传入，或用 secret 管理。
-
-## 3. 基础镜像从官方/可信来源拉取
-
-用**官方镜像**（如 `nginx`、`python`、`postgres`），或自己构建，别随意拉来路不明的镜像。
-
-## 4. 只暴露必要的端口和权限
-
-- 用 `EXPOSE` 声明需要哪些端口。
-- 运行容器时**按需挂载卷**，不要给容器太多宿主机权限。
-
-## 5. 定期清理没用的东西
-
+## ④ 定期清理（不然硬盘会被塞满）
 ```bash
-docker system df           # 看占用
-docker system prune -a     # 清理未用镜像、容器、网络、缓存（慎用）
-docker volume prune        # 清理未用的数据卷
+docker system df        # 先看看占了多少
+docker system prune -a  # 清理没用到的镜像/容器/缓存（省空间）
 ```
-
-> 好处：不占硬盘、减少潜在风险。
+> ⚠️ `prune` 会删掉"没在用"的东西，**用之前想清楚**（正在运行的不受影响）。
 
 ---
 
-# 本章小结（黄金口诀）
+## ❓ 自测 3 问
+1. 说出两种"让镜像变小"的做法。
+2. 为什么"分三条 RUN 装东西"比"合并成一条"更占空间？
+3. 容器里用 root 跑有什么问题？
 
-1. **越小越快**：用 slim/alpine、合并 RUN 层、.dockerignore、多阶段构建。
-2. **安全**：不用 root、不烧密钥、用官方镜像、最小权限。
-3. **清爽**：定期清理无用镜像和卷。
+**答案：**
+1. 换 `-slim`/`-alpine` 基础镜像；合并 `RUN` 并在同一层清理；加 `.dockerignore`；多阶段构建。
+2. 因为**每一层只增不减**，中间产生的缓存/临时文件会**留在那一层里**，删不掉。
+3. 一旦容器被攻破，攻击者拿到的是 **root 权限**，风险更大；而且不符合最小权限原则。
+
+---
+
+## 😵 新手最常见的 3 个困惑
+- **"我用 `RUN rm` 删了文件，镜像怎么没小？"** → 文件是在**更早的层**里产生的，删掉它只是"在新一层盖住"，前面那层仍然占体积 → 所以要**在同一层里清理**。
+- **"多阶段构建是什么？"** → 用"构建阶段"编译，再把成品复制到"运行阶段"的小镜像里，把编译工具全丢掉（进阶技巧）。
+- **"`prune` 会不会把我在跑的服务删了？"** → 不会删正在使用的；但会删**停止的容器、没用的镜像和缓存**。
 
 ---
 
 ## ✍️ 本章达标 · 照着做就学会
+1. `docker images` 记下某个镜像的大小
+2. 把它的 Dockerfile 基础镜像换成 `-slim` 或 `-alpine`，重新构建
+3. 再 `docker images` 对比大小
 
-**照着做：**
-```bash
-# 1. 先看原来镜像多大
-docker images
+**✅ 过关标准：** 新镜像**明显更小**；能说出至少 2 个"让镜像变小"的办法，以及 3 条安全底线。</script>
+<script type='text/plain' id='ch09'># 09 · 动手实验手册
 
-# 2. 把 Dockerfile 基础镜像换成 slim 或 alpine，重新构建一个新版本
-docker build -t myweb:opt .
-docker images   # 对比体积，应该更小
-```
-
-**✅ 过关标准：** 换成 `-slim` 或 `-alpine` 后镜像体积明显变小；能说出哪些操作能减小镜像。
-
-接下来去 [09-训练-实验手册](09-训练-实验手册.md)，把前面学的都动手做一遍。
-</script>
-<script type='text/plain' id='ch09'># 09 · 训练：实验手册（照着做 · 就学会）
-
-一共 **8 个实验**，由浅入深。**不用背任何东西**——每一个实验都是「照着敲 → 看到结果 → 就过关」。照着做下来，你就真的会用了。
-
-> **怎么用**：按顺序做，做完一个再看下一个。每步都给你**命令**和**预期结果**，看到那个结果就算这步对了。报错就把红字复制去搜，90% 有答案。
+> **怎么用**：从实验 1 开始，一个做完再做下一个。每个实验都写清了 **照抄的命令**、**👉 你应该看到什么**、**✅ 过关标准**。
+> 只要每一步都看到"预期的样子"，你就是真的会了。**报错不可怕**：把红字复制去搜，或在"新手困惑"里找答案。
 
 ---
 
-## 实验 1：安装并验证 Docker
+![8 个实验路线图](images/lab-8-experiments.svg)
 
-**目标**：确认 Docker 装好了，能正常运行。
-
-**步骤：**
+## 实验 1 · 确认 Docker 能用
+**目标**：确认装好了。
 ```bash
-# 1. 看版本
 docker --version
-
-# 2. 运行官方测试程序（第一次会自动下载）
 docker run hello-world
 ```
-
-**预期结果**：看到打印出 "Hello from Docker!"。
-
-**检查点（自测）：**
-- [ ] `docker --version` 输出版本号
-- [ ] `docker run hello-world` 打印出欢迎信息
-- [ ] 成功后用 `docker ps -a` 能看到一个已退出的 hello-world 容器
+👉 **你应该看到**：版本号；以及 **"Hello from Docker!"**
+✅ **过关**：两条都成功。
 
 ---
 
-## 实验 2：用镜像启动一个网页容器
-
-**目标**：用 Nginx 镜像启动容器，并通过浏览器访问。
-
-**步骤：**
+## 实验 2 · 跑起一台网页服务器
+**目标**：用一条命令拥有一个网站。
 ```bash
-# 1. 下载 nginx 镜像（可选，run 会自动下载）
-docker pull nginx
-
-# 2. 后台启动，映射端口，起名
 docker run -d -p 8080:80 --name myweb nginx
-
-# 3. 看看是否在运行
 docker ps
 ```
-
-**预期结果**：浏览器打开 `http://localhost:8080`，看到 Nginx 欢迎页。
-
-**检查点（自测）：**
-- [ ] `docker ps` 里能看到 `myweb` 在运行，端口是 `0.0.0.0:8080->80/tcp`
-- [ ] 浏览器能访问到 Nginx 页面
-- [ ] 我能用 `docker logs myweb` 看日志
-
-> 打不开网页？检查端口是否被占用，换个端口如 `-p 8090:80` 试试；Windows 防火墙可能需放行。
-
-**清理：**
-```bash
-docker stop myweb && docker rm myweb
-```
+👉 **你应该看到**：`docker ps` 里 `myweb` 状态 `Up`；
+浏览器打开 `http://localhost:8080` 出现 **"Welcome to nginx!"**。
+✅ **过关**：浏览器能看到 Nginx 页面。
+**收拾**：`docker stop myweb && docker rm myweb`
 
 ---
 
-## 实验 3：容器生命周期与交互
-
-**目标**：理解容器"启动—运行—停止—删除"，学会进容器。
-
-**步骤：**
+## 实验 3 · 进容器里看看再出来
+**目标**：学会"钻进去"和"退出来"。
 ```bash
-# 1. 启动一个交互式 Ubuntu 容器
-docker run -it --name myubuntu ubuntu bash
-
-# 2. 在里面敲几条命令看看（这是个干净的 Linux）
-ls
-ls -la
-
-# 3. 退出容器
+docker run -d --name box nginx
+docker exec -it box bash
+# 进去后：
+ls /usr/share/nginx/html
 exit
-
-# 4. 查看所有容器（含停止的）
-docker ps -a
-
-# 5. 重新启动并进入
-docker start -ai myubuntu
-exit
-
-# 6. 删除容器
-docker rm myubuntu
+docker rm -f box
 ```
-
-**检查点（自测）：**
-- [ ] 能进入容器并执行 `ls`
-- [ ] 能理解 `exit` 后容器停止，`docker ps` 看不到，`docker ps -a` 看得到
-- [ ] 能删除容器，`docker ps -a` 后不再有它
+👉 **你应该看到**：进容器后提示符变了（像 `root@a1b2c3:/#`）；`ls` 列出 `index.html`；`exit` 退回你自己的终端。
+✅ **过关**：能进出容器，并理解"`exit` 出来容器还在跑"。
 
 ---
 
-## 实验 4：写 Dockerfile 构建自己的镜像
+## 实验 4 · 做一个属于你自己的镜像
+**目标**：写 3 行菜谱，做出自己的网页镜像。
+1. 建 `myweb` 文件夹，放入两个文件：
 
-**目标**：自己做一个网页镜像。
-
-**步骤：**
-1. 新建文件夹 `myproj`，进入。
-2. 创建 `index.html`：
-   ```html
-   <h1>我的 Docker 镜像</h1>
-   ```
-3. 创建 `Dockerfile`：
-   ```dockerfile
-   FROM nginx
-   COPY index.html /usr/share/nginx/html/index.html
-   EXPOSE 80
-   ```
-4. 构建并运行：
-   ```bash
-   docker build -t myweb:v1 .
-   docker run -d -p 8080:80 --name myweb1 myweb:v1
-   ```
-5. 浏览器访问 `http://localhost:8080`。
-
-**检查点（自测）：**
-- [ ] `docker images` 里有 `myweb:v1`
-- [ ] 浏览器显示你自己的网页
-- [ ] 我能解释 `FROM / COPY / EXPOSE` 各自作用
-
----
-
-## 实验 5：数据卷——数据不会丢
-
-**目标**：体会挂载后，容器重启/删除了数据还在。
-
-**步骤：**
-```bash
-# 1. 创建命名卷
-docker volume create mydata
-
-# 2. 启动容器，把卷挂到 /data（用 busybox 写个文件）
-docker run -d --name write1 -v mydata:/data busybox sh -c "echo hello > /data/a.txt; sleep 1000"
-
-# 3. 换一个容器，用同一个卷，看看能不能读到
-docker run --rm -v mydata:/data busybox cat /data/a.txt
-
-# 4. 原容器删掉，数据还在卷里
-docker rm -f write1
-docker run --rm -v mydata:/data busybox cat /data/a.txt
+`index.html`
+```html
+<h1>这是我自己的网站</h1>
 ```
-
-**检查点（自测）：**
-- [ ] `cat /data/a.txt` 能输出 `hello`
-- [ ] 删除容器后，数据仍在卷里（最后一步还能读到）
-- [ ] 我能说出"为什么容器删了数据还在"（因为存在卷里）
-
-> 提示：Windows 上若命令报权限问题，可改用绑定挂载的写法并检查路径。
-
----
-
-## 实验 6：网络——两个容器互通
-
-**目标**：让两个容器在同一网络内用名字互相访问。
-
-**步骤：**
-```bash
-# 1. 创建自定义网络
-docker network create mynet
-
-# 2. 启动两个容器，都加入 mynet
-docker run -d --name alice --network mynet nginx
-docker run -d --name bob --network mynet nginx
-
-# 3. 进入 alice，用 bob 的名字访问它
-docker exec -it alice bash
-#   容器内执行（若没有 curl，先 apt-get update && apt-get install -y curl）
-curl http://bob
-```
-
-**检查点（自测）：**
-- [ ] 在 alice 容器里能 `curl http://bob` 访问到
-- [ ] 我能说出"同一网络内容器用名字互通"这一点
-
-> 若容器里没 `curl`，用 `apt-get install` 装；装不上也不影响理解，报"能解析到主机名"即可。
-
----
-
-## 实验 7：Compose 启动 Web + 数据库（综合项目）
-
-**目标**：用 Compose 一次启动"应用 + 数据库"。
-
-**准备：** 一个简单的 Python Web 程序。在同目录建 `app.py`：
-```python
-from flask import Flask
-import psycopg2
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "你好，Compose + 数据库！"
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
-```
-
-**建 `Dockerfile`：**
+`Dockerfile`
 ```dockerfile
-FROM python:3.11-slim
-WORKDIR /app
-COPY . .
-RUN pip install flask psycopg2-binary
-CMD ["python", "app.py"]
+FROM nginx
+COPY index.html /usr/share/nginx/html/index.html
+EXPOSE 80
 ```
+2. 进入文件夹并构建、运行：
+```bash
+cd myweb
+docker build -t mysite:1.0 .
+docker run -d -p 8080:80 --name s1 mysite:1.0
+```
+👉 **你应该看到**：`Successfully tagged mysite:1.0`；浏览器显示 **"这是我自己的网站"**（不是你之前看到的 Nginx 默认页）。
+✅ **过关**：`docker images` 里有 `mysite:1.0`，浏览器显示**你自己的字**。
 
-**建 `docker-compose.yml`：**
+---
+
+## 实验 5 · 让数据不丢（数据卷）
+**目标**：亲眼看到"没挂卷会丢、挂了卷不丢"。
+```bash
+# ① 不挂卷：数据随容器消失
+docker run --rm busybox sh -c "echo 你好 > /data.txt"
+docker run --rm busybox cat /data.txt          # 👉 报错 No such file：数据没了
+
+# ② 挂数据卷：数据留住了
+docker volume create mydata
+docker run --rm -v mydata:/data busybox sh -c "echo 你好 > /data/a.txt"
+docker run --rm -v mydata:/data busybox cat /data/a.txt   # 👉 输出 你好
+```
+✅ **过关**：第 ① 步报错、第 ② 步输出 `你好`，说明你**真的理解了"卷"**。
+
+---
+
+## 实验 6 · 让两个容器互相访问
+**目标**：用"名字"互相找到对方。
+```bash
+docker network create mynet
+docker run -d --name alice --network mynet nginx
+docker run -d --name bob   --network mynet nginx
+docker exec -it alice sh -c "apt-get update >/dev/null 2>&1; apt-get install -y curl >/dev/null 2>&1; curl -s http://bob | head -3"
+```
+👉 **你应该看到**：打印出 bob 那边的 HTML（含 "Welcome to nginx"）。
+✅ **过关**：在 alice 里能用**名字 `bob`**（不是 IP）访问到对方。
+
+---
+
+## 实验 7 · 用 Compose 一次起两个服务
+**目标**：一条命令起"网页 + 数据库"。
+1. 建 `docker-compose.yml`：
 ```yaml
 services:
   web:
-    build: .
+    image: nginx
     ports:
-      - "5000:5000"
-    depends_on:
-      - db
+      - "8080:80"
   db:
     image: postgres:16
     environment:
@@ -1958,392 +1471,286 @@ services:
 volumes:
   dbdata:
 ```
-
-**运行：**
+2. 运行：
 ```bash
-docker compose up -d --build
+docker compose up -d
 docker compose ps
 docker compose logs web
+docker compose down
 ```
-
-**检查点（自测）：**
-- [ ] `docker compose up -d --build` 成功启动
-- [ ] `docker compose ps` 显示 `web` 和 `db` 都 running
-- [ ] 浏览器访问 `http://localhost:5000` 看到文字
-- [ ] 我能用 `docker compose down` 一键停止
+👉 **你应该看到**：`docker compose ps` 里 `web`、`db` 都是 **running**；`down` 后全部停止。
+✅ **过关**：能一条命令起、一条命令停；浏览器能打开 `http://localhost:8080`。
 
 ---
 
-## 实验 8：优化镜像（最佳实践）
-
-**目标**：对比优化前后的镜像大小。
-
-**步骤：**
-
-1. 先看原镜像大小：
-   ```bash
-   docker images | grep myweb
-   ```
-   （若之前做过，记录大小）
-
-2. 把实验 4 的 Dockerfile 优化一下（例如基于 `nginx:alpine`）：
-   ```dockerfile
-   FROM nginx:alpine
-   COPY index.html /usr/share/nginx/html/index.html
-   EXPOSE 80
-   ```
-
-3. 重新构建一个版本看大小变化：
-   ```bash
-   docker build -t myweb:opt .
-   docker images | grep myweb
-   ```
-
-**检查点（自测）：**
-- [ ] `myweb:opt` 比原来更小
-- [ ] 我能说出哪些做法能减小镜像（用 slim/alpine、合并 RUN 层）
-- [ ] 我能做一次 `docker system prune` 清理（并知道它删了什么）
-
-> 提示：`docker system prune` 会删除未被使用的镜像/网络/容器/缓存，记得确认后再做。
-
----
-
-## 全部做完后
-
-8 个实验都跑通，说明你已经掌握了日常 Docker 90% 的操作。现在可以用 [10-考试题](10-考试-试题与答案.md) 来检验自己了！
-
-> 实验顺序参考章节：1→[03](03-安装与环境准备.md)，2~3→[04](04-核心命令.md)，4~5→[05](05-Dockerfile与镜像构建.md)与[06](06-数据卷与网络.md)，6→[06](06-数据卷与网络.md)，7→[07](07-Docker-Compose.md)，8→[08](08-最佳实践与安全.md)。
-</script>
-<script type='text/plain' id='ch11'># 11 · Nacos 入门（零基础 · 照着做就学会）
-
-学完 Docker 后，这一章带你认识微服务里常说的 **Nacos**。别被名字吓到，它其实就是两个工具：**服务发现（注册中心）+ 配置中心**。跟着做，跑起来你就懂了。
-
-> 你只需要已经会用 Docker（上一阶段学的），不要求会 Java。
-
----
-
-## 1. 为什么需要 Nacos？
-
-### 曾经的烦恼
-你写了一个网站 A。有一天系统变大了，多了一个网站 B，还要共享同一套配置（比如同一个数据库地址）。于是：
-- A 和 B 要互相找对方（A 调用 B，但 B 的地址经常变）
-- 配置改一下（比如数据库密码变了），要一个个去每台机器改，容易漏
-
-### Nacos 的思路
-Nacos 当**中间人**：
-- **服务发现**：所有服务启动时都来 Nacos "报到"（注册）。谁要调用谁，就找 Nacos 要地址。
-- **配置中心**：配置统一放 Nacos，服务启动时来拉取；改了配置，Nacos 通知服务自动更新。
-
-> 一句话：**Nacos 让服务们"找得到彼此"，让配置"改一处、处处生效"。**
-
----
-
-## 2. Nacos 是什么 / 能干嘛
-
-Nacos = **N**aming and **C**onfiguration **S**ervice（命名与配置服务）。两大能力：
-
-| 能力 | 作用 | 类比 |
-| --- | --- | --- |
-| 服务发现（注册中心） | 记录每个服务在哪个地址，方便互相调用 | 通讯录 |
-| 配置中心 | 统一管理配置，改一处全局生效 | 公司的统一公告板 |
-
-> 它常和 **Spring Cloud 微服务**一起用，但你**不学 Java 也能**先把它跑起来、看明白它干嘛。
-
----
-
-## 3. 核心概念（看懂这几个词）
-
-| 术语 | 意思 |
-| --- | --- |
-| 服务 Service | 一个被调用的程序/模块（如"订单服务"） |
-| 实例 Instance | 一个正在运行的服务（一个服务可以跑多个实例） |
-| 注册 Register | 服务启动后告诉 Nacos"我在这里" |
-| 发现 Discover | 调用方问 Nacos"要调用的服务在哪" |
-| 命名空间 Namespace | 隔离不同环境（如开发/测试/生产） |
-| 配置 Config | 程序需要的设置（数据库地址、开关等） |
-
-> 📷 架构示意图：
-> ![Nacos 架构](images/nacos-architecture.svg)
-
----
-
-## 4. 用 Docker 把 Nacos 跑起来
-
-Nacos 官方提供镜像，**一条命令**就能起一个单机版：
-
+## 实验 8 · 把镜像做小一点
+**目标**：体会"优化"的效果。
+1. 看现在多大：`docker images`
+2. 把 Dockerfile 第一行换成小版本，重新构建：
+```dockerfile
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/index.html
+EXPOSE 80
+```
 ```bash
-docker run -d --name mynacos \
-  -e MODE=standalone \
-  -p 8848:8848 -p 9848:9848 \
-  nacos/nacos-server:v2.2.3
+docker build -t mysite:small .
+docker images
 ```
-
-- `MODE=standalone` → 单机模式（学习够用）
-- 端口 `8848` → 控制台/API；`9848` → gRPC 端口
-
-等几秒，打开浏览器访问：
-
-```
-http://localhost:8848/nacos
-```
-
-> 默认登录：用户名 `nacos`，密码 `nacos`（首次可能需要重置）。
+👉 **你应该看到**：`mysite:small` 比原来的**小很多**。
+✅ **过关**：能说出至少 2 个让镜像变小的方法。
 
 ---
 
-## 5. 上手：在控制台里点一点
+## 😵 做实验中常见的 4 个问题
+- **"端口被占用（port is already allocated）"** → 换个端口，如把 `-p 8080:80` 改成 `-p 8090:80`。
+- **"名字已被使用（name is already in use）"** → 先用 `docker rm -f 名字` 删掉旧的。
+- **"curl: command not found"** → 容器太精简，先 `apt-get update && apt-get install -y curl`（实验 6 里已包含）。
+- **"改了 index.html 怎么网页没变"** → 要**重新 build** 再 run（见第 05 章）。
 
-### ① 配置中心（先试这个）
-进入控制台 → **配置管理 → 配置列表** → **新建配置**：
+---
+
+## ✍️ 全部做完 = 你已经能独立做容器化部署了
+做完 1–8 个实验，你就掌握了：装、跑、进容器、做镜像、存数据、容器互通、Compose、优化。
+接下来去 [11 Nacos](11-Nacos入门.md) 等进阶章节，或点左侧 **🔁 复习** 巩固记忆。</script>
+<script type='text/plain' id='ch11'># 11 · Nacos 入门
+
+> **本章位置：中级第一课。顺序：① 先懂"为什么需要它" → ② 用 Docker 跑起来 → ③ 打开控制台 → ④ 亲手加一条配置 → ⑤ 看看服务列表。**
+
+## 🎯 一句话先懂
+Nacos 是服务们的**"通讯录" + "统一公告板"**：
+- **通讯录**（服务发现）：谁在哪，一查就知道
+- **公告板**（配置中心）：配置改一处，所有服务都看到
+
+## 🧠 生活比喻
+一个公司里：
+- 服务 A 想找服务 B → 翻**通讯录**（Nacos 告诉你 B 的地址）
+- 老板改了一条规定 → 贴到**公告板**上，所有人自动看到（不用挨个打电话）
+
+![Nacos 架构](images/nacos-architecture.svg)
+
+---
+
+## ▶️ 第一步：用 Docker 一键跑起来
+```bash
+docker run -d --name mynacos -e MODE=standalone -p 8848:8848 -p 9848:9848 nacos/nacos-server:v2.2.3
+docker ps
+```
+👉 **你应该看到**：`mynacos` 状态 `Up`。
+> 参数解释：`-e MODE=standalone` ＝ "单机模式，够学习用"；`-p 8848:8848` ＝ 把控制台端口放出来。
+
+## ▶️ 第二步：打开控制台
+浏览器访问：**http://localhost:8848/nacos**
+登录：用户名 `nacos` / 密码 `nacos`（首次可能要你改密码）
+
+👉 **你应该看到**：Nacos 的网页控制台（左边有菜单，像后台管理系统）。
+
+## ▶️ 第三步：亲手加一条"配置"（这就是配置中心）
+控制台 → **配置管理 → 配置列表 → 新建配置**（右侧的 + 号）：
 - Data ID：`app.yaml`
 - Group：`DEFAULT_GROUP`
 - 格式：`YAML`
-- 内容：随便写一行，比如 `name: hello`
+- 内容：
+```yaml
+name: hello
+```
 
-点 **发布**。下面的"配置列表"里出现 `app.yaml`，说明**配置已保存**。
+点 **发布**。
+👉 **你应该看到**：配置列表里出现 **`app.yaml`** 这一行 —— **你已经用过"配置中心"了**。
 
-**这就是配置中心**：以后程序启动时来拿这份配置，改这一处，全局生效。
+## ▶️ 第四步：看一眼"服务列表"（注册中心的入口）
+控制台 → **服务管理 → 服务列表**。
+👉 **你现在可能看到**：列表是空的（正常！）—— 因为还没有真正的服务注册进来。
+> 以后程序启动时**自动来注册**，这里就会出现一个个服务；你也可以点"新建服务"手动造一个看看。
 
-### ② 服务发现（了解一下）
-进入控制台 → **服务管理 → 服务列表**。这里以后会看到一个个注册进来的服务；你也可以点**新建服务**试一下（填个服务名即可）。真正注册一般由程序启动时自动完成。
+---
+
+## ❓ 自测 3 问
+1. Nacos 的两大能力是什么？
+2. 装好的 Nacos 控制台，默认从哪个端口访问？
+3. "配置中心"解决了什么麻烦？
+
+**答案：**
+1. **服务发现（注册中心）** 和 **配置中心**。
+2. **8848**（`http://localhost:8848/nacos`）。
+3. 不用一台台改配置：**改一处、所有服务自动拿到新配置**。
+
+---
+
+## 😵 新手困惑
+- **"控制台打不开？"** → 三查：容器在跑吗（`docker ps`）；端口是不是 8848；启动要等十几秒（Nacos 启动稍慢）。
+- **"服务列表是空的？"** → 正常。要等你把**真正的服务**接进 Nacos，它才会注册上来。
+- **"我改了配置，程序会自己变吗？"** → 程序需要接入 Nacos 客户端（通常配合 Spring Cloud），才能自动感知变更。
+- **"Nacos 和 Docker 什么关系？"** → 没关系。Nacos 只是个软件，**我们用 Docker 把它跑起来**（省得手动装 Java 环境）。
 
 ---
 
 ## ✍️ 本章达标 · 照着做就学会
-
-**照着做：**
 ```bash
-docker run -d --name mynacos \
-  -e MODE=standalone \
-  -p 8848:8848 -p 9848:9848 \
-  nacos/nacos-server:v2.2.3
+docker run -d --name mynacos -e MODE=standalone -p 8848:8848 -p 9848:9848 nacos/nacos-server:v2.2.3
 ```
-然后浏览器打开 `http://localhost:8848/nacos`，用 `nacos / nacos` 登录。
+然后浏览器打开 `http://localhost:8848/nacos` 登录，并在**配置管理**里发布一条 `app.yaml`。
+**✅ 过关标准：** 能登录控制台，并在配置列表看到你新建的配置。
+**收拾**：`docker stop mynacos && docker rm mynacos`</script>
+<script type='text/plain' id='ch12'># 12 · Jenkins 入门
 
-**✅ 过关标准：** 能打开并登录 Nacos 控制台；在「配置管理」新建并发布一条配置，能在配置列表看到它。
+> **本章位置：中级。顺序：① 先懂 CI/CD → ② 用 Docker 起 Jenkins → ③ 拿初始密码登录 → ④ 建一个任务跑起来 → ⑤ 看控制台输出。**
 
-**清理（不学了再删）：**
+## 🎯 一句话先懂
+Jenkins 是个**"自动上线机器人"**：你把"拉代码 → 打包 → 测试 → 发布"写成流水线，以后**点一下（或提交代码）它自动全做完**。
+
+## 🧠 生活比喻
+- 手工上线 = 你**每次亲自**洗菜、切菜、炒菜、端盘
+- Jenkins = 你把步骤写成**"自动炒菜机"的程序**，以后按一个按钮就出菜
+
+![Jenkins 流水线](images/jenkins-pipeline.svg)
+
+**先搞懂两个词（大白话）**
+- **CI（持续集成）**：一改代码就**自动构建 + 跑测试**，早点发现问题
+- **CD（持续交付/部署）**：测试过了就**自动发布**到服务器
+
+---
+
+## ▶️ 第一步：用 Docker 起 Jenkins
 ```bash
-docker stop mynacos && docker rm mynacos
+docker run -d --name myjenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
 ```
+> 解释：`-v jenkins_home:/var/jenkins_home` ＝ 把 Jenkins 的数据存到**命名卷**里，重启不丢。
 
-学完去 [12-Jenkins入门](12-Jenkins入门.md)，认识自动化部署 Jenkins。
-</script>
-<script type='text/plain' id='ch12'># 12 · Jenkins 入门（零基础 · 照着做就学会）
-
-这一章认识 **Jenkins**——一个帮你**自动构建、自动部署**的工具（CI/CD）。它听起来高级，其实就是"一键自动帮你把代码变成能跑的、并发布出去"的机器人。跟着做，跑起来就懂了。
-
-> 只需要已会用 Docker（上一阶段学的），不要求会 Java。
-
----
-
-## 1. 为什么需要 Jenkins？
-
-### 曾经的烦恼
-你写好代码，想上线。每次都要：手动拉代码 → 装依赖 → 打包 → 测试 → 放到服务器 → 重启。**步骤又多又累，还容易漏**。
-
-### Jenkins 的思路
-把上面这些步骤写成**流水线**，Jenkins 每次自动帮你执行一遍。你只管：**推代码 → 点一下 → 等它自动完成**。
-
-> 一句话：**Jenkins 把你的"手工劳作"变成"一键自动"。**
-
----
-
-## 2. 什么是 CI/CD？
-
-这两个词常和 Jenkins 一起出现：
-
-| 术语 | 全称 | 意思 |
-| --- | --- | --- |
-| CI | 持续集成 Continuous Integration | 频繁地把代码合并、自动**构建+测试**，尽早发现问题 |
-| CD | 持续交付/部署 Continuous Delivery/Deployment | 自动把构建好的**发布**到测试/生产环境 |
-
-> 类比：**CI 是"每改一点就自动检查一遍"；CD 是"检查通过就自动发出去"。** Jenkins 就是帮你干这两件事的"流水线工厂"。
-
----
-
-## 3. 核心概念
-
-| 术语 | 意思 |
-| --- | --- |
-| 主节点 master | Jenkins 主服务（你访问的网页） |
-| 节点 node/agent | 真正干活的机器（默认就是主节点本身） |
-| 任务 job | 一次要自动跑的工作 |
-| 构建 build | 执行一次任务 |
-| 流水线 pipeline | 用一串步骤描述"要从哪做到哪"（常写成 Jenkinsfile） |
-| 触发器 trigger | 什么时候自动开始（如每次提交代码） |
-
-> 📷 流水线示意图：
-> ![Jenkins 流水线](images/jenkins-pipeline.svg)
-
----
-
-## 4. 用 Docker 把 Jenkins 跑起来
-
-Jenkins 官方镜像，一条命令启动：
-
-```bash
-docker run -d --name myjenkins \
-  -p 8080:8080 -p 50000:50000 \
-  -v jenkins_home:/var/jenkins_home \
-  jenkins/jenkins:lts
-```
-
-- `-p 8080:8080` → 网页控制台在 `http://localhost:8080`
-- `-v jenkins_home:/var/jenkins_home` → 数据存到命名卷，重启不丢
-- `jenkins/jenkins:lts` → 长期支持版
-
-等它完全启动（第一次会做一些初始化，稍等几分钟），浏览器打开：
-
-```
-http://localhost:8080
-```
-
-### 获取初始管理员密码
-Jenkins 首次启动会给你一个解锁密码，在容器里看：
-
+## ▶️ 第二步：拿"初始密码"并登录
 ```bash
 docker exec myjenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
+👉 **你应该看到**：一串字母数字（就是初始密码）。
+浏览器打开 **http://localhost:8080** → 粘贴这串密码 → 按提示**安装推荐插件** → **创建管理员账号**。
 
-把那串密码粘进网页的"解锁 Jenkins"，然后按提示**安装推荐插件**、**创建管理员账号**。
+👉 **你应该看到**：进入 Jenkins 主界面（一堆英文菜单，能看到 "New Item / 新建任务"）。
+> ⚠️ 第一次启动要等 1~3 分钟（它在初始化）。
+
+## ▶️ 第三步：建一个任务并跑起来
+1. 点 **新建任务（New Item）** → 选 **Freestyle project（自由风格项目）** → 起名 `myjob` → 确定
+2. 找到 **Build Steps（构建步骤）** → **Execute shell（执行 shell）** → 填入：
+```bash
+echo "你好，Jenkins！"
+date
+```
+3. 保存 → 点 **立即构建（Build Now）**
+4. 点这次构建的编号（如 `#1`）→ **Console Output（控制台输出）**
+
+👉 **你应该看到**：输出里有 **"你好，Jenkins！"** 和当前时间；构建结果是**蓝色圆点**（成功）。
+
+**✅ 到这一步，你已经用 Jenkins 跑了一条自动化流水线。**
 
 ---
 
-## 5. 上手：创建一个任务并构建
+## ❓ 自测 3 问
+1. CI 和 CD 分别是什么意思（大白话）？
+2. Jenkins 的初始管理员密码从哪里取？
+3. Jenkins 用哪条命令可以设置"数据不要丢"？
 
-1. 登录后点 **新建任务** → 选 **Freestyle project（自由风格项目）** → 起个名字 `myjob` → **确定**。
-2. 在 **构建 (Build)** 部分 → **添加构建步骤** → **Execute shell**。
-3. 在里面写一句简单命令：
-   ```bash
-   echo "你好，Jenkins！"
-   date
-   ```
-4. 保存，点 **立即构建 (Build Now)**。
-5. 点这次构建的 **#1** → **控制台输出 (Console Output)**，看到打印的 `你好，Jenkins！` 和日期，**构建成功（蓝色）**。
+**答案：**
+1. **CI＝一改代码就自动构建+测试**；**CD＝测试通过就自动发布**。
+2. 从容器里读：`docker exec myjenkins cat /var/jenkins_home/secrets/initialAdminPassword`。
+3. 启动时挂**命名卷**：`-v jenkins_home:/var/jenkins_home`。
 
-**这就是 CI 的本质**：你只管写命令，Jenkins 自动执行并告诉你结果。
+---
+
+## 😵 新手困惑
+- **"8080 端口被占用？"** → 你之前的 nginx 可能也在 8080。换成 `-p 8081:8080`，然后访问 `http://localhost:8081`。
+- **"一直转圈/打不开？"** → Jenkins 启动慢，等 1~3 分钟；也可 `docker logs myjenkins` 看进度。
+- **"初始密码文件读不到？"** → 容器还没启动完；等一会儿再读。
+- **"蓝色点=成功，红色=失败"** → 对。点进构建编号看"控制台输出"就知道失败在哪一步。
 
 ---
 
 ## ✍️ 本章达标 · 照着做就学会
-
-**照着做：**
 ```bash
-# 1. 启动 Jenkins
-docker run -d --name myjenkins \
-  -p 8080:8080 -p 50000:50000 \
-  -v jenkins_home:/var/jenkins_home \
-  jenkins/jenkins:lts
-
-# 2. 查看初始密码
+docker run -d --name myjenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
 docker exec myjenkins cat /var/jenkins_home/secrets/initialAdminPassword
 ```
+浏览器打开 `http://localhost:8080` → 解锁 → 建 Freestyle 任务 → 加 `echo` 步骤 → **立即构建**。
+**✅ 过关标准：** 能登录 Jenkins，并**成功构建一次**（蓝色点），控制台输出里能看到你写的 `echo` 内容。
+**收拾**：`docker stop myjenkins && docker rm myjenkins`</script>
+<script type='text/plain' id='ch13'># 13 · Git 入门
 
-浏览器打开 `http://localhost:8080` → 用初始密码解锁 → 装推荐插件并建账号 → 新建一个 Freestyle 任务，加 `echo` 构建步骤 → **立即构建**。
+> **本章位置：中级（CI/CD 的前置技能）。顺序：① 装 Git 并报名字 → ② 建仓库 → ③ 存一次档 → ④ 看历史 → ⑤ 推到 GitHub。**
 
-**✅ 过关标准：** 打开 Jenkins 控制台；能创建一个任务并**成功构建（蓝色）**；在控制台输出看到自己写的 `echo` 内容。
+## 🎯 一句话先懂
+Git 是**"代码的时间机器 + 云备份"**：每次改动都存一个"存档"，随时能回退、能看谁改了什么，还能推到网上和别人协作。
 
-**清理（不学了再删）：**
-```bash
-docker stop myjenkins && docker rm myjenkins
-docker volume rm jenkins_home
-```
-
-学完后，你可以回 [09-训练-实验手册](09-训练-实验手册.md) 复习，或进入 [10-考试](10-考试-试题与答案.md) 自测。
-</script>
-<script type='text/plain' id='ch13'># 13 · Git 入门（零基础 · 照着做就学会）
-
-你已会 Linux 和 Docker 的基础。**Git** 是版本控制工具，也是后面 GitLab CI / Jenkins 自动化的**源头**。这一章照着做，你就知道怎么管理代码、把代码推到远程仓库。
-
----
-
-## 1. 为什么需要 Git？
-
-### 曾经的烦恼
-你改了代码，想回到上一版？改了三天，忘了改到哪了？和别人一起改，互相覆盖？
-
-### Git 的思路
-Git 给每一次改动**拍快照**，你能随心**回退、查看、合并**，还能把代码**推到远程仓库**（如 GitHub）和团队协作。
-
-> 一句话：**Git 是代码的"时间机器 + 版本账本"。**
+## 🧠 生活比喻
+打游戏时的**存档**：
+- `commit` ＝ 存一次档
+- `log` ＝ 看存档列表
+- `push` ＝ 把存档上传到云端（GitHub）
+- `branch` ＝ 开一条"支线剧情"，试错了也不影响主线
 
 ---
 
-## 2. 核心概念
+![Git 四个区域与三个动作](images/git-four-areas.svg)
 
-| 术语 | 意思 |
-| --- | --- |
-| 仓库 Repository | 你的代码 + 它的全部历史 |
-| 提交 Commit | 一次改动快照 |
-| 分支 Branch | 一条独立的开发线（可并行） |
-| 合并 Merge | 把一个分支合回另一个 |
-| 克隆 Clone | 把远程仓库下载到本地 |
-| 拉取/推送 Pull/Push | 从远程拉/推送到远程 |
-
----
-
-## 3. 在 Linux 上装 Git
-
+## ▶️ 第一步：装 Git，并告诉它你是谁
 ```bash
-# Ubuntu/Debian
-sudo apt-get update && sudo apt-get install -y git
-
-# 验证
-git --version
-```
-
-**配置身份（第一次）：**
-```bash
+git --version                                  # 有版本号＝装好了（Ubuntu 装：sudo apt-get install -y git）
 git config --global user.name "你的名字"
 git config --global user.email "you@example.com"
 ```
+👉 **你应该看到**：`git --version` 打印出版本号（配置命令没有输出是正常的）。
+
+## ▶️ 第二步：建一个自己的仓库（存档柜）
+```bash
+mkdir myproj
+cd myproj
+git init
+```
+👉 **你应该看到**：`Initialized empty Git repository in .../myproj/.git/`。
+
+## ▶️ 第三步：存档（最常用的三步）
+```bash
+echo "# 我的项目" > README.md     # 建一个文件
+git add README.md                 # 把它放进"待存档"清单
+git commit -m "第一次提交"         # 存一次档（-m 后面是存档说明）
+git log --oneline                 # 看存档记录
+```
+👉 **你应该看到**：`git log --oneline` 里有一行，含你的说明"第一次提交"。
+
+> 口诀：**改了文件 → `git add`（挑好）→ `git commit -m "说明"`（存档）**。
+
+## ▶️ 第四步：推到 GitHub（云端备份）
+1. 在 GitHub 网站新建一个仓库，复制它的地址（形如 `https://github.com/你/proj.git`）
+2. 关联并上传：
+```bash
+git remote add origin https://github.com/你/proj.git
+git branch -M main
+git push -u origin main
+```
+👉 **你应该看到**：上传进度，最后 `branch 'main' set up to track ...`；刷新 GitHub 页面，**能看到你的文件**。
 
 ---
 
-## 4. 上手：做一个本地仓库
+## ❓ 自测 3 问
+1. 把一次改动"存进 Git"的三步是什么？
+2. `git log --oneline` 是干什么的？
+3. `git push` 和 `git commit` 差在哪？
 
-在你自己的一个文件夹里：
-```bash
-git init                      # 初始化仓库
-echo "# 我的项目" > README.md # 建一个文件
-git add README.md             # 把文件放上"待提交"清单
-git commit -m "第一次提交"     # 提交
-git log --oneline             # 看提交历史
-```
-
-**再试试分支：**
-```bash
-git branch                    # 看分支
-git checkout -b feature       # 新建并切到 feature 分支
-echo "新功能" >> README.md
-git add README.md && git commit -m "加新功能"
-git checkout master           # 切回主分支
-git merge feature             # 合并
-```
+**答案：**
+1. `git add 文件` → `git commit -m "说明"` →（要上传再加 `git push`）。
+2. 看**提交历史**（一行一条存档记录）。
+3. `commit` 是**存到本机**的仓库；`push` 是**上传到远程**（GitHub）。
 
 ---
 
-## 5. 推到远程仓库（GitHub）
-
-1. 在 GitHub 新建一个仓库，复制它的地址（如 `https://github.com/you/proj.git`）。
-2. 关联并推送：
-```bash
-git remote add origin https://github.com/you/proj.git
-git push -u origin master
-```
-
-> 以后 `git add` → `git commit` → `git push`，这就是每天的工作流。**Jenkins/GitLab 就是从这样的远程仓库拉代码做自动化的。**
+## 😵 新手困惑
+- **"为什么要 `git add` 不能直接 commit？"** → 它是"挑本次要存档哪些文件"，避免把不想提交的东西也存进去。
+- **"push 让我输入密码？"** → GitHub 现在要**令牌（Personal Access Token）**当密码用（GitHub → Settings → Developer settings 里生成）。
+- **"改坏了想回退？"** → `git log` 找到上一个存档，`git checkout 存档号 -- 文件名` 或 `git reset` 回退。
+- **"分支是必须的吗？"** → 初学不用。先熟练 **add → commit → push** 这条主线。
 
 ---
 
 ## ✍️ 本章达标 · 照着做就学会
-
-**照着做：**
 ```bash
 git config --global user.name "你的名字"
 git config --global user.email "you@example.com"
-
 mkdir mydemo && cd mydemo
 git init
 echo "hello git" > a.txt
@@ -2351,608 +1758,1304 @@ git add a.txt
 git commit -m "first commit"
 git log --oneline
 ```
+**✅ 过关标准：** `git log --oneline` 能看到你刚提交的那条记录。</script>
+<script type='text/plain' id='ch14'># 14 · Kubernetes 入门
 
-**✅ 过关标准：** 成功 `git init`、`add`、`commit`，`git log` 能看到你的提交记录。
+> **本章位置：中级的关键一步（涨薪大头）。顺序：① 先懂它解决什么 → ② 起一个集群 → ③ 看节点 → ④ 跑一个应用 → ⑤ 给它一个固定入口 → ⑥ 扩容与清理。**
 
-**进阶（可选）：** 在 GitHub 建一个仓库，`git push` 成功。
+## 🎯 一句话先懂
+Docker 管**一台机器上的几个容器**；**K8s 管"一大群机器上的成百上千个容器"**：
+**自动安排放哪、挂了自动重启、忙了自动加副本**。
 
-学完去 [14-Kubernetes入门](14-Kubernetes入门.md)，走向容器编排。
-</script>
-<script type='text/plain' id='ch14'># 14 · Kubernetes 入门（零基础 · 照着做就学会）
+## 🧠 生活比喻
+- Docker ＝ 你自己在家做菜（一两个锅）
+- **K8s ＝ 餐厅经理**：来多少客人、几个厨师上班、谁请假了补人、哪个灶忙了加人 —— 他盯着**"该有的样子"**，不一样就立刻调整。
 
-你已经会 Docker（单机容器）。**Kubernetes（K8s）** 是把很多容器**大规模编排、自动伸缩、自动恢复**的平台。这是运维涨薪路上最值钱的一步。跟着做，先用 K8s 跑起一个应用。
-
-> 已有 Docker 基础即可。这一章你会在本机用 `k3d`（把 K8s 跑在 Docker 里）快速起集群，体验真正的集群管理。
-
----
-
-## 1. 为什么需要 K8s？
-
-### 曾经的烦恼
-用 Docker 一个一个容器手动管理。当你有几十上百个容器：谁来保证它们跑着？某个挂了谁重启？流量大了谁扩容？配置、版本怎么统一？
-
-### K8s 的思路
-K8s 把一堆机器组成**集群**，你只告诉它"我要跑什么、几个副本"，它会**自动调度、自动扩缩、挂了自动重拉**。
-
-> 一句话：**K8s 是容器的"调度+管理大脑"，它保证你的应用始终按预期运行。**
+![K8s 概念](images/k8s-basic.svg)
 
 ---
 
-## 2. 核心概念（先记住这几个）
-
-| 术语 | 意思 |
-| --- | --- |
-| 集群 Cluster | 一组机器的总称 |
-| 节点 Node | 集群里的一台机器 |
-| Pod | K8s 的最小运行单元（一个或多个容器） |
-| Deployment | 声明"要跑什么、几个副本"，由它管理 Pod |
-| Service | 给一组 Pod 一个固定访问地址（负载均衡） |
-| Namespace | 隔离不同环境/项目 |
-| kubectl | 操作集群的命令行工具 |
-
-> 📷 示意图：
-> ![K8s 概念](images/k8s-basic.svg)
-
----
-
-## 3. 装 kubectl + 用 k3d 起集群
-
-**kubectl（服务器端工具）：**
+## ▶️ 第一步：装工具 + 起一个集群
 ```bash
-# Ubuntu：下载并放到 PATH
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-chmod +x kubectl && sudo mv kubectl /usr/local/bin/
-kubectl version --client
+kubectl version --client                 # 装 kubectl（操作集群的命令行）
+curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash   # 装 k3d
+k3d cluster create mycluster             # 用 Docker 起一个小集群（把 K8s 跑在 Docker 里）
 ```
-
-**用 k3d 起一个本地集群（K8s 跑在 Docker 里）：**
-```bash
-curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
-k3d cluster create mycluster
-kubectl get nodes            # 应看到你的节点 ready
-```
-
-> 如果本机不方便装 k3d，也可用 `minikube`；步骤类似（`minikube start`）。
-
----
-
-## 4. 上手：跑一个应用
+👉 **你应该看到**：最后打印出集群创建成功；`kubectl get nodes` 能看到一个节点，状态 **Ready**。
 
 ```bash
-# 创建部署：跑 2 个 nginx 副本
-kubectl create deployment myweb --image=nginx --replicas=2
-
-# 看 Pod 是否 Running
-kubectl get pods
-
-# 暴露成 Service（负载均衡），宿主机 30080 访问
-kubectl expose deployment myweb --type=NodePort --port=80 --name=mysvc
-kubectl get svc
-
-# 看集群和命名空间
 kubectl get nodes
 kubectl get namespaces
 ```
+👉 **你应该看到**：节点 Ready；命名空间里有 `default`、`kube-system` 等。
 
-> 浏览器访问 `http://localhost:30080`（NodePort 端口以 `kubectl get svc` 显示为准）就能看到 Nginx。**而这一切只是几条命令。**
+## ▶️ 第二步：跑一个应用（告诉它"我要 2 个副本"）
+```bash
+kubectl create deployment myweb --image=nginx --replicas=2
+kubectl get pods
+```
+👉 **你应该看到**：两行 Pod，状态从 `ContainerCreating` 变成 **`Running`**。
+> 解释：`Deployment` ＝ "我要跑 nginx，2 个副本"；K8s 就去找机器把 2 个 Pod 起起来。
+
+## ▶️ 第三步：给它一个固定入口（Service）
+```bash
+kubectl expose deployment myweb --type=NodePort --port=80 --name=mysvc
+kubectl get svc
+```
+👉 **你应该看到**：`mysvc` 一行，`PORT(S)` 里显示类似 `80:3xxxx/TCP`，那个 3xxxx 就是对外端口。
+浏览器访问 `http://localhost:3xxxx`（换成你看到的那串数字）→ 看到 **Nginx 页面**。
+
+## ▶️ 第四步：体验"自动"（这才是 K8s 的价值）
+```bash
+kubectl delete pod <随便删一个上面看到的 Pod 名>     # 手动删掉一个
+kubectl get pods                                     # 等几秒再看
+```
+👉 **你应该看到**：删掉的那个 Pod 消失后，**又自动冒出一个新的**（数量还是 2 个）。
+**这就是"自愈"：它盯着"我要 2 个"，少一个就补一个。**
+
+## 🎬 先玩一下：亲手删掉一个 Pod 看看会发生什么
+
+[[widget:heal]]
+
+## ▶️ 第五步：扩容与清理
+```bash
+kubectl scale deployment myweb --replicas=4
+kubectl get pods                       # 👉 变成 4 个
+k3d cluster delete mycluster           # 不玩了，删掉整个集群
+```
+
+![K8s 控制循环](images/k8s-controller-loop.svg)
+> 上图：K8s 一直在"对比你想要的样子 vs 现在真实的样子"，不一样就动手 —— **这就是自愈的原理**。
+
+---
+
+## ❓ 自测 3 问
+1. K8s 里最小的"跑东西的单位"叫什么？
+2. 我删掉一个 Pod，为什么它又冒出来一个？
+3. Service 的作用是什么？
+
+**答案：**
+1. **Pod**（一个 Pod 里可以装 1 个或多个容器，它们共享网络和存储）。
+2. 因为你声明的是"**要 2 个副本**"；K8s 的控制器发现实际只有 1 个，就**自动补一个**（自愈）。
+3. 给一组 Pod 一个**固定访问入口**（虚拟 IP + 负载均衡）；Pod 会换，Service 的地址不变。
+
+---
+
+## 😵 新手困惑
+- **"本地跑 K8s 会不会很吃资源？"** → 用 `k3d`（K8s 跑在 Docker 里）比较轻；不用了 `k3d cluster delete` 删掉即可。
+- **"Pod 和容器有什么区别？"** → Pod 是 K8s 的"最小单位"，里面**包着一个或多个容器**（像一个"小盒子"）。
+- **"`kubectl` 和 Docker 命令像不像？"** → 思路一致：`docker run` ↔ `kubectl create deployment`；`docker ps` ↔ `kubectl get pods`。
+- **"为什么访问要那个 3xxxx 端口？"** → NodePort 会随机分配一个高位端口对外，用 `kubectl get svc` 看你自己的那串数字。
 
 ---
 
 ## ✍️ 本章达标 · 照着做就学会
-
-**照着做：**
 ```bash
-kubectl version --client
 k3d cluster create mycluster
 kubectl get nodes
 kubectl create deployment myweb --image=nginx --replicas=2
 kubectl get pods
 kubectl expose deployment myweb --type=NodePort --port=80 --name=mysvc
 kubectl get svc
+kubectl delete pod <某个 Pod 名>
+kubectl get pods
 ```
+**✅ 过关标准：** ① 节点 Ready；② 2 个 Pod 都 Running；③ 浏览器能通过 Service 端口看到 Nginx；④ 删掉一个 Pod 后**自动补回来**。
+**收拾**：`k3d cluster delete mycluster`</script>
+<script type='text/plain' id='ch15'># 15 · Prometheus 监控入门
 
-**✅ 过关标准：** `kubectl get nodes` 显示节点 Ready；`kubectl get pods` 显示 2 个 Running；能通过 Service 的端口访问到 Nginx。
+> **本章位置：中级。顺序：① 先懂监控是啥 → ② 起监控三件套 → ③ 看"数据进来了吗" → ④ 装显卡看曲线 → ⑤ 学会看一条曲线 → ⑥ 告警是什么。**
 
-**清理：** `k3d cluster delete mycluster`。
+## 🎯 一句话先懂
+监控 ＝ 给系统装**仪表盘**：机器好不好、服务活没活、快不快，**出问题你能第一时间知道，而不是等用户来骂**。
 
-学完去 [15-Prometheus监控入门](15-Prometheus监控入门.md)，给应用加上监控。
-</script>
-<script type='text/plain' id='ch15'># 15 · Prometheus 监控入门（零基础 · 照着做就学会）
+## 🧠 生活比喻
+- **Prometheus** ＝ 每 15 秒量一次体温的**护士**（定时去各服务"问一句"：你还活着吗？多少内存？）
+- **Exporter** ＝ 被量的那个**体温计**（把数据吐出来给护士看）
+- **Grafana** ＝ 墙上的**大屏仪表盘**（把数据画成好看的图）
+- **Alertmanager** ＝ 超过 39 度就**打电话通知**的人
 
-运维里最重要的一环是**监控**：出了故障要能第一时间发现。**Prometheus** + **Grafana** 是主流的"可观测性"组合。跟着做，你用 Docker 就能把监控系统跑起来，看到真实指标。
-
-> 已有 Docker 基础即可。这一章会用 Docker 同时跑 Prometheus 和 Grafana，并让 Prometheus 采集自己的指标、在 Grafana 看到曲线。
-
----
-
-## 1. 为什么需要监控？
-
-### 曾经的烦恼
-服务挂了，你最后一个知道；用户都不满了才报警。想查 CPU/内存/请求量，没地方看。
-
-### 监控的思路
-定时采集指标 → 存起来 → 可视化（Grafana）→ 异常触发告警。**第一时间发现并定位问题。**
+![Prometheus 数据流](images/prometheus-flow.svg)
 
 ---
 
-## 2. 核心概念
-
-| 术语 | 意思 |
-| --- | --- |
-| 指标 Metric | 一个可测量的值（如 CPU 使用率、请求数） |
-| 拉取模型 Pull | Prometheus 主动去采集目标的数据 |
-| 目标 Target | 被采集的程序/服务 |
-| Exporter | 把程序数据转成 Prometheus 格式（如 node-exporter 采主机指标） |
-| Grafana | 可视化面板，把指标画成图 |
-| 告警 Alert | 指标异常时通知你 |
-
-> 类比：**Prometheus 是"采购员"（定时去各地方采集），Grafana 是"报表墙"（把数据画成图），告警是"保安"（出问题喊你）。**
-
----
-
-## 3. 用 Docker 同时跑 Prometheus 和 Grafana
-
-先建一个目录存放 Prometheus 配置：
-
+## ▶️ 第一步：准备目录
 ```bash
-mkdir prom && cd prom
+mkdir -p ~/prom && cd ~/prom
 cat > prometheus.yml <<'EOF'
 global:
   scrape_interval: 15s
 scrape_configs:
-  - job_name: prometheus
+  - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
 EOF
 ```
+👉 **你应该看到**：目录里多了一个 `prometheus.yml`（`ls` 能看到）。
 
-启动两个容器：
+## ▶️ 第二步：起 Prometheus
 ```bash
-docker run -d --name prometheus -p 9090:9090 \
-  -v "$PWD/prometheus.yml:/etc/prometheus/prometheus.yml" \
+docker run -d --name prom \
+  -p 9090:9090 \
+  -v ~/prom/prometheus.yml:/etc/prometheus/prometheus.yml \
   prom/prometheus
+```
+👉 **你应该看到**：`docker ps` 里有 `prom` 在跑。
+浏览器打开 **http://localhost:9090** → 看到 Prometheus 的界面。
 
+## ▶️ 第三步：确认"数据真的进来了"
+界面顶部点 **Status → Targets**。
+👉 **你应该看到**：有一行 `prometheus`，State 是 **UP**（绿色）。
+> 如果不能 UP，通常是配置文件路径写错了，`docker logs prom` 看报错。
+
+## ▶️ 第四步：手画一条曲线（不装 Grafana 也能玩）
+在顶部搜索框输入 `up`，点 **Execute**，再点 **Graph** 标签。
+👉 **你应该看到**：一条值为 `1` 的横线 —— **1 表示"活着"**。
+
+试试这两条：
+- `process_cpu_seconds_total` → 进程吃掉的 CPU 总时间（**一直涨**）
+- `prometheus_http_requests_total` → 请求总数（**一直涨**）
+> 记住：**结尾 `_total` 的一般是"计数器"，只会涨，不会跌。**
+
+## ▶️ 第五步：起 Grafana（好看的大屏）
+```bash
 docker run -d --name grafana -p 3000:3000 grafana/grafana
 ```
+👉 浏览器打开 **http://localhost:3000**，默认账号密码都是 **admin / admin**（第一次登录会让你改密码）。
 
-> 说明：Prometheus 默认采集**自己**（`localhost:9090`）作示例。以后要采主机，再加一个 node-exporter 容器即可。
+1. 左侧 **Connections → Data sources → Add data source → Prometheus**
+2. URL 填 `http://<宿主机IP>:9090`（在 Linux 上常是 `http://172.17.0.1:9090`；用容器网络时也可以填 `http://prom:9090`）
+3. 点 **Save & test** → 出现绿色 ✓ 就通了
+4. 再 **Dashboards → Import**，输入 **1860**（Node Exporter 官方模板）就能看到一套现成的大屏
+
+👉 **你应该看到**：页面上出现各种曲线图，CPU、内存、磁盘一应俱全。
+
+## ▶️ 第六步：告警是什么
+一句话：**"如果 5 分钟内 `up == 0`，就发消息给我。"**
+在 Prometheus 里就是在 **Alerts** 页面写规则，再由 Alertmanager 发到邮件 / 钉钉 / 企业微信。
 
 ---
 
-## 4. 看监控数据
+## 🔍 小抄表
+| 我想要 | 怎么做 |
+|---|---|
+| 看服务是死是活 | 查 `up`（0=死了，1=活着） |
+| 看请求总量 | `xxx_requests_total` |
+| 看采集目标状态 | Status → Targets |
+| 看日志排错 | `docker logs prom` |
+| 数据源连不上 | 别写 `localhost`，写宿主机 IP |
 
-- **Prometheus 控制台**：打开 `http://localhost:9090` → 顶部 **Status → Targets**，看到 `prometheus` 目标是 **UP**，说明采集成功。
-- **Grafana**：打开 `http://localhost:3000`（默认账号密码 `admin/admin`）。
+---
 
-**在 Grafana 里看指标曲线：**
-1. 登录 Grafana → **Data sources** → **Add data source** → 选 **Prometheus** → URL 填 `http://prometheus:9090` → Save。
-2. **Explore** → 在查询框输入指标（如 `up` 或 `prometheus_http_requests_total`）→ 就能看到曲线！
+## ❓ 自测 3 问
+1. Prometheus 的 `up` 指标值 `0` 表示什么？
+2. Grafana 自己会采集数据吗？
+3. 为什么 Grafana 里数据源不能填 `localhost:9090`？
 
-> 这就是"可观测性"：**指标采集（Prometheus）+ 可视化（Grafana）。**
+**答案：**
+1. **这个目标挂了 / 采集不到**（`1` 才是正常活着）。
+2. **不会**。Grafana 只是"画图的"，数据由 Prometheus 采集，Grafana 去 Prometheus 里**查**。
+3. 因为 Grafana 跑在**容器里**，容器里的 `localhost` 指的是**它自己**，不是宿主机 → 要填宿主机 IP 或用同一 Docker 网络里的服务名。
+
+---
+
+## 😵 新手困惑
+- **"指标（metrics）和日志（logs）有什么区别？"** → 指标是**数字**（CPU 80%、QPS 300），适合画图和告警；日志是**文字**，适合查"到底哪一行报错了"。**两个都要。**
+- **"为什么计数器只会涨？"** → 它记的是"累计发生过多少次"。想看"每秒多少"，要用 `rate(xxx_total[1m])`。
+- **"一台机器怎么监控？"** → 装 **node_exporter**，它把机器的 CPU/内存/磁盘吐出来给 Prometheus。
+- **"要多复杂才能上监控？"** → 一个人管两台机器也值得上：**你睡觉时它替你盯着。**
 
 ---
 
 ## ✍️ 本章达标 · 照着做就学会
-
-**照着做：**
 ```bash
-mkdir prom && cd prom
-cat > prometheus.yml <<'EOF'
-global:
-  scrape_interval: 15s
-scrape_configs:
-  - job_name: prometheus
-    static_configs:
-      - targets: ['localhost:9090']
+mkdir -p ~/prom && cd ~/prom
+# 写好 prometheus.yml（见第一步）
+docker run -d --name prom -p 9090:9090 -v ~/prom/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+docker run -d --name grafana -p 3000:3000 grafana/grafana
+```
+**✅ 过关标准：** ① 9090 页面能打开；② Targets 里 `prometheus` 是 **UP**；③ 能查出 `up` 并画出图；④ Grafana 3000 能登录，数据源保存成功（绿 ✓）。
+**收拾**：`docker rm -f prom grafana`</script>
+<script type='text/plain' id='ch16'># 16 · 实战项目 & 简历
+
+> **本章位置：把前面学的全串起来，变成"简历上能写的东西"。顺序：先做项目 A → 再做 B → 最后 C。做完一个就能写一条简历。**
+
+## 🎯 一句话先懂
+面试官不看你"学过什么"，只看你**"做成过什么"**。
+**这三章项目做完，你的简历就从"会用 Docker"变成"能独立搭一套云原生交付平台"。**
+
+![三个项目](images/resume-projects.svg)
+
+## 🧠 先记住这个公式
+> **简历亮点 = 原来有多痛（数字） → 我做了什么（工具+方法） → 结果变多好（数字）**
+
+❌ 差的写法：熟悉 Docker、K8s、Jenkins。
+✅ 好的写法：**用 Docker + Compose 把 3 个 Java 服务容器化，一条命令部署，环境搭建从半天缩短到 10 分钟。**
+
+---
+
+# 项目 A · 云原生应用上线平台（必做）
+
+**一句话：把一个"本地跑的应用 + MySQL"用容器的方式部署上线，机器挂了能自动恢复。**
+
+### ▶️ 照着做（顺序别乱）
+```bash
+# ① 准备应用（用 nginx 当示例应用，先跑通流程）
+mkdir -p ~/projA && cd ~/projA
+cat > index.html <<'EOF'
+<h1>我的第一个云原生应用</h1>
+EOF
+cat > Dockerfile <<'EOF'
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/index.html
+HEALTHCHECK CMD wget -qO- http://localhost/ || exit 1
 EOF
 
-docker run -d --name prometheus -p 9090:9090 \
-  -v "$PWD/prometheus.yml:/etc/prometheus/prometheus.yml" \
-  prom/prometheus
-docker run -d --name grafana -p 3000:3000 grafana/grafana
+# ② 构建并本地验证
+docker build -t myapp:v1 .
+docker run -d -p 8080:80 --name myapp myapp:v1
+curl http://localhost:8080        # 👉 应该看到 <h1>我的第一个云原生应用</h1>
 ```
+```bash
+# ③ 加上数据库，用 Compose 一起管
+cat > docker-compose.yml <<'EOF'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - appnet
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: appdb
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - appnet
+volumes:
+  dbdata:
+networks:
+  appnet:
+EOF
+docker compose up -d
+docker compose ps      # 👉 两个服务都 Up
+```
+```bash
+# ④ 推到你自己的镜像仓库
+docker tag myapp:v1 <你的用户名>/myapp:v1
+docker push <你的用户名>/myapp:v1
 
-**✅ 过关标准：** Prometheus `http://localhost:9090/targets` 里目标是 **UP**；Grafana `http://localhost:3000` 能连上 Prometheus，并在 Explore 看到一条指标曲线。
+# ⑤ 用 K8s 部署（k3d 集群）
+k3d cluster create proj
+kubectl create deployment myapp --image=<你的用户名>/myapp:v1 --replicas=2
+kubectl expose deployment myapp --type=NodePort --port=80
+kubectl get pods,svc        # 👉 2 个 Pod Running，Service 有端口
 
-**清理：** `docker stop prometheus grafana && docker rm prometheus grafana`。
+# ⑥ 自动扩容：CPU 超过 50% 就加副本
+kubectl autoscale deployment myapp --cpu-percent=50 --min=2 --max=6
+kubectl get hpa
+```
+👉 **你应该看到**：`hpa` 显示 `TARGETS` 里有百分比，`MINPODS 2 / MAXPODS 6`。
 
-到这里，你的"运维涨薪线"（Docker → Git → K8s → 监控）就有了一套完整的学习内容。可回 [09](09-训练-实验手册.md) 复习或 [10-考试](10-考试-试题与答案.md) 自测。
-</script>
-<script type='text/plain' id='ch16'># 16 · 实战项目 & 简历（落地 · 简历亮点）
-
-这一章给你 **3 个能真正做出来、且是简历亮点的旗舰项目**。判断标准：**① 你能自己跑通（落地）② 能写出一句有说服力、有结果量化的简历描述（亮点）。** 每个项目都给出**技术栈 + 落地步骤 + 简历写法**。
-
-> 秘籍：**项目要"真、真、真"**——真实做出来、用真技术栈、能量化结果。这样才叫亮点，面试才经得起问。
-
----
-
-## 项目 A · 云原生应用上线平台（最通用、必做）
-**目标**：把一个应用**从 0 上线到 Kubernetes**，含持久化、自动扩缩、监控告警。
-
-**技术栈**：Docker、Kubernetes(本地 k3d/minikube)、Helm、Nginx/Ingress、Prometheus+Grafana
-
-**落地步骤（照着做）**
-1. 写 `Dockerfile` 打应用镜像。
-2. `k3d cluster create` 起集群，`kubectl create deployment` + `service`。
-3. 数据库用 `StatefulSet` + `PVC` 持久化；配置用 `ConfigMap/Secret`。
-4. 用 **Helm** 把整套打包成 Chart，`helm install` 一键部署。
-5. 加 **HPA** 自动扩缩；**Prometheus** 采集 + **Grafana** 面板 + **Alertmanager** 告警。
-
-**简历一句话（亮点）**
-> 基于 K8s+Helm 构建应用上线平台，配置探针与状态集实现 MySQL 持久化与 HPA 自动扩缩，接入 Prometheus/Grafana 监控告警，实现一条命令一键部署与高可用运行。
-
----
-
-## 项目 B · CI/CD + GitOps 自动化交付（最加分、DevOps 招牌）
-**目标**：**提交代码 → 自动构建 → 自动发布 → 可回滚**，全程无人值守。
-
-**技术栈**：Git、Jenkins/GitLab CI、Docker、私有镜像仓库、Helm、ArgoCD(GitOps)
-
-**落地步骤（照着做）**
-1. 项目推 GitHub，配置 **GitHub Actions 或 Jenkins** 流水线：拉码→测试→构建镜像。
-2. 镜像**推私有仓库**（Harbor/阿里云 ACR），打成版本标签。
-3. **部署**：用 Helm 发布到 K8s；再进阶用 **ArgoCD 做 GitOps**（改 Git→自动同步集群）。
-4. 做**回滚**：先金丝雀/灰度，异常自动回滚上一版本。
-
-**简历一句话（亮点）**
-> 搭建 Git→CI→CD→GitOps 自动化交付链路，代码提交自动构建/发布，支持灰度与一键回滚；上线时间从 30 分钟降至约 5 分钟，人工操作减少 90%。
-
----
-
-## 项目 C · 可观测性 + AI 智能运维助手（差异化亮点）
-**目标**：让系统"看得见"，并让**大模型帮忙排障**——这是别人少有的差异化。
-
-**技术栈**：Prometheus、Grafana、Loki(日志)/ELK、Python、大模型 API / Ollama
-
-**落地步骤（照着做）**
-1. **指标**：Prometheus 采集 + Grafana 面板；用 **PromQL** 写错误率/延迟面板。
-2. **日志**：Loki + Promtail 采集，Grafana 用 LogQL 查询。
-3. **告警**：Alertmanager 规则，出问题通知到钉钉/邮件。
-4. **AI 助手**：Python 脚本接大模型，粘贴报错/日志 → 返回诊断与排查命令；或本地 Ollama 跑模型。
-
-**简历一句话（亮点）**
-> 搭建指标+日志+告警一体的可观测性平台，并基于大模型构建智能运维助手，实现日志/告警自动分析与排障建议，告警降噪、平均排障时间明显缩短。
+### 📝 项目 A 简历怎么写
+> **云原生应用上线平台**（个人项目）：将 Web 应用与 MySQL 容器化，使用 Docker Compose 编排多服务、数据卷持久化数据、自定义网络实现服务名互访；镜像推送至镜像仓库后部署到 Kubernetes，配置 2 副本 + Service 暴露 + HPA 自动扩缩，实现节点/Pod 故障自动恢复。
 
 ---
 
-## 💎 让项目成为"亮点"的 5 个方法
-1. **量化结果**：用数字说话（时间、人工、可用性、降噪率）。如"上线时间 30→5 分钟"。
-2. **真技术栈**：用主流真实工具（K8s/Helm/ArgoCD/Prometheus），别用玩具替代。
-3. **做成"平台"而非"单点"**：把多个能力串成一个平台（上线、交付、监控、排障）。
-4. **可演示 + 有文档**：能截图/录屏演示，写 `.md` 文档，面试可讲。
-5. **体现可靠性/规模**：谈高可用、自动扩缩、监控告警、回滚，体现"生产思维"。
+# 项目 B · CI/CD + GitOps 自动化交付（最加分）
+
+**一句话：代码一提交，机器自动编译、打包镜像、发布上线，全程不用人登录服务器。**
+
+### ▶️ 照着做
+```bash
+# ① 代码上 Git（见第 13 章）
+git init && git add . && git commit -m "init"
+git remote add origin <你的GitHub仓库>
+git push -u origin main
+
+# ② 起 Jenkins（见第 12 章）
+docker run -d --name jenkins -p 8081:8080 -p 50000:50000 \
+  -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+```
+③ Jenkins 界面里建 **Pipeline** 任务，Pipeline 脚本填：
+```groovy
+pipeline {
+  agent any
+  stages {
+    stage('拉代码') { steps { echo 'checkout' } }
+    stage('构建镜像') {
+      steps {
+        sh 'docker build -t myapp:$BUILD_NUMBER .'
+      }
+    }
+    stage('推送镜像') {
+      steps {
+        sh 'docker tag myapp:$BUILD_NUMBER <你的用户名>/myapp:$BUILD_NUMBER'
+        sh 'docker push <你的用户名>/myapp:$BUILD_NUMBER'
+      }
+    }
+    stage('更新部署清单') {
+      steps {
+        // 把 K8s 的 yaml 里的镜像 tag 改成新版本，提交回 Git —— 这就叫 GitOps
+        sh "sed -i 's|myapp:.*|myapp:$BUILD_NUMBER|' k8s/deployment.yaml"
+        sh 'git commit -am "release $BUILD_NUMBER" && git push'
+      }
+    }
+  }
+}
+```
+④ 装 ArgoCD，让它盯着这个 Git 仓库：
+```bash
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl -n argocd get svc argocd-server     # 暴露后浏览器登录
+```
+👉 **你应该看到**：改一次 Git 里的 YAML，ArgoCD 界面上的应用状态变成 **Synced**，集群里的镜像版本跟着变了。
+**这就是"用 Git 当发布按钮"，也是现在很多公司真正在用的做法。**
+
+### 📝 项目 B 简历怎么写
+> **CI/CD + GitOps 自动化交付流水线**：基于 Jenkins Pipeline 实现提交即构建镜像并推送仓库；采用 GitOps 模式，由 ArgoCD 监听 Git 中声明式 YAML 自动同步至 Kubernetes，支持版本回滚；配合 Helm 管理测试/生产多环境差异，单次发布耗时由人工 40 分钟降至 3 分钟。
+
+---
+
+# 项目 C · 可观测性 + AI 智能运维助手（差异化）
+
+**一句话：系统有问题，先告警、再定位、还能让 AI 告诉你最可能的原因。**
+
+### ▶️ 照着做
+```bash
+# ① 指标：Prometheus + Grafana（见第 15 章）
+docker run -d --name prom -p 9090:9090 prom/prometheus
+docker run -d --name grafana -p 3000:3000 grafana/grafana
+
+# ② 日志：Loki + Promtail（把容器日志收上来）
+docker run -d --name loki -p 3100:3100 grafana/loki
+
+# ③ 告警：规则 + Alertmanager
+# 在 Prometheus 里加规则：up == 0 持续 1 分钟就告警
+
+# ④ AI 分析：把告警和日志丢给大模型（见第 17 章的日志助手）
+# 输入：告警内容 + 相关日志 200 行
+# 输出：最可能原因（排序）+ 验证命令 + 第一步建议
+```
+👉 **你应该看到**：Grafana 大屏上有曲线；手动 `docker stop` 一个服务后，Prometheus 的 `up` 变 0，触发告警；AI 助手能针对这次告警给出排查建议。
+
+### 📝 项目 C 简历怎么写
+> **可观测性与 AI 运维助手**：搭建 Prometheus + Grafana + Loki 一体化监控，覆盖指标/日志/告警；基于 Alertmanager 实现分级告警；接入本地大模型构建日志分析助手，自动输出根因排序与排查命令，MTTR 由 30 分钟缩短至 8 分钟。
+
+---
+
+## 💎 让项目变成亮点的 5 个方法
+1. **一定要有数字**：耗时、次数、百分比、恢复到分钟 —— 没有数字就没有说服力。
+2. **一定要有图**：架构图画一张放简历/GitHub README（就用站内这些图的画法）。
+3. **一定要能"讲 3 分钟"**：为什么这么设计、遇到什么坑、怎么解决的。
+4. **代码放 GitHub**：README 写清"怎么跑起来"，别人能复现 = 你真做过。
+5. **准备 1 个翻车故事**：比如"数据卷没挂，容器重删数据全没了" —— 面试官最爱听真实踩坑。
+
+---
+
+## ❓ 自测 3 问
+1. 简历上写"熟悉 Docker、K8s"为什么不够？
+2. GitOps 里"发布"这个动作，实际是怎么做的？
+3. 项目没有真实用户量，怎么写数字？
+
+**答案：**
+1. 这是**技能清单**不是**成果**。招聘方要的是"你用它能解决什么" → 必须有场景 + 数字。
+2. **改 Git 仓库里的 YAML**（改镜像 tag = 改版本），ArgoCD 检测到差异后**自动同步**到集群。Git 就是唯一的真相来源。
+3. 写**过程指标**：搭建耗时从 X 到 Y、部署步骤从 N 步到 1 条命令、故障发现从"用户投诉"到"1 分钟内告警"、MTTR 从多少到多少。**这些不需要海量用户。**
+
+---
+
+## 😵 新手困惑
+- **"我没有公司项目，个人项目算数吗？"** → 算，**只要你能讲清楚设计和踩坑**。很多转行成功的人就是靠 2–3 个做得扎实的个人项目。
+- **"三个项目太多做不完？"** → **先做完 A**（能独立部署），A 做完简历就能改；B、C 是加分项，边工作边补。
+- **"这些工具公司没用怎么办？"** → 技术是通的：会 Compose → Kubernetes 上手快；会 Jenkins → 换成 GitLab CI 也很快。
+- **"要不要买台云服务器？"** → 推荐买一台最低配的（几十块/月），**有一个公网 IP 的完整环境**，做实验和截图都方便。
+
+---
 
 ## ✍️ 本章达标 · 照着做就学会
-**照着做**：从上面**选 1 个**完整落地并跑通（推荐先做项目 A 云原生上线）。
-**✅ 过关标准**：项目能独立运行、可在本地演示；写出一句**"做了什么 + 技术栈 + 量化结果"**的简历描述。
+**✅ 过关标准（每条都对应一条简历）：**
+1. 能在 GitHub 上找到一个你写的项目，README 里有架构图和"怎么跑起来"。
+2. 项目 A 的整条链路（构建 → 推送 → K8s 部署 → 扩容）你亲手跑通过一次。
+3. 你能对着屏幕讲 3 分钟：**"原来怎样 → 我做了什么 → 结果怎么样"**。</script>
+<script type='text/plain' id='ch17'># 17 · AI 入门与 AI 运维（AIOps）
 
-> 提醒：**一个项目深耕 > 三个项目的皮毛。** 挑一个做到"能演示、能量化、能讲清"，就是简历里最亮的那个。
-</script>
-<script type='text/plain' id='ch17'># 17 · AI 入门 & AI 运维（零基础 · 照着做就学会）
+> **本章位置：中级→深度的加分项。顺序：① 先懂 AI 能帮你干什么 → ② 学会"怎么问" → ③ 本地跑一个模型 → ④ 用代码调它 → ⑤ 做成一个"日志分析小助手"。**
 
-你已会 Linux/Docker/MySQL。**AI（人工智能）**现在离运维很近：**AIOps（智能运维）**就是用 AI 帮你分析日志、降噪告警、智能排障。这一章零基础带你入门——会用 AI、能调用 AI、能用 Docker 跑一个本地模型，并做出一个**AI 简历项目（智能运维助手）**。
+## 🎯 一句话先懂
+AI（大模型）就是一个**读过海量资料的实习生**：它不懂你的机器，但你说清楚情况，它能**秒出思路、写脚本、解释报错**。
+**AI 运维 ＝ 把这个实习生变成你的"值班搭子"。**
 
-> 不需要你会高深算法。你需要的三件事：**会问（提示词）、会调（API）、会跑（部署模型）。**
-
----
-
-## 1. AI 相关，先懂这几个词
-
-| 术语 | 意思 |
-| --- | --- |
-| 大模型 LLM | 一种超大规模 AI 模型，能理解/生成文字（如 GPT、DeepSeek、Llama） |
-| 提示词 Prompt | 你给 AI 的指令/问题（怎么问，决定答案质量） |
-| API | 程序调用 AI 的接口（Python 一行代码就能问 AI） |
-| AIOps | 用 AI 做智能运维：日志分析、告警降噪、异常检测、智能问答 |
-
-> **你和 AI 的三种关系**：① 聊天会用 → ② 写代码调用 → ③ 自己部署模型。都学会，就是你的 AI 技能。
+## 🧠 生活比喻
+| 它像什么 | 对应技术 | 你要做的事 |
+|---|---|---|
+| 一个刚来的聪明实习生 | 大模型 LLM | 把背景说清楚，别让它猜 |
+| 你给它的工作说明书 | 提示词 Prompt | 说清角色、目标、格式、限制 |
+| 它翻的资料 | RAG（检索增强） | 把公司文档喂给它再问 |
+| 它自己动手查 | Agent / 工具调用 | 让它去查监控、查日志、执行命令 |
 
 ---
 
-## 2. 为什么运维要学 AI
+![AI 运维助手四步](images/aiops-assistant-flow.svg)
 
-- **省时间**：把报错/日志贴给 AI，快速定位
-- **降噪**：让 AI 从海量告警里筛出真正要紧的
-- **写脚本**：AI 帮你生成 Shell/Python 脚本、排障思路
-- **涨薪**：AIOps 是运维的高价值方向，会 AI 的运维很抢手
+## ▶️ 第一步：先学会"怎么问"（最重要，不花钱）
+**差的问法：**
+> 我服务器有问题，怎么办？
 
----
+**好的问法（四件套：角色 + 背景 + 目标 + 格式）：**
+> 你是一名资深 Linux 运维。**背景**：CentOS 7，Nginx 报 502，后端是 Docker 里的 Java 服务，内存 4G。
+> **目标**：给我 5 条按可能性排序的排查步骤。
+> **格式**：编号列表，每条写"命令 + 这条命令看什么"。
 
-## 3. 第一步：会用（提示词 / 用现成 AI）
+👉 **你应该看到**：AI 给你的答案从"泛泛而谈"变成**能直接照着敲的列表**。
+> 记住口诀：**说不清背景，就等于让它瞎猜。**
 
-直接打开一个 AI 聊天（如 DeepSeek、ChatGPT、通义）试试这种**运维提问**：
-> "下面是 Nginx 报错[粘贴日志]，帮我分析原因并给出排查命令。"
-
-**会提问的要点**：给清楚背景 + 粘贴真实日志/报错 + 让它给可执行步骤。
-
----
-
-## 4. 第二步：会部署（用 Docker 跑本地模型）
-
-本地跑一个开源模型（免费、离线、数据不外泄）。用 Docker 一键跑 **Ollama**：
-
+## ▶️ 第二步：本地跑一个模型（断网也能用）
 ```bash
-docker run -d -p 11434:11434 --name ollama ollama/ollama
-docker exec -it ollama ollama run llama3        # 下载并进入对话（首次会下载模型）
+curl -fsSL https://ollama.com/install.sh | sh     # 装 Ollama
+ollama run qwen2.5:7b                            # 拉取并对话（第一次会下载几个 G）
 ```
+👉 **你应该看到**：进入一个 `>>>` 对话界面，输入"用一句话解释 Docker 数据卷"能收到回答。输入 `/bye` 退出。
 
-测试调用的 API：
+**想让别的程序也能调用它**（Ollama 默认在 11434 端口提供 API）：
 ```bash
-curl http://localhost:11434/api/generate -d '{"model":"llama3","prompt":"你好","stream":false}'
+curl http://localhost:11434/api/generate -d '{"model":"qwen2.5:7b","prompt":"用一句话解释什么是容器","stream":false}'
 ```
+👉 **你应该看到**：返回一段 JSON，里面有 `response` 字段，就是它的回答。
 
-> 以后你可以在没网的内网也跑一个自己的"AI 助手"，这就是**模型部署**能力。
-
----
-
-## 5. 第三步：会调用（Python 做一个"智能运维助手"）
-
-写一个小脚本，把日志交给 AI 分析。用任意大模型 API（下面以通用示例，用你的 key）：
-
+## ▶️ 第三步：用 Python 调它（3 行跑通）
+```bash
+python3 -m pip install openai
+```
 ```python
-import requests
-def ask(question):
-    r = requests.post(
-        "https://api.你的服务商/v1/chat/completions",
-        headers={"Authorization": "Bearer 你的密钥"},
-        json={"model": "你的模型", "messages": [{"role":"user","content": question}]})
-    return r.json()["choices"][0]["message"]["content"]
-
-if __name__ == "__main__":
-    log = "Connection refused ..."
-    print(ask("这是 Nginx 日志，分析原因并给出排查命令：\n" + log))
+from openai import OpenAI
+client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")   # 本地模型：地址换成 Ollama
+r = client.chat.completions.create(
+    model="qwen2.5:7b",
+    messages=[{"role": "user", "content": "把这条日志的错误原因说出来：Connection refused to mysql:3306"}],
+)
+print(r.choices[0].message.content)
 ```
+👉 **你应该看到**：打印出类似"目标端口没有服务在监听 / 容器不在同一网络 / MySQL 未启动"的分析。
 
-> 把这个脚本做成"粘贴日志→给出诊断"的小工具，**就是你的 AI 运维项目第一步。**
+## ▶️ 第四步：做成"日志分析小助手"（这就叫 AIOps）
+```python
+import subprocess
+from openai import OpenAI
+
+client = OpenAI(base_url="http://localhost:11434/v1", api_key="ollama")
+
+def ask(prompt):
+    r = client.chat.completions.create(
+        model="qwen2.5:7b",
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return r.choices[0].message.content
+
+logs = subprocess.run(["docker", "logs", "--tail", "200", "myweb"],
+                      capture_output=True, text=True).stdout
+
+prompt = f"""你是资深运维。下面是一个容器的最近 200 行日志。
+请输出三部分：
+1) 最可能的 3 个原因（按可能性排序）
+2) 每个原因对应的验证命令
+3) 最推荐的第一步操作
+
+日志：
+{logs}
+"""
+print(ask(prompt))
+```
+👉 **你应该看到**：它把一堆看不懂的日志**翻译成大白话 + 给出下一步命令**。
+**这就是简历上能写的东西：基于大模型的日志智能分析助手。**
+
+> 想让它更准：把"你公司自己的运维手册 / 常见故障处理文档"一起塞进提示词（或做检索），这叫 **RAG**。
 
 ---
 
-## 6. AI 简历项目：智能运维助手（落地）
+## 🔍 小抄表：AI 能帮运维干的事
+| 场景 | 一句话问法 |
+|---|---|
+| 看报错 | "这条报错什么意思，怎么修？给我命令" |
+| 写脚本 | "写一个 bash 脚本，每天 2 点清理 7 天前的日志，并输出删了多少" |
+| 写 Dockerfile | "给一个 Python Flask 项目写多阶段构建 Dockerfile，用 alpine，带 HEALTHCHECK" |
+| 看监控 | "P99 延迟从 200ms 涨到 2s，可能的原因有哪些，怎么逐步定位" |
+| 写文档 | "把下面这段操作记录整理成标准 SOP，分步骤" |
 
-**技术栈**：Python、大模型 API / Ollama、Docker、日志采集
-**照着做要点**：
-- 用 Python 写一个"日志/告警分析"助手，接大模型
-- 用 Docker 把它打成容器提供服务（或接 Ollama 本地推理）
-- 支持输入一段日志 → 返回诊断与排障建议
-**简历一句话**：
-> 基于大模型搭建 AI 运维助手，实现日志/告警自动分析，显著缩短排障时间。
+---
 
-> 这就是"每个领域学完都有项目落地"——**AI 领域落地一个"智能运维助手"，既符合你运维背景，又是简历亮点。**
+## ❓ 自测 3 问
+1. 为什么同一个问题，问法不同结果差很多？
+2. 本地 Ollama 和在线大模型（如 ChatGPT / 通义）各有什么好处？
+3. 什么叫 RAG？它解决什么问题？
+
+**答案：**
+1. 因为模型不知道你的环境；**你给的背景越具体（系统、版本、报错原文、已经试过什么），它越准。**
+2. 本地：**免费、数据不出内网、断网可用**，但模型小、能力弱；在线：**强**，但要联网、可能收费、数据要出网（涉密不能传）。
+3. RAG ＝ **先去你的资料库里检索相关内容，再连同问题一起给模型**。解决"模型不知道你公司内部情况 / 会瞎编"的问题。
+
+---
+
+## 😵 新手困惑
+- **"它会不会瞎编？"** → 会（叫"幻觉"）。**凡是它给的命令，先想一遍再敲**，尤其在删数据、改防火墙这种事上。
+- **"我数学不好/不会 Python 能学吗？"** → 能。你只需要 **基本 Python 读写 + 调 API**，重点是"会描述问题"，不是训练模型。
+- **"公司数据能发给在线 AI 吗？"** → 一般**不能**。涉密的用本地模型，或走公司内网批准的通道。
+- **"AIOps 是不是很高端？"** → 平时做的 **告警聚合、日志分析、根因推荐、自动生成周报**，就是 AIOps。你上面的"日志分析小助手"已经算入门了。
 
 ---
 
 ## ✍️ 本章达标 · 照着做就学会
-
-**照着做（二选一）：**
-- **A（本地·推荐）**：`docker run -p 11434:11434 --name ollama ollama/ollama` → `docker exec ollama ollama run llama3`，能和它对话。
-- **B（API）**：用你注册的大模型 API，写一段 Python 调用并问它一个问题。
-
-**✅ 过关标准：** 能成功问 AI 一个问题并得到回答（本地或 API 任选）；理解"会问/会调/会跑"三种能力。
-
-> 学完这个，你的"运维涨薪系列"就多了**AI 运维（AIOps）**这一高价值方向。
-</script>
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+ollama run qwen2.5:7b
+curl http://localhost:11434/api/generate -d '{"model":"qwen2.5:7b","prompt":"你好","stream":false}'
+```
+**✅ 过关标准：** ① 能让本地模型回答一个问题；② 用 curl 或 Python 成功调通 API；③ 把"日志分析小助手"跑通一次，输出有 原因 + 验证命令 + 第一步建议。
+**加分（写进简历）：** 把这个小助手做成一个网页界面，再接到真实的告警上，就是"AI 运维助手"项目。</script>
 <script type='text/plain' id='ch19'># 19 · 深度 · Kubernetes 实操进阶
 
-第 14 章你学会了 K8s 基础。这一章是**对标 SRE/资深**的进阶：把 K8s 用得专业——有状态服务、网络、存储、调度、自动扩缩。掌握了这些，你才真正"会运维 K8s"。
+> **本章位置：深度层。前提：第 14 章能跑通。顺序：① 有状态应用 → ② 网络入口 → ③ 存储 → ④ 调度 → ⑤ 自动扩缩 → ⑥ 配置与发布策略。**
+
+## 🎯 一句话先懂
+第 14 章你学会了"**让 K8s 跑起来**"。这一章学的是"**让它按公司的规矩跑起来**"：
+数据不能丢、外网能进来、更新不能中断、机器不够自动加。
+
+## 🧠 用一个比喻串起全部
+把 K8s 想成一家**连锁餐厅总部**：
+| 概念 | 店里对应的事 |
+|---|---|
+| **StatefulSet** | 后厨的**库房**：每个库房有固定编号和专属货架（数据不混） |
+| **Ingress** | 商场的**大门和楼层指引**：客人从哪个门进、去哪家店 |
+| **PV / PVC** | **租仓库**：PV 是仓库本身，PVC 是你写的租房申请 |
+| **亲和性 / 污点** | **排班规则**："这个厨师只去 3 号灶""这台机器只跑数据库" |
+| **HPA** | **忙时加人手**：人多了再加 2 个服务员 |
+| **滚动更新** | **换班不关店**：一个走一个来，客人没感觉 |
 
 ---
 
-## 1. 有状态应用 StatefulSet
-第 14 章的 Deployment 适合"无状态"应用。数据库等**有状态**要用 **StatefulSet**（每个 Pod 有稳定网络名和持久化存储）。
-```yaml
+![K8s 对象关系](images/k8s-object-hierarchy.svg)
+
+## 1️⃣ 有状态应用：StatefulSet（给数据库用）
+**为什么需要它？** Deployment 起的 Pod 名字是随机的（`web-7d9f-abc`），**删了重来名字就变**，数据库没法稳定找到自己的盘。
+**StatefulSet 保证：名字固定（`mysql-0`、`mysql-1`）+ 每个 Pod 有自己专属的存储 + 按顺序启动。**
+
+```bash
+cat > sts.yaml <<'EOF'
 apiVersion: apps/v1
 kind: StatefulSet
-metadata: { name: mysql }
+metadata:
+  name: mysql
 spec:
   serviceName: mysql
-  replicas: 1
+  replicas: 2
+  selector:
+    matchLabels: { app: mysql }
   template:
+    metadata:
+      labels: { app: mysql }
     spec:
       containers:
         - name: mysql
-          image: mysql:8
+          image: mysql:8.0
           env:
-            - { name: MYSQL_ROOT_PASSWORD, value: secret }
-          volumeMounts: [ { name: data, mountPath: /var/lib/mysql } ]
+            - name: MYSQL_ROOT_PASSWORD
+              value: root123
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
   volumeClaimTemplates:
     - metadata: { name: data }
       spec:
         accessModes: ["ReadWriteOnce"]
-        resources: { requests: { storage: 5Gi } }
+        resources: { requests: { storage: 1Gi } }
+EOF
+kubectl apply -f sts.yaml
+kubectl get pods        # 👉 mysql-0、mysql-1，名字固定
 ```
-- 每个 Pod 有固定名（`mysql-0`），用 `kubectl get sts`,`kubectl get pvc` 查看。
-
-## 2. 网络：Service / Ingress / CNI
-- **Service**：给一组 Pod 稳定访问地址（ClusterIP/NodePort/LoadBalancer）。
-- **Ingress**：7 层入口（域名、路径路由、HTTPS）。示例 `kubectl apply -f ingress.yaml`。
-- **CNI**：集群网络插件（Calico/Flannel/Cilium），处理 Pod 间通信与网络策略。
-- **DNS**：服务间用 `<服务名>.<命名空间>` 相互解析。
-
-## 3. 存储：PV / PVC / StorageClass
-- **PersistentVolume (PV)**：一块存储；**PersistentVolumeClaim (PVC)**：申请存储。
-- **StorageClass**：动态供给（如云盘、本地路径）。Pod 通过 PVC 挂载，重启/迁移数据不丢。
-
-## 4. 调度与亲和性
-- `nodeSelector` / `nodeAffinity`：把 Pod 调度到指定节点。
-- **污点与容忍**（taints/tolerations）：特定节点只允许特定 Pod。
-- 让关键服务更稳、更合理地分布。
-
-## 5. 自动扩缩 HPA
-```bash
-kubectl autoscale deployment myweb --cpu-percent=60 --min=2 --max=10
-```
-- 按 CPU/内存**自动增删副本**；配合 `kubectl get hpa` 查看。
-
-## 6. 配置与更新策略
-- **ConfigMap / Secret**：把配置、密钥从镜像里解耦。
-- **更新策略**：Deployment 默认滚动更新；可用 `strategy: RollingUpdate`、`maxSurge`/`maxUnavailable` 控制；金丝雀发布可用 Argo Rollouts/Ingress 分流。
+👉 **你应该看到**：Pod 名字带固定序号；删掉 `mysql-0` 后重建，**名字还是 `mysql-0`，数据还在**。
 
 ---
 
-## ✍️ 本章达标 · 照着做（用 k3d/minikube）
+## 2️⃣ 网络：Service 三种类型 + Ingress + CNI
 ```bash
-kubectl create namespace prod
-kubectl apply -f mysql-sts.yaml        # 上面那个 StatefulSet
-kubectl get sts, pvc
-kubectl create configmap app-cfg --from-literal=APP_ENV=prod
-kubectl autoscale deployment myweb --cpu-percent=60 --min=2 --max=10
+kubectl get svc                          # 看 ClusterIP
+kubectl create deployment web --image=nginx
+kubectl expose deployment web --port=80             # ClusterIP：只能集群内访问
+kubectl expose deployment web --type=NodePort --port=80 --name=web-np   # 集群外能用 IP:端口 访问
+kubectl expose deployment web --type=LoadBalancer --port=80 --name=web-lb  # 云厂商给你一个公网 IP
+```
+**三句话分清：**
+- **ClusterIP**：只有集群内部能访问（服务之间互调用这个）。
+- **NodePort**：`任意节点IP:3xxxx` 能访问（测试用）。
+- **LoadBalancer**：云上给一个真正的外网 IP（生产用）。
+
+**Ingress**：一个入口按域名/路径转发到不同服务（比每个服务开一个 NodePort 优雅得多）。
+```yaml
+# ingress 示例（需要先装 ingress-nginx 控制器）
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-ing
+spec:
+  rules:
+    - host: web.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web
+                port: { number: 80 }
+```
+**CNI**：负责给 Pod 分配 IP、让 Pod 之间能通网（如 Calico、Flannel）。k3d 自带 Flannel，所以你**不用配也能用** —— 知道它是"给 Pod 发网线的"就够。
+
+---
+
+## 3️⃣ 存储：PV / PVC / StorageClass
+**一句话：Pod 要盘，不直接要盘，而是"申请"。**
+```bash
+kubectl get pvc        # 看申请状态
+kubectl get pv         # 看实际存在的盘
+kubectl get sc         # 看有哪些"套餐"（StorageClass）
+```
+| 名字 | 解释 |
+|---|---|
+| **PV** | 仓库本身（管理员准备好的一块存储） |
+| **PVC** | 你写的租房申请（"我要 1G，可读写"） |
+| **StorageClass** | 房源套餐：自动按申请**现场建一块盘**（动态供给） |
+```bash
+cat > pvc.yaml <<'EOF'
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mydata
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources: { requests: { storage: 1Gi } }
+EOF
+kubectl apply -f pvc.yaml
+kubectl get pvc        # 👉 STATUS 从 Pending 变成 Bound（说明盘分到了）
+```
+👉 **你应该看到**：`Bound`。如果一直 `Pending`：说明没有可用的 StorageClass / PV，`kubectl describe pvc mydata` 看原因。
+
+---
+
+## 4️⃣ 调度：让 Pod 去它该去的机器
+```bash
+kubectl get nodes --show-labels
+kubectl label node <节点名> disktype=ssd            # 给机器贴标签
+kubectl get pods -o wide                            # 看 Pod 落在哪台机器上
+```
+```yaml
+# 只调度到有 disktype=ssd 标签的机器
+spec:
+  nodeSelector:
+    disktype: ssd
+```
+```yaml
+# 更强：亲和性（尽量/必须）
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: disktype
+                operator: In
+                values: ["ssd"]
+```
+**污点与容忍（Taint / Toleration）**：机器上打"污点"＝**挂个牌子"闲人免进"**，只有写了"容忍"的 Pod 才能落上去（例如只让 GPU 任务用 GPU 机器）。
+```bash
+kubectl taint nodes <节点名> gpu=true:NoSchedule
+```
+
+---
+
+## 5️⃣ 自动扩缩：HPA
+```bash
+kubectl autoscale deployment web --cpu-percent=50 --min=2 --max=8
 kubectl get hpa
+kubectl describe hpa web       # 👉 能看到当前 CPU 与期望副本数
 ```
-**✅ 过关标准**：能创建 StatefulSet + PVC 并看到数据持久化思路；能建 HPA 并理解自动扩缩；能说出 Service/Ingress/CNI/StorageClass 各管什么。
-
-> **学到这一层，你就从"会跑 K8s"变成"会运维 K8s"了。**
-</script>
-<script type='text/plain' id='ch20'># 20 · 深度 · GitOps + Helm + IaC（平台工程）
-
-第 12 章你做了传统 CI/CD（Jenkins 手动触发）。这一章进入**平台工程**核心：**GitOps**、**Helm**、**IaC**。这三点是"高级运维/平台工程师"的标配，也是你**竞争力**的关键。
+👉 **你应该看到**：`get hpa` 里 `TARGETS` 显示百分比，`REPLICAS` 会随负载变化。
+**注意**：HPA 要能读到 CPU，需要 Pod 里写了 `resources.requests.cpu`（没有 requests，HPA 算不出百分比）。
 
 ---
 
-## 1. GitOps：Git 是唯一真源
-**理念**：把"环境的期望状态"（部署清单、配置）**放进 Git**；一个控制器（如 **ArgoCD / Flux**）**监听 Git 并与集群同步**。你改 Git → 集群自动变。
-- 好处：**可审计**（改了什么全在 Git）、**可回滚**、**声明式**、**无人值守**。
-
-### 关键对象（ArgoCD）
+## 6️⃣ 配置与发布策略
 ```bash
+kubectl create configmap appconf --from-literal=env=prod
+kubectl create secret generic dbpass --from-literal=password=root123
+kubectl get configmap,secret
+```
+| 用什么 | 放什么 |
+|---|---|
+| **ConfigMap** | 普通配置（环境名、端口、配置文件的文本） |
+| **Secret** | 密码、密钥、Token（**密码别写死在镜像里**） |
+
+**发布策略（更新时客人会不会感觉到）：**
+- **RollingUpdate（滚动更新，默认）**：一个一个换，服务不中断 ← **生产最常用**
+- **Recreate**：全停再全起 → 会中断
+- **蓝绿 / 金丝雀**：新版本先给 5% 流量试水，没问题再全量
+
+```bash
+# 改镜像 = 触发滚动更新
+kubectl set image deployment/web nginx=nginx:1.25
+kubectl rollout status deployment/web      # 👉 能看到一步步替换的过程
+kubectl rollout undo deployment/web        # 出问题？一条命令回滚
+kubectl rollout history deployment/web     # 看历史版本
+```
+👉 **你应该看到**：`rollout status` 打印"成功滚动更新"；`rollout undo` 后版本退回上一个。
+
+---
+
+## ❓ 自测 3 问
+1. Deployment 和 StatefulSet 最关键的区别是什么？
+2. NodePort / ClusterIP / LoadBalancer 分别给谁用？
+3. 更新出问题，怎么一秒回滚？
+
+**答案：**
+1. Deployment 的 Pod **名字随机、无状态**，适合 Web；StatefulSet 的 Pod **名字固定有序、各自独享存储**，适合数据库/中间件。
+2. ClusterIP 给**集群内部**服务互调；NodePort 给**测试/临时对外**；LoadBalancer 给**生产对公网**（云上给外网 IP）。
+3. `kubectl rollout undo deployment/<名字>`（先 `rollout history` 看版本号，可回滚到指定版本）。
+
+---
+
+## 😵 新手困惑
+- **"到底该用 Deployment 还是 StatefulSet？"** → 记忆口诀：**要顺序、要固定名字、要每份自己的盘 → StatefulSet；其余都用 Deployment。**
+- **"PVC 一直 Pending 怎么办？"** → `kubectl describe pvc <名字>` 看事件；常见原因是**没有 StorageClass / 没有可用 PV**。
+- **"生产该用 NodePort 吗？"** → 一般不用。**统一走 Ingress 或 LoadBalancer**，NodePort 主要用来调试。
+- **"Secret 安全吗？"** → 默认只是 base64 编码，**不算加密**。要真安全需要开 etcd 加密 + RBAC 权限收紧。
+- **"HPA 不扩容？"** → 检查：① Pod 有没有写 `resources.requests.cpu`；② metrics-server 装了没（`kubectl top pods` 能不能出数）。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+```bash
+k3d cluster create deep
+kubectl apply -f sts.yaml                 # 看到 mysql-0 / mysql-1 固定名字
+kubectl apply -f pvc.yaml && kubectl get pvc      # Bound
+kubectl create deployment web --image=nginx
+kubectl expose deployment web --type=NodePort --port=80
+kubectl autoscale deployment web --cpu-percent=50 --min=2 --max=8 && kubectl get hpa
+kubectl set image deployment/web nginx=nginx:1.25 && kubectl rollout status deployment/web
+kubectl rollout undo deployment/web
+k3d cluster delete deep
+```
+**✅ 过关标准：** ① StatefulSet 的 Pod 名字固定且重建后数据还在；② PVC 能到 `Bound`；③ 能说清三种 Service 该用哪个；④ 会滚动更新，也会**一条命令回滚**。</script>
+<script type='text/plain' id='ch20'># 20 · 深度 · GitOps + Helm + IaC
+
+> **本章位置：深度层，也是"平台工程/DevOps 高薪岗"的核心。顺序：① GitOps 思想 → ② Helm 打包 → ③ Terraform 建机器 → ④ 串起来看全貌。**
+
+## 🎯 一句话先懂
+以前发布是"**人登录服务器敲命令**"（说不清谁改了什么）；
+现在是"**改 Git → 机器自动同步**"（每一次变更都有记录、能回滚）。
+
+## 🧠 生活比喻
+| 技术 | 像什么 | 一句话 |
+|---|---|---|
+| **GitOps** | **点菜下单**：你只在菜单（Git）上写要什么，厨房自动做 | Git 是唯一真源，人不动手改线上 |
+| **Helm** | **套餐模板**：把一堆 YAML 变成"填空题" | 一份 Chart 多环境复用 |
+| **Terraform** | **盖楼图纸**：写清楚要几台机器、什么网络，一键建出来 | 云资源也能"代码化" |
+
+---
+
+![GitOps 流水线](images/gitops-pipeline.svg)
+
+## 1️⃣ GitOps：Git 是唯一真源
+**三条铁律：**
+1. 所有部署配置（YAML）**都存在 Git 里**。
+2. 集群里的东西**只能由机器从 Git 同步**，人不许手工 `kubectl edit`。
+3. 谁改了什么、什么时候改的、怎么回滚 —— **全在 Git 历史里**。
+
+**核心机制：持续对比。** 集群里实际状态和 Git 里的期望状态不一致 → 自动改回来（甚至有人手改也被"撤销"，叫自动纠偏）。
+
+```bash
+# 装 ArgoCD
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl get pods -n argocd
-```
-- ArgoCD 会按 `Application` 资源里指向的 **Git 仓库路径** 去同步部署到集群。
-- 核心概念：**Application、Sync（同步）、Auto-sync（自动同步）、Sync Policy（Sync/Prune）**。
+kubectl -n argocd get pods          # 👉 一堆 argocd-* Pod 变 Running
 
-## 2. Helm：K8s 的"包管理"
-把一堆 YAML 模板打包成 **Chart**（`Chart.yaml` + `values.yaml` + `templates/`），用 `values` 一键换配置。
+# 端口转发打开界面
+kubectl -n argocd port-forward svc/argocd-server 8082:443
+# 浏览器 https://localhost:8082 ，账号 admin
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+👉 **你应该看到**：用上面的密码能登录 ArgoCD；新建 Application 指向你的 Git 仓库后，状态是 **Synced + Healthy**。
+
+**验证"自动纠偏"（最能说明你懂）：**
 ```bash
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install mymysql bitnami/mysql --set auth.rootPassword=secret
+kubectl scale deployment myapp --replicas=1     # 手工捣乱
+# 等一会儿或点 ArgoCD 的 Refresh
+kubectl get deployment myapp                    # 👉 副本数被改回 Git 里写的数量
+```
+
+---
+
+## 2️⃣ Helm：K8s 的"包管理"
+**要解决的问题**：一个应用有 5 个 YAML，测试环境和生产环境只差镜像 tag 和副本数 —— 复制 5 份文件太蠢。
+
+```bash
+# 创建自己的 Chart
+helm create mychart
+tree mychart                 # 👉 看到 Chart.yaml / values.yaml / templates/
+```
+**两个关键文件：**
+- `values.yaml` ＝ **填空题的答案**（副本数、镜像、端口）
+- `templates/*.yaml` ＝ **带空格的模板**（`{{ .Values.replicaCount }}`）
+
+```bash
+# 渲染出来看（不部署，先看生成什么）
+helm template mychart ./mychart
+
+# 装/升级/回滚
+helm install myapp ./mychart -n default
+helm upgrade myapp ./mychart --set replicaCount=3
 helm list
+helm rollback myapp 1        # 👉 退回第 1 版
+helm uninstall myapp
 ```
-- 一条命令部署**整套**（含 Service/PVC/Secret），改 `values.yaml` 即改配置。
+```bash
+# 用现成的 Chart 装 Prometheus（生产常用做法）
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm install kps prometheus-community/kube-prometheus-stack
+kubectl get pods             # 👉 一次装齐 Prometheus + Grafana + 各种 exporter
+```
+👉 **你应该看到**：`helm list` 里有你的 release；`helm rollback` 后版本号变化。
 
-## 3. IaC：Terraform 基础设施即代码
-把**云资源/集群**用代码描述，`terraform apply` 一键创建。
+**多环境怎么做？** 一个 Chart + 两份 values：
+```bash
+helm install app ./mychart -f values-test.yaml
+helm install app ./mychart -f values-prod.yaml
+```
+
+---
+
+## 3️⃣ IaC：Terraform（把"买机器"也变成代码）
+**要解决的问题**：手动点控制台开机器，**没人知道到底开了哪些、谁删的、配置对不对**。
+
+```bash
+# 安装后（示例：AWS，其他云同理）
+terraform init                       # 下载插件
+terraform plan                       # 先"预演"：会建什么、改什么（不改真东西）
+terraform apply                      # 真建（要输入 yes 确认）
+terraform destroy                    # 全删掉
+```
 ```hcl
-provider "aws" { region = "cn-north-1" }
-resource "aws_s3_bucket" "b" { bucket = "my-bucket" }
+# main.tf 示例：要一台机器
+provider "aws" { region = "ap-southeast-1" }
+
+resource "aws_instance" "web" {
+  ami           = "ami-xxxxxxxx"
+  instance_type = "t3.micro"
+  tags = { Name = "web-01" }
+}
 ```
+👉 **你应该看到**：`plan` 输出 `Plan: 1 to add`；`apply` 后云控制台真的出现一台机器。
+**关键概念**：
+- **state 文件**：Terraform 记的"账本"，记录已建了什么（**要存远端并加锁，别只放本地**）。
+- **plan 先看再 apply**：这是 IaC 的安全阀。
+
+**和 Helm/ArgoCD 的分工：**
+> **Terraform 建"地基"**（机器、网络、数据库实例）→ **Helm 装"家具"**（中间件）→ **ArgoCD 管"日常摆设"**（业务应用随代码更新）。
+
+---
+
+## 4️⃣ 串起来看全貌（面试可以直接讲这段）
+```
+① Terraform  ：建集群、网络、机器          （地基）
+② Helm       ：装 Prometheus/Ingress 等组件（家具，带版本可回滚）
+③ Git 仓库   ：存所有应用的 YAML            （唯一真源）
+④ CI（Jenkins/GitLab CI）：构建镜像并推送   （做菜）
+⑤ ArgoCD     ：监听 Git，把变化同步到集群   （上菜，可回滚、可审计）
+```
+
+---
+
+## ❓ 自测 3 问
+1. GitOps 里人能不能直接 `kubectl edit` 改线上？
+2. Helm 的 `values.yaml` 和 `templates/` 各是什么角色？
+3. Terraform 的 `plan` 和 `apply` 有什么区别？为什么要分两步？
+
+**答案：**
+1. **尽量不要**。手工改会和 Git 不一致，可能被自动纠偏撤销，而且**变更失去审计和回滚能力**。要改就改 Git。
+2. `values.yaml` 是**填空的答案**（参数值）；`templates/` 是**带占位符的模板**（YAML 骨架），渲染后才是真正的 K8s 清单。
+3. `plan` 是**预演**（只告诉你将要增/改/删什么，不动真资源）；`apply` 才真正执行。分两步是为了**上线前先审阅**，避免误删生产资源。
+
+---
+
+## 😵 新手困惑
+- **"ArgoCD 和 Jenkins 是不是重复了？"** → 不重复：**Jenkins 负责"造"（构建镜像），ArgoCD 负责"送"（把期望状态同步到集群）**。这就是 CI 与 CD 的分工。
+- **"Helm 值不值得学？"** → 值得，**它是 K8s 生态的包管理事实标准**，装监控、装 Ingress 基本都靠它。
+- **"Terraform state 丢了会怎样？"** → 很麻烦，它会以为资源不存在而**重复创建**。所以 state 要放**远端存储（如 S3）+ 加锁**。
+- **"这些我公司都没用，学了有用吗？"** → 这些是**正在大量招聘的技能**。哪怕公司只用了 Compose，你能讲清 GitOps 思路，面试就领先一大截。
+- **"一个人也要搞这么复杂吗？"** → 不必全上。**先上"配置全放 Git"，这一步收益最大、成本最低。**
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
 ```bash
-terraform init && terraform plan && terraform apply
+# ① Helm
+helm create mychart && helm template mychart ./mychart
+helm install myapp ./mychart && helm list && helm rollback myapp 1
+
+# ② 装一套现成监控
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update && helm install kps prometheus-community/kube-prometheus-stack
+
+# ③ GitOps
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
-- 好处：**可版本化、可重复、可审计**；一次写好，多环境/多云通用。
-> 提示：Terraform 常与 GitOps 配合——**Terraform 管"资源"，ArgoCD 管"集群里的应用"**。
+**✅ 过关标准：** ① 能用 Helm 装、升级、回滚一个应用；② ArgoCD 里能看到应用状态 Synced；③ 手工改副本数后能被**自动纠偏**回来；④ 能说清 Terraform / Helm / ArgoCD 三者的分工。</script>
+<script type='text/plain' id='ch21'># 21 · 深度 · 可观测性进阶
+
+> **本章位置：深度层。前提：第 15 章能跑通。顺序：① 三支柱是什么 → ② 写真正有用的查询 → ③ 告警别乱叫 → ④ 日志平台 → ⑤ 链路追踪入门。**
+
+## 🎯 一句话先懂
+监控（第 15 章）解决"**它是不是坏了**"；可观测性解决"**它为什么坏、坏在哪一段**"。
+
+## 🧠 三支柱：一个病人，三种检查
+| 支柱 | 像医院的什么 | 回答什么问题 | 常用工具 |
+|---|---|---|---|
+| **Metrics 指标** | 血压心率（数字） | **有没有问题？** 趋势如何？ | Prometheus |
+| **Logs 日志** | 病历本（文字） | **哪里报错了？** 具体哪一行？ | Loki / ELK |
+| **Traces 链路** | 抽血追踪（一路跟下去） | **慢在哪一步？** 哪个服务拖后腿？ | Jaeger / Tempo |
+
+> **实战排查顺序：指标发现异常 → 日志看到报错 → 链路定位到具体服务。**
+> 只会看指标，你会知道"慢了"；三件套齐全，你才知道"慢在调 MySQL 的那一步"。
 
 ---
 
-## ✍️ 本章达标 · 照着做
-1. **Helm**：`helm install` 用官方 Chart 部署一个应用并修改 `--set` 参数。
-2. **GitOps 概念**：装 ArgoCD，理解 Application 指向 Git 仓库并同步。
-3. **理解**：`terraform`（管资源）、`Helm`（管集群内应用）、`ArgoCD/Flux`（GitOps 自动同步）三者分工。
+![可观测性三支柱](images/observability-three-pillars.svg)
 
-**✅ 过关标准**：能用 Helm 一条命令部署一套应用；能说清 GitOps 是怎么"让 Git 驱动集群"的；知道 IaC 与 GitOps 的关系。
-
-> **掌握 GitOps+Helm+IoC，你就真正站在"平台工程师"的门槛上了。**
-</script>
-<script type='text/plain' id='ch21'># 21 · 深度 · 可观测性进阶（Metrics/Logs/Traces）
-
-第 15 章你看了 Prometheus + Grafana。这一章进阶到"云原生可观测性"：**指标 + 日志 + 链路**三支柱，以及 PromQL、告警、日志平台。这是**高级运维/ SRE** 的必备能力。
+## 1️⃣ 从"能查"到"查得有用"
+```bash
+# 先确认 Prometheus 在跑（第 15 章）
+docker ps | grep prom
+curl -s http://localhost:9090/-/healthy
+```
+👉 **你应该看到**：返回 `Prometheus Server is Healthy.`
 
 ---
 
-## 1. 三支柱
-- **指标 Metrics**：数值型（CPU、QPS、延迟）—— Prometheus。
-- **日志 Logs**：事件型（报错、访问）—— **Loki / ELK**。
-- **链路 Traces**：请求串联（跨微服务调用）—— **OpenTelemetry / Jaeger**。
+## 2️⃣ PromQL：写出真正有用的查询
+**先懂一个关键区别：**
+- **Counter（计数器）**：只涨不跌（总请求数 `_total`）→ 用 `rate()` 看"每秒多少"
+- **Gauge（仪表）**：可涨可跌（内存使用量、温度）→ 直接看值
 
-> **统一采集**：**OpenTelemetry** 把指标/日志/链路用一种协议采集，输出到 Prometheus/Loki/Jaeger。
-
-## 2. PromQL：写出更有用的查询
 ```promql
-# 过去5分钟 CPU 使用率
-rate(container_cpu_usage_seconds_total[5m])
-# 5分钟内请求错误率
-sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m]))
-# 机器内存可用率
-100 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100)
-```
-- 常用函数：`rate`、`sum`、`by`、`increase`、`histogram_quantile`。
+# ① 过去 5 分钟 CPU 使用率（100 - 空闲率）
+100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
 
-## 3. 告警 Alertmanager
-写告警规则 `alert.rules.yml`：
+# ② 5 分钟内请求错误率（%）
+sum(rate(http_requests_total{status=~"5.."}[5m]))
+  / sum(rate(http_requests_total[5m])) * 100
+
+# ③ 机器内存可用率（%）
+node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100
+
+# ④ P95 延迟：95% 的请求都快于这个值（比平均值有用得多）
+histogram_quantile(0.95, sum by(le) (rate(http_request_duration_seconds_bucket[5m])))
+
+# ⑤ 服务是死是活
+up == 0
+```
+**记忆法（一眼记住）：**
+| 你要 | 用 |
+|---|---|
+| 每秒速率 | `rate(xxx_total[5m])` |
+| 按机器/服务分组 | `by(instance)` / `by(service)` |
+| 模糊匹配 | `{status=~"5.."}` （正则） |
+| 最慢的那批请求 | `histogram_quantile(0.95, ...)` |
+| 预测 4 小时后磁盘会满 | `predict_linear(node_filesystem_avail_bytes[6h], 4*3600) < 0` |
+
+**为什么用 P95/P99 而不是平均值？**
+> 平均延迟 100ms 看着很美，但如果 1% 的用户要等 10 秒 —— **平均值把痛苦藏起来了**。P99 才能暴露"最差的那批人"的体验。
+
+---
+
+## 3️⃣ 告警 Alertmanager：别让告警变噪音
+**坏告警的样子**：半夜手机响 200 次，全是"CPU 高了一点点"，最后你关掉通知 —— **等于没监控**。
+
+**好告警的四个条件：**
+1. **有阈值 + 有持续时间**（`for: 5m`，避免抖动就报）
+2. **指向具体的东西**（哪台机器、哪个服务）
+3. **带有处理建议**（annotation 里写上 runbook 链接）
+4. **能分级**（严重打电话、警告发群）
+
 ```yaml
+# prometheus 告警规则
 groups:
-  - name: app
+  - name: basics
     rules:
-      - alert: HighErrorRate
-        expr: sum(rate(http_requests_total{status=~"5.."}[5m])) > 0.05
-        for: 2m
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
         labels: { severity: critical }
-        annotations: { summary: "错误率超过 5%" }
+        annotations:
+          summary: "实例 {{ $labels.instance }} 挂了"
+          description: "已持续 1 分钟无法采集，先看容器是否退出、端口是否监听。"
 ```
+```yaml
+# alertmanager.yml：分级路由
+route:
+  receiver: 'default'
+  routes:
+    - match: { severity: critical }
+      receiver: 'phone'          # 严重 → 电话/钉钉
+    - match: { severity: warning }
+      receiver: 'email'          # 警告 → 邮件
+```
+👉 **你应该看到**：Prometheus 的 **Alerts** 页面出现 `InstanceDown`；停掉被监控的服务后状态变 **Firing**。
+
+**告警要防的两件事：**
+- **误报**（假警报）→ 加 `for: 5m`、把阈值调到有意义的位置
+- **风暴**（一次故障 1000 条告警）→ 用 `group_by` 聚合、用**抑制规则**（父故障出现时不报子故障）
+
+---
+
+## 4️⃣ 日志平台：Loki（比 ELK 轻很多）
+**为什么不用 ELK？** ELK 功能强但**吃资源**（一个 Elasticsearch 就能吃几个 G 内存）。**Loki 只给日志建"标签索引"，正文压缩存对象存储**，轻很多。
+
 ```bash
-# Prometheus 配置里引用并热加载
-curl -X POST http://localhost:9090/-/reload
+docker run -d --name loki -p 3100:3100 grafana/loki
 ```
-- Alertmanager 负责**去重、分组、抑制、路由**（发到钉钉/邮件/企业微信）。
+然后：Grafana → **Connections → Data sources → Loki** → URL 填 `http://<宿主机IP>:3100` → Save & test。
+在 Grafana 的 **Explore** 里就能按标签查日志：
+```logql
+{container="myweb"}                       # 看这个容器的日志
+{container="myweb"} |= "error"            # 只要含 error 的行
+{container="myweb"} |~ "(?i)timeout|refused"   # 正则：超时或拒绝
+```
+👉 **你应该看到**：查询结果里出现你在容器里制造的报错行。
+> **口诀：指标告诉你"出事了"，日志告诉你"是什么事"。**
 
-## 4. 日志平台 Loki
+---
+
+## 5️⃣ 链路追踪（Traces）入门
+**解决什么问题？** 一个请求经过 `网关 → 订单服务 → 库存服务 → MySQL`，到底是哪一段慢？日志东一条西一条，拼不起来。
+
+**核心概念（就三个）：**
+- **Trace**：一次完整请求的全过程（有个唯一 ID）
+- **Span**：其中的一段（比如"调 MySQL 花了 300ms"）
+- **Context 传播**：把 Trace ID 一路传下去（HTTP header 里带）
+
 ```bash
-docker run -d -p 3100:3100 grafana/loki
-docker run -d -p 3101:3100 -v "$PWD/promtail-config.yaml:/mnt/config.yaml" grafana/promtail
+# 起一个 Jaeger 看效果
+docker run -d --name jaeger -p 16686:16686 -p 4317:4317 jaegertracing/all-in-one:latest
 ```
-- Promtail 采日志 → Loki 存储 → Grafana 用 **LogQL** 查询（`{app="myapp"} |= "error"`）。
+👉 浏览器打开 **http://localhost:16686** → 选服务 → **Find Traces**，就能看到瀑布图：**哪一步最长，一眼看出**。
+
+**三个支柱怎么配合（背下来，面试常问）：**
+> **Prometheus 说"接口 P99 从 200ms 涨到 2s"**（发现）
+> **Loki 说"这段时间有大量 MySQL connection timeout"**（线索）
+> **Jaeger 说"耗时 90% 花在库存服务调 MySQL 那一步"**（定位）
 
 ---
 
-## ✍️ 本章达标 · 照着做
-1. 在 Grafana 里用 **PromQL** 写一个"错误率"或"CPU 使用率"面板。
-2. 写一条**告警规则**（如错误率>5% 触发 critical），并在 Alertmanager 看到告警。
-3. 用 **Loki + Promtail** 采集服务日志并在 Grafana 能 LogQL 查询。
+## ❓ 自测 3 问
+1. 指标、日志、链路各自最擅长回答什么问题？
+2. 为什么用 P95/P99 而不是平均值？
+3. 告警里 `for: 5m` 有什么用？
 
-**✅ 过关标准**：能自己写 PromQL 出监控图、能配置并触达一条告警、能查日志。
-
-> **做到这层，你就是"看得见系统"的高级运维——故障没发生你就能发现。**
-</script>
-<script type='text/plain' id='ch22'># 22 · 深度 · SRE 与平台工程（对标高薪岗）
-
-这一章是整条路线的**天花板**——**SRE / 平台工程师**。它不再只是"会用工具"，而是站在**可靠性、规模化、工程化**的高度看系统。这是高薪岗位的核心，也是你差异化竞争力的来源。
+**答案：**
+1. **指标**：有没有问题、趋势如何（数字、便宜、适合告警）；**日志**：具体哪里报错（文字、细节）；**链路**：一次请求慢在哪一段（跨服务定位）。
+2. 平均值会被大量快请求"拉平"，**掩盖少数用户的极差体验**；P95/P99 反映**最慢那批用户**的真实感受。
+3. 表示"条件**持续满足** 5 分钟才真正告警"，用来**过滤瞬时抖动造成的误报**（俗称防"狼来了"）。
 
 ---
 
-## 1. SRE 是什么
-**Site Reliability Engineer**：用**软件工程**的方式解决**运维问题**。核心追求：**可靠性 + 规模化 + 自动化**。相比传统运维，更偏"**用代码保证系统稳定**"。
-
-## 2. 核心指标：SLO / SLI / 错误预算
-- **SLI（服务等级指标）**：衡量指标，如可用性、延迟、错误率。
-- **SLO（服务等级目标）**：目标的数值，如"可用性 99.9%""P95 延迟 < 200ms"。
-- **错误预算（Error Budget）**：`1 - SLO`。例如 SLO=99.9% → 每月允许约 **43 分钟**不可用；预算用完了，就该**减速/不要发新功能**，先保稳定。
-
-> 一句话：**用 SLO 量化"多稳定才算好"，用错误预算决策"能不能上线新东西"。**
-
-## 3. 容量与自愈
-- **容量规划**：根据流量/SLO 计算需要的副本/资源；配合 **HPA** 自动扩缩。
-- **自愈**：Liveness/Readiness 探针、滚动更新、失败自动重启、多副本；故障自动恢复。
-
-## 4. 变更与可靠性
-- 变更用 **CI/CD + GitOps** 自动化、可回滚；先灰度（金丝雀）再全量。
-- 关注 **MTTR（平均恢复时间）**、**回滚能力**、**影响面控制**。
-
-## 5. 平台工程（Platform Engineering）
-- 把"重复运维"做成**自服务平台**：给开发提供一键部署、日志、监控、权限（如内部开发者平台、门户）。
-- 用 **IaC/Terraform + GitOps/ArgoCD + Helm** 沉淀成"平台能力"。
-- 是当前**高薪、吃香**的方向（很多大厂在招平台工程师/SRE）。
+## 😵 新手困惑
+- **"三件套都要上吗？"** → 不用。**先上指标 + 告警**（性价比最高），有微服务、排查跨服务慢的时候再上链路。
+- **"`rate` 和一些函数记不住？"** → 不用背。**记住四个就够**：`rate()` 求速率、`sum by()` 分组、`histogram_quantile()` 求分位、`predict_linear()` 预测。其余现查现用。
+- **"日志量太大存不下怎么办？"** → 三步：**只留有用的**（降日志级别）、**设保留期**（如 7 天自动删）、**大日志别进 Loki**（用对象存储归档）。
+- **"告警太多了，怎么减？"** → ① 加 `for` 时长；② 用抑制规则（大故障时不发小告警）；③ 按服务聚合；④ **删掉没人处理的告警**（不处理的告警就是噪音）。
+- **"没有微服务，需要链路吗？"** → 单体应用先不用，**指标 + 日志足够**。
 
 ---
 
-## ✍️ 本章达标 · 照着做
-1. 为一个你熟悉的服务，**写一个 SLO**（如可用性 99.9%、P95 < 300ms），并给出对应的 **SLI** 与**错误预算**。
-2. 写出对应的**告警规则**与**容量/自愈**方案（几副本、如何扩缩、探针）。
-3. 用一段话写成**简历/职责**：比如"负责 X 的服务可靠性，设定 SLO/错误预算……"
+## ✍️ 本章达标 · 照着做就学会
+```promql
+100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m])) * 100
+up == 0
+```
+**✅ 过关标准：**
+1. 能写出"CPU 使用率""错误率""服务存活"三条查询并在图上看到结果。
+2. 配一条带 `for: 1m` 的告警，**停掉服务后能看到它变成 Firing**。
+3. Loki 里能按 `|= "error"` 过滤出日志。
+4. 能对着一条曲线说出：**先看哪个指标 → 再去哪查日志 → 最后怎么定位到服务。**</script>
+<script type='text/plain' id='ch22'># 22 · 深度 · SRE 与平台工程
 
-**✅ 过关标准**：能为一个服务完整定义 **SLO/SLI/错误预算 + 告警 + 容量自愈**，并讲清 SRE 与平台工程的价值。
+> **本章位置：最后一章，也是"从运维到 SRE/高薪岗"的思维方式升级。顺序：① SRE 是什么 → ② SLO 怎么定 → ③ 自愈与容量 → ④ 变更安全 → ⑤ 平台工程 → ⑥ 面试怎么讲。**
 
-> **学完这一层，你就从"会用工具的人"变成了"能设计系统稳定性的工程师"——这正是竞争力所在。**
-</script>
+## 🎯 一句话先懂
+SRE 不是"更辛苦的运维"，而是**用工程手段把"救火"变成"不用救火"**：
+**能自动的就别手动，能量化的就别靠感觉。**
+
+## 🧠 一个比喻先懂全局
+| 旧运维（救火队） | SRE（消防工程） |
+|---|---|
+| 着火了冲进去救 | 装喷淋、改材料、定巡检标准 |
+| "系统要稳定！" | "**99.9% 可用**，一个月允许停 43 分钟" |
+| 半夜被叫起来看 | 报警先自动重启，同时通知你 |
+| 上线靠胆量 | 上线靠灰度 + 自动回滚 |
+
+---
+
+![错误预算](images/error-budget.svg)
+
+## 1️⃣ SRE 是什么
+**SRE ＝ 用写代码的方式解决运维问题。**
+它管四件事：
+1. **量化可靠性**（到底要多稳？用数字说）
+2. **减少人工操作**（能自动化的一律自动化）
+3. **控制变更风险**（变更才是故障最大来源）
+4. **从故障里学习**（事后复盘，改进系统而不是改人）
+
+> Google 的经典说法：**"SRE 就是让一个运维工程师能管住本来需要三个人的系统。"** —— 这就是涨薪的逻辑：**你能管得更多。**
+
+---
+
+## 2️⃣ 核心指标：SLI / SLO / SLA / 错误预算
+| 名词 | 解释 | 例子 |
+|---|---|---|
+| **SLI** | **实际测出来的数字** | 成功率 99.95% |
+| **SLO** | **你给自己定的目标** | 目标 99.9% |
+| **SLA** | **对客户承诺 + 违约赔偿** | 低于 99.5% 赔钱 |
+| **错误预算** | **允许你犯错的空间** | 0.1% ≈ 一月 43 分钟 |
+
+**错误预算怎么用（这是 SRE 最聪明的地方）：**
+> 一个月允许停 43 分钟。这个月你把 43 分钟用掉了 80% → **暂停新功能上线，先搞稳定性**；
+> 只用掉 5% → **放心大胆快速发版**。
+**它把"开发要快、运维要稳"的争吵，变成了一个可以算的数字。**
+
+**怎么定 SLO（照着抄思路）：**
+1. 选**用户真正在意**的指标（登录成功率？下单成功率？），别选 CPU。
+2. 先如实测一周，看你**现在**是多少。
+3. 定一个**略高于现状但跳一跳够得着**的目标（现状 99.5% → 先定 99.9%）。
+4. 拆解到每个服务（网关 99.95%、支付 99.99%）。
+
+---
+
+## 3️⃣ 容量与自愈：让系统自己扛住
+**容量规划（不用很复杂）：**
+- 看**峰值**而不是平均值：平时 QPS 100，大促 1000 → 按 **1000 的 1.5 倍**准备。
+- 用**压测**验证而不是猜：`ab` / `wrk` / `k6` 压一遍，看哪个环节先顶不住。
+- 预留**水位线**：CPU 长期 >70% 就该扩了，别等 100%。
+
+```bash
+# 快速压测（示例）
+docker run --rm --network host williamyeh/wrk -t4 -c100 -d30s http://localhost:8080/
+```
+👉 **你应该看到**：Requests/sec、平均延迟、**延迟分布（P99）**。P99 暴涨往往就是瓶颈出现的信号。
+
+**自愈的层级（从低到高）：**
+```
+① 进程级：容器挂了自动重启（Docker restart / K8s 自动补 Pod）
+② 健康检查：探针失败自动摘流量、重启（livenessProbe / readinessProbe）
+③ 负载级：HPA 自动扩容
+④ 节点级：节点故障，Pod 自动漂到其他节点
+⑤ 业务级：告警 → 自动执行预案脚本（如自动清理磁盘、自动切换主从）
+```
+```yaml
+# K8s 探针：让"假活"的容器也能被重启
+livenessProbe:
+  httpGet: { path: /healthz, port: 8080 }
+  initialDelaySeconds: 10
+  periodSeconds: 5
+readinessProbe:
+  httpGet: { path: /ready, port: 8080 }
+  periodSeconds: 5
+```
+> **区别记住：`liveness` 失败 → 重启容器；`readiness` 失败 → 只是不给它流量（不重启）。**
+
+---
+
+## 4️⃣ 变更与可靠性：故障的 70% 来自变更
+**安全发布的四道防线：**
+| 防线 | 怎么做 |
+|---|---|
+| **灰度 / 金丝雀** | 先 5% 流量，看 10 分钟没事再全量 |
+| **可回滚** | 一条命令回滚（`kubectl rollout undo` / `helm rollback`） |
+| **变更窗口** | 大变更别在周五下午做（真的，这是经验） |
+| **变更记录** | 全在 Git 里，出问题能马上知道"最近改了什么" |
+
+**故障处理四步（背下来，面试高频）：**
+1. **止血**：先恢复服务（回滚 / 重启 / 切流量），**不是先找根因**。
+2. **定位**：指标看异常 → 日志看报错 → 链路看慢在哪。
+3. **复盘**：写文档 —— 时间线、影响、根因、改进项。
+4. **改进**：把"这次人工做的事"变成**自动化或告警**（下次不用人醒）。
+
+**复盘的正确姿势（很重要）：**
+> **对事不对人。** 目标是"让系统下次不会因为这个原因挂"，不是"找出谁背锅"。
+> 只追责的团队，下次没人敢说实话。
+
+---
+
+## 5️⃣ 平台工程（Platform Engineering）：SRE 的下一步
+**要解决的问题**：开发要上线，得懂 Docker、K8s、YAML、网络、监控……**太累了，谁都不想学。**
+**平台工程 ＝ 把这些复杂度包起来，给开发一个"自助服务台"。**
+
+| 平台提供 | 开发只需要 |
+|---|---|
+| 一键创建服务模板（含 Dockerfile、CI、K8s 清单） | 填个名字 |
+| 自助发布按钮 / 自助环境 | 点一下，看进度 |
+| 内建监控告警 + 日志 | 看大屏 |
+| 标准化的 SLO 看板 | 不用自己算 |
+
+**这就是"内部开发者平台（IDP）"**，也是现在**招聘市场上薪资很高**的方向，涉及的工具正是你学的：**Docker + K8s + Helm + ArgoCD + Terraform + 监控。**
+
+---
+
+## 6️⃣ 面试怎么讲（把这一章变成谈资）
+**被问到"你怎么理解 SRE"时，可以这样答：**
+> 我理解 SRE 的核心是**用工程手段把可靠性量化并自动化**。比如给核心接口定义 SLI 和 SLO，用错误预算决定当月的发布节奏；把常见故障做成自愈预案，比如探针失败自动重启、异常告警自动执行处理脚本；变更上坚持灰度发布和可回滚。我在项目里做过 X：把部署从人工 40 分钟变成流水线 3 分钟，并配了告警，故障平均恢复时间从 30 分钟降到 8 分钟。
+
+**被问"没做过 SRE 怎么办"时：**
+> 我在现有工作里已经在做这类事：把重复操作脚本化、给服务加健康检查和监控告警、把配置纳入 Git 管理。这些都是 SRE 的实践方式，只是规模不同。
+
+---
+
+## ❓ 自测 3 问
+1. SLI、SLO、SLA 有什么区别？
+2. 什么是错误预算？它怎么影响发布节奏？
+3. 线上出了故障，第一步该做什么？
+
+**答案：**
+1. **SLI** 是实测值，**SLO** 是自己定的目标，**SLA** 是对客户的承诺（带赔偿）。顺序：SLI 用来衡量，对标 SLO，SLA 对外兜底。
+2. **允许的不可用额度**（如 99.9% → 每月 43 分钟）。**余额紧张就刹车搞稳定，余额充足就加速发版** —— 它让"快"和"稳"有了统一的决策依据。
+3. **先止血**（回滚 / 重启 / 切流量恢复服务），**再找根因**。用户还在受影响时，争论原因没有意义。
+
+---
+
+## 😵 新手困惑
+- **"我公司没有 SLO，是不是就用不上？"** → 用得上。**你可以自己给负责的服务定一个**，并在周报里说"本月可用率 99.93%，达标" —— 这就是你的亮点。
+- **"99.9% 和 99.99% 差很多吗？"** → 差**10 倍成本**。99.9% 一个月能停 43 分钟；99.99% 只能停 4 分钟，往往需要多机房。**不是越高越好，够用就好。**
+- **"SRE 要写代码吗？"** → 要，但**不是写业务代码**：写自动化脚本、写监控规则、写运维工具。**会 Python + shell 就够起步。**
+- **"运维会被 AI 取代吗？"** → 被取代的是"**只会手工重复操作**"。**会设计系统、能定标准、能用 AI 提效的人更值钱。**
+- **"我该先学什么才涨薪最快？"** → 顺序建议：**Docker（已学）→ K8s 能部署 → CI/CD 能自动化 → 监控告警 → SLO 与自动化运维**。前四项是**面试硬通货**，最后一项是**从运维到 SRE 的分水岭**。
+
+---
+
+## ✍️ 本章达标 · 照着做就学会
+**✅ 过关标准（每条都能写进简历/面试答案）：**
+1. 给你负责的一个服务，写出它的 **SLI（怎么测）+ SLO（目标多少）+ 错误预算（每月几分钟）**。
+2. 给一个服务配上 **liveness / readiness 探针**，并故意让它"假活"，验证能被自动处理。
+3. 写一份**故障复盘文档**：时间线、影响、根因、改进项（对事不对人）。
+4. 用 3 分钟讲清楚：**"我理解的 SRE 是什么 + 我在项目里做过什么 + 结果数字"。**
+
+> **到这里，你已经走完 SkillTree 全线：Docker → Compose → K8s → CI/CD → GitOps → 可观测性 → AIOps → SRE。**
+> 接下来最重要的不是再学新工具，而是**把三个项目做扎实、讲清楚**（回到第 16 章）。</script>
 <script>
 var currentId=function(){return location.hash.replace('#','')||'home';};
 var ORDER=['home','ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch09','ch11','ch12','ch13','ch14','ch15','ch16','ch17','ch19','ch20','ch21','ch22'];
@@ -2988,6 +3091,9 @@ function progressMonitorHtml(){
   h+='<div class="mon-track"><i style="width:'+overall+'%"></i></div>';
   h+='<div class="mon-cats">'+cs.map(function(c){return '<div class="mon-cat"><span class="mc-lab">'+c.label+'</span><span class="mc-bar"><i style="width:'+c.pct+'%"></i></span><span class="mc-num">'+c.done+'/'+c.total+'</span></div>';}).join('')+'</div>';
   h+='<div class="mon-next">下一步：'+(next?'<a href="#'+next+'">'+(TITLES[next]||'')+'</a>':'全部完成 🎉')+'</div>';
+  var _due=(typeof srsDueCount==='function')?srsDueCount():0;
+  var _mis=(typeof misGet==='function')?Object.keys(misGet()).length:0;
+  h+='<div class="mon-rev">🔁 待复习 <b>'+_due+'</b> 张 · ✍️ 错题 <b>'+_mis+'</b> 道 <a href="#review">去复习 →</a></div>';
   h+='</div>';
   return h;
 }
@@ -3207,8 +3313,304 @@ function pathHtml(){
   h+='</section>';
   return h;
 }
+// ===== 学前小测（先猜后学：带着问题往下读，记得更牢） =====
+var PREQUIZ_KEY='dsh_prequiz_v1';
+function pqGet(){try{return JSON.parse(localStorage.getItem(PREQUIZ_KEY))||{};}catch(e){return {};}}
+function pqSet(o){try{localStorage.setItem(PREQUIZ_KEY,JSON.stringify(o));}catch(e){}}
+function preQuizHtml(id){
+  if(typeof CARDS==='undefined'||!CARDS||!CARDS.filter)return '';
+  var cs=CARDS.filter(function(c){return c.ch===id;});
+  if(!cs.length)return '';
+  var pick=cs.slice(0,3);
+  var h='<div class="pq">';
+  h+='<div class="pq-head"><b>🎬 开始前，先猜 3 题</b><span>猜错才有用 —— 先在心里答一遍，再点开对答案，然后带着问题往下读。</span></div>';
+  h+='<ol class="pq-list">';
+  pick.forEach(function(c){
+    h+='<li><div class="pq-q">'+esc(c.q)+'</div>'
+      +'<button class="pq-btn" onclick="pqShow(\''+c.id+'\')">想好了，看答案</button>'
+      +'<div class="pq-a" id="pqa-'+c.id+'">'+esc(c.a)+'</div></li>';
+  });
+  h+='</ol>';
+  h+='<div class="pq-foot">💡 这 3 题就是本机「🔁 复习」里的闪卡；学完再回去复习一次，效果最好。</div>';
+  h+='</div>';
+  return h;
+}
+function pqShow(cid){
+  var el=document.getElementById('pqa-'+cid);
+  if(!el)return;
+  el.classList.add('on');
+  var st=pqGet();st[cid]=1;pqSet(st);
+}
+
+// ===== 交互动画（章节里用 [[widget:名字]] 占位，运行时挂载） =====
+function mountWidgets(){
+  var slots=document.querySelectorAll('.wz-slot');
+  for(var i=0;i<slots.length;i++){
+    var n=slots[i].getAttribute('data-widget');
+    if(n==='heal'){slots[i].innerHTML=wHealHtml();}
+    else if(n==='volume'){slots[i].innerHTML=wVolHtml();}
+    else if(n==='port'){slots[i].innerHTML=wPortHtml();wPortSet('none');}
+    else if(n==='compose'){slots[i].innerHTML=wCmpHtml();}
+  }
+}
+/* --- 动画 1：K8s 自愈 --- */
+function podBox(id,name,st){return '<div class="pod" id="'+id+'"><span class="pod-ico">📦</span><b>'+name+'</b><span class="pod-st">'+(st||'Running')+'</span></div>';}
+function wHealHtml(){
+  return '<div class="wz">'
+   +'<div class="wz-title">🌱 交互动画：K8s 的「自愈」到底是怎么发生的</div>'
+   +'<div class="wz-row" id="healRow">'+podBox('podA','myweb-7d9f-a')+podBox('podB','myweb-7d9f-b')+'</div>'
+   +'<div class="wz-actions"><button class="wz-btn" onclick="wHealKill()">🗑 手动删掉一个 Pod</button>'
+   +'<button class="wz-btn ghost" onclick="wHealReset()">↺ 重来</button></div>'
+   +'<div class="wz-log" id="healLog">期望副本数 2 ｜ 当前 2 ｜ 状态：健康 ✅</div>'
+   +'<div class="wz-note">你写下的只是「我要 2 个」。删掉一个之后，控制器发现「实际 1 ≠ 期望 2」，就自动补一个新的 —— 这就是自愈。</div>'
+   +'</div>';
+}
+var healSeq=0;
+function wHealReset(){
+  var row=document.getElementById('healRow'),log=document.getElementById('healLog');
+  if(!row)return;
+  healSeq=0;
+  row.innerHTML=podBox('podA','myweb-7d9f-a')+podBox('podB','myweb-7d9f-b');
+  if(log)log.textContent='期望副本数 2 ｜ 当前 2 ｜ 状态：健康 ✅';
+}
+function wHealKill(){
+  var row=document.getElementById('healRow'),log=document.getElementById('healLog');
+  if(!row)return;
+  var pods=row.querySelectorAll('.pod'),t=null;
+  for(var i=0;i<pods.length;i++){if(pods[i].className.indexOf('dead')<0&&pods[i].className.indexOf('gone')<0){t=pods[i];break;}}
+  if(!t){row.innerHTML=podBox('podA','myweb-7d9f-a')+podBox('podB','myweb-7d9f-b');if(log)log.textContent='已经全删空了，点「重来」再演示一次。';return;}
+  t.className='pod dead';
+  var st=t.querySelector('.pod-st');if(st)st.textContent='Terminating';
+  if(log)log.textContent='① 你删掉了一个 Pod —— 现在实际 1 个，期望 2 个 …';
+  setTimeout(function(){
+    t.className='pod gone';
+    if(log)log.textContent='② 控制器发现「实际 1 ≠ 期望 2」→ 立刻创建新的 Pod …';
+    setTimeout(function(){
+      healSeq++;
+      var nm='myweb-7d9f-'+String.fromCharCode(99+healSeq);
+      row.insertAdjacentHTML('beforeend',podBox('podNew'+healSeq,nm));
+      if(log)log.textContent='③ 当前 2 个，又回到期望状态 ✅ 注意：新 Pod 名字变了，但 Service 的访问地址不变。';
+      setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t);},900);
+    },800);
+  },800);
+}
+/* --- 动画 2：数据卷 --- */
+var volOn=false,volHas=false;
+function wVolHtml(){
+  return '<div class="wz">'
+   +'<div class="wz-title">🧊 交互动画：为什么挂了数据卷，删容器数据也不丢</div>'
+   +'<div class="wz-switch"><b>启动参数：</b>'
+   +'<span id="volCmd" class="wz-code">docker run -d --name alice nginx</span>'
+   +'<button class="wz-btn ghost" onclick="wVolToggle()">切换：加不加 -v mydata:/data</button></div>'
+   +'<div class="wz-stage"><div class="wz-box" id="volBox"><div class="wz-box-h">容器 alice</div>'
+   +'<div class="wz-box-b" id="volData">里面空空的（还没有数据）</div></div>'
+   +'<div class="wz-arrow" id="volArrow">↑ 数据存在哪里？</div>'
+   +'<div class="wz-disk" id="volDisk"><div class="wz-box-h">数据卷 mydata</div><div class="wz-box-b" id="volDiskBody">（还没有这个卷）</div></div></div>'
+   +'<div class="wz-actions"><button class="wz-btn" onclick="wVolWrite()">✍️ 往容器里写一条数据</button>'
+   +'<button class="wz-btn" onclick="wVolRecreate()">🗑 docker rm -f alice 然后重新 run</button>'
+   +'<button class="wz-btn ghost" onclick="wVolReset()">↺ 重来</button></div>'
+   +'<div class="wz-log" id="volLog">先点「切换」决定要不要挂卷，再写数据、再删容器。</div>'
+   +'<div class="wz-note">不挂卷：数据写在容器的可写层里，容器一删，这一层就没了。挂卷：数据写在容器外的卷里，容器只是"借用"，删了容器卷还在。</div>'
+   +'</div>';
+}
+function wVolReset(){
+  volOn=false;volHas=false;
+  var c=document.getElementById('volCmd'),d=document.getElementById('volData'),
+      db=document.getElementById('volDiskBody'),bk=document.getElementById('volBox'),
+      dp=document.getElementById('volDisk'),ar=document.getElementById('volArrow'),
+      lg=document.getElementById('volLog');
+  if(c)c.textContent='docker run -d --name alice nginx';
+  if(d)d.textContent='里面空空的（还没有数据）';
+  if(db)db.textContent='（还没有这个卷）';
+  if(bk)bk.className='wz-box';
+  if(dp)dp.className='wz-disk';
+  if(ar)ar.textContent='↑ 数据存在哪里？';
+  if(lg)lg.textContent='先点「切换」决定要不要挂卷，再写数据、再删容器。';
+}
+function wVolToggle(){
+  volOn=!volOn;
+  var c=document.getElementById('volCmd'),ar=document.getElementById('volArrow'),
+      db=document.getElementById('volDiskBody'),dp=document.getElementById('volDisk'),
+      lg=document.getElementById('volLog');
+  if(c)c.textContent=volOn?'docker run -d --name alice -v mydata:/data nginx':'docker run -d --name alice nginx';
+  if(ar)ar.textContent=volOn?'↑ 数据写进这个卷里':'↑ 数据只能写在容器自己身上';
+  if(dp)dp.className=volOn?'wz-disk on':'wz-disk';
+  if(db)db.textContent=volOn?(volHas?'hello.txt —— 数据在这里 ✅':'（卷已创建，还没写数据）'):'（还没有这个卷）';
+  if(lg)lg.textContent=volOn?'已开启 -v mydata:/data ：容器里的 /data 实际指向宿主机的卷 mydata。':'已去掉 -v 参数：数据只能写在容器自己的可写层里。';
+}
+function wVolWrite(){
+  volHas=true;
+  var d=document.getElementById('volData'),db=document.getElementById('volDiskBody'),lg=document.getElementById('volLog');
+  if(d)d.textContent='/data/hello.txt —— 写入成功 ✍️';
+  if(db&&volOn)db.textContent='hello.txt —— 数据在这里 ✅';
+  if(lg)lg.textContent=volOn?'数据其实写到了容器外的卷 mydata 里（容器里看到的 /data 就是它）。':'数据写在容器的可写层里（容器一删，这层就跟着没了）。';
+}
+function wVolRecreate(){
+  var d=document.getElementById('volData'),db=document.getElementById('volDiskBody'),
+      bk=document.getElementById('volBox'),lg=document.getElementById('volLog');
+  if(bk)bk.className='wz-box flash';
+  setTimeout(function(){if(bk)bk.className='wz-box';},600);
+  if(!volHas){if(lg)lg.textContent='容器还是空的，先点「写一条数据」再删，不然看不出区别。';return;}
+  if(volOn){
+    if(d)d.textContent='/data/hello.txt —— 重新 run 之后数据还在 ✅';
+    if(db)db.textContent='hello.txt —— 卷没被删，数据保留 ✅';
+    if(lg)lg.textContent='容器被删掉又重建，但卷 mydata 还在，所以数据还在。这就是「数据不丢」。';
+  }else{
+    volHas=false;
+    if(d)d.textContent='里面空空的 —— 数据没了 ❌';
+    if(db)db.textContent='（没有卷，什么都没有）';
+    if(lg)lg.textContent='容器删掉 = 可写层删掉 = 数据没了。所以要长期保存的数据，一定要挂卷。';
+  }
+}
+
+/* --- 动画 3：端口映射（为什么容器没监听宿主机端口） --- */
+var portMode='none';
+function wPortHtml(){
+  return '<div class="wz">'
+   +'<div class="wz-title">🔌 交互动画：浏览器怎么找到容器里的服务</div>'
+   +'<div class="wz-actions">'
+   +'<button class="wz-btn ghost" onclick="wPortSet(\'none\')">① 不写 -p</button>'
+   +'<button class="wz-btn ghost" onclick="wPortSet(\'ok\')">② -p 8080:80</button>'
+   +'<button class="wz-btn ghost" onclick="wPortSet(\'swap\')">③ -p 80:8080（写反）</button>'
+   +'</div>'
+   +'<div class="wz-code-line"><span id="pktCmd" class="wz-code">docker run -d --name mysite nginx</span></div>'
+   +'<div class="wz-stage wz-stage-3">'
+   +'<div class="wz-box"><div class="wz-box-h">你（浏览器）</div><div class="wz-box-b">请求 localhost:<b id="pktBrowserPort">8080</b></div></div>'
+   +'<div class="wz-pipe" id="pktPipe"><span class="wz-pkt" id="pktDot"></span><span class="wz-pipe-lbl" id="pktMap">没有映射规则</span></div>'
+   +'<div class="wz-box" id="pktBox"><div class="wz-box-h">容器 mysite</div><div class="wz-box-b">nginx 在里面监听 :<b id="pktAppPort">80</b></div></div>'
+   +'</div>'
+   +'<div class="wz-actions"><button class="wz-btn" onclick="wPortSend()">🚀 发送一次请求</button>'
+   +'<span class="wz-badge" id="pktBadge">还没发请求</span></div>'
+   +'<div class="wz-log" id="pktLog">先选上面三种启动方式之一，再点「发送一次请求」看结果。</div>'
+   +'<div class="wz-note">关键：容器里的 80 端口是"容器这个盒子的门"，外面进不去。-p 8080:80 是在宿主机上开 8080 这扇门，并把进来的请求转给容器的 80。左边是宿主机的门牌号，右边是容器里的门牌号。</div>'
+   +'</div>';
+}
+function wPortSet(m){
+  portMode=m;
+  var c=document.getElementById('pktCmd'),map=document.getElementById('pktMap'),
+      bp=document.getElementById('pktBrowserPort'),lg=document.getElementById('pktLog'),
+      bd=document.getElementById('pktBadge'),bx=document.getElementById('pktBox');
+  if(m==='none'){
+    if(c)c.textContent='docker run -d --name mysite nginx';
+    if(map)map.textContent='没有映射规则';
+    if(bp)bp.textContent='8080';
+    if(bd){bd.textContent='还没发请求';bd.className='wz-badge';}
+    if(lg)lg.textContent='容器自己跑得好好的，但宿主机上没有任何一扇门通向它 —— 外面访问不到。';
+  } else if(m==='ok'){
+    if(c)c.textContent='docker run -d -p 8080:80 --name mysite nginx';
+    if(map)map.textContent='宿主机 :8080  →  容器 :80';
+    if(bp)bp.textContent='8080';
+    if(bd){bd.textContent='还没发请求';bd.className='wz-badge';}
+    if(lg)lg.textContent='宿主机开了 8080 这扇门，指向容器的 80。可以发了。';
+  } else {
+    if(c)c.textContent='docker run -d -p 80:8080 --name mysite nginx';
+    if(map)map.textContent='宿主机 :80  →  容器 :8080';
+    if(bp)bp.textContent='80';
+    if(bd){bd.textContent='还没发请求';bd.className='wz-badge';}
+    if(lg)lg.textContent='写反了：宿主机 80 → 容器 8080，但 nginx 监听的是 80，8080 没人应答。';
+  }
+  if(bx)bx.className='wz-box';
+}
+function wPortSend(){
+  var dot=document.getElementById('pktDot'),lg=document.getElementById('pktLog'),
+      bd=document.getElementById('pktBadge'),bx=document.getElementById('pktBox');
+  if(dot){dot.className='wz-pkt';void dot.offsetWidth;dot.className='wz-pkt run';}
+  if(bd){bd.textContent='请求发送中 …';bd.className='wz-badge wait';}
+  setTimeout(function(){
+    if(portMode==='ok'){
+      if(bd){bd.textContent='200 OK ✅';bd.className='wz-badge good';}
+      if(bx)bx.className='wz-box wins';
+      if(lg)lg.textContent='请求到达宿主机 8080 → 被转发到容器的 80 → nginx 应答 → 你看到网页。这就是端口映射。';
+    } else if(portMode==='none'){
+      if(bd){bd.textContent='拒绝连接 ❌';bd.className='wz-badge bad';}
+      if(bx)bx.className='wz-box';
+      if(lg)lg.textContent='连不上：宿主机 8080 上根本没有程序在听。容器只在它自己的网络里开着 80，外面进不去 —— 所以要 -p。';
+    } else {
+      if(bd){bd.textContent='拒绝连接 ❌';bd.className='wz-badge bad';}
+      if(bx)bx.className='wz-box';
+      if(lg)lg.textContent='连不上：请求被转到了容器的 8080，但 nginx 监听的是 80。格式是「-p 宿主机端口:容器端口」，写反了等于白映射。';
+    }
+  },900);
+}
+/* --- 动画 4：Compose 启动顺序 --- */
+var cmpSteps=[],cmpTimer=null;
+function wCmpHtml(){
+  return '<div class="wz">'
+   +'<div class="wz-title">🧩 交互动画：一条 docker compose up -d 背后发生了什么</div>'
+   +'<div class="wz-row">'
+   +'<div class="wz-svc" id="cmpNet"><span class="wz-svc-n">🕸 网络 default</span><span class="wz-svc-st" id="cmpNetSt">未创建</span></div>'
+   +'<div class="wz-svc" id="cmpDb"><span class="wz-svc-n">🗄 db (mysql)</span><span class="wz-svc-st" id="cmpDbSt">未创建</span></div>'
+   +'<div class="wz-svc" id="cmpWeb"><span class="wz-svc-n">🌐 web (nginx)</span><span class="wz-svc-st" id="cmpWebSt">未创建</span></div>'
+   +'</div>'
+   +'<div class="wz-actions"><button class="wz-btn" onclick="wCmpUp()">▶ docker compose up -d</button>'
+   +'<button class="wz-btn ghost" onclick="wCmpDown()">⏹ docker compose down</button></div>'
+   +'<div class="wz-logs" id="cmpLog">点「up -d」，看 Compose 按什么顺序把两个服务拉起来。</div>'
+   +'<div class="wz-note">要点：Compose 先建网络，再按 depends_on 的顺序启动（先 db 后 web），最后两个容器都能用服务名互相访问。down 时是反序停止。</div>'
+   +'</div>';
+}
+function cmpLog(s){
+  var l=document.getElementById('cmpLog');
+  if(!l)return;
+  if(l.textContent.indexOf('点「up')===0)l.textContent='';
+  l.textContent+=(l.textContent?'\n':'')+s;
+  l.scrollTop=l.scrollHeight;
+}
+function cmpSt(id,txt,cls){
+  var e=document.getElementById(id);
+  if(!e)return;
+  e.textContent=txt;
+  e.className='wz-svc-st'+(cls?' '+cls:'');
+}
+function cmpBox(id,cls){var e=document.getElementById(id);if(e)e.className='wz-svc'+(cls?' '+cls:'');}
+function wCmpReset(){
+  cmpSteps=[];if(cmpTimer){clearTimeout(cmpTimer);cmpTimer=null;}
+  cmpBox('cmpNet');cmpBox('cmpDb');cmpBox('cmpWeb');
+  cmpSt('cmpNetSt','未创建');cmpSt('cmpDbSt','未创建');cmpSt('cmpWebSt','未创建');
+  var l=document.getElementById('cmpLog');if(l)l.textContent='点「up -d」，看 Compose 按什么顺序把两个服务拉起来。';
+}
+function wCmpRun(steps){
+  wCmpReset();
+  cmpSteps=steps;
+  function next(){
+    if(!cmpSteps.length)return;
+    var fn=cmpSteps.shift();
+    fn();
+    cmpTimer=setTimeout(next,650);
+  }
+  next();
+}
+function wCmpUp(){
+  wCmpRun([
+    function(){cmpLog('[+] Running 3/3');},
+    function(){cmpBox('cmpNet','on');cmpSt('cmpNetSt','Created','created');cmpLog(' ⠿ Network proj_default   Created');},
+    function(){cmpBox('cmpDb','on');cmpSt('cmpDbSt','Created','created');cmpLog(' ⠿ Container proj-db-1    Created');},
+    function(){cmpBox('cmpWeb','on');cmpSt('cmpWebSt','Created','created');cmpLog(' ⠿ Container proj-web-1   Created');},
+    function(){cmpSt('cmpDbSt','Running','running');cmpLog(' ⠿ Container proj-db-1    Started   ← 先起数据库');},
+    function(){cmpSt('cmpWebSt','Running','running');cmpLog(' ⠿ Container proj-web-1   Started   ← 再起应用（它要连数据库）');},
+    function(){cmpLog('✔ 两个服务都在跑：web 里用 http://db:3306 就能连上数据库。');}
+  ]);
+}
+function wCmpDown(){
+  wCmpRun([
+    function(){cmpLog('[+] Running 3/3');},
+    function(){cmpSt('cmpWebSt','Stopped','stopped');cmpLog(' ⠿ Container proj-web-1   Stopped   ← 先停应用');},
+    function(){cmpBox('cmpWeb','off');cmpLog(' ⠿ Container proj-web-1   Removed');},
+    function(){cmpSt('cmpDbSt','Stopped','stopped');cmpLog(' ⠿ Container proj-db-1    Stopped   ← 再停数据库');},
+    function(){cmpBox('cmpDb','off');cmpLog(' ⠿ Container proj-db-1    Removed');},
+    function(){cmpBox('cmpNet','off');cmpSt('cmpNetSt','Removed','stopped');cmpLog(' ⠿ Network proj_default   Removed');},
+    function(){cmpLog('✔ 全清干净了（数据要留住的话，记得给数据库配数据卷）。');}
+  ]);
+}
 function render(id){
   flushStudy();   // 结算上一个章节的停留时长
+  if(id==='review'){
+    document.getElementById('prev').style.visibility='hidden';
+    document.getElementById('next').style.visibility='hidden';
+    document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')==='review');});
+    openGroupOf('home');
+    renderReview();
+    return;
+  }
   if(id==='quiz'){
     document.getElementById('prev').style.visibility='hidden';
     document.getElementById('next').style.visibility='hidden';
@@ -3222,8 +3624,9 @@ function render(id){
     content.innerHTML='<div class="home-page">'+homeDashboard()+pathHtml()+recordsHtml()+'</div>';
     if(typeof renderLine==='function')renderLine(7);
   } else {
-    content.innerHTML=renderBlock(el.textContent);
+    content.innerHTML=preQuizHtml(id)+renderBlock(el.textContent);
     studyOpen(id);   // 自动记录：打开章节 → 开始计时
+    mountWidgets();  // 挂载章节里的交互动画
   }
   document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')===id);});
   openGroupOf(id);
@@ -3237,12 +3640,10 @@ function render(id){
 }
 function route(){
   var h=location.hash.replace('#','');
-  if(h==='quiz'||ORDER.indexOf(h)>=0){render(h);}
+  if(h==='quiz'||h==='review'||ORDER.indexOf(h)>=0){render(h);}
   else{render('home');}
 }
 window.addEventListener('hashchange',route);
-route();
-drawProgress();
 // 内嵌测验：数据 + 渲染 + 判分（并入 index.html，用于 #quiz 路由）
 var QUIZ_DATA = [
   // ---- 单选 (1-10) ----
@@ -3447,6 +3848,10 @@ function quizSubmit(){
         card.classList.add('wrong');
         exp.className='qexplain show wrong';
         exp.innerHTML='<b>❌ 错误（+0 分）正确答案：'+correct+'</b>'+q.explain;
+        // 错题自动收进"错题本"，方便重练
+        try{ var M=JSON.parse(localStorage.getItem('dsh_mistakes_v1'))||{};
+             M['q'+q.num]={text:q.text,correct:correct,explain:q.explain};
+             localStorage.setItem('dsh_mistakes_v1',JSON.stringify(M)); }catch(e){}
         var ans2=Array.isArray(q.answer)?q.answer:[q.answer];
         Array.from(card.querySelectorAll('.qopt')).forEach(function(o){
           var letter=String.fromCharCode(65 + +o.getAttribute('data-i'));
@@ -3485,6 +3890,222 @@ function quizReset(){
   quizRender();
 }
 
+// ===== 学习引擎：闪卡 + 间隔重复 + 错题本 =====
+// 记忆原理：主动回忆(active recall) + 间隔重复(spaced repetition)
+var CARDS = [
+  // 第 02 章 是什么
+  {id:'c02-1', ch:'ch02', q:'Docker 一句话是干什么的？', a:'把"程序 + 它需要的环境"打包成一个盒子，搬到哪都能一样跑。'},
+  {id:'c02-2', ch:'ch02', q:'镜像、容器 各像什么？', a:'镜像＝菜谱（只读模板）；容器＝按菜谱做出的菜（运行实例）。'},
+  {id:'c02-3', ch:'ch02', q:'一个镜像能开几个容器？会互相影响吗？', a:'能开很多个；各自独立、互不影响。'},
+  {id:'c02-4', ch:'ch02', q:'容器和虚拟机最大的区别？', a:'容器共用宿主机内核（小、快）；虚拟机自带整套操作系统（重、隔离更强）。'},
+  {id:'c02-5', ch:'ch02', q:'删了容器，镜像会没吗？', a:'不会。容器只是在镜像上加了"可写层"，删容器只删这层。'},
+  {id:'c02-6', ch:'ch02', q:'看"正在运行"的容器用哪条命令？', a:'docker ps（含已停止的要 docker ps -a）。'},
+
+  // 第 03 章 安装
+  {id:'c03-1', ch:'ch03', q:'装完 Docker 先验证什么？', a:'docker --version 有版本号；docker run hello-world 打印欢迎语。'},
+  {id:'c03-2', ch:'ch03', q:'Windows/macOS 装 Docker 用什么？', a:'Docker Desktop（图形界面，自带引擎）。'},
+  {id:'c03-3', ch:'ch03', q:'下载镜像很慢怎么办？', a:'配置镜像加速（registry-mirrors）。'},
+
+  // 第 04 章 命令
+  {id:'c04-1', ch:'ch04', q:'让容器后台运行加什么参数？', a:'-d（detach）。'},
+  {id:'c04-2', ch:'ch04', q:'端口映射怎么写？', a:'-p 宿主机端口:容器端口，如 -p 8080:80。'},
+  {id:'c04-3', ch:'ch04', q:'进入正在运行的容器？', a:'docker exec -it 容器名 bash。'},
+  {id:'c04-4', ch:'ch04', q:'删除容器、删除镜像分别用？', a:'docker rm 容器；docker rmi 镜像。'},
+  {id:'c04-5', ch:'ch04', q:'docker run 背后大致几步？', a:'CLI→dockerd→(缺镜像就下载)→containerd/runc 建隔离与限额→挂镜像层+可写层→进程以 PID 1 运行。'},
+  {id:'c04-6', ch:'ch04', q:'看容器日志？', a:'docker logs 容器名（-f 实时跟随）。'},
+
+  // 第 05 章 镜像构建
+  {id:'c05-1', ch:'ch05', q:'Dockerfile 第一条指令通常是？', a:'FROM（基于哪个基础镜像）。'},
+  {id:'c05-2', ch:'ch05', q:'构建镜像命令？', a:'docker build -t 名字:版本 .（最后的点＝当前目录）。'},
+  {id:'c05-3', ch:'ch05', q:'EXPOSE 80 就等于对外能访问吗？', a:'不等于！它只是声明，对外访问要 -p 做端口映射。'},
+  {id:'c05-4', ch:'ch05', q:'CMD 和 ENTRYPOINT 区别？', a:'CMD 是默认命令，可被 docker run 后面的命令覆盖；ENTRYPOINT 不易被覆盖。'},
+  {id:'c05-5', ch:'ch05', q:'为什么要合并 RUN 并清理缓存？', a:'每层只增不减，同层里下载又删除的文件仍占体积。'},
+  {id:'c05-6', ch:'ch05', q:'镜像分层对构建的好处？', a:'某层没变就复用缓存 → 构建快；所以"常变的 COPY 放后面"。'},
+
+  // 第 06 章 数据卷与网络
+  {id:'c06-1', ch:'ch06', q:'数据卷解决什么问题？', a:'数据存在容器外，删掉容器数据也不丢。'},
+  {id:'c06-2', ch:'ch06', q:'挂载语法？', a:'-v 宿主机路径或卷名:容器内路径。'},
+  {id:'c06-3', ch:'ch06', q:'同一自定义网络里，两个容器怎么互访？', a:'用容器名当域名，如 curl http://bob（内置 DNS 解析）。'},
+  {id:'c06-4', ch:'ch06', q:'端口发布 -p 的底层是什么？', a:'宿主机 iptables 加 DNAT 规则做地址转换（容器并不占用宿主端口）。'},
+  {id:'c06-5', ch:'ch06', q:'bridge 和 host 网络模式区别？', a:'bridge：独立网络空间 + NAT（默认）；host：直接用宿主网络栈（不隔离、性能好）。'},
+  {id:'c06-6', ch:'ch06', q:'容器上网要经过哪些内核部件？', a:'network namespace + veth 虚拟网线 + docker0 网桥 + iptables(NAT)。'},
+
+  // 第 07 章 Compose
+  {id:'c07-1', ch:'ch07', q:'Compose 一条命令启动全部服务？', a:'docker compose up -d（加 --build 先重建镜像）。'},
+  {id:'c07-2', ch:'ch07', q:'Compose 里服务之间怎么访问？', a:'用服务名当主机名（自动建网络并解析）。'},
+  {id:'c07-3', ch:'ch07', q:'Compose 数据不丢靠什么？', a:'命名卷 volumes: 声明，挂到数据库数据目录。'},
+
+  // 第 08 章 最佳实践
+  {id:'c08-1', ch:'ch08', q:'三种让镜像更小的做法？', a:'用 slim/alpine 基础镜像、合并 RUN 并清理、用 .dockerignore。'},
+  {id:'c08-2', ch:'ch08', q:'容器安全的三条基本实践？', a:'不用 root 运行、不把密钥写进镜像、最小权限与最小端口。'},
+
+  // 第 11 章 Nacos
+  {id:'c11-1', ch:'ch11', q:'Nacos 的两大能力？', a:'服务发现（注册中心）＋ 配置中心。'},
+  {id:'c11-2', ch:'ch11', q:'服务为什么要"注册"？', a:'让调用方能通过 Nacos 找到它的地址，不用写死 IP。'},
+
+  // 第 12 章 Jenkins
+  {id:'c12-1', ch:'ch12', q:'CI 和 CD 分别指？', a:'持续集成（频繁自动构建+测试）／持续交付部署（自动发布）。'},
+  {id:'c12-2', ch:'ch12', q:'Jenkins 初始管理员密码怎么取？', a:'docker exec 容器名 cat /var/jenkins_home/secrets/initialAdminPassword。'},
+
+  // 第 13 章 Git
+  {id:'c13-1', ch:'ch13', q:'Git 提交三步？', a:'git add → git commit → git push。'},
+  {id:'c13-2', ch:'ch13', q:'新建并切换分支？', a:'git checkout -b 分支名。'},
+
+  // 第 14 章 K8s
+  {id:'c14-1', ch:'ch14', q:'K8s 最小调度单位是？', a:'Pod（内部容器共享网络与卷）。'},
+  {id:'c14-2', ch:'ch14', q:'谁保证"副本数量"始终正确？', a:'ReplicaSet（由 Deployment 管理）。'},
+  {id:'c14-3', ch:'ch14', q:'Service 的作用？', a:'给一组 Pod 一个固定虚拟 IP + 负载均衡（Pod IP 会变，Service 不变）。'},
+  {id:'c14-4', ch:'ch14', q:'K8s"自愈"的本质是什么？', a:'控制器不断对比期望状态与实际状态，不一致就纠正。'},
+  {id:'c14-5', ch:'ch14', q:'liveness 与 readiness 探针区别？', a:'liveness 失败重启容器；readiness 未就绪不接流量（滚动更新不掉线关键）。'},
+
+  // 第 15 章 监控
+  {id:'c15-1', ch:'ch15', q:'Prometheus 的采集模型？', a:'主动拉取(pull)：定时去目标抓指标。'},
+  {id:'c15-2', ch:'ch15', q:'Grafana 干什么？', a:'把指标/日志画成图，做可视化面板。'},
+
+  // 第 19-22 章 深度
+  {id:'c19-1', ch:'ch19', q:'有状态应用（如数据库）用哪个对象？', a:'StatefulSet（+ PVC 持久化）。'},
+  {id:'c19-2', ch:'ch19', q:'自动扩缩副本用什么？', a:'HPA（按 CPU/内存等指标）。'},
+  {id:'c20-1', ch:'ch20', q:'GitOps 的核心思想？', a:'Git 是唯一真源，控制器监听 Git 并把集群同步成 Git 里的样子。'},
+  {id:'c20-2', ch:'ch20', q:'K8s 的"包管理器"是？', a:'Helm（Chart + values 一键部署一套）。'},
+  {id:'c21-1', ch:'ch21', q:'可观测性三大支柱？', a:'指标(Metrics) + 日志(Logs) + 链路(Traces)。'},
+  {id:'c21-2', ch:'ch21', q:'算 5xx 错误率的思路？', a:'sum(rate(5xx 请求数[5m])) / sum(rate(总请求数[5m]))。'},
+  {id:'c22-1', ch:'ch22', q:'SLO 是什么？', a:'服务等级目标，如"可用性 99.9%"。'},
+  {id:'c22-2', ch:'ch22', q:'错误预算是什么？', a:'1 − SLO；用完了就该先求稳、别急着上新功能。'},
+  // 第 09 章 实验手册
+  {id:'c09-1', ch:'ch09', q:'做实验时命令报错，第一步该干什么？', a:'逐字比对：是不是漏了字母、少了空格、或者没进到放 Dockerfile 的那个文件夹。'},
+  {id:'c09-2', ch:'ch09', q:'为什么"数据卷"实验一定要做？', a:'因为它让你亲眼看到：不挂卷，容器一删数据就没了；挂卷之后数据能留下来。'},
+  {id:'c09-3', ch:'ch09', q:'用 Compose 起两个服务，服务之间用什么互相访问？', a:'用服务名（如 http://db:3306）；Compose 会自动建一个网络并做名字解析。'},
+  // 第 16 章 实战项目与简历
+  {id:'c16-1', ch:'ch16', q:'简历写项目的万能公式是什么？', a:'原来有多痛（数字）→ 我做了什么（工具+方法）→ 结果变多好（数字）。'},
+  {id:'c16-2', ch:'ch16', q:'项目没有真实用户量，怎么写数字？', a:'写过程指标：部署耗时、步骤数、故障发现时间、MTTR 从多少到多少。'},
+  {id:'c16-3', ch:'ch16', q:'GitOps 里"发布"这个动作是怎么做的？', a:'改 Git 仓库里的 YAML（改镜像 tag），ArgoCD 检测到差异后自动同步到集群。'},
+  // 第 17 章 AI 与 AIOps
+  {id:'c17-1', ch:'ch17', q:'提问的"四件套"是哪四样？', a:'角色（你是谁）+ 背景（系统/版本/报错原文）+ 目标（要它干什么）+ 格式（编号列表/给命令）。'},
+  {id:'c17-2', ch:'ch17', q:'什么是 RAG？它解决什么问题？', a:'先去你的资料库里检索相关内容，再连同问题一起给模型；解决"它不知道你公司内部情况、会瞎编"的问题。'},
+  {id:'c17-3', ch:'ch17', q:'AI 会给错答案，运维该怎么用才安全？', a:'它会"幻觉"；凡是删数据、改防火墙、重启生产的命令，先想一遍再敲。公司敏感数据别贴给在线模型。'},
+  // 补足：保证每章至少 3 张（学前小测要 3 题）
+  {id:'c08-3', ch:'ch08', q:'把镜像做小的三个立刻见效的办法？', a:'① 换精简基础镜像（alpine/slim）；② 多条 RUN 合并成一条并顺手清理缓存；③ 加 .dockerignore 把没用的文件挡在外面。'},
+  {id:'c11-3', ch:'ch11', q:'Nacos 一句话是做什么的？', a:'注册中心 + 配置中心：服务之间靠它互相找得到（通讯录），配置改一处所有服务都生效（公告板）。'},
+  {id:'c12-3', ch:'ch12', q:'Jenkins 的核心价值是什么？', a:'把人手工"构建 + 部署"变成提交代码后自动跑流水线：少出错、可重复、有记录。'},
+  {id:'c13-3', ch:'ch13', q:'git add / commit / push 分别干什么？', a:'add＝挑好这次要存哪些改动（装信封）；commit＝存到本地仓库（存档）；push＝上传到 GitHub（云端备份）。'},
+  {id:'c15-3', ch:'ch15', q:'监控里四个角色分别是谁？', a:'Prometheus 定时采集并存储；Exporter 提供数据（如 node_exporter）；Grafana 负责画图；Alertmanager 负责发告警。'},
+  {id:'c19-3', ch:'ch19', q:'什么时候必须用 StatefulSet 而不是 Deployment？', a:'需要固定名字（如 mysql-0）、需要按顺序启动、每个副本要有自己专属存储的时候（数据库、中间件）。'},
+  {id:'c20-3', ch:'ch20', q:'Helm 的 values.yaml 和 templates/ 各是什么角色？', a:'values.yaml 是"填空的答案"（参数值）；templates/ 是"带占位符的 YAML 模板"，渲染出来才是真正的 K8s 清单。'},
+  {id:'c21-3', ch:'ch21', q:'指标、日志、链路分别擅长回答什么问题？', a:'指标：有没有问题、趋势如何；日志：具体哪里报错了；链路：一次请求慢在哪一步。'},
+  {id:'c22-3', ch:'ch22', q:'SLI、SLO、SLA 的区别？', a:'SLI＝实际测出来的数字；SLO＝你给自己定下的目标；SLA＝对客户的承诺（带赔偿）。'}
+];
+
+var SRS_KEY='dsh_srs_v1', MISTAKE_KEY='dsh_mistakes_v1', REVIEW_LOG='dsh_review_log_v1';
+function srsGet(){try{return JSON.parse(localStorage.getItem(SRS_KEY))||{};}catch(e){return {};}}
+function srsSet(o){try{localStorage.setItem(SRS_KEY,JSON.stringify(o));}catch(e){}}
+function logGet2(){try{return JSON.parse(localStorage.getItem(REVIEW_LOG))||{};}catch(e){return {};}}
+function logSet2(o){try{localStorage.setItem(REVIEW_LOG,JSON.stringify(o));}catch(e){}}
+function misGet(){try{return JSON.parse(localStorage.getItem(MISTAKE_KEY))||{};}catch(e){return {};}}
+function misSet(o){try{localStorage.setItem(MISTAKE_KEY,JSON.stringify(o));}catch(e){}}
+
+var DAY=86400000, INTERVALS=[0,1,3,7,15,30]; // 天
+function srsDue(){
+  var st=srsGet(), now=Date.now(), out=[];
+  CARDS.forEach(function(c){
+    var s=st[c.id];
+    if(!s){ out.push({c:c,unseen:true,due:0}); return; }
+    if((s.due||0)<=now) out.push({c:c,unseen:false,due:s.due||0});
+  });
+  out.sort(function(a,b){return (a.unseen?0:a.due)-(b.unseen?0:b.due);});
+  return out;
+}
+function srsDueCount(){ return srsDue().length; }
+function srsRate(id,grade){
+  var st=srsGet(), s=st[id]||{lv:0};
+  if(grade==='bad'){ s.lv=0; s.due=Date.now(); }
+  else if(grade==='mid'){ s.lv=Math.max(1,s.lv||1); s.due=Date.now()+1*DAY; }
+  else { s.lv=Math.min(INTERVALS.length-1,(s.lv||0)+1); s.due=Date.now()+INTERVALS[s.lv]*DAY; }
+  st[id]=s; srsSet(st);
+  var lg=logGet2(); var k=dToday(); lg[k]=(lg[k]||0)+1; logSet2(lg);
+}
+function reviewTodayCount(){ var lg=logGet2(); return lg[dToday()]||0; }
+
+// ---------- 复习页 ----------
+var rvQueue=null, rvIdx=0, rvShown=false, rvTab='review';
+function renderReview(){
+  var host=document.getElementById('content'); if(!host)return;
+  rvTab='review';
+  rvQueue=srsDue(); rvIdx=0; rvShown=false;
+  host.innerHTML=rvShell();
+  rvRenderCard();
+}
+function rvShell(){
+  var due=srsDueCount(), today=reviewTodayCount(), mis=Object.keys(misGet()).length;
+  return '<div class="rv-wrap"><h2>🔁 复习 · 让记忆留下来</h2>'
+    +'<p class="rv-intro">科学记忆法：<b>主动回忆</b>（先自己想，再看答案）＋ <b>间隔重复</b>（该复习的自动排到今天）。答"忘了"的卡片今天会再来一次。</p>'
+    +'<div class="rv-tabs">'
+    +'<button class="rv-tab on" data-tab="review" onclick="rvSwitch(\'review\')">今日复习 '+(due?('<b>'+due+'</b>'):'')+'</button>'
+    +'<button class="rv-tab" data-tab="mistakes" onclick="rvSwitch(\'mistakes\')">错题本 '+(mis?('<b>'+mis+'</b>'):'')+'</button>'
+    +'</div>'
+    +'<div class="rv-body" id="rvBody"></div>'
+    +'</div>';
+}
+function rvSwitch(tab){
+  rvTab=tab;
+  document.querySelectorAll('.rv-tab').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-tab')===tab);});
+  var b=document.getElementById('rvBody'); if(!b)return;
+  if(tab==='mistakes'){ b.innerHTML=rvMistakes(); return; }
+  rvQueue=srsDue(); rvIdx=0; rvShown=false; rvRenderCard();
+}
+function rvRenderCard(){
+  var b=document.getElementById('rvBody'); if(!b)return;
+  if(rvIdx>=rvQueue.length){
+    var due=srsDueCount();
+    b.innerHTML='<div class="rv-done"><div class="rv-emoji">🎉</div><h3>本轮复习完成！</h3>'
+      +'<p>今日已复习 <b>'+reviewTodayCount()+'</b> 张'+(due?('，还有 <b>'+due+'</b> 张到点了可以继续'):'，暂时没有待复习的了')+'。</p>'
+      +'<div class="rv-btns"><button class="rv-btn primary" onclick="rvSwitch(\'review\')">'+(due?'继续复习':'再刷一轮')+'</button>'
+      +'<button class="rv-btn" onclick="location.hash=\'#quiz\'">去在线测验</button>'
+      +'<button class="rv-btn" onclick="location.hash=\'#home\'">回首页</button></div></div>';
+    return;
+  }
+  if(rvIdx<0)rvIdx=0;
+  var item=rvQueue[rvIdx], c=item.c;
+  var chap=(TITLES[c.ch]||c.ch);
+  var body='';
+  if(!rvShown){
+    body='<div class="rv-q">'+c.q+'</div>'
+      +'<div class="rv-tip">先在脑子里想一下答案，再点"显示答案"（这一步就是主动回忆，效果最好）</div>'
+      +'<div class="rv-btns"><button class="rv-btn primary" onclick="rvShow()">显示答案</button></div>';
+  } else {
+    body='<div class="rv-q">'+c.q+'</div>'
+      +'<div class="rv-a">'+c.a+'</div>'
+      +'<div class="rv-rate"><span>你刚才想起来了吗？</span>'
+      +'<button class="rv-btn bad" onclick="rvGo(\'bad\')">😖 忘了</button>'
+      +'<button class="rv-btn mid" onclick="rvGo(\'mid\')">🤔 有点印象</button>'
+      +'<button class="rv-btn good" onclick="rvGo(\'good\')">😄 记住了</button></div>';
+  }
+  b.innerHTML='<div class="rv-card">'
+    +'<div class="rv-meta"><span class="rv-ch">'+chap+'</span><span class="rv-prog">第 '+(rvIdx+1)+' / '+rvQueue.length+' 张</span></div>'
+    +body+'</div>';
+}
+function rvShow(){ rvShown=true; rvRenderCard(); }
+function rvGo(grade){
+  var item=rvQueue[rvIdx]; if(!item)return;
+  srsRate(item.c.id,grade);
+  if(grade==='bad'){ rvQueue.push(item); }   // 忘了 → 本轮末尾再来一次
+  rvIdx++; rvShown=false; rvRenderCard();
+}
+function rvMistakes(){
+  var m=misGet(), keys=Object.keys(m);
+  if(!keys.length) return '<div class="rv-done"><div class="rv-emoji">✨</div><h3>错题本是空的</h3><p>去「在线测验」做一遍，做错的题会自动收进这里，方便你重练。</p><div class="rv-btns"><button class="rv-btn primary" onclick="location.hash=\'#quiz\'">去做测验</button></div></div>';
+  var h='<div class="rv-mis">';
+  keys.forEach(function(k){
+    var x=m[k];
+    h+='<div class="rv-mis-item"><div class="rv-mis-q">'+x.text+'</div>'
+      +'<div class="rv-mis-a">✅ 正确答案：<b>'+x.correct+'</b></div>'
+      +'<div class="rv-mis-e">'+(x.explain||'')+'</div></div>';
+  });
+  h+='<div class="rv-btns"><button class="rv-btn" onclick="misClear()">清空错题本</button>'
+    +'<button class="rv-btn primary" onclick="location.hash=\'#quiz\'">重做测验</button></div></div>';
+  return h;
+}
+function misClear(){ misSet({}); rvSwitch('mistakes'); }
+
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function inlineLinks(s){
   s=s.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
@@ -3496,12 +4117,12 @@ function inlineLinks(s){
   return s;
 }
 function inline(s){
-  var parts=s.split('`'),out='';
-  for(var i=0;i<parts.length;i++){
-    if(i%2===1){out+='<code>'+esc(parts[i])+'</code>';}
-    else{out+=inlineLinks(parts[i]);}
-  }
-  return out;
+  // 先把 `行内代码` 抽成占位符, 这样 **粗体** 可以跨过代码片段正常生效
+  var codes=[];
+  s=s.replace(/`([^`]*)`/g,function(mm,c){codes.push(c);return '\u0001'+(codes.length-1)+'\u0001';});
+  s=inlineLinks(s);
+  s=s.replace(/\u0001(\d+)\u0001/g,function(mm,i){return '<code>'+esc(codes[+i])+'</code>';});
+  return s;
 }
 function renderBlock(text){
   var lines=text.replace(/\r\n/g,'\n').split('\n');var html='';var i=0;
@@ -3519,6 +4140,8 @@ function renderBlock(text){
     var h=line.match(/^(#{1,6})\s+(.*)$/);
     if(h){var l=h[1].length;html+='<h'+l+'>'+inline(h[2])+'</h'+l+'>';i++;continue;}
     if(/^---+\s*$/.test(line.trim())){html+='<hr>';i++;continue;}
+    var w=line.trim().match(/^\[\[widget:([a-z0-9_-]+)\]\]$/i);
+    if(w){html+='<div class="wz-slot" data-widget="'+w[1]+'"></div>';i++;continue;}
     if(/^>/.test(line)){
       var q=[];while(i<lines.length&&/^>/.test(lines[i])){q.push(lines[i].replace(/^>\s?/,''));i++;}
       html+='<blockquote>'+renderBlock(q.join('\n'))+'</blockquote>';continue;
@@ -3543,12 +4166,15 @@ function renderBlock(text){
       items.forEach(function(it){out+='<li'+(it.ind>0?' style="margin-left:'+(it.ind<4?18:36)+'px"':'')+'>'+inline(it.txt)+'</li>';});
       out+='</'+tag+'>';html+=out;continue;
     }
-    var para=[];var starts=/^(#{1,6}\s|```|\s*[-*]\s+|\s*\d+\.\s+|>|---)/;
+    var para=[];var starts=/^(#{1,6}\s|```|\s*[-*]\s+|\s*\d+\.\s+|>|---|\[\[widget:)/;
     while(i<lines.length&&lines[i].trim()!==''&&!starts.test(lines[i])){para.push(lines[i]);i++;}
     html+='<p>'+inline(para.join(' '))+'</p>';
   }
   return html;
 }
+// 所有模块加载完成后再启动（避免数据未初始化）
+route();
+drawProgress();
 </script>
 <button class="to-top" id="toTop">↑</button>
 <button class="side-open" id="sideOpen" onclick="toggleSide()">☰ 目录</button>

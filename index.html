@@ -609,7 +609,55 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
   .cm-cmd{ white-space:normal; word-break:break-all; }
   .cm-args li{ flex-direction:column; gap:4px; }
   .cm-args code{ min-width:0; }
-}</style>
+}
+/* ===== 命令逐点拆解（拆分布局） ===== */
+.lc-grid{ display:flex; flex-direction:column; gap:14px; margin-bottom:14px; }
+.lc-card{ border:1px solid var(--line); border-radius:14px; padding:16px 20px; background:#fff; box-shadow:0 1px 3px rgba(4,63,44,.05); }
+.lc-head{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:8px; }
+.lc-cmd{ font-family:Consolas, monospace; font-size:13px; font-weight:700; color:#065f46; background:#ecfdf5; border:1px solid #a7f3d0; border-radius:8px; padding:3px 10px; }
+.lc-sub{ font-size:12px; color:var(--muted); }
+.lc-title{ font-size:14.5px; font-weight:700; color:var(--ink); margin-bottom:10px; }
+.lc-pts{ list-style:none; margin:0; padding:0; }
+.lc-pts li{ display:grid; grid-template-columns:22px 132px minmax(0,1fr); gap:6px 12px; padding:11px 0; border-top:1px dashed #eef2f7; align-items:start; }
+.lc-pts li:first-child{ border-top:none; padding-top:2px; }
+.lc-no{ color:#10b981; font-size:15px; font-weight:700; line-height:1.5; grid-row:span 2; }
+.lc-body{ display:contents; }
+.lc-body b{ font-size:13.5px; color:#065f46; font-weight:700; padding-top:1px; }
+.lc-body span{ font-size:13px; color:var(--text); line-height:1.8; }
+.lc-code{ font-family:Consolas, monospace; font-size:12.5px; color:#1e40af; background:#eff6ff; border-radius:7px; padding:6px 10px; word-break:break-all; grid-column:3; }
+.lc-flow{ display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:12px; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:12px; }
+.lc-flow i{ color:#94a3b8; font-style:normal; }
+.lc-chip{ font-family:Consolas, monospace; font-size:11.5px; padding:4px 10px; border-radius:999px; background:#fff; border:1px solid var(--line); color:#475569; }
+.lc-chip.on{ border-color:#a7f3d0; color:#047857; }
+.lc-chip.run{ background:#dcfce7; border-color:#86efac; color:#166534; font-weight:700; }
+.lc-chip.stop{ background:#fef9c3; border-color:#fde68a; color:#854d0e; }
+.lc-chip.del{ background:#fee2e2; border-color:#fecaca; color:#991b1b; }
+@media(max-width:820px){
+  .lc-card{ padding:14px 15px; }
+  .lc-pts li{ grid-template-columns:20px minmax(0,1fr); }
+  .lc-body b{ grid-column:2; }
+  .lc-body span{ grid-column:2; }
+  .lc-code{ grid-column:2; }
+}
+/* ===== 独立页：命令速查 ===== */
+.nav a.ref-lnk{ background:rgba(255,255,255,.07); color:#a7f3d0; margin-top:14px; font-weight:600; border:1px dashed rgba(167,243,208,.35); }
+.nav a.ref-lnk:hover{ background:rgba(255,255,255,.13); color:#fff; }
+.nav a.ref-lnk.active{ background:var(--grad); color:#fff; border-style:solid; box-shadow:0 6px 18px rgba(16,185,129,.35); }
+.nav a.quiz{ margin-top:8px; }
+.ref-page{ max-width:1000px; }
+.ref-page .wz{ margin-top:0; }
+/* ===== 速查手册：双标签 ===== */
+.ref-tabs{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px; }
+.ref-tab{ flex:1 1 240px; text-align:left; font-size:14px; font-weight:600; padding:13px 16px; border-radius:14px; border:1px solid var(--line); background:#fff; color:#334155; cursor:pointer; transition:all .18s ease; }
+.ref-tab em{ display:block; font-style:normal; font-size:12px; font-weight:400; color:var(--muted); margin-top:3px; }
+.ref-tab:hover{ border-color:#6ee7b7; }
+.ref-tab.on{ background:linear-gradient(135deg,#f0fdf4,#fff); border-color:#10b981; color:#065f46; box-shadow:0 4px 14px rgba(16,185,129,.14); }
+.ref-tab.on em{ color:#047857; }
+.ref-sets{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+/* ===== 学习路径上的交互动画角标 ===== */
+.p-wzbar{ font-size:13px; color:#065f46; background:linear-gradient(135deg,#f0fdf4,#fff); border:1px solid #a7f3d0; border-radius:12px; padding:11px 14px; margin:10px 0 16px; line-height:1.7; }
+.p-wz{ font-style:normal; background:#dcfce7; color:#166534; border-radius:999px; padding:1px 7px; font-size:11px; font-weight:700; margin-left:5px; vertical-align:1px; }
+.p-chip .p-wz{ background:rgba(16,185,129,.18); color:#065f46; }</style>
 </head>
 <body>
 <div class="site">
@@ -617,6 +665,7 @@ mark.hl{ background:#fde68a; color:#7c2d12; padding:0 3px; border-radius:4px; }
     <div class="brand"><span class="logo">🌳</span><span><b>SkillTree</b></span><button id="sideToggle" class="side-toggle" onclick="toggleSide()" title="收起/展开目录">☰</button></div>
     <div class="nav">
       <a href='#home' data-id='home'>首页</a><div class='nav-group' id='g1'><button class='nav-head' data-group='g1'>📚 知识 · 初级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch02' data-id='ch02'>02 · Docker 是什么？ <em class='lvtag p'>初级</em> <span class='tag'>02</span></a><a href='#ch03' data-id='ch03'>03 · 安装 Docker <em class='lvtag p'>初级</em> <span class='tag'>03</span></a><a href='#ch04' data-id='ch04'>04 · 核心命令 <em class='lvtag p'>初级</em> <span class='tag'>04</span></a><a href='#ch05' data-id='ch05'>05 · 自己做镜像 <em class='lvtag p'>初级</em> <span class='tag'>05</span></a><a href='#ch06' data-id='ch06'>06 · 数据不丢 + 容器互通 <em class='lvtag p'>初级</em> <span class='tag'>06</span></a><a href='#ch07' data-id='ch07'>07 · Docker Compose <em class='lvtag p'>初级</em> <span class='tag'>07</span></a><a href='#ch08' data-id='ch08'>08 · 最佳实践与安全 <em class='lvtag p'>初级</em> <span class='tag'>08</span></a></div></div><div class='nav-group' id='g2'><button class='nav-head' data-group='g2'>📚 知识 · 中级<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch11' data-id='ch11'>11 · Nacos 入门 <em class='lvtag m'>中级</em> <span class='tag'>11</span></a><a href='#ch12' data-id='ch12'>12 · Jenkins 入门 <em class='lvtag m'>中级</em> <span class='tag'>12</span></a><a href='#ch13' data-id='ch13'>13 · Git 入门 <em class='lvtag m'>中级</em> <span class='tag'>13</span></a><a href='#ch14' data-id='ch14'>14 · Kubernetes 入门 <em class='lvtag m'>中级</em> <span class='tag'>14</span></a><a href='#ch15' data-id='ch15'>15 · Prometheus 监控入门 <em class='lvtag m'>中级</em> <span class='tag'>15</span></a><a href='#ch17' data-id='ch17'>17 · AI 入门与 AI 运维（AIOps） <em class='lvtag m'>中级</em> <span class='tag'>17</span></a></div></div><div class='nav-group' id='g3'><button class='nav-head' data-group='g3'>📚 知识 · 深度<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch19' data-id='ch19'>19 · 深度 · Kubernetes 实操进阶 <em class='lvtag d'>深度</em> <span class='tag'>19</span></a><a href='#ch20' data-id='ch20'>20 · 深度 · GitOps + Helm + IaC <em class='lvtag d'>深度</em> <span class='tag'>20</span></a><a href='#ch21' data-id='ch21'>21 · 深度 · 可观测性进阶 <em class='lvtag d'>深度</em> <span class='tag'>21</span></a><a href='#ch22' data-id='ch22'>22 · 深度 · SRE 与平台工程 <em class='lvtag d'>深度</em> <span class='tag'>22</span></a></div></div><div class='nav-group' id='g4'><button class='nav-head' data-group='g4'>🛠 实践 · 项目<span class='chev'>▸</span></button><div class='nav-body'><a href='#ch09' data-id='ch09'>09 · 动手实验手册 <em class='lvtag p'>初级</em> <span class='tag'>09</span></a><a href='#ch16' data-id='ch16'>16 · 实战项目 & 简历 <em class='lvtag m'>中级</em> <span class='tag'>16</span></a></div></div>
+<a class="ref-lnk" href="#ref" data-id="ref">📖 速查手册</a>
       <a class="quiz" href="#review" data-id="review">🔁 复习</a>
       <a class="quiz" href="#quiz" data-id="quiz">📝 在线测验</a>
     </div>
@@ -901,9 +950,13 @@ docker rmi nginx       # 删：如果连"菜谱"也不要了
 
 ---
 
-🎬 先玩一下：为什么容器里的服务，外面访问不到
+## 🎬 动手体验：为什么容器里的服务，外面访问不到
 
 [[widget:port]]
+
+## 🧱 命令逐点拆解：create / run / start（把一条命令拆开看）
+
+[[widget:lifecycle]]
 
 ## 🔍 常用命令小抄（每个都配"它干嘛"）
 | 你想干嘛 | 命令 | 大白话 |
@@ -922,9 +975,11 @@ docker rmi nginx       # 删：如果连"菜谱"也不要了
 
 ---
 
-## 📖 命令与参数解读（47 条，点开看每个参数什么意思）
+## 📖 速查手册
 
-[[widget:cmds]]
+> 47 条常用命令、每条命令的每个参数都单独解释了 —— 已经独立成一页，随时可查：
+> **点左侧导航「📖 速查手册」**（或直接访问 `#ref`）。
+> 学的时候跟着上面的步骤走，查的时候去那一页翻，两边不打架。
 
 ## ❓ 自测 3 问（能答对＝真会了）
 1. `docker ps` 和 `docker ps -a` 差在哪？
@@ -1033,6 +1088,10 @@ docker run -d -p 8080:80 --name mysite myfirstweb:1.0
 
 ---
 
+## 🧱 逐点拆解：Dockerfile 七个指令
+
+[[widget:breakdown-dockerfile]]
+
 ## ❓ 自测 3 问
 1. Dockerfile 里 `FROM nginx` 是什么意思？
 2. 构建命令最后的那个"点"（`.`）能不能少？
@@ -1064,7 +1123,7 @@ docker run -d -p 8080:80 --name mysite myfirstweb:1.0
 
 # 第一部分：让数据不丢（数据卷）
 
-## 🎬 先玩一下：为什么数据会丢，挂卷为什么就不丢
+## 🎬 动手体验：为什么数据会丢，挂卷为什么就不丢
 
 [[widget:volume]]
 
@@ -1206,6 +1265,10 @@ volumes:
 > - `volumes: - dbdata:/var/lib/...` ＝ **数据存到命名卷**（数据库重启不丢）
 > - 文件最下面的 `volumes: dbdata:` ＝ **声明要用的卷**
 
+## 🧱 命令逐点拆解：up / ps / down / exec
+
+[[widget:breakdown-compose]]
+
 ## ⚠️ YAML 三条铁律（错了必报错）
 1. **缩进只能用空格，不能用 Tab**
 2. **冒号后面要有空格**：写 `image: nginx` 而不是 `image:nginx`
@@ -1239,7 +1302,7 @@ docker compose down
 
 ---
 
-🎬 先玩一下：一条 up -d 到底按什么顺序干活
+## 🎬 动手体验：一条 up -d 到底按什么顺序干活
 
 [[widget:compose]]
 
@@ -1641,6 +1704,10 @@ date
 
 ---
 
+## 🧱 命令逐点拆解：起容器 / 解锁 / 建任务 / 凭据
+
+[[widget:breakdown-jenkins]]
+
 ## ❓ 自测 3 问
 1. CI 和 CD 分别是什么意思（大白话）？
 2. Jenkins 的初始管理员密码从哪里取？
@@ -1717,6 +1784,10 @@ git push -u origin main
 👉 **你应该看到**：上传进度，最后 `branch 'main' set up to track ...`；刷新 GitHub 页面，**能看到你的文件**。
 
 ---
+
+## 🧱 命令逐点拆解：init / add-commit / push / 撤销
+
+[[widget:breakdown-git]]
 
 ## ❓ 自测 3 问
 1. 把一次改动"存进 Git"的三步是什么？
@@ -1796,7 +1867,7 @@ kubectl get pods                                     # 等几秒再看
 👉 **你应该看到**：删掉的那个 Pod 消失后，**又自动冒出一个新的**（数量还是 2 个）。
 **这就是"自愈"：它盯着"我要 2 个"，少一个就补一个。**
 
-## 🎬 先玩一下：亲手删掉一个 Pod 看看会发生什么
+## 🎬 动手体验：亲手删掉一个 Pod 看看会发生什么
 
 [[widget:heal]]
 
@@ -1811,6 +1882,10 @@ k3d cluster delete mycluster           # 不玩了，删掉整个集群
 > 上图：K8s 一直在"对比你想要的样子 vs 现在真实的样子"，不一样就动手 —— **这就是自愈的原理**。
 
 ---
+
+## 🧱 命令逐点拆解：create / get / expose / scale
+
+[[widget:breakdown-k8s]]
 
 ## ❓ 自测 3 问
 1. K8s 里最小的"跑东西的单位"叫什么？
@@ -2467,6 +2542,10 @@ kubectl rollout history deployment/web     # 看历史版本
 
 ---
 
+## 🧱 命令逐点拆解：apply / pvc / hpa / rollout
+
+[[widget:breakdown-k8sdeep]]
+
 ## ❓ 自测 3 问
 1. Deployment 和 StatefulSet 最关键的区别是什么？
 2. NodePort / ClusterIP / LoadBalancer 分别给谁用？
@@ -2715,6 +2794,10 @@ up == 0
 > 平均延迟 100ms 看着很美，但如果 1% 的用户要等 10 秒 —— **平均值把痛苦藏起来了**。P99 才能暴露"最差的那批人"的体验。
 
 ---
+
+## 🧱 逐点拆解：四个最常用的 PromQL 查询
+
+[[widget:breakdown-promql]]
 
 ## 3️⃣ 告警 Alertmanager：别让告警变噪音
 **坏告警的样子**：半夜手机响 200 次，全是"CPU 高了一点点"，最后你关掉通知 —— **等于没监控**。
@@ -2981,6 +3064,7 @@ ORDER.forEach(function(k){
 });
 TITLES['home']='首页';
 TITLES['quiz']='在线测验';
+TITLES['ref']='速查手册';
 // 内容分类（知识/项目/测验/计划）与进度监控
 var CATS=[
   {key:'knowledge',label:'📚 知识',chs:['ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch11','ch12','ch13','ch14','ch15','ch17','ch19','ch20','ch21','ch22']},
@@ -3226,16 +3310,35 @@ if(toTop){
 }
 // 学习路径（简单版：三阶段卡片）
 function shortName(id){var t=TITLES[id]||id;var i=t.indexOf('·');return i>=0?t.slice(i+1).trim():t;}
+// 统计每章有几个交互动画（直接从章节正文里数，自动跟着内容走）
+function chWidgetCount(id){
+  var el=document.getElementById(id);
+  if(!el||!el.textContent)return 0;
+  var m=el.textContent.match(/\[\[widget:[a-z0-9-]+\]\]/g);
+  return m?m.length:0;
+}
+function allWidgetCount(){
+  var n=0;
+  if(typeof ORDER!=='undefined')ORDER.forEach(function(id){n+=chWidgetCount(id);});
+  return n;
+}
+function widgetChapterCount(){
+  var n=0;
+  if(typeof ORDER!=='undefined')ORDER.forEach(function(id){if(chWidgetCount(id)>0)n++;});
+  return n;
+}
 function pathHtml(){
   var TIERS=[
     {lv:'🟢 初级', color:'#10b981', goal:'能独立用 Docker 部署上线', chs:['ch02','ch03','ch04','ch05','ch06','ch07','ch08','ch09']},
     {lv:'🟡 中级', color:'#d97706', goal:'能搭云原生平台 + 自动化 + 监控 + AI', chs:['ch11','ch12','ch13','ch14','ch15','ch17']},
     {lv:'🔴 深度', color:'#dc2626', goal:'能对标 SRE / 平台工程师', chs:['ch19','ch20','ch21','ch22']}
   ];
-  var h='<section class="home-sec"><h2>🗺️ 学习路径</h2><p class="path-sub">沿 🟢初级 → 🟡中级 → 🔴深度 点亮技能树，点章节即可学习（打开即自动记录进度）。</p>';
+  var wzTotal=allWidgetCount(), wzChs=widgetChapterCount();
+  var h='<section class="home-sec"><h2>🗺️ 学习路径</h2><p class="path-sub">沿 🟢初级 → 🟡中级 → 🔴深度 点亮技能树，点章节即可学习（打开即自动记录进度）。</p>'
+   +'<div class="p-wzbar">🎬 <b>'+wzTotal+' 个交互动画</b>分布在 '+wzChs+' 个章节里：带 <em class="p-wz">🎬</em> 标记的章节可以点、可以玩（命令执行流程、逐点拆解、端口映射、自愈演示等）。</div>';
   TIERS.forEach(function(t){
     h+='<div class="p-tier"><div class="p-tier-head"><span class="p-lv" style="background:'+t.color+'">'+t.lv+'</span><span class="p-goal">💪 '+t.goal+'</span></div>'
-      +'<div class="p-chips">'+t.chs.map(function(id){return '<a class="p-chip" href="#'+id+'">'+shortName(id)+'</a>';}).join('')+'</div></div>';
+      +'<div class="p-chips">'+t.chs.map(function(id){var wc=chWidgetCount(id);return '<a class="p-chip" href="#'+id+'"'+(wc?' title="本章有 '+wc+' 个交互动画"':'')+'>'+shortName(id)+(wc?' <em class="p-wz">🎬'+wc+'</em>':'')+'</a>';}).join('')+'</div></div>';
   });
   h+=homePlanHtml();
   h+='</section>';
@@ -3281,6 +3384,8 @@ function mountWidgets(){
     else if(n==='compose'){slots[i].innerHTML=wCmpHtml();}
     else if(n==='cmdflow'){slots[i].innerHTML=wCmdHtml();wCmdReset();}
     else if(n==='cmds'){slots[i].innerHTML=wCmdsHtml();cmPick(0);}
+    else if(n==='lifecycle'){slots[i].innerHTML=wLifeHtml();}
+    else if(n.indexOf('breakdown-')===0){slots[i].innerHTML=wBreakHtml(n.slice(10));}
   }
 }
 /* --- 动画 1：K8s 自愈 --- */
@@ -3543,7 +3648,20 @@ var CF=[
    {c:5,t:'⑥ 容器进程跑起来了',d:'容器里的 1 号进程（PID 1）就是 nginx。它本质上是宿主机上的一个普通进程，只是被套上了"隔离罩"。'},
    {c:1,t:'⑦ 返回结果',d:'dockerd 把容器 ID 返回给 CLI，终端打印出那一长串 ID。端口则由 iptables 做 DNAT：宿主机 8080 → 容器 80。'}
  ]},
- { name:'docker ps', cmd:'docker ps', steps:[
+ { name:'docker create', cmd:'docker create --name web -p 8080:80 nginx', steps:[
+   {c:1,t:'① CLI 发出"创建"请求',d:'注意是 create 不是 run：只要求"把容器造出来"，没要求启动。'},
+   {c:2,t:'② dockerd 准备镜像',d:'本地没有 nginx 就先去仓库拉下来；镜像不到位就没法创建容器。'},
+   {c:3,t:'③ containerd 搭好容器的"壳"',d:'用 overlay2 把镜像各层叠成容器自己的文件系统，写好网络、端口、卷这些配置，并存进元数据。'},
+   {c:3,t:'④ 到这里就停住了',d:'容器已经"造好"，但不会启动任何进程 —— 状态是 Created。docker ps 看不到它，要 docker ps -a 才看得到。'},
+   {c:1,t:'⑤ 返回容器 ID',d:'创建过程结束。想让它跑起来，还得再执行 docker start web。这就是"先准备好、再启动"的分工。'}
+ ]},
+ { name:'docker start', cmd:'docker start web', steps:[
+   {c:1,t:'① CLI 说：把这个容器启动起来',d:'容器必须已经存在（create 过或之前 run 过），start 不会新建容器、也不会重新拉镜像。'},
+   {c:2,t:'② dockerd 从元数据里找到它',d:'容器上次的配置（端口映射、数据卷、环境变量）都原样保留，直接复用。'},
+   {c:3,t:'③ containerd 让 runc 把进程拉起来',d:'容器里原来的 1 号进程重新开始运行，状态从 Created / Exited 变成 Up。'},
+   {c:5,t:'④ 进程跑起来了',d:'数据卷里的数据还在（这正是数据卷的意义）；容器 ID 和名字都没变。'},
+   {c:1,t:'⑤ 默认后台，-a 才会打印日志',d:'不加参数就是在后台启动（等同 -d 的效果），日志不会打到当前终端，要看用 docker logs web；加 -a（attach）才会把容器的标准输出接到当前终端，日志直接刷出来。'}
+ ]}, { name:'docker ps', cmd:'docker ps', steps:[
    {c:1,t:'① CLI 发出请求',d:'把 ps 请求通过 /var/run/docker.sock 发给 dockerd。'},
    {c:2,t:'② dockerd 去查账',d:'dockerd 自己不全记容器状态，它去问 containerd 以及自己维护的元数据。'},
    {c:3,t:'③ containerd 返回清单',d:'containerd 返回容器列表和状态：哪些还在跑、各自什么名字和 ID。'},
@@ -3842,7 +3960,7 @@ function wCmdsHtml(){
   var tabs='';
   CMD_CATS.forEach(function(c,i){tabs+='<button class="cf-tab" id="cmTab'+i+'" onclick="cmPick('+i+')">'+esc(c.n)+'</button>';});
   return '<div class="wz">'
-   +'<div class="wz-title">📖 命令与参数解读（点任意一条命令展开）</div>'
+   +'<div class="wz-title">📖 速查手册 · 命令与参数解读（点任意一条命令展开）</div>'
    +'<div class="cf-tabs">'+tabs+'</div>'
    +'<div class="wz-actions"><button class="wz-btn ghost" onclick="cmAll(1)">全部展开</button>'
    +'<button class="wz-btn ghost" onclick="cmAll(0)">全部收起</button>'
@@ -3889,6 +4007,332 @@ function cmAll(open){
     if(ar)ar.textContent=open?'－':'＋';
   });
 }
+/* --- 动画 7：命令逐点拆解（数据驱动，支持多组命令） --- */
+var LC_CIRCLED=['①','②','③','④','⑤','⑥','⑦','⑧'];
+var LC_SETS={};
+
+LC_SETS.lifecycle=[
+ { k:'docker create', t:'只创建，不启动', s:'把容器"造出来"，但不让它跑',
+   pts:[
+     ['状态','创建完成后容器状态是 Created。docker ps 看不到它，要 docker ps -a 才看得到。'],
+     ['用途','适合"先准备好、稍后再启动"：端口、数据卷、环境变量一次配好，需要时再 docker start。'],
+     ['记忆','create 只是"把菜装盘"，还没"上桌"。'],
+     ['例子','','docker create --name web -p 8080:80 nginx'] ] },
+ { k:'docker run', t:'创建并启动容器', s:'一条命令 = 创建 + 启动',
+   pts:[
+     ['指定镜像版本（标签）','镜像名后面跟 :标签。不写标签默认用 latest；生产建议写明确版本，避免哪天 latest 变了把环境搞崩。hello-world:latest 里的 latest 就是"最新版"这个标签。','docker run hello-world:latest'],
+     ['后台运行','-d / --detach：后台守护模式。命令立刻返回、不占着终端；不加 -d 则前台运行，输出直接打在你屏幕上。','docker run -d hello-world'],
+     ['给容器自定义名字','--name xxx：给容器命名。不写名字 Docker 会随机生成，之后不好引用（stop / rm / logs 都得用名字或 ID）。','docker run --name test-hello hello-world'],
+     ['命令等价关系','docker run 镜像 ≡ docker create 镜像 + docker start -a 容器。也就是 run 把"创建"和"启动"合成了一条命令，而且默认就把输出挂到当前终端。'],
+     ['样例','hello-world 是 Docker 官方的测试镜像，非常小，只用来验证 Docker 环境是否正常。它属于"镜像内置程序"：输出一段提示文本，然后程序直接退出、容器随之结束（所以 docker ps 里看不到它，要用 docker ps -a）。','docker run hello-world'] ] },
+ { k:'docker start', t:'启动已存在且已停止的容器', s:'再叫醒它，不重新创建',
+   pts:[
+     ['默认是后台启动','效果等同于加 -d：不会把日志打印到当前终端。想看它打印了什么，用 docker logs <容器名>。','docker start web'],
+     ['-a 附加输出','-a 表示 attach（附加）到容器的标准输出：终端会直接打印容器日志，适合调试和观察启动过程。','docker start -a web'],
+     ['和 run 的区别','run 是"新建并启动"；start 是"启动已经存在的那个"（容器 ID、端口、数据卷都沿用原来的）。'],
+     ['和数据卷的关系','容器停止再启动，数据卷里的数据还在 —— 这也是"要长期保存的数据必须挂卷"的原因。'] ] },
+ { k:'完整生命周期', t:'四个动作串起来', s:'create → start → stop → rm',
+   pts:[
+     ['创建 / 启动','docker create 造出来（Created）→ docker start 跑起来（Up）。'],
+     ['停止','docker stop：先发 SIGTERM 让程序优雅退出，默认等 10 秒还不退就 SIGKILL 强杀。此时状态是 Exited，容器还在。'],
+     ['再启动','docker start 能把它重新叫醒，不用重建、数据不丢。'],
+     ['真正删除','docker rm 才让容器彻底消失（-f 可删运行中的）。停掉 ≠ 删掉。'] ] }
+];
+
+LC_SETS.compose=[
+ { k:'docker compose up', t:'按 yml 把服务拉起来', s:'一条命令起一整套',
+   pts:[
+     ['-d 后台运行','不加 -d 就是前台模式：日志会一直刷在你屏幕上（调试时有用），但关掉终端服务就停。','docker compose up -d'],
+     ['--build 先重新构建','改了 Dockerfile 或代码之后必须加，否则用的还是旧镜像 —— 这是"我明明改了却没生效"的头号原因。','docker compose up -d --build'],
+     ['-f 指定文件','默认找当前目录的 docker-compose.yml；文件名不标准时用它指定。','docker compose -f compose.prod.yml up -d'],
+     ['--scale 起多副本','把一个服务起多个实例（配合负载均衡）。','docker compose up -d --scale web=3'],
+     ['执行顺序','先建网络 → 再按 depends_on 顺序起服务（先 db 后 web）→ 全起来后命令才返回。'] ] },
+ { k:'docker compose ps / logs', t:'看状态、看日志', s:'排查问题的入口',
+   pts:[
+     ['ps','列出这个项目里各服务的状态（running / exited）和端口。','docker compose ps'],
+     ['logs 用服务名','用 yml 里的服务名，不是容器名；-f 持续跟踪，--tail 只看最后几行。','docker compose logs -f --tail=100 web'],
+     ['restart 单个服务','只重启出问题的那个服务，不影响其他。','docker compose restart web'] ] },
+ { k:'docker compose down', t:'停止并删除容器 + 网络', s:'收拾干净，注意数据',
+   pts:[
+     ['和 stop 的区别','stop 只停不删（容器还在）；down 停完还会把容器和网络一起删掉。'],
+     ['-v 会删数据卷','小心：加了 -v 连数据卷一起删，数据库里的数据会真的没。要用数据就先备份。','docker compose down'],
+     ['--rmi all','连用到的镜像也一起删。','docker compose down --rmi all'],
+     ['清理建议','日常停服只用 stop；确认不要数据了再 down；down -v 留给"推倒重来"。'] ] },
+ { k:'docker compose exec / config', t:'进容器、查最终配置', s:'两个高频排查命令',
+   pts:[
+     ['exec 进服务','同样用服务名。后面跟要执行的命令。','docker compose exec db mysql -uroot -p'],
+     ['config 展开配置','把 yml 连同变量一起展开成最终配置，排查缩进、变量没生效、最终值到底是什么。','docker compose config'],
+     ['YAML 三条铁律','① 缩进只能用空格（不能用 Tab）；② 冒号后面必须有一个空格；③ 同级条目左对齐 —— 90% 的 Compose 报错都违反其中一条。'] ] }
+];
+
+LC_SETS.k8s=[
+ { k:'kubectl create deployment', t:'声明"我要几个副本"', s:'这是你写"期望状态"的地方',
+   pts:[
+     ['--image','用哪个镜像；建议写明确版本（:1.25），别用 latest。','kubectl create deployment myweb --image=nginx:1.25'],
+     ['--replicas','要几个副本，不写默认 1 个。K8s 会一直保证实际数量等于这个数。','kubectl create deployment myweb --image=nginx --replicas=2'],
+     ['背后的层级','你只写 Deployment；它自动创建 ReplicaSet，ReplicaSet 再去创建 Pod。'],
+     ['想看定义','加 --dry-run=client -o yaml 可以先打印出 YAML 而不真的创建。','kubectl create deployment myweb --image=nginx --dry-run=client -o yaml'] ] },
+ { k:'kubectl get', t:'查看资源（用得最多的命令）', s:'几乎一切排错都从它开始',
+   pts:[
+     ['常用对象','pods（容器）、svc（服务）、nodes（机器）、deploy（部署）、all（一把全看）。','kubectl get pods'],
+     ['-o wide','多显示 IP 和 Pod 落在哪台节点上。','kubectl get pods -o wide'],
+     ['-w 持续观察','watch 模式，状态变化实时刷新（观察启动过程、自愈过程特别好用）。','kubectl get pods -w'],
+     ['-o yaml / -o json','看完整定义，排查"我配的东西到底生效没"。','kubectl get deployment myweb -o yaml'] ] },
+ { k:'kubectl expose', t:'给一组 Pod 一个固定入口', s:'Pod 会换，入口不变',
+   pts:[
+     ['--type=NodePort','集群外可以用 任意节点IP:3xxxx 访问（测试常用）。','kubectl expose deployment myweb --type=NodePort --port=80'],
+     ['--type=ClusterIP','默认类型，只有集群内部能访问（服务之间互调用这个）。'],
+     ['--type=LoadBalancer','云上会分配一个真正的外网 IP（生产常用）。'],
+     ['--port / --target-port','--port 是服务端口；--target-port 是容器里的端口（不写默认和 port 相同）。','kubectl expose deployment myweb --port=80 --target-port=8080'],
+     ['取端口号','创建后用 kubectl get svc 看 PORT(S) 那一列里的 3xxxx。','kubectl get svc'] ] },
+ { k:'kubectl scale / delete / logs / exec', t:'扩容、删除、看日志、进容器', s:'日常运维四件事',
+   pts:[
+     ['scale 扩容','把副本数改成 4，K8s 会自动补 Pod。','kubectl scale deployment myweb --replicas=4'],
+     ['delete 删 Pod','手动删掉一个 Pod 后它会自动补一个回来 —— 这就是自愈（删 Deployment 才会真的没了）。','kubectl delete pod <Pod名>'],
+     ['logs 看日志','-f 持续跟踪，--tail 只看尾部。','kubectl logs -f --tail=100 <Pod名>'],
+     ['exec 进容器','注意必须有 -- 分隔：前面是 kubectl 的参数，后面是容器里要跑的命令（最容易被忽略的坑）。','kubectl exec -it <Pod名> -- sh'] ] }
+];
+
+LC_SETS.k8sdeep=[
+ { k:'kubectl apply -f xxx.yaml', t:'声明式创建/更新', s:'"我要它是这样"，而不是"帮我建一个"',
+   pts:[
+     ['-f 后面可以是什么','一个 yaml 文件、一个目录（里面所有 yaml 一起应用）、甚至一个 URL 都行。','kubectl apply -f ./k8s/'],
+     ['幂等','文件里写什么，集群就改成什么样；只改差异部分，重复执行也安全。','kubectl apply -f sts.yaml'],
+     ['和 create 的区别','create 只能新建（已存在会报错）；apply 是"建成这样"，改了 yaml 再 apply 就是更新。'],
+     ['先校验不生效','加 --dry-run=server 让服务端完整校验一遍，但不真的改。','kubectl apply -f sts.yaml --dry-run=server'] ] },
+ { k:'kubectl get pvc / describe', t:'有状态应用的存储排查', s:'PVC 一直 Pending 怎么办',
+   pts:[
+     ['看状态','kubectl get pvc：STATUS 是 Pending（没分到盘）还是 Bound（分到了）。','kubectl get pvc'],
+     ['Pending 先看事件','describe 会列出 Events；最常见原因是没有 StorageClass，或者没有可用的 PV。','kubectl describe pvc mydata'],
+     ['看有哪些房源套餐','kubectl get sc 看 StorageClass：动态供给就是按 PVC 的申请现场建一块盘。','kubectl get sc'],
+     ['三个词的关系','PV＝仓库本身（管理员准备）；PVC＝你的租房申请；StorageClass＝自动建房的套餐。'] ] },
+ { k:'kubectl autoscale / get hpa', t:'自动扩缩容', s:'CPU 高了自动加副本',
+   pts:[
+     ['--cpu-percent','目标 CPU 使用率：超过就加副本，降下来就缩回去。','kubectl autoscale deployment web --cpu-percent=50 --min=2 --max=8'],
+     ['--min / --max','副本数的上下限，防止扩到把机器打满，也防止缩到 0。'],
+     ['看效果','kubectl get hpa 看 TARGETS（当前/目标）和 REPLICAS；describe hpa 看它为什么不动。','kubectl get hpa'],
+     ['HPA 不扩容的头号原因','Pod 里没写 resources.requests.cpu —— 没有 requests 就算不出百分比，HPA 无从下手。'],
+     ['先确认拿得到数据','kubectl top pods 需要装 metrics-server；top 没数据，HPA 也不会工作。','kubectl top pods'] ] },
+ { k:'kubectl set image + rollout', t:'滚动更新与回滚', s:'生产敢发版，是因为能一条命令退回去',
+   pts:[
+     ['改镜像就是发版','改了 image 标签就会触发滚动更新：一个一个换 Pod，服务不中断。','kubectl set image deployment/web nginx=nginx:1.25'],
+     ['盯着它换完','rollout status 会一直等到更新结束，出问题第一时间能看到。','kubectl rollout status deployment/web'],
+     ['看历史版本','rollout history 列出每次发布的版本号，回滚时可以指定。','kubectl rollout history deployment/web'],
+     ['回滚','rollout undo 退回上一版；加 --to-revision=2 回到指定版本。','kubectl rollout undo deployment/web'] ] }
+];
+
+LC_SETS.promql=[
+ { k:'rate()', t:'给计数器求速率', s:'_total 结尾的指标只会涨，直接看没意义',
+   pts:[
+     ['为什么不能直接看','计数器（http_requests_total）记录"累计发生过多少次"，是一条一直上涨的曲线，看不出快慢。'],
+     ['rate 的含义','rate(x[5m]) ＝ 过去 5 分钟里平均每秒涨了多少，也就是"每秒请求数"。','rate(http_requests_total[5m])'],
+     ['时间范围不能省','方括号 [5m] 是必须的，不写直接报错 —— 新手第一个坑。'],
+     ['窗口怎么选','要大于 2 个采集间隔；默认 15 秒采集，所以至少 1m，常用 5m。'] ] },
+ { k:'sum by(...)', t:'分组聚合', s:'按机器、按服务分别看',
+   pts:[
+     ['按维度分组','sum by(instance)(...) 按机器汇总；sum by(service) 按服务汇总。'],
+     ['不写 by 的后果','不加 by 就是全局求和，只剩一条线，看不出是哪台机器出的问题。'],
+     ['典型组合','先 rate 求速率，再按 instance 求和，得到每台机器每秒的使用量。','sum by(instance)(rate(node_cpu_seconds_total{mode!="idle"}[5m]))'],
+     ['过滤','大括号里可以做条件筛选，=~ 是正则匹配。','{status=~"5.."}'] ] },
+ { k:'histogram_quantile()', t:'看分位数（P95 / P99）', s:'平均值会把痛苦藏起来',
+   pts:[
+     ['为什么不用平均值','平均延迟 100ms 看着很美，但如果 1% 的用户要等 10 秒，平均值完全看不出来。'],
+     ['固定写法','histogram_quantile(0.95, sum by(le)(rate(http_request_duration_seconds_bucket[5m])))','histogram_quantile(0.95, sum by(le)(rate(..._bucket[5m])))'],
+     ['le 不能丢','le 是直方图的分桶标签，聚合时必须 by(le)，否则算不出分位数。'],
+     ['0.95 还是 0.99','0.95＝95% 的请求都快于这个值；0.99 更贴近"最差的那批人"的体验。'] ] },
+ { k:'predict_linear() + 告警规则', t:'预测与告警', s:'在出事之前先被通知',
+   pts:[
+     ['提前预警','按过去 6 小时趋势预测 4 小时后：结果小于 0 就说明磁盘会满。','predict_linear(node_filesystem_avail_bytes[6h], 4*3600) < 0'],
+     ['告警规则三件套','alert（名字）+ expr（查询条件）+ for（持续多久才报）。'],
+     ['for 的作用','for: 5m 表示"条件持续满足 5 分钟才告警"，用来滤掉瞬时抖动造成的误报。','for: 5m'],
+     ['分级与降噪','labels.severity 分级（critical 打电话、warning 发群）；group_by 聚合 + 抑制规则避免告警风暴。'] ] }
+];
+LC_SETS.jenkins=[
+ { k:'docker run jenkins/jenkins:lts', t:'用容器把 Jenkins 跑起来', s:'镜像名、端口、数据卷三件事',
+   pts:[
+     ['镜像名别写错','是 jenkins/jenkins，不是 jenkins（旧的那个官方镜像已经废弃，别再用了）。','docker run -d --name myjenkins jenkins/jenkins:lts'],
+     ['标签选 lts','lts 是长期支持版（稳定，推荐）；latest 是每周版，尝鲜可以但别用在正事上。'],
+     ['两个端口','8080 是 Web 界面（宿主机常被占，所以常映射成 8081）；50000 是 agent 通信端口。','-p 8081:8080 -p 50000:50000'],
+     ['数据卷必须挂','-v jenkins_home:/var/jenkins_home。不挂的话容器一删，所有任务和配置全没了 —— 这条是新手最惨的坑。','-v jenkins_home:/var/jenkins_home'],
+     ['起完访问','浏览器打开 http://localhost:8081（换成你映射的宿主机端口）。'] ] },
+ { k:'docker exec myjenkins cat .../initialAdminPassword', t:'拿初始密码解锁', s:'第一次启动必须的一步',
+   pts:[
+     ['为什么需要','Jenkins 首次启动会生成一个初始密码，用它解锁后才能装插件、建账号。'],
+     ['一条命令取出来','不用进交互式 shell，直接 exec 读文件就行。','docker exec myjenkins cat /var/jenkins_home/secrets/initialAdminPassword'],
+     ['也可以进容器看','docker exec -it myjenkins bash 然后再 cat 那个路径，效果一样。'],
+     ['装完就失效','解锁后建议创建自己的管理员账号，那个初始密码就不再有用了。'] ] },
+ { k:'新建任务 + Pipeline 脚本', t:'核心概念就四个', s:'agent / stages / steps / sh',
+   pts:[
+     ['两种任务类型','Freestyle project 是点选式（简单任务够用）；Pipeline 是写脚本（推荐，能进 Git 版本管理）。'],
+     ['agent any','指定这段流水线在哪跑：any 表示任意可用节点。'],
+     ['stages 与 steps','stage 是一个阶段（拉代码/构建/部署），steps 是这个阶段里做什么。'],
+     ['sh 执行 shell','在流水线里跑 shell 命令，例如 sh "docker build -t myapp ."。','sh "docker build -t myapp ."'],
+     ['排错看哪','任务页左下角「构建历史」→ 点某次构建 → Console Output，报错原文都在那里。'] ] },
+ { k:'凭据 + 触发方式', t:'从能跑变成能用在生产', s:'密码别写进脚本',
+   pts:[
+     ['凭据（Credentials）','仓库密码、token 存到 Jenkins 凭据里，脚本里只引用凭据 ID，不写明文。','withCredentials([usernamePassword(credentialsId: "git", usernameVariable: "U", passwordVariable: "P")]) { }'],
+     ['三种触发方式','手动点、定时（cron 语法）、代码提交自动触发（Webhook，最常用）。'],
+     ['构建产物','用 archiveArtifacts 把打包结果保存下来，方便下载和回溯。','archiveArtifacts artifacts: "dist/**", fingerprint: true'],
+     ['规模提示','单机学习完全够用；公司里通常再加 agent 节点分担构建，思路一样。'] ] }
+];
+
+LC_SETS.git=[
+ { k:'git init / clone', t:'开始一个仓库', s:'从零建，或拷一份现成的',
+   pts:[
+     ['git init','把当前目录变成 Git 仓库（生成隐藏的 .git 目录）。','git init'],
+     ['git clone','从远程拷一份完整仓库下来（相当于 init + 关联远程 + 拉代码）。','git clone https://github.com/用户名/仓库.git'],
+     ['.git 是本体','版本历史全在 .git 里，把它删了就等于放弃版本控制（但工作区文件还在）。'],
+     ['最高频的一条','不知道自己干了什么、有哪些改动，直接打 git status。','git status'] ] },
+ { k:'git add / commit', t:'把改动存成版本', s:'两步：装信封 → 存档',
+   pts:[
+     ['add 装信封','把这次要提交的改动放进暂存区；git add . 是全部，也可以只加某个文件。','git add .'],
+     ['commit 存档','把暂存区的内容存成一个版本，必须写说明。','git commit -m "修复登录接口超时"'],
+     ['提交信息怎么写','一句话说清"做了什么、为什么"；别写 update、fix 这种等于没写。'],
+     ['挑着提交','git add -p 可以一个改动一个改动地决定要不要，适合把不相干的修改分开。','git add -p'],
+     ['看历史','--oneline 一行一个版本，看着清爽。','git log --oneline'] ] },
+ { k:'git remote / push / pull', t:'和远程仓库同步', s:'推到云端、拉回改动',
+   pts:[
+     ['绑定远程','git remote add origin <仓库地址>，之后就用 origin 这个名字指代它。','git remote add origin https://github.com/用户名/仓库.git'],
+     ['第一次推送','-u 会把本地分支和远程分支关联起来，以后直接 git push 就行。','git push -u origin main'],
+     ['拉取并合并','git pull = fetch（下载）+ merge（合并），最常用的同步方式。','git pull'],
+     ['更安全的做法','先 git fetch 只下载不合并，看清楚别人的改动再决定合不合。','git fetch'] ] },
+ { k:'branch / merge / 撤销', t:'分支与后悔药', s:'改坏了怎么办',
+   pts:[
+     ['建并切换分支','git checkout -b feature（新写法：git switch -c feature）。','git checkout -b feature'],
+     ['合并分支','先切回主分支，再 git merge feature 把它合进来。','git merge feature'],
+     ['放弃工作区改动','git restore <文件> 把没提交的修改丢掉（旧写法 git checkout -- <文件>）。','git restore index.html'],
+     ['撤销最近一次提交','git reset --soft HEAD~1 退掉提交但改动还留着，可以重新提交。','git reset --soft HEAD~1'],
+     ['已经推送到远程了','别用 reset（会改历史），用 git revert <提交号> 生成一条"反向提交"更安全。','git revert a1b2c3d'] ] }
+];
+LC_SETS.dockerfile=[
+ { k:'FROM', t:'从哪个基础镜像开始', s:'Dockerfile 的第一块地基',
+   pts:[
+     ['必须是第一条指令','除了 ARG，FROM 之前不能放别的指令 —— 因为"从哪来"还没确定，别的都无从谈起。'],
+     ['选小的基础镜像','python:3.11 约 1G，python:3.11-slim 小很多，python:3.11-alpine 更小（但可能缺编译工具）。','FROM python:3.11-slim'],
+     ['多阶段命名','写 AS builder 给这一阶段起名，后面可以用 --from=builder 只取构建产物。','FROM node:20 AS builder'] ] },
+ { k:'RUN', t:'构建时执行命令', s:'装依赖、编译都在这里',
+   pts:[
+     ['每条 RUN 生成一层','层数越多镜像越大，所以把多个步骤用 && 串成一条 RUN。','RUN apt-get update && apt-get install -y curl'],
+     ['顺手清理缓存','同一条 RUN 里把下载的包列表删掉，体积能小一大截。','RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*'],
+     ['和 CMD 的区别','RUN 是"做镜像时"执行（结果留在镜像里）；CMD 是"容器启动时"执行 —— 这是新手最容易混的一对。'],
+     ['别在 RUN 里写密码','镜像的每一层都能被翻出来看，密钥要用构建参数或运行时环境变量传。'] ] },
+ { k:'COPY / ADD', t:'把文件复制进镜像', s:'你的代码怎么进去',
+   pts:[
+     ['COPY 从构建上下文复制','只能复制你执行 build 那个目录里的东西（docker build 最后那个点）。','COPY index.html /usr/share/nginx/html/index.html'],
+     ['先装依赖再拷代码（提速关键）','先 COPY package.json + RUN 装依赖，最后才 COPY 代码 —— 这样改代码不会导致依赖重装。','COPY package.json . && RUN npm install && COPY . .'],
+     ['ADD 的两个额外功能','会自动解压 tar 包、也支持 URL；但一般用 COPY 更明确、更可预期。'],
+     ['别忘了 .dockerignore','把 node_modules、.git、日志排除掉，构建更快、镜像更小。'] ] },
+ { k:'WORKDIR / ENV / EXPOSE', t:'工作目录、环境变量、端口声明', s:'三个最常被误解的指令',
+   pts:[
+     ['WORKDIR','设置之后所有相对路径都基于它，比 RUN cd 靠谱得多（cd 只在那一条 RUN 里有效）。','WORKDIR /app'],
+     ['ENV','构建时和运行时都生效的环境变量。','ENV TZ=Asia/Shanghai'],
+     ['EXPOSE 只是声明','它不会真的把端口开放出去！真正对外靠 docker run -p。EXPOSE 的作用是"文档 + 给 -P 随机映射用"。','EXPOSE 80'],
+     ['ARG 和 ENV 的区别','ARG 只在构建时有效（--build-arg 传），ENV 运行容器时也在。'] ] },
+ { k:'CMD / ENTRYPOINT', t:'容器启动时执行什么', s:'一个是默认值，一个是固定入口',
+   pts:[
+     ['CMD 是默认命令','可以被覆盖：docker run 镜像 别的命令 会顶掉 CMD。','CMD ["nginx","-g","daemon off;"]'],
+     ['ENTRYPOINT 是固定入口','run 后面的参数会追加在它后面，而不是替换它。','ENTRYPOINT ["python","app.py"]'],
+     ['两个一起用','ENTRYPOINT 写命令、CMD 写默认参数：ENTRYPOINT ["python"] + CMD ["app.py"]，跑的时候可以只换参数。'],
+     ['只有最后一个生效','写多个 CMD/ENTRYPOINT 只有最后一条算数；另外推荐用 JSON 数组写法（exec 形式），信号才能正确传给进程。'] ] }
+];
+var LC_CARDS=LC_SETS.lifecycle;   // 兼容旧引用（lifecycle 组）
+var LC_META={
+ lifecycle:{ title:'🧱 命令逐点拆解：create / run / start', note:'一句话记住三个命令的分工：<b>create 只造不跑</b>；<b>run 造完就跑（= create + start -a）</b>；<b>start 只启动已经存在的</b>。停止（stop）和删除（rm）是两件事 —— 停了容器还在，rm 了才真没。',
+   flow:[['docker create',''],['docker start','on'],['Up 运行中','run'],['docker stop','stop'],['Exited 已停止',''],['docker start 再启动',''],['docker rm 才消失','del']] },
+ compose:{ title:'🧩 命令逐点拆解：Compose 的 up / ps / down / exec', note:'记住主线：<b>up 起、ps 看、logs 查、exec 进、down 收</b>。最容易踩的两个坑：改了 Dockerfile 忘了 <b>--build</b>；手滑 <b>down -v</b> 把数据库数据删了。',
+   flow:[['docker compose up -d','on'],['建网络',''],['起 db',''],['起 web','run'],['ps / logs 看状态',''],['down 收工','stop'],['down -v 会删数据','del']] },
+ k8s:{ title:'☸️ 命令逐点拆解：kubectl 的 create / get / expose / scale', note:'kubectl 的套路是"<b>声明期望 → 查询实际</b>"：create/scale 是你写期望，get 是看实际，两者不一致时 K8s 自己动手补齐（自愈）。另外别忘 <code>exec</code> 里的 <b>--</b> 分隔符。',
+   flow:[['create deployment','on'],['ReplicaSet 自动建',''],['Pod 跑起来','run'],['expose 给入口',''],['get svc 拿端口',''],['scale 扩容',''],['delete 清理','del']] }
+};
+
+LC_META.k8sdeep={ title:'☸️ 命令逐点拆解：apply / pvc / hpa / rollout（深度实践）', note:'深度层的套路：<b>apply 声明 → get/describe 查证 → autoscale 弹性 → set image 发版 → rollout undo 兜底</b>。两个最容易卡住的点：PVC 一直 Pending（多半没有 StorageClass）、HPA 不扩容（多半 Pod 没写 resources.requests.cpu）。',
+  flow:[['apply -f sts.yaml','on'],['get pvc 看 Bound',''],['autoscale 配 HPA','run'],['set image 发版',''],['rollout status 看进度',''],['rollout undo 回滚','del']] };
+LC_META.promql={ title:'📈 逐点拆解：四个最常用的 PromQL 查询', note:'记忆顺序：<b>rate 求速率 → sum by 分组 → histogram_quantile 看最慢那批 → predict_linear 提前预警 → for: 5m 才报警</b>。不用背太多函数，这四个能覆盖日常九成场景。',
+  flow:[['rate() 求速率','on'],['sum by() 分组',''],['histogram_quantile() 分位数','run'],['predict_linear() 预测',''],['告警 for: 5m','stop'],['group_by 降噪','del']] };
+LC_META.jenkins={ title:'🛠 命令逐点拆解：Jenkins 起容器 / 解锁 / 建任务 / 凭据', note:'记住这条链：<b>run 起服务（必须挂 jenkins_home）→ exec 拿初始密码 → 建 Pipeline 任务 → 把密码放进凭据</b>。最容易踩的坑：数据卷没挂，容器一删配置全丢。',
+  flow:[['run jenkins:lts','on'],['exec 拿初始密码',''],['装推荐插件',''],['建 Pipeline 任务','run'],['构建历史看 Console Output',''],['凭据管密码','']] };
+LC_META.git={ title:'🛠 命令逐点拆解：Git 的 init / add-commit / push / 撤销', note:'日常工作就四条：<b>status 看、add 装、commit 存、push 推</b>。改坏了不要慌：没提交用 restore，提交了没推用 reset --soft，推到远程了用 revert。',
+  flow:[['git init / clone','on'],['git status 看改动',''],['git add 装信封',''],['git commit 存档','run'],['git push 推云端',''],['git revert 安全撤回','del']] };
+LC_META.dockerfile={ title:'🐳 逐点拆解：Dockerfile 七个指令到底在干什么', note:'按"建造顺序"记：<b>FROM 地基 → RUN 装依赖 → COPY 放代码 → WORKDIR/ENV/EXPOSE 配环境 → CMD/ENTRYPOINT 定启动</b>。三个高频误解：EXPOSE 不会真的开端口、RUN 是构建时而 CMD 是运行时、多个 CMD 只有最后一个生效。',
+  flow:[['FROM 基础镜像','on'],['RUN 构建时执行','run'],['COPY/ADD 放文件',''],['WORKDIR/ENV 配环境',''],['EXPOSE 只是声明','stop'],['CMD/ENTRYPOINT 启动',''],['docker build 出镜像','']] };
+function wBreakHtml(set){
+  var cards=LC_SETS[set]||LC_SETS.lifecycle;
+  var meta=LC_META[set]||LC_META.lifecycle;
+  var h='<div class="wz">'
+   +'<div class="wz-title">'+meta.title+'</div>'
+   +'<div class="lc-grid">';
+  cards.forEach(function(card){
+    h+='<div class="lc-card">'
+      +'<div class="lc-head"><code class="lc-cmd">'+esc(card.k)+'</code>'
+      +'<span class="lc-sub">'+esc(card.s)+'</span></div>'
+      +'<div class="lc-title">'+esc(card.t)+'</div><ul class="lc-pts">';
+    card.pts.forEach(function(pt,i){
+      h+='<li><span class="lc-no">'+(LC_CIRCLED[i]||'')+'</span><div class="lc-body">'
+        +'<b>'+esc(pt[0])+'</b>'
+        +(pt[1]?'<span>'+esc(pt[1])+'</span>':'')
+        +(pt[2]?'<code class="lc-code">'+esc(pt[2])+'</code>':'')
+        +'</div></li>';
+    });
+    h+='</ul></div>';
+  });
+  h+='</div><div class="lc-flow">';
+  meta.flow.forEach(function(f,i){
+    if(i)h+='<i>→</i>';
+    h+='<span class="lc-chip'+(f[1]?' '+f[1]:'')+'">'+esc(f[0])+'</span>';
+  });
+  h+='</div><div class="wz-note">'+meta.note+'</div></div>';
+  return h;
+}
+function wLifeHtml(){ return wBreakHtml('lifecycle'); }
+// 独立页面：速查手册（两个标签：按命令查 / 按知识点学）
+var REF_LABEL={ lifecycle:'Docker 容器命令', compose:'Compose 命令', k8s:'K8s 入门命令', k8sdeep:'K8s 进阶命令', dockerfile:'Dockerfile 指令', promql:'PromQL 查询', jenkins:'Jenkins', git:'Git' };
+var refMode='cmd', refSetName='lifecycle';
+function renderRef(){
+  var el=document.getElementById('content');
+  if(!el)return;
+  el.innerHTML='<div class="ref-page">'
+   +'<div class="ref-tabs">'
+   +'<button class="ref-tab" id="refTabCmd" onclick="refTab(0)">📖 按命令查 <em>'+refCmdCount()+' 条命令的参数解读</em></button>'
+   +'<button class="ref-tab" id="refTabLc" onclick="refTab(1)">🧱 按知识点学 <em>'+Object.keys(LC_SETS).length+' 组逐点拆解</em></button>'
+   +'</div>'
+   +'<div id="refCmdPane"></div>'
+   +'<div id="refLcPane"></div>'
+   +'</div>';
+  refTab(refMode==='cmd'?0:1);
+}
+function refTab(n){
+  refMode=(n===0?'cmd':'lc');
+  var a=document.getElementById('refTabCmd'),b=document.getElementById('refTabLc');
+  if(a)a.className='ref-tab'+(n===0?' on':'');
+  if(b)b.className='ref-tab'+(n===1?' on':'');
+  var cp=document.getElementById('refCmdPane'),lp=document.getElementById('refLcPane');
+  if(n===0){
+    if(lp)lp.style.display='none';
+    if(cp){cp.style.display='';cp.innerHTML=wCmdsHtml();cmPick(0);}
+  } else {
+    if(cp)cp.style.display='none';
+    if(lp){lp.style.display='';lp.innerHTML=refLcHtml();}
+  }
+}
+function refCmdCount(){
+  var n=0;
+  CMD_CATS.forEach(function(c){n+=c.items.length;});
+  return n;
+}
+function refLcHtml(){
+  var h='<div class="ref-sets">';
+  Object.keys(LC_SETS).forEach(function(k){
+    var lbl=REF_LABEL[k]||(LC_META[k]&&LC_META[k].title?LC_META[k].title.split('：').pop():k);
+    h+='<button class="cf-tab'+(k===refSetName?' on':'')+'" onclick="refSetPick(\''+k+'\')">'+esc(lbl)+'</button>';
+  });
+  h+='</div><div id="refSetBody">'+wBreakHtml(refSetName)+'</div>';
+  return h;
+}
+function refSetPick(k){
+  refSetName=k;
+  var lp=document.getElementById('refLcPane');
+  if(lp)lp.innerHTML=refLcHtml();
+}
 function render(id){
   flushStudy();   // 结算上一个章节的停留时长
   if(id==='review'){
@@ -3897,6 +4341,14 @@ function render(id){
     document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')==='review');});
     openGroupOf('home');
     renderReview();
+    return;
+  }
+if(id==='ref'){
+    document.getElementById('prev').style.visibility='hidden';
+    document.getElementById('next').style.visibility='hidden';
+    document.querySelectorAll('.nav a').forEach(function(a){a.classList.toggle('active',a.getAttribute('data-id')==='ref');});
+    openGroupOf('ref');
+    renderRef();
     return;
   }
   if(id==='quiz'){
@@ -3928,7 +4380,7 @@ function render(id){
 }
 function route(){
   var h=location.hash.replace('#','');
-  if(h==='quiz'||h==='review'||ORDER.indexOf(h)>=0){render(h);}
+  if(h==='quiz'||h==='review'||h==='ref'||ORDER.indexOf(h)>=0){render(h);}
   else{render('home');}
 }
 window.addEventListener('hashchange',route);
